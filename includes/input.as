@@ -103,17 +103,26 @@ function buttonEvent(e:MouseEvent):void {
 		buttonIndex++;
 	}
 	if(e.target == b1Text) buttonIndex = 0;
-	else if(e.target == b2Text) buttonIndex = 1;
-	else if(e.target == b3Text) buttonIndex = 2;
-	else if(e.target == b4Text) buttonIndex = 3;
-	else if(e.target == b5Text) buttonIndex = 4;
-	else if(e.target == b6Text) buttonIndex = 5;
-	else if(e.target == b7Text) buttonIndex = 6;
-	else if(e.target == b8Text) buttonIndex = 7;
-	else if(e.target == b9Text) buttonIndex = 8;
-	else if(e.target == b0Text) buttonIndex = 9;
+	else if(e.target == b2Text) 
+		buttonIndex = 1;
+	else if(e.target == b3Text) 
+		buttonIndex = 2;
+	else if(e.target == b4Text) 
+		buttonIndex = 3;
+	else if(e.target == b5Text) 
+		buttonIndex = 4;
+	else if(e.target == b6Text) 
+		buttonIndex = 5;
+	else if(e.target == b7Text) 
+		buttonIndex = 6;
+	else if(e.target == b8Text) 
+		buttonIndex = 7;
+	else if(e.target == b9Text) 
+		buttonIndex = 8;
+	else if(e.target == b0Text) 
+		buttonIndex = 9;
 	//Standard method.
-	trace("FUNC LENGTH" + funcs.length);
+	//trace("FUNC LENGTH" + funcs.length);
 	executeButtonClick(buttonIndex);
 }
 
@@ -271,24 +280,24 @@ function keyboard(e:KeyboardEvent):void {
 	var f:MouseEvent = undefined;
 	trace("Keyboard key inputted.  Keycode: " + e.keyCode);
 	//Cheat Code stuff!
-	if(flags[27] == 0) {
-		if(e.keyCode == 38) flags[27]++;
-		else flags[27] = 0;
+	if(flags[CHEAT_ENTERING_COUNTER] == 0) {
+		if(e.keyCode == 38) flags[CHEAT_ENTERING_COUNTER]++;
+		else flags[CHEAT_ENTERING_COUNTER] = 0;
 	}
-	else if(flags[27] == 1) {
-		if(e.keyCode == 40) flags[27]++;
-		else flags[27] = 0;
+	else if(flags[CHEAT_ENTERING_COUNTER] == 1) {
+		if(e.keyCode == 40) flags[CHEAT_ENTERING_COUNTER]++;
+		else flags[CHEAT_ENTERING_COUNTER] = 0;
 	}
-	else if(flags[27] == 2) {
-		if(e.keyCode == 37) flags[27]++;
-		else flags[27] = 0;
+	else if(flags[CHEAT_ENTERING_COUNTER] == 2) {
+		if(e.keyCode == 37) flags[CHEAT_ENTERING_COUNTER]++;
+		else flags[CHEAT_ENTERING_COUNTER] = 0;
 	}
-	else if(flags[27] == 3 && player.str > 0 && b1Text.text.indexOf("Game Over") == -1) {
+	else if(flags[CHEAT_ENTERING_COUNTER] == 3 && player.str > 0 && b1Text.text.indexOf("Game Over") == -1) {
 		if(e.keyCode == 39) {
 			giveHumanizer();
 			return;
 		}
-		else flags[27] = 0;
+		else flags[CHEAT_ENTERING_COUNTER] = 0;
 	}
 	//Stats Hotkey
 	if(e.keyCode == 83 && statsBG.visible && player.str > 0) {

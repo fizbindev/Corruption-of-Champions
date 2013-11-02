@@ -45,11 +45,11 @@ function dreamSelect():Boolean {
 		if(player.hasPerk("Minotaur Cum Addict") >= 0) choices[choices.length] = 6;
 	}
 	//Akbal
-	if(flags[16] > 4) {
-		if(flags[16] > 10) choices[choices.length] = 7;
-		if(flags[16] > 13) choices[choices.length] = 7;
-		if(flags[16] > 15) choices[choices.length] = 7;
-		if(flags[16] > 18) choices[choices.length] = 7;
+	if(flags[AKBAL_SUBMISSION_COUNTER] > 4) {
+		if(flags[AKBAL_SUBMISSION_COUNTER] > 10) choices[choices.length] = 7;
+		if(flags[AKBAL_SUBMISSION_COUNTER] > 13) choices[choices.length] = 7;
+		if(flags[AKBAL_SUBMISSION_COUNTER] > 15) choices[choices.length] = 7;
+		if(flags[AKBAL_SUBMISSION_COUNTER] > 18) choices[choices.length] = 7;
 		choices[choices.length] = 7;
 		choices[choices.length] = 7;
 	}
@@ -73,7 +73,7 @@ function dreamSelect():Boolean {
 		choices[choices.length] = 11;
 	}
 	//Dom + Scylla
-	if(flags[54] > 0 && flags[150] > 0) {
+	if(flags[UNKNOWN_FLAG_NUMBER_00054] > 0 && flags[UNKNOWN_FLAG_NUMBER_00150] > 0) {
 		choices[choices.length] = 12;
 		choices[choices.length] = 12;
 		choices[choices.length] = 12;
@@ -482,9 +482,9 @@ function displacerDreamIII():void {
 	var x:int = player.cockTotal();
 	while (x > 0) {
 		x--;
-		if(player.cocks[x].sock == "amaranthine" && player.cocks[x].cockType != 10) {
-			if(player.cocks[x].cockType != 2) player.cocks[x].knotMultiplier = 1.5;
-			player.cocks[x].cockType = 10;
+		if(player.cocks[x].sock == "amaranthine" && player.cocks[x].cockType != CockTypesEnum.DISPLACER) {
+			if(player.cocks[x].cockType != CockTypesEnum.DOG) player.cocks[x].knotMultiplier = 1.5;
+			player.cocks[x].cockType = CockTypesEnum.DISPLACER;
 		}
 	}
 	doNext(1);

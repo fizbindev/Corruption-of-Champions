@@ -1,7 +1,7 @@
 ﻿function fapAppearance(display:Boolean = true):void {
 	if(display) {
 		//[Paragraph: Bazaar description, 1st time]
-		if(flags[339] == 0) outputText("\n\nThere is a gigantic tent standing in the clearing, with a large crowd gathering around it.   Perhaps you could investigate and see what is going on inside.", false);
+		if(flags[UNKNOWN_FLAG_NUMBER_00339] == 0) outputText("\n\nThere is a gigantic tent standing in the clearing, with a large crowd gathering around it.   Perhaps you could investigate and see what is going on inside.", false);
 		//Option labeled "Tent» is available.
 		//[Paragraph: Bazaar description: after 1st time]
 		else outputText("\n\nA large crowd is gathering around the large tent, probably going for another 'session'.   Perhaps you could join them?", false);
@@ -13,9 +13,9 @@ function fapArenaGOOOO():void {
 	//(set X = longest cock)
 	var x:Number = player.longestCock();
 	//Increment 'times fap-arena'ed
-	flags[334]++;
+	flags[UNKNOWN_FLAG_NUMBER_00334]++;
 	//[1st time]
-	if(flags[334] == 1) outputText("As you approach the tent, you notice these people are actually waiting in line, pleasantly chatting with each other.  All varieties of species are there, from cute little goblins and mouse-faced people with rodent-like teeth, to towering centaurs and minotaurs, the latter easily noticed with their strong scent.   You spot the occasional sharp-toothed dog-morph or shark breeder, some traditional incubi and a few tentacled mutants, victims of consuming corrupted vegetation.  There are even a few humans, nonchalantly standing in the waiting line and making conversation, as if some of the others weren't monstrosities.  What strikes you is everyone's perfect civility.  Obviously everyone is used to the place.\n\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00334] == 1) outputText("As you approach the tent, you notice these people are actually waiting in line, pleasantly chatting with each other.  All varieties of species are there, from cute little goblins and mouse-faced people with rodent-like teeth, to towering centaurs and minotaurs, the latter easily noticed with their strong scent.   You spot the occasional sharp-toothed dog-morph or shark breeder, some traditional incubi and a few tentacled mutants, victims of consuming corrupted vegetation.  There are even a few humans, nonchalantly standing in the waiting line and making conversation, as if some of the others weren't monstrosities.  What strikes you is everyone's perfect civility.  Obviously everyone is used to the place.\n\n", false);
 
 	outputText("The waiting line advances and you finally end up in front of the tent's entrance guarded by a surprisingly tall goblin.  She looks at you with assessing eyes, suddenly grabs your crotch with her left hand, rubs it for a second, and says, ", false);
 	//[if dick size < 8 inches] 
@@ -32,8 +32,8 @@ function fapArenaGOOOO():void {
 		return;
 	}
 	//[if dick size >= 8 inches: 1st time] 
-	else if(flags[339] == 0) {
-		flags[339]++;
+	else if(flags[UNKNOWN_FLAG_NUMBER_00339] == 0) {
+		flags[UNKNOWN_FLAG_NUMBER_00339]++;
 		outputText("\"<i>You must be new here.  Go to the backroom on the left, undress yourself and wait with the others in the main room; the session will start soon.</i>\"\n\n", false);
 		outputText("Meekly following the others into the backroom, you start removing your " + player.armorName + ".  You watch other people, fully clothed when they step in, completely naked when they go out.  The sensation of something out of place continues to bother you with all these people casually speaking and laughing with their raging erections showing, and then you finally get it: everyone in here has a dick. Even the feminine-looking ones with ample breasts and a generous ass are actually herms, as their huge boners attest.\n\n", false);
 		
@@ -62,7 +62,7 @@ function fapArenaGOOOO():void {
 		else outputText("By gods, what are you doing here?", false);
 		//end of condition about PC's corr
 		outputText("\n\nDo you stay?", false);
-		doYesNo(3168,2855);
+		doYesNo(fapArenaPageII,2855);
 	}
 	//[if dick size > 8 inches: after first time] 
 	else {
@@ -74,7 +74,7 @@ function fapArenaGOOOO():void {
 		outputText("Everyone nods in agreement, hands and genitalia quivering in excitement.", false);
 		//[if Corr >40]
 		if(player.cor > 66) outputText("  You look forward to this new masturbating session.", false);
-		doNext(3168);
+		doNext(fapArenaPageII);
 	}
 	//end of condition about PC's first time, display the following
 }
@@ -112,10 +112,10 @@ function fapArenaPageII():void {
 	//D the number of hours since he last came 
 	var d:Number = player.hoursSinceCum;
 	var c:Number = 0;
-	if(player.cocks[x].cockType == 3) c = 10;
-	else if(player.cocks[x].cockType == 4) c = 5;
-	else if(player.cocks[x].cockType == 6) c = 3;
-	else if(player.cocks[x].cockType == 1) c = 2;
+	if(player.cocks[x].cockType == CockTypesEnum.DEMON) c = 10;
+	else if(player.cocks[x].cockType == CockTypesEnum.TENTACLE) c = 5;
+	else if(player.cocks[x].cockType == CockTypesEnum.LIZARD) c = 3;
+	else if(player.cocks[x].cockType == CockTypesEnum.HORSE) c = 2;
 	//R the player's lust resistance (0<R<1)
 	var r = lustPercent()/100;
 	//The game does a roll between 0 and 100, call it N.
@@ -242,7 +242,7 @@ function fapResults(place:Number = 3):void {
 	outputText("You pant and relax, exhausted.  Your right arm is cramped and your " + cockDescript(x) + " is sore.  People around you look similarly tired and are slowly recovering from this rough collective dick-stroking session.  Someone gently taps your shoulder.  It is your left neighbor: \"<i>Well played. I didn't expect you would be so... resistant.  Few players last that long with me, because their rods generally don't endure my handjobs.</i>\"  He proceeds to shake hands; both you are smeared with pre-cum and various cock juices, but you don't care.  You smile and thank him for the good game and the orgasm.  It comes as something of a relief that everyone seems to show good sportsmanship.  Everyone is congratulating each other; various comments reach your ears about the game they just had and how well their opponents did.  Your right partner stands before you.  \"<i>Whoa, you sure know how to give a handjob!  That was amazing, and you know what?  I don't care if I haven't won!</i>\"  You tell him that you're glad that he enjoyed your efforts.  Everyone is now laughing and chatting casually, as if their still erect cocks weren't dripping semen and they weren't busy giving furious handjobs a few minutes ago.  ", false);
 		
 	//[if first time]
-	if(flags[339] == 1) outputText("You stand here, a little lost, wondering what will happen next.", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00339] == 1) outputText("You stand here, a little lost, wondering what will happen next.", false);
 	else outputText("You join them, congratulating some on the strength of their stroke, and commenting on the various aspects of the fapping game you've just had.", false);
 	outputText("\n\n", false);
 		
@@ -428,11 +428,11 @@ function tentacleFapSpecial(place:Number):void {
 	temp = player.cocks.length;
 	while(temp > 0) {
 		temp--;
-		if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == 4)
+		if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == CockTypesEnum.TENTACLE)
 			break;
 	}
-	if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == 4) {
-		outputText("You suddenly remember your " + cockNoun(4) + " isn't getting love. The poor squirming thing is trembling in arousal and you decide it should also take part in the collective butt-fuck; you don't care whether it's cheating or not; after all, the butt-fuck has already begun.  Besides, the referee is too busy touching herself to notice anything.  Fortunately your tentacle dick is long and flexible enough to be guided toward some hole to fuck; you proceed to snake your tentacle dong around, looking for some vagina.  After a few seconds of unsuccessful searching, groping muscled butts with your nodules but finding no hole that's already filled by some ramming cock, your ropy member finally locates a gaping, fluid-dripping vagina.  You've found a herm!  Her slick fuck-hole is oozing due to the unholy embrace of flesh her pucker and her shaft are already getting, and you have no trouble sliding a few inches inside with expert guidance.  The brutal and unexpected secondary intrusion makes her moan instantly.  You welcome this new burst of pleasure and start jamming your tentacle pecker back and forth in the herm's vagina, all the while ", false);
+	if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == CockTypesEnum.TENTACLE) {
+		outputText("You suddenly remember your " + Appearance.cockNoun(CockTypesEnum.TENTACLE) + " isn't getting love. The poor squirming thing is trembling in arousal and you decide it should also take part in the collective butt-fuck; you don't care whether it's cheating or not; after all, the butt-fuck has already begun.  Besides, the referee is too busy touching herself to notice anything.  Fortunately your tentacle dick is long and flexible enough to be guided toward some hole to fuck; you proceed to snake your tentacle dong around, looking for some vagina.  After a few seconds of unsuccessful searching, groping muscled butts with your nodules but finding no hole that's already filled by some ramming cock, your ropy member finally locates a gaping, fluid-dripping vagina.  You've found a herm!  Her slick fuck-hole is oozing due to the unholy embrace of flesh her pucker and her shaft are already getting, and you have no trouble sliding a few inches inside with expert guidance.  The brutal and unexpected secondary intrusion makes her moan instantly.  You welcome this new burst of pleasure and start jamming your tentacle pecker back and forth in the herm's vagina, all the while ", false);
 		if(place <= 2) outputText("fucking your partner's anus", false);
 		if(place == 2) outputText(" and", false);
 		if(place >= 2) outputText(" being fucked from behind", false);
@@ -446,7 +446,7 @@ function tentacleFapSpecial(place:Number):void {
 		}
 		//[if you lost]
 		else {
-			outputText("This is such an awkward position, moving your " + cockNoun(4) + " backwards and blindly penetrating some herm girl you don't see.  But at least it's fair game; why should you be the only one on the receiving end?  You firmly lodge your sleek intruder inside the girl's love tunnel and start pushing, thrusting harder and deeper every time the butt-fuck wagon hits your " + assDescript() + ", as if you wanted to punish her for being part of your own rough penetration, and transmit some of the pure anal-induced energy from thirty people's cock-thrusts to her... you aren't disappointed.  As soon as your " + cockNoun(4) + " starts rocking in and out of the herm's moist pussy, she lets out a huge, obscenely whorish scream of pleasure.  She waggles from one side to another and accelerates her butt-fucking and hole-filling pace, unable to control her sensations.  This disrupts the whole butt-fucking train, and everyone's ass and cock is affected to some extent; everyone's pleasure is increased because of your audacious looping retro-fuck initiative, and other loud, reluctant moans are heard.  You can't help but join them in this unholy orgy of hole-penetration.  The herm's repeated, irregular screams are covering everyone else's though, and the abundant flow of girl-squirt and pre-cum leaking out of your connected genitals tells you much about both your states of arousal.  It won't be long before you both come.\n\n", false);
+			outputText("This is such an awkward position, moving your " + Appearance.cockNoun(CockTypesEnum.TENTACLE) + " backwards and blindly penetrating some herm girl you don't see.  But at least it's fair game; why should you be the only one on the receiving end?  You firmly lodge your sleek intruder inside the girl's love tunnel and start pushing, thrusting harder and deeper every time the butt-fuck wagon hits your " + assDescript() + ", as if you wanted to punish her for being part of your own rough penetration, and transmit some of the pure anal-induced energy from thirty people's cock-thrusts to her... you aren't disappointed.  As soon as your " + Appearance.cockNoun(CockTypesEnum.TENTACLE) + " starts rocking in and out of the herm's moist pussy, she lets out a huge, obscenely whorish scream of pleasure.  She waggles from one side to another and accelerates her butt-fucking and hole-filling pace, unable to control her sensations.  This disrupts the whole butt-fucking train, and everyone's ass and cock is affected to some extent; everyone's pleasure is increased because of your audacious looping retro-fuck initiative, and other loud, reluctant moans are heard.  You can't help but join them in this unholy orgy of hole-penetration.  The herm's repeated, irregular screams are covering everyone else's though, and the abundant flow of girl-squirt and pre-cum leaking out of your connected genitals tells you much about both your states of arousal.  It won't be long before you both come.\n\n", false);
 		}
 	}
 }
@@ -455,10 +455,10 @@ function tentacleFapCum():Boolean {
 	temp = player.cocks.length;
 	while(temp > 0) {
 		temp--;
-		if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == 4)
+		if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == CockTypesEnum.TENTACLE)
 			break;
 	}
-	if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == 4) {
+	if(player.cocks[x].cockLength >= 40 && player.cocks[x].cockType == CockTypesEnum.TENTACLE) {
 		outputText("  Your tentacle pecker starts vibrating on its own, and soon it also releases a voluminous amount of jizz inside the herm's vagina.  She is also reaching her climax; her pussy is drenching the end of your tentacled shaft with girl-juices.", false);
 		return true;
 	}

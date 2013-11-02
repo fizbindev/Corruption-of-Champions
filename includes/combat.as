@@ -178,7 +178,7 @@ function doCombat(eventNum:Number)
 	var pSpecials:int = 5161;
 	
 	if(eventNum == 5000) {
-		flags[22] = 0;
+		flags[IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 0;
 		dataBG.visible = false;
 		dataText.visible = false;
 		appearanceText.visible = false;
@@ -236,7 +236,7 @@ function doCombat(eventNum:Number)
 			} else if(monster.hasStatusAffect("Constricted") >= 0) {
 				simpleChoices("Squeeze", 5119,"Tease",5120,"",0,"",0,"Release",5121);
 			} else if(player.hasStatusAffect("Bound") >= 0) {
-				simpleChoices("Struggle",2335,"Wait",2336,"",0,"",0,"",0);
+				simpleChoices("Struggle",ceraphBindingStruggle,"Wait",ceraphBoundWait,"",0,"",0,"",0);
 			} else if(player.hasStatusAffect("GooArmorBind") >= 0) {
 				choices("Struggle", 5077,"",0,"",0,"",0,"",0,"Wait",5071,"",0,"",0,"",0,"",0);
 			} else if(monster.hasStatusAffect("Minotaur Entangled") >= 0) {
@@ -423,15 +423,15 @@ function doCombat(eventNum:Number)
 				player.gems -= temp;
 				gameState = 0;
 				//BUNUS XPZ
-				if(flags[89] > 0) {
-					player.XP += flags[89];
-					outputText("  Somehow you managed to gain " + flags[89] + " XP from the situation.", false);
-					flags[89] = 0;
+				if(flags[UNKNOWN_FLAG_NUMBER_00089] > 0) {
+					player.XP += flags[UNKNOWN_FLAG_NUMBER_00089];
+					outputText("  Somehow you managed to gain " + flags[UNKNOWN_FLAG_NUMBER_00089] + " XP from the situation.", false);
+					flags[UNKNOWN_FLAG_NUMBER_00089] = 0;
 				}
 				//Bonus lewts
-				if(flags[234] != "") {
-					outputText("  Somehow you came away from the encounter with " + itemLongName(flags[234]) + ".\n\n", false);
-					shortName = flags[234];
+				if(flags[UNKNOWN_FLAG_NUMBER_00234] != "") {
+					outputText("  Somehow you came away from the encounter with " + itemLongName(flags[UNKNOWN_FLAG_NUMBER_00234]) + ".\n\n", false);
+					shortName = flags[UNKNOWN_FLAG_NUMBER_00234];
 					menuLoc = 18;
 					takeItem();
 				}
@@ -701,7 +701,7 @@ function doCombat(eventNum:Number)
 				if(player.statusAffectv1("Tamani") <= -500 && player.canOvipositSpider()) {
 					temp2 = 3837;
 				}
-				simpleChoices("Fuck",2200,"Buttfuck",temp,"",0,"Lay Eggs",temp2,"Leave",5007);
+				simpleChoices("Fuck",tamaniSexWon,"Buttfuck",temp,"",0,"Lay Eggs",temp2,"Leave",5007);
 			}
 			else eventParser(5007);			
 			return;
@@ -761,7 +761,7 @@ function doCombat(eventNum:Number)
 			outputText("You strike out and the last of the demons tumbles to the ground with a thud. You stand there for a second surrounded by dead or unconscious demons feeling like a god of battle. Then you realize that if a god of battle does exist he lives on a demonic plane like this, so to avoid insulting him you take your hands off your hips and your " + player.legs() + " off the head of the demon leader before you start to search the bodies.", true);
 			stats(0,0,0,0,0,0,1,0);
 			if(monster.hasStatusAffect("phyllafight") >= 0) {
-				doNext(3579);
+				doNext(consolePhylla);
 				return;
 			}
 			eventParser(5007);
@@ -772,7 +772,7 @@ function doCombat(eventNum:Number)
 			//Rape if not naga, turned on, and girl that can fit!
 			if(player.hasVagina() && player.lust >= 33 && !player.isNaga()) {
 				outputText("  You find yourself musing that you could probably take advantage of the poor 'doggy'.  Do you fuck it?", false);
-				simpleChoices("Fuck it",2746,"",0,"",0,"",0,"Leave",5007);
+				simpleChoices("Fuck it",hellHoundPropahRape,"",0,"",0,"",0,"Leave",5007);
 				return;
 			}
 			eventParser(5007);
@@ -840,7 +840,7 @@ function doCombat(eventNum:Number)
 				//Rapes not on the table.
 				else {
 					outputText("\n\nYour nipples ache with the desire to forcibly breastfeed the gelatinous beast.  Do you?", false);
-					doYesNo(2480,5007);					
+					doYesNo(rapeOozeWithMilk,5007);					
 				}
 			}
 			//Not a breastfeeder
@@ -1127,7 +1127,7 @@ function doCombat(eventNum:Number)
 				if(player.statusAffectv1("Tamani") <= -500 && player.canOvipositSpider()) {
 					temp2 = 3837;
 				}
-				simpleChoices("Fuck",2200,"Buttfuck",temp,"",0,"Lay Eggs",temp2,"Leave",5007);
+				simpleChoices("Fuck",tamaniSexWon,"Buttfuck",temp,"",0,"Lay Eggs",temp2,"Leave",5007);
 			}
 			else eventParser(5007);			
 			return;
@@ -1231,7 +1231,7 @@ function doCombat(eventNum:Number)
 		if(monster.short == "demons") {
 			outputText("The demons stop attacking, and reach out to touch your body. Some are already masturbating like it's the only thing in the world and you know that right now, if you wanted to, you could make each and every one of them fuck you.");
 			if(monster.hasStatusAffect("phyllafight") >= 0) {
-				doNext(3579);
+				doNext(consolePhylla);
 				return;
 			}
 			outputText("  Do you rape them?", true);
@@ -1309,7 +1309,7 @@ function doCombat(eventNum:Number)
 				//Rapes not on the table.
 				else {
 					outputText("\n\nYour nipples ache with the desire to forcibly breastfeed the gelatinous beast.  Do you?", false);
-					doYesNo(2480,5007);					
+					doYesNo(rapeOozeWithMilk,5007);					
 				}
 			}
 			//Not a breastfeeder
@@ -2223,7 +2223,7 @@ function doCombat(eventNum:Number)
 		if(monster.short == "Tamani") {
 			if(player.totalCocks() > 0) {
 				//hypnoslut loss scene
-				if(flags[56] > 19 && rand(2) == 0) {
+				if(flags[UNKNOWN_FLAG_NUMBER_00056] > 19 && rand(2) == 0) {
 					getRapedByTamaniYouHypnoSlut();
 					return;
 				}
@@ -2612,7 +2612,7 @@ function doCombat(eventNum:Number)
 	//GAME OVERS
 	if(eventNum == 5025) {
 		outputText("<b>GAME OVER</b>", true);
-		if(flags[99] == 1 || debug) simpleChoices("Game Over", 9999, "",0,"NewGamePlus",10035,"",0,"CHEAT", 1);
+		if(flags[EASY_MODE_ENABLE_FLAG] == 1 || debug) simpleChoices("Game Over", 9999, "",0,"NewGamePlus",10035,"",0,"CHEAT", 1);
 		else simpleChoices("Game Over", 9999, "Blah", 0, "NewGamePlus",10035, "BLAH", 0, "LULZ", 0);
 		dataBG.visible = true;
 		dataText.visible = true;
@@ -2628,7 +2628,7 @@ function doCombat(eventNum:Number)
 	//Soft Game Over - for when you want to leave the text on-screen
 	if(eventNum == 5035) {
 		outputText("\n\n<b>GAME OVER</b>", false);
-		if(flags[99] == 1 || debug) simpleChoices("Game Over", 9999, "",0,"NewGamePlus",10035,"",0,"Debug Cheat", 1);
+		if(flags[EASY_MODE_ENABLE_FLAG] == 1 || debug) simpleChoices("Game Over", 9999, "",0,"NewGamePlus",10035,"",0,"Debug Cheat", 1);
 		else simpleChoices("Game Over", 9999, "Blah", 0, "NewGamePlus", 10035, "BLAH", 0, "LULZ", 0);
 		dataBG.visible = true;
 		dataText.visible = true;
@@ -3034,7 +3034,7 @@ function doCombat(eventNum:Number)
 	if(eventNum == 5071) {
 		//Gain fatigue if not fighting sand tarps
 		if(monster.hasStatusAffect("level") < 0) fatigue(-5);
-		flags[22] = 1;
+		flags[IN_COMBAT_USE_PLAYER_WAITED_FLAG] = 1;
 		if(monster.hasStatusAffect("PCTailTangle") >= 0) {
 			kitsuneWait();
 			return;
@@ -3848,7 +3848,7 @@ function attack():void {
 		enemyAI();
 		return;
 	}
-	if(flags[23] >= 3 && !isUrta()) {
+	if(flags[PC_FETISH] >= 3 && !isUrta()) {
 		outputText("You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  Ceraph's piercings have made normal attack impossible!  Maybe you could try something else?\n\n", false);
 		enemyAI();
 		return;
@@ -4482,7 +4482,7 @@ function doDamage(damage:Number):Number {
 }
 function takeDamage(damage:Number, noMod:Boolean = false):Number {
 	//EZ MOAD half damage
-	if(flags[99] == 1) damage /= 2;
+	if(flags[EASY_MODE_ENABLE_FLAG] == 1) damage /= 2;
 	if(player.hasStatusAffect("Shielding") >= 0) {
 		damage -= 30;
 		if(damage < 1) damage = 1;
@@ -4517,7 +4517,7 @@ function takeDamage(damage:Number, noMod:Boolean = false):Number {
 	if(damage < 1) damage = 1;
 	//Else deduct.
 	else player.HP-=damage;
-	if(flags[21] > 0) {
+	if(flags[MINOTAUR_CUM_REALLY_ADDICTED_STATE] > 0) {
 		stats(0,0,0,0,0,0,int(damage/2),0);
 	}
 	hpDown.visible = true;
@@ -4914,11 +4914,11 @@ function clearStatuses(visibility:Boolean):void {
 	if(player.hasStatusAffect("Disarmed") >= 0) {
 		player.removeStatusAffect("Disarmed");
 		if(player.weaponName == "fists") {
-			player.weaponName = flags[268];
-			player.weaponAttack = fixedDamage(flags[268]);
+			player.weaponName = flags[UNKNOWN_FLAG_NUMBER_00268];
+			player.weaponAttack = fixedDamage(flags[UNKNOWN_FLAG_NUMBER_00268]);
 		}
 		else {
-			flags[234] = lootWeaponName(flags[268]);
+			flags[UNKNOWN_FLAG_NUMBER_00234] = lootWeaponName(flags[UNKNOWN_FLAG_NUMBER_00268]);
 		}
 	}
 	if(player.hasStatusAffect("Anemone Venom") >= 0) {
@@ -5207,35 +5207,35 @@ function combatStatusesUpdate():void {
 		}
 		monster.lust += monster.lustVuln * (2 + rand(4));
 	}
-	if(player.hasStatusAffect("Bound") >= 0 && flags[23] >= 2) {
+	if(player.hasStatusAffect("Bound") >= 0 && flags[PC_FETISH] >= 2) {
 		outputText("The feel of tight leather completely immobilizing you turns you on more and more.  Would it be so bad to just wait and let her play with you like this?\n\n", false);
 		stats(0,0,0,0,0,0,3,0);
 	}
 	if(monster.hasStatusAffect("QueenBind") >= 0) {
 		outputText("You're utterly restrained by the Harpy Queen's magical ropes!\n\n");
-		if(flags[23] >= 2) stats(0,0,0,0,0,0,3,0);
+		if(flags[PC_FETISH] >= 2) stats(0,0,0,0,0,0,3,0);
 	}
 	if(player.hasStatusAffect("GooArmorBind") >= 0) {
-		if(flags[23] >= 2) {
+		if(flags[PC_FETISH] >= 2) {
 			outputText("The feel of the all-encapsulating goo immobilizing your helpless body turns you on more and more.  Maybe you should just wait for it to completely immobilize you, have you at its mercy.\n\n");
 			stats(0,0,0,0,0,0,3,0);
 		}
 		else outputText("You're utterly immobilized by the goo flowing around you.  You'll have to struggle free!\n\n");
 	}
 	if(player.hasStatusAffect("HarpyBind") >= 0) {
-		if(flags[23] >= 2) {
+		if(flags[PC_FETISH] >= 2) {
 			outputText("The harpies are holding you down and restraining you, making the struggle all the sweeter!\n\n");
 			stats(0,0,0,0,0,0,3,0);
 		}
 		else outputText("You're restrained by the harpies so that they can beat on you with impunity.  You'll need to struggle to break free!\n\n");
 	}
-	if(player.hasStatusAffect("Naga Bind") >= 0 && flags[23] >= 2) {
+	if(player.hasStatusAffect("Naga Bind") >= 0 && flags[PC_FETISH] >= 2) {
 		outputText("Coiled tightly by the naga and utterly immobilized, you can't help but become aroused thanks to your bondage fetish.\n\n", false);
 		stats(0,0,0,0,0,0,5,0);
 	}
 	if(player.hasStatusAffect("TentacleBind") >= 0) {
 		outputText("You are firmly trapped in the tentacle's coils.  <b>The only thing you can try to do is struggle free!</b>\n\n", false);
-		if(flags[23] >= 2) {
+		if(flags[PC_FETISH] >= 2) {
 			outputText("Wrapped tightly in the tentacles, you find it hard to resist becoming more and more aroused...\n\n", false);
 			stats(0,0,0,0,0,0,3,0);
 		}
@@ -5379,7 +5379,7 @@ function combatStatusesUpdate():void {
 		}
 	}
 	//Bondage straps + bondage fetish
-	if(flags[23] >= 2 && player.armorName == "barely-decent bondage straps") {
+	if(flags[PC_FETISH] >= 2 && player.armorName == "barely-decent bondage straps") {
 		outputText("The feeling of the tight, leather straps holding tightly to your body while exposing so much of it turns you on a little bit more.\n\n", false);
 		stats(0,0,0,0,0,0,2,0);
 	}
@@ -5515,6 +5515,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD IMP
 	if(monsterNum == 1) {
 		monster.short="imp";
+		monster.imageName="imp";
 		monster.plural = false;
 		monster.long = "An imp is short, only a few feet tall.  An unkempt mane of shaggy black hair hangs from his head, parted by two short curved horns.  His eyes are solid black, save for tiny red irises which glow with evil intent.  His skin is bright red, and unencumbered by clothing or armor, save for a small loincloth at his belt.  His feet are covered by tiny wooden sandals, and his hands tipped with sharp claws.  A pair of tiny but functional wings occasionally flap from his back.";
 		monster.a ="the ";
@@ -5631,7 +5632,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = rand(2) + 11;
 		monster.cocks[0].cockThickness = 2.5;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.balls = 2;
 		monster.cumMultiplier = 3;
 		monster.ballSize = 1;
@@ -5643,6 +5644,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD Sand witch
 	if(monsterNum == 2) {
 		monster.short="sand witch";
+		monster.imageName="sandwitch";
 		monster.plural = false;
 		monster.long = "A sand witch appears to be totally human, an oddity in this strange land.  She has dirty blonde hair and a very tanned complexion, choosing to cover most of her body with robes of the same color as the desert sands, making her impossible to spot from afar.";
 		monster.a ="the ";
@@ -5773,6 +5775,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD JOJO
 	if(monsterNum == 3) {
 		monster.short="Jojo";
+		monster.imageName="Jojo";
 		monster.plural = false;
 		monster.long = "Jojo is an anthropomorphic mouse with immaculate white fur.  Though he stands only four feet tall, he is covered in lean muscle and moves with incredible speed.  He wears loose white clothes wrapped in prayer beads and tattered prayer papers.";
 		monster.a ="";
@@ -5921,6 +5924,7 @@ function startCombat(monsterNum:Number):void {
 	}
 	if(monsterNum == 4) {
 		monster.short="minotaur";
+		monster.imageName="minotaur";
 		monster.plural = false;
 		monster.long = "An angry-looking minotaur looms over you.  Covered in shaggy " + monster.hairColor + " fur, the beast is an imposing sight.  Wearing little but an obviously distended loincloth, he is clearly already plotting his method of punishment.  Like most minotaurs he has hooves, a cow-like tail and face, prominent horns, and impressive musculature.  <b>This minotaur seems to have found a deadly looking axe somewhere!</b>";
 		monster.a ="the ";
@@ -6052,7 +6056,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = rand(13) + 24;
 		monster.cocks[0].cockThickness = 2 + rand(3);
-		monster.cocks[0].cockType = 1;
+		monster.cocks[0].cockType = CockTypesEnum.HORSE;
 		monster.balls = 2;
 		monster.cumMultiplier = 1.5;
 		monster.ballSize = 2 + rand(13);
@@ -6071,6 +6075,7 @@ function startCombat(monsterNum:Number):void {
 	//Fertile-Caste Bee
 	if(monsterNum == 5) {
 		monster.short="bee-girl";
+		monster.imageName="bee-girl";
 		monster.plural = false;
 		monster.long = "A bee-girl buzzes around you, filling the air with intoxicatingly sweet scents and a buzz that gets inside your head.  She has a humanoid face with small antennae, black chitin on her arms and legs that looks like shiny gloves and boots, sizable breasts, and a swollen abdomen tipped with a gleaming stinger.";
 		monster.a ="a ";
@@ -6204,6 +6209,7 @@ function startCombat(monsterNum:Number):void {
 	//Green Slime
 	if(monsterNum == 6) {
 		monster.short="green slime";
+		monster.imageName="GreenSlime";
 		monster.plural = false;
 		monster.long = "The green slime has a normally featureless face that sits on top of wide shoulders that sprout into thick, strong arms.  Its torso fades into an indistinct column that melds into the lump of ooze on the ground that serves as a makeshift form of locomotion.";
 		monster.a ="a ";
@@ -6318,7 +6324,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 18;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.balls = 0;
 		monster.cumMultiplier = 3;
 		monster.ballSize = 1;
@@ -6330,6 +6336,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD DEMON PACK
 	if(monsterNum == 7) {
 		monster.short="demons";
+		monster.imageName="DemonMob";
 		monster.plural = true;
 		monster.long = "The group is composed of roughly twenty tan-skinned demons, mostly humanoid in shape with many and varied corruptions across the mob. You see demonic high heels, twisting horns and swinging cocks of all shapes and sizes. There even seems to be a bull head in there somewhere. You also make out plenty of breasts ranging from tiny ones to a pair that requires a second person to carry them, and with those breasts a wide range of pussies, dripping and dry, sometimes nestled below some form of demonic dick.  The small tribe carries no weapons and what little clothing they wear is well-shredded, except for one hefty male wearing a cloak of what appears to be snakeskin across his broad shoulders.";
 		if(silly()) monster.long += "  You spot an odd patch that reads, \"<i>41st Engineer Company: Vaginal Clearance</i>\" on his shoulder.";
@@ -6448,11 +6455,11 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 18;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.createCock();
 		monster.cocks[1].cockLength = 18;
 		monster.cocks[1].cockThickness = 2;
-		monster.cocks[1].cockType = 0;
+		monster.cocks[1].cockType = CockTypesEnum.HUMAN;
 		monster.createVagina();
 		monster.vaginas[0].virgin = false;
 		monster.vaginas[0].vaginalWetness = 3;
@@ -6467,6 +6474,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD WORM COLONY
 	if(monsterNum == 8) {
 		monster.short="worms";
+		monster.imageName="worms";
 		monster.plural = true;
 		monster.long = "Before you stands the horrid mass of worms. It has shifted itself and now takes the shape of a humanoid composed completely of the worms in the colony. Its vaguely human shape lumbers towards you in a clearly aggressive manner.";
 		monster.a ="the ";
@@ -6591,6 +6599,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD FETISH CULTIST
 	if(monsterNum == 9) {
 		monster.short="fetish cultist";
+		monster.imageName="FetishCultist";
 		monster.plural = false;
 		monster.long = "The woman across from you has her eyes closed, her hands joined, and seems to be chanting under her breath. She is wearing a religious outfit that closely hugs her curvacious shape, with a skirt so short that you can clearly see her pussy's lips.\n\nShe has clealy lost her grasp on sanity, and filled the void with pure perversion.";
 		monster.a ="the ";
@@ -6720,6 +6729,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD HELLHOUND
 	if(monsterNum == 10) {
 		monster.short="hellhound";
+		monster.imageName="hellhound";
 		monster.plural = false;
 		monster.long = "It looks like a large demon on all fours with two heads placed side-by-side. The heads are shaped almost like human heads, but they have dog ears on the top and have a long dog snout coming out where their mouths and noses would be.  Its eyes and mouth are filled with flames and its hind legs capped with dog paws, but its front ones almost look like human hands.  Its limbs end in large, menacing claws. A thick layer of dark fur covers his entire body like armor.  Both heads look at you hungrily as the hellhound circles around you. You get the feeling that reasoning with this beast will be impossible.";
 		monster.a ="the ";
@@ -6852,6 +6862,7 @@ function startCombat(monsterNum:Number):void {
 		plotFight = true;
 		player.createStatusAffect("FactorySuccubusDefeated",0,0,0,0);
 		monster.short="secretarial succubus";
+		monster.imageName="SecretarialSuccubus";
 		monster.plural = false;
 		monster.long = "The succubus across from you balances gracefully on her spiked heels, twirling and moving unpredictably.  Sexy dark stockings hug every curve of her perfectly shaped flesh until they disappear into her tiny miniskirt.  Her impressive breasts wobble delightfully as she moves, despite the inadequate efforts of her straining vest.  A pair of foot-long horns curve up from her otherwise perfect face and forehead, wreathed in lustrous blonde hair.  The very air around her is filled with an unidentifiable fragrance that makes you tingle and shiver.";
 		monster.a ="the ";
@@ -6988,6 +6999,7 @@ function startCombat(monsterNum:Number):void {
 		plotFight = true;
 		player.createStatusAffect("FactoryIncubusDefeated",0,0,0,0);
 		monster.short="incubus mechanic";
+		monster.imageName="IncubusMechanic";
 		monster.plural = false;
 		monster.long = "The demon before you is clad only in cut-off denim overalls.  Covered in stains of oil and other strange fluids, they appear to be in pretty rough shape.  There is a large hole ripped in the crotch, allowing the demon's foot-long member to hang free.  His skin is light purple and perfect, contrasting with the slovenly appearance of his clothing.  His face is rugged and handsome, topped with a simple black ponytail and two large horns that sprout from his forehead like twisted tree-trunks.  He wears a narrow goatee on his chin that is kept skillfully braided.  A cocky smile always seems to grace his features, giving him an air of supreme confidence.";
 		monster.a ="the ";
@@ -7121,6 +7133,7 @@ function startCombat(monsterNum:Number):void {
 		plotFight = true;
 		player.createStatusAffect("FactoryOmnibusDefeated",0,0,0,0);
 		monster.short="Omnibus Overseer";
+		monster.imageName="OmnibusOverseer";
 		monster.plural = false;
 		monster.long = "The 'woman' before you is clothed only in a single strip of fabric that wraps around her bountiful chest.  She has striking red eyes that contrast visibly with her blue skin and dark make-up.  Shiny black gloss encapsulates her kissable bubbly black lips.  Her most striking feature is her crotch, which appears neither male nor female.  She has a puffy wet vulva, but a cock-shaped protrusion sprouts from where a clit should be.";
 		monster.a ="the ";
@@ -7256,6 +7269,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD Tentacle beast
 	if(monsterNum == 14) {
 		monster.short="tentacle beast";
+		monster.imageName="TentacleBeast";
 		monster.plural = false;
 		monster.long = "You see the massive, shambling form of the tentacle beast before you.  Appearing as a large shrub, it shifts its bulbous mass and reveals a collection of thorny tendrils and cephalopodic limbs.";
 		monster.a ="the ";
@@ -7394,6 +7408,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD GOBLIN
 	if(monsterNum == 15) {
 		monster.short="goblin";
+		monster.imageName="goblin";
 		monster.plural = false;
 		monster.long = "The goblin before you is a typical example of her species, with dark green skin, pointed ears, and purple hair that would look more at home on a punk-rocker.  She's only about three feet tall, but makes up for it with her curvy body, sporting hips and breasts that would entice any of the men in your village were she full-size.  There isn't a single scrap of clothing on her, just lewd leather straps and a few clinking pouches.  She does sport quite a lot of piercings – the most noticeable being large studs hanging from her purple nipples.  Her eyes are fiery red, and practically glow with lust.  This one isn't going to be satisfied until she has her way with you.  It shouldn't be too hard to subdue such a little creature, right?";
 		monster.a ="the ";
@@ -7527,6 +7542,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 16) {
 		plotFight = true;
 		monster.short="Marble";
+		monster.imageName="Marble";
 		monster.plural = false;
 		monster.long = "Before you stands a female humanoid with numerous cow features, such as medium-sized cow horns, cow ears, and a cow tail.  She is very well endowed, with wide hips and a wide ass.  She stands over 6 feet tall.  She is using a large two handed hammer with practiced ease, making it clear she is much stronger then she may appear to be.";
 		monster.a ="";
@@ -7657,6 +7673,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD TAMANI
 	if(monsterNum == 17) {
 		monster.short="Tamani";
+		monster.imageName="Tamani";
 		monster.plural = false;
 		monster.long = "She keeps her arms folded across her " + tamaniChest() + " and glares at you.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little 'do.  The greenish-gray skin of her breasts bulges out around her arms, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn't any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.";
 		monster.a ="";
@@ -7790,6 +7807,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD SHARK GIRL
 	if(monsterNum == 18) {
 		monster.short="shark-girl";
+		monster.imageName="shark-girl";
 		monster.plural = false;
 		monster.long = "The shark girl stands just over 5'5\", with grey skin shimmering from water droplets catching the sunlight and slender muscles built for swimming.  Her shoulder-length silver hair brushes past her pretty face and her eyes are a striking shade of red. She has rows of intimidating sharp teeth glinting in the light. A fish-like tail protrudes from her backside, wrapping around her toned legs at every opportunity. She's wearing a rather skimpy black bikini, strings done in such a way that they move around her fin; though the swimwear itself barely covers her perky breasts and tight snatch.";
 		monster.a ="the ";
@@ -7922,6 +7940,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD FETISH ZEALOT
 	if(monsterNum == 19) {
 		monster.short="fetish zealot";
+		monster.imageName="FetishZealot";
 		monster.plural = false;
 		monster.long = "The zealot is clad in a bizarre set of religious robes.  They are similar to what you've seen on other religious leaders from home, but none that included the large slit at the front that lets his above average sized human dick stick out the front.";
 		monster.a ="the ";
@@ -8048,6 +8067,7 @@ function startCombat(monsterNum:Number):void {
 	}
 	if(monsterNum == 20) {
 		monster.short="infested hellhound";
+		monster.imageName="InfestedHellhound";
 		monster.plural = false;
 		monster.long = "It looks like a large four-legged demon with two heads placed side-by-side. Its eyes and mouth are filled with flames, and covering each of its paws are large and menacing claws. A thick layer of dark fur covers his entire body like armor.  Both heads are looking at you hungrily as the hellhound circles around you.  A pair of black, slightly pointed cocks hang exposed, dripping with cum and worms.  You get the feeling reasoning with this beast will be impossible.";
 		monster.a ="the ";
@@ -8178,6 +8198,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD NAGGA PLEAS!
 	if(monsterNum == 21) {
 		monster.short="naga";
+		monster.imageName="naga";
 		monster.plural = false;
 		monster.long = "You are fighting a naga. She resembles a beautiful and slender woman from the waist up, with dark hair hanging down to her neck. Her upper body is deeply tanned, while her lower body is covered with shiny scales, striped in a pattern reminiscent of the dunes around you. Instead of bifurcating into legs, her hips elongate into a snake's body which stretches far out behind her, leaving a long and curving trail in the sand.  She's completely naked, with her round C-cup breasts showing in plain sight. In her mouth you can see a pair of sharp, poisonous fangs and a long forked tongue moving rapidly as she hisses at you.";
 		monster.a ="the ";
@@ -8309,6 +8330,7 @@ function startCombat(monsterNum:Number):void {
 	//AKUBAL
 	if(monsterNum == 22) {
 		monster.short="Akbal";
+		monster.imageName="Akbal";
 		monster.plural = false;
 		monster.long = "Akbal, 'God of the Terrestrial Fire', circles around you. His sleek yet muscular body is covered in tan fur, with dark spots that seem to dance around as you look upon them.  His mouth holds two ivory incisors that glint in the sparse sunlight as his lips tremble to the sound of an unending growl.  Each paw conceals lethal claws capable of shredding men and demons to ribbons.  His large and sickeningly alluring bright green eyes promise unbearable agony as you look upon them.";
 		monster.a ="";
@@ -8428,7 +8450,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 15;
 		monster.cocks[0].cockThickness = 2.5;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.balls = 2;
 		monster.cumMultiplier = 6;
 		monster.ballSize = 4;
@@ -8440,6 +8462,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD CERAPH!
 	if(monsterNum == 23) {
 		monster.short="Ceraph";
+		monster.imageName="Ceraph";
 		monster.plural = false;
 		monster.long = "Ceraph the Omnibus is totally nude and reveling in it.  Her large yet perky breasts jiggle heavily against her chest as she moves.  The flawless purple skin of her twin mounds glistens with a thin sheen of sweat, inviting you to touch and rub your fingers along their slippery surface.  Her eyes are solid black, but convey a mix of amusement and desire, in spite of their alien appearance.  The demon's crotch is a combination of both genders – a drooling cunt topped with a thick demonic shaft, sprouting from where a clit should be.";
 		monster.a ="";
@@ -8570,12 +8593,13 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 10;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 3;
+		monster.cocks[0].cockType = CockTypesEnum.DEMON;
 		doNext(1);
 	}
 	//LOAD TAMANI'S DAUGHTERS
 	if(monsterNum == 24) {
 		monster.short="Tamani's daughters";
+		monster.imageName="TamanisDaughters";
 		monster.plural = true;
 		monster.long = "A large grouping of goblin girls has gathered around you, surrounding you on all sides.  Most have varying shades of green skin, though a few have yellowish or light blue casts to their skin.  All are barely clothed, exposing as much of their flesh as possible in order to excite a potential mate.  Their hairstyles are as varied as their clothing and skin-tones, and the only things they seem to have in common are cute faces and curvy forms.  It looks like they want something from you.";
 		monster.a ="the group of ";
@@ -8710,6 +8734,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD GENERIC HARPY
 	if(monsterNum == 25) {
 		monster.short="harpy";
+		monster.imageName="harpy";
 		monster.plural = false;
 		monster.long = "You are fighting a tall, deranged harpy. She appears very human, about six feet six inches tall but covered in a fine layer of powder-blue down. Her arms are sinewy and muscular, with a long web connecting them to her ample hips, covered in stringy blue feathers to aid her flight. A larger pair of powdery-blue wings also protrudes from her shoulder blades, flapping idly. She appears quite deranged as she circles you, approaching and backing away erratically. Her face is quite beautiful, with fine lilac makeup adorning the features of a handsome woman, and her lips are traced with rich golden lipstick. As she circles you, squawking frantically and trying to intimidate you, your eyes are drawn to her slender torso and small, pert breasts, each the size of a small fruit and covered in a layer of the softest feathers which ripple and move with the gusts from her wings. As astounding as her breasts are, her egg-bearing hips are even more impressive.  They're twice as wide as her torso, with enormous, jiggling buttocks where her huge, meaty thighs are coming up to meet them. Her legs end in three-pronged talons; their shadowy black curves glinting evilly in the light.";
 		monster.a ="the ";
@@ -8845,6 +8870,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD SOPHIE
 	if(monsterNum == 26) {
 		monster.short="Sophie";
+		monster.imageName="Sophie";
 		monster.plural = false;
 		monster.long = "Sophie is approximately the size of a normal human woman, not counting the large feathery wings that sprout from her back.  Her face is gorgeous, with large rounded eyes and glimmering amber lip-gloss painted on her lush, kissable lips.  In spite of her beauty, it's clear from the barely discernible laugh lines around her mouth that she's been around long to enough to have quite a few children.  Her feathers are light pink, though the downy plumage that comprises her 'hair' is brighter than the rest.  She moves with practiced grace despite the large, jiggling breasts that hang from her chest.  Judging from her confident movements, she's an experienced fighter.";
 		monster.a ="";
@@ -8980,6 +9006,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 27) {
 		plotFight = true;
 		monster.short="imp horde";
+		monster.imageName="ImpMob";
 		monster.plural = true;
 		monster.long = "Imps of all shapes and sizes fill the room around you, keeping you completely surrounded by their myriad forms.  You can see more than a few sporting disproportionate erections, and there's even some with exotic dog-dicks, horse-pricks, and the odd spiny cat-cock.  Escape is impossible, you'll have to fight or seduce your way out of this one!";
 		monster.a ="the ";
@@ -9113,6 +9140,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 28) {
 		plotFight = true;
 		monster.short="pod";
+		monster.imageName="pod";
 		monster.plural = false;
 		monster.long = "";
 		monster.a ="the ";
@@ -9235,6 +9263,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD ANEMONE!
 	if(monsterNum == 29) {
 		monster.short="anemone";
+		monster.imageName="anemone";
 		monster.plural = false;
 		monster.long = "The anemone is a blue androgyne humanoid of medium height and slender build, with colorful tentacles sprouting on her head where hair would otherwise be.  Her feminine face contains two eyes of solid color, lighter than her skin.  Two feathery gills sprout from the middle of her chest, along the line of her spine and below her collarbone, and drape over her pair of small B-cup breasts.  Though you wouldn't describe her curves as generous, she sways her girly hips back and forth in a way that contrasts them to her slim waist quite attractively.  Protruding from her groin is a blue shaft with its head flanged by diminutive tentacles, and below that is a dark-blue pussy ringed by small feelers.  Further down are a pair of legs ending in flat sticky feet; proof of her aquatic heritage.  She smiles broadly and innocently as she regards you from her deep eyes.";
 		monster.a ="the ";
@@ -9366,13 +9395,14 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 7;
 		monster.cocks[0].cockThickness = 1;
-		monster.cocks[0].cockType = 7;
+		monster.cocks[0].cockType = CockTypesEnum.ANEMONE;
 		doNext(1);
 	}
 	//LOAD VALA!
 	if(monsterNum == 30) {
 		plotFight = true;
 		monster.short="Vala";
+		monster.imageName="Vala";
 		monster.plural = false;
 		monster.long = "While the fey girl is whip-thin, her breasts are disproportionately huge. They'd be at least a DD-cup on a normal human, but for her height and body type, they're practically as large as her head. They jiggle at her slow, uneven breathing, tiny drops of milk bubbling at her nipples with every heartbeat.  She seems fixated on mating with you, and won't take no for an answer.";
 		monster.a ="";
@@ -9406,22 +9436,22 @@ function startCombat(monsterNum:Number):void {
 		monster.cor = 50;
 		monster.fatigue = 0;
 		monster.lustVuln = .5;
-		if(flags[126] > 0) monster.lustVuln += .25;
-		if(flags[126] > 2) monster.lustVuln += .5;
+		if(flags[UNKNOWN_FLAG_NUMBER_00126] > 0) monster.lustVuln += .25;
+		if(flags[UNKNOWN_FLAG_NUMBER_00126] > 2) monster.lustVuln += .5;
 		
 		//Combat Stats
 		monster.bonusHP = 350;
 		monster.HP = eMaxHP();
 		
-		monster.lust = 30 + flags[126] * 10;
+		monster.lust = 30 + flags[UNKNOWN_FLAG_NUMBER_00126] * 10;
 		if(monster.lust > 80) monster.lust = 80;
 		
 		
 		//Level Stats
 		monster.level = 11;
 		monster.XP = totalXP() + 50;
-		if(flags[126] > 0) monster.XP = 5;
-		if(flags[126] > 2) monster.XP = 1;
+		if(flags[UNKNOWN_FLAG_NUMBER_00126] > 0) monster.XP = 5;
+		if(flags[UNKNOWN_FLAG_NUMBER_00126] > 2) monster.XP = 1;
 		monster.gems = 1;
 		
 		
@@ -9513,6 +9543,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 31) {
 		plotFight = true;
 		monster.short = "Zetaz";
+		monster.imageName = "Zetaz";
 		monster.long="Zetaz has gone from a pipsqueak to the biggest imp you've seen!  Though he has the familiar red skin, curving pointed horns, and wings you would expect to find on an imp, his feet now end in hooves, and his body is covered with thick layers of muscle.  If the dramatic change in appearance is any indication, he's had to toughen up nearly as much as yourself over the past ";
 		if(days < 60) monster.long += "weeks";
 		else monster.long += "months";
@@ -9635,7 +9666,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = rand(2) + 11;
 		monster.cocks[0].cockThickness = 2.5;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.balls = 2;
 		monster.cumMultiplier = 3;
 		monster.ballSize = 1;
@@ -9648,6 +9679,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 32) {
 		plotFight = true;
 		monster.short="gnoll";
+		monster.imageName="gnoll";
 		monster.plural = false;
 		monster.long = "This lanky figure is dappled with black spots across rough, tawny fur. Wiry muscle ripples along long legs and arms, all of it seeming in perpetual frenetic motion: every moment half flinching and half lunging.  The head bears a dark muzzle curled in a perpetual leer and bright orange eyes watching with a savage animal cunning.  Between the legs hang what appears at first to be a long, thin dong; however, on closer inspection it is a fused tube of skin composed of elongated pussy lips and clitoris.  The hyena girl is sporting a pseudo-penis, and judging by the way it bobs higher as she jinks back and forth, she's happy to see you!\n\nShe wears torn rags scavenged from some other, somewhat smaller, creature, and in one hand clutches a twisted club.";
 		monster.a ="the ";
@@ -9781,6 +9813,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 33) {
 		plotFight = true;
 		monster.short="Amily";
+		monster.imageName="Amily";
 		monster.plural = false;
 		monster.long = "You are currently fighting Amily. The mouse-morph is dressed in rags and glares at you in rage, knife in hand. She keeps herself close to the ground, ensuring she can quickly close the distance between you two or run away.";
 		monster.a ="";
@@ -9914,6 +9947,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 34) {
 		plotFight = true;
 		monster.short="gnoll spear-thrower";
+		monster.imageName="GnollSpear-thrower";
 		monster.plural = false;
 		monster.long = "You are fighting a gnoll.  An amalgam of voluptuous, sensual lady and snarly, pissed off hyena, she clearly intends to punish you for trespassing.  Her dark-tan, spotted hide blends into a soft cream-colored fur covering her belly and two D-cup breasts, leaving two black nipples poking through the fur.  A crude loincloth is tied around her waist, obscuring her groin from view.  A leather strap cuts between her heavy breasts, holding a basket of javelins on her back.  Large, dish-shaped ears focus on you, leaving no doubt that she can hear every move you make.  Sharp, dark eyes are locked on your body, filled with aggression and a hint of lust.";
 		monster.a ="the ";
@@ -10046,6 +10080,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD IZMA!
 	if(monsterNum == 35) {
 		monster.short="Izma";
+		monster.imageName="Izma";
 		monster.plural = false;
 		monster.long = "Izma the tigershark stands a bit over 6' tall, with orange skin bearing horizontal stripes covering most of her body.  Her silver-white hair cascades past her shoulders, draping over an impressive pair of DD-cup breasts barely restrained by a skimpy black bikini top.  Under the knee-length grass skirt below them rustles her beastly fifteen-inch penis and four-balled sack; you catch occasional glimpses of them as she moves.  She's tucked her usual reading glasses into her locker at the moment.";
 		monster.a ="";
@@ -10181,6 +10216,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD ISABELLA!
 	if(monsterNum == 36) {
 		monster.short="Isabella";
+		monster.imageName="Isabella";
 		monster.plural = false;
 		monster.long = "Isabella is a seven foot tall, red-headed tower of angry cow-girl.  She's snarling at you from behind her massive shield, stamping her hooves in irritation as she prepares to lay into you.  Her skin is dusky, nearly chocolate except for a few white spots spattered over her body.  She wears a tight silk shirt and a corset that barely supports her bountiful breasts, but it's hard to get a good look at them behind her giant shield.";
 		monster.a ="";
@@ -10313,6 +10349,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD SPIDERGAL
 	if(monsterNum == 37) {
 		monster.short="female spider-morph";
+		monster.imageName="FemaleSpider-morph";
 		monster.plural = false;
 		monster.long = "The female spider-morph is completely nude, save for her thigh-high stockings and forearm-length gloves, which upon closer inspection, appear to be actually be part of her body - her exoskeleton.  Her exposed skin is pale as the full moon, save for the dusky skin of her nipples and the black-skinned delta of her sex.  Her breasts and ass are both full and well-rounded, and just above her ass-cheeks there's a bulbous spider-abdomen.  The spider-girl is currently eyeing you with a strange expression and her fangs bared.";
 		monster.a ="the ";
@@ -10445,6 +10482,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD SPIDERGUY
 	if(monsterNum == 38) {
 		monster.short="male spider-morph";
+		monster.imageName="MaleSpider-morph";
 		monster.plural = false;
 		monster.long = "The male spider-morph is completely nude, save for his thigh-high stockings and forearm-length gloves, which upon closer inspection, appear to be actually be part of his body - his exoskeleton.  His exposed skin is pale as the full moon, save for the dusk of his nipples and a patch of jet-black that spreads out over his groin, glossing the male's foreskinned cock and dangling sack in glistening ebon.  His ass is small but well-rounded, with a weighty spider-abdomen hanging from just above.  The spider-man is currently eyeing you with a strange expression and his fangs bared.";
 		monster.a ="the ";
@@ -10575,6 +10613,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD Basilisk
 	if(monsterNum == 39) {
 		monster.short="basilisk";
+		monster.imageName="basilisk";
 		monster.plural = false;
 		monster.long = "You are fighting a basilisk!  From what you can tell while not looking directly at it, the basilisk is a male reptilian biped standing a bit over 6' tall.  It has a thin but ropy build, its tightly muscled yellow underbelly the only part of its frame not covered in those deceptive, camouflaging grey-green scales.  A long, whip-like tail flits restlessly through the dirt behind its skinny legs, and sharp sickle-shaped index claws decorate each hand and foot.  You don't dare to look at its face, but you have the impression of a cruel jaw, a blunt lizard snout and a crown of dull spines.";
 		monster.a ="the ";
@@ -10705,6 +10744,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD Drider
 	if(monsterNum == 40) {
 		monster.short="corrupted drider";
+		monster.imageName="CorruptedDrider";
 		monster.plural = false;
 		
 		monster.a ="the ";
@@ -10863,11 +10903,12 @@ function startCombat(monsterNum:Number):void {
 	//Minotaur gang!
 	if(monsterNum == 41) {
 		monster.short="minotaur";
-		if(flags[326] < 20) monster.short += " gang";
+		monster.imageName="MinotaurMob";
+		if(flags[UNKNOWN_FLAG_NUMBER_00326] < 20) monster.short += " gang";
 		else monster.short += " tribe";
 		monster.plural = true;
-		monster.long = Num2Text(flags[326]) + " shaggy beastmen stand around you in a loose circle.  Their postures aren't exactly threatening.  If anything, they seem to be standing protectively around you, as if their presence would somehow shelter you from the rest of the mountain.  All of their features share a brotherly similarity, though there's still a fair bit of differences between your minotaur sons.  One of them is a head above the rest, a massive hulk of muscle so big he seems to dwarf the rest.  In stark contrast, a feminine minitaur keeps his distance in the rear.";
-		if(flags[326] >= 20) monster.long += "  The tribe constantly makes hoots and cat-calls, fully expecting to be fucking you soon.";
+		monster.long = Num2Text(flags[UNKNOWN_FLAG_NUMBER_00326]) + " shaggy beastmen stand around you in a loose circle.  Their postures aren't exactly threatening.  If anything, they seem to be standing protectively around you, as if their presence would somehow shelter you from the rest of the mountain.  All of their features share a brotherly similarity, though there's still a fair bit of differences between your minotaur sons.  One of them is a head above the rest, a massive hulk of muscle so big he seems to dwarf the rest.  In stark contrast, a feminine minitaur keeps his distance in the rear.";
+		if(flags[UNKNOWN_FLAG_NUMBER_00326] >= 20) monster.long += "  The tribe constantly makes hoots and cat-calls, fully expecting to be fucking you soon.";
 		monster.a ="the ";
 		monster.capitalA ="The ";
 		monster.temperment = 1;
@@ -10899,15 +10940,15 @@ function startCombat(monsterNum:Number):void {
 		monster.fatigue = 0;
 		
 		//Combat Stats
-		monster.bonusHP = 340 + 50 * (flags[326] - 3);
+		monster.bonusHP = 340 + 50 * (flags[UNKNOWN_FLAG_NUMBER_00326] - 3);
 		monster.HP = eMaxHP();
 		monster.lustVuln = 0.45;
-		if((flags[326] - 3) * 2 > 13) monster.lustVuln = .3;
-		else monster.lustVuln -= (flags[326] - 3) * 0.02;
+		if((flags[UNKNOWN_FLAG_NUMBER_00326] - 3) * 2 > 13) monster.lustVuln = .3;
+		else monster.lustVuln -= (flags[UNKNOWN_FLAG_NUMBER_00326] - 3) * 0.02;
 		monster.lust = 30;
 		
 		//Level Stats
-		monster.level = 11 + Math.round((flags[326] - 3)/2);
+		monster.level = 11 + Math.round((flags[UNKNOWN_FLAG_NUMBER_00326] - 3)/2);
 		if(monster.level > 14) monster.level = 14;
 		monster.XP = totalXP();
 		monster.gems = rand(15) + 45;
@@ -10991,7 +11032,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = rand(13) + 24;
 		monster.cocks[0].cockThickness = 2 + rand(3);
-		monster.cocks[0].cockType = 1;
+		monster.cocks[0].cockType = CockTypesEnum.HORSE;
 		monster.balls = 2;
 		monster.cumMultiplier = 1.5;
 		monster.ballSize = 2 + rand(13);
@@ -11004,6 +11045,7 @@ function startCombat(monsterNum:Number):void {
 	//Kiha the dragoness
 	if(monsterNum == 42) {
 		monster.short="Kiha";
+		monster.imageName="Kiha";
 		monster.plural = false;
 		monster.long = "Kiha is standing across from you, holding a double-bladed axe that's nearly as big as she is.  She's six feet tall, and her leathery wings span nearly twelve feet extended.  Her eyes are pure crimson, save for a black slit in the center, and a pair of thick draconic horns sprout from her forehead, arcing over her ruby-colored hair to point behind her.  Dim red scales cover her arms, legs, back, and strong-looking tail, providing what protection they might  to large areas of her body.  The few glimpses of exposed skin are dark, almost chocolate in color, broken only by a few stray scales on the underside of her bosom and on her cheekbones.  Her vagina constantly glistens with moisture, regardless of her state of arousal.  Despite her nudity, Kiha stands with the confidence and poise of a trained fighter.";
 		monster.a ="";
@@ -11136,6 +11178,7 @@ function startCombat(monsterNum:Number):void {
 	//Plain Girl (Shouldra)
 	if(monsterNum == 43) {
 		monster.short="plain girl";
+		monster.imageName="Shouldra";
 		monster.plural = false;
 		monster.long = "Her face has nothing overly attractive about it; a splash of freckles flits across her cheeks, her brows are too strong to be considered feminine, and her jaw is a tad bit square. Regardless, the features come together to make an aesthetically pleasing countenance, framed by a stylish brown-haired bob. Her breasts are obscured by her grey, loose-fitting tunic, flowing down to reach the middle of her thigh. Her legs are clad in snug, form-fitting leather breeches, and a comfortable pair of leather shoes shield her soles from the potentially harmful environment around her.";
 		monster.a ="the ";
@@ -11266,6 +11309,7 @@ function startCombat(monsterNum:Number):void {
 	//Goo-Girl
 	if(monsterNum == 44) {
 		monster.short="goo-girl";
+		monster.imageName="GooGirl";
 		monster.plural = false;
 		monster.long = "The goo-girl has a curious expression on her youthful, shimmering face. Her body is slender and globs of slime regularly drip from her limbs, splattering into the goo puddle pooling beneath her hips. A small, heart-shaped nucleus pulses in her chest with a red glow.";
 		if(player.biggestTitSize() >= 3) monster.long += "  She has apparently made herself a bit more like you, as her chest appears to be a perfect copy of your " + biggestBreastSizeDescript()+ ".";
@@ -11395,7 +11439,8 @@ function startCombat(monsterNum:Number):void {
 	}
 	//LOAD Hel/Salamander
 	if(monsterNum == 45) {
-		monster.short="salamander";
+		monster.short = "salamander";
+		monster.imageName = "Hel"
 		monster.plural = false;
 		monster.long = "You are fighting a (literally) smoking hot salamander – a seven foot tall woman with crimson scales covering her legs, back, and forearms, with a tail swishing menacingly behind her, ablaze with a red-hot fire.  Her red hair whips wildly around her slender shoulders, occasionally flitting over her hefty E-cup breasts, only just concealed within a scale-covered bikini top.  Bright red eyes focus on you from an almost-human face as she circles you, ready to close in for the kill.  Her brutal, curved sword is raised to her side, feinting at you between genuine attacks.";
 		monster.a ="the ";
@@ -11534,7 +11579,8 @@ function startCombat(monsterNum:Number):void {
 	}
 	//LOAD MOB OF SPIDERS!
 	if(monsterNum == 46) {
-		monster.short="mob of spiders-morphs";
+		monster.short = "mob of spiders-morphs";
+		monster.imageName = "SpiderMorphMob"
 		monster.plural = true;
 		monster.long = "You are fighting a horde of spider-morphs!  A group of some two-dozen spiders and driders approaches you, all baring their teeth.  A pair of large, powerful driders lead the group, their corrupt, lusty stares sending shivers up your spine.  While ";
 		if(player.level <= 13) monster.long += "you'd never face such a large horde on your own";
@@ -11656,7 +11702,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 9;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.createVagina();
 		monster.vaginas[0].virgin = false;
 		monster.vaginas[0].vaginalWetness = 3;
@@ -11670,7 +11716,8 @@ function startCombat(monsterNum:Number):void {
 	}
 	//LOAD GOO ARMOR!
 	if(monsterNum == 47) {
-		monster.short="Goo Armor";
+		monster.short = "Goo Armor";
+		monster.imageName = "GooArmor"
 		monster.plural = false;
 		monster.long = "Before you stands a suit of plated mail armor filled with a bright blue goo, standing perhaps six feet off the ground.  She has a beautiful, feminine face, and her scowl as she stands before you is almost cute.  She has formed a mighty greatsword from her goo, and has assumed the stance of a well-trained warrior.";
 		monster.a ="a ";
@@ -11802,6 +11849,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD HARPY WING
 	if(monsterNum == 48) {
 		monster.short="harpy horde";
+		monster.imageName = "HarpyMob";
 		monster.plural = true;
 		monster.long = "You are surrounded by a wing of particularly large and muscular harpies, perhaps a dozen of them in total.  All of them are clad in simple brown shifts that give them good camouflage in the mountains, and are using their talon-like claws as weapons against you. While not a great threat to a champion of your ability individually, a whole brood of them together is... something else entirely.";
 		monster.a ="the ";
@@ -11931,6 +11979,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD BRIGID JAILER
 	if(monsterNum == 49) {
 		monster.short="Brigid the Jailer";
+		monster.imageName = "Brigid";
 		monster.plural = false;
 		monster.long = "Brigid is a monster of a harpy, standing a foot taller than any other you've seen. She's covered in piercings, and her pink-dyed hair is shaved down to a long mohawk. She's nude, save for the hot poker in her right hand and the shield in her left, which jingles with every step she takes thanks to the cell keys beneath it.";
 		monster.a ="";
@@ -12060,6 +12109,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD PHOENIX PLATOON
 	if(monsterNum == 50) {
 		monster.short="phoenix platoon";
+		monster.imageName="PhoenixMob";
 		monster.plural = true;
 		monster.long = "You are faced with a platoon of heavy infantry, all armed to the teeth and protected by chain vests and shields. They look like a cross between salamander and harpy, humanoid save for crimson wings, scaled feet, and long fiery tails. They stand in a tight-knit shield wall, each phoenix protecting herself and the warrior next to her with their tower-shield. Their scimitars cut great swaths through the room as they slowly advance upon you.";
 		monster.a ="the ";
@@ -12190,6 +12240,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD HARPY QUEEN
 	if(monsterNum == 51) {
 		monster.short="Harpy Queen";
+		monster.imageName="HarpyQueen";
 		monster.plural = false;
 		monster.long = "You face the Harpy Queen, a broodmother of epic proportions - literally.  Her hips are amazingly wide, thrice her own width at the least, and the rest of her body is lushly voluptuous, with plush, soft thighs and a tremendous butt.  Her wide wings beat occasionally, sending ripples through her jiggly body.  She wields a towering whitewood staff in one hand, using the other to cast eldritch spells.";
 		monster.a ="the ";
@@ -12319,6 +12370,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD FARMERS
 	if(monsterNum == 52) {
 		monster.short="farmers";
+		monster.imageName="farmers";
 		monster.plural = true;
 		monster.long = "This is a group of thirty angry villagers, almost all human-looking but for the tiny horn-like protrusions growing from their heads and the white fuzz that almost passes off as hair.  They are all armed with pitchforks or other crude farming tools they use in their everyday task.  Rebecc is staring from behind them with horrified eyes at the combat, paralyzed by the sudden turn of events.";
 		monster.a ="the ";
@@ -12437,7 +12489,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 9;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.createVagina();
 		monster.vaginas[0].virgin = false;
 		monster.vaginas[0].vaginalWetness = 3;
@@ -12452,6 +12504,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD EMBER\
 	if(monsterNum == 53) {
 		monster.short="Ember";
+		monster.imageName="Ember";
 		monster.plural = false;
 		monster.long = "You are currently 'battling' Ember, the dragon, in a playfight.  At least, that was the intention.  The way " + emberMF("he","she") + " lashes "+ emberMF("his","her") + " tail along the ground, with claws spread and teeth bared ferociously, makes you wonder.";
 		monster.a =" ";
@@ -12578,7 +12631,7 @@ function startCombat(monsterNum:Number):void {
 			monster.createCock();
 			monster.cocks[0].cockLength = 16;
 			monster.cocks[0].cockThickness = 2;
-			monster.cocks[0].cockType = 9;
+			monster.cocks[0].cockType = CockTypesEnum.DRAGON;
 			monster.ballSize = 4;
 		}
 		monster.cumMultiplier = 3;
@@ -12589,6 +12642,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD CHAMELEON
 	if(monsterNum == 54) {
 		monster.short="chameleon girl";
+		monster.imageName="ChameleonGirl";
 		monster.plural = false;
 		monster.skinTone = "red";
 		monster.skinAdj = "";
@@ -12751,6 +12805,7 @@ function startCombat(monsterNum:Number):void {
 		if(rand(3) == 0) monster.createStatusAffect("Fertilized",0,0,0,0);
 		monster.short="sandtrap";
 		if(silly()) monster.short = "sand tarp";
+		monster.imageName="sandtrap";
 		monster.plural = false;
 		monster.long = "You are fighting the sandtrap.  It sits half buried at the bottom of its huge conical pit, only its lean human anatomy on show, leering at you from beneath its shoulder length black hair with its six equally sable eyes.  You cannot say whether its long, soft face with its pointed chin is very pretty or very handsome - every time the creature's face moves, its gender seems to shift.  Its lithe, brown flat-chested body supports four arms, long fingers playing with the rivulets of powder sand surrounding it.  Beneath its belly you occasionally catch glimpses of its insect half: a massive sand-coloured abdomen which anchors it to the desert, with who knows what kind of anatomy.";
 		monster.a ="the ";
@@ -12870,7 +12925,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 10;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.ballSize = 4;
 		monster.cumMultiplier = 3;
 		monster.ass.analLooseness = 2;
@@ -12880,6 +12935,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD SATYR
 	if(monsterNum == 56) {
 		monster.short="satyr";
+		monster.imageName="satyr";
 		monster.plural = false;
 		monster.long = "From the waist up, your opponent is perfectly human, save his curling, goat-like horns and his pointed, elven ears.  His muscular chest is bare and glistening with sweat, while his coarsely rugged, masculine features are contorted into an expression of savage lust.  Looking at his waist, you notice he has a bit of a potbelly, no doubt the fruits of heavy drinking, judging by the almost overwhelming smell of booze and sex that emanates from him.  Further down you see his legs are the coarse, bristly-furred legs of a bipedal goat, cloven hooves pawing the ground impatiently, sizable manhood swaying freely in the breeze.";
 		monster.a ="a ";
@@ -13002,7 +13058,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = rand(13) + 14;
 		monster.cocks[0].cockThickness = 1.5 + rand(20)/2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 		monster.balls = 2;
 		monster.cumMultiplier = 1.5;
 		monster.ballSize = 2 + rand(13);
@@ -13015,6 +13071,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD Kitsune
 	if(monsterNum == 57) {
 		monster.short="kitsune";
+		monster.imageName="kitsune";
 		monster.plural = false;
 		monster.long = "A kitsune stands in front of you, about five and a half feet tall.  She has a head of ";
 		
@@ -13143,7 +13200,7 @@ function startCombat(monsterNum:Number):void {
 			monster.createCock();
 			monster.cocks[0].cockLength = rand(13) + 14;
 			monster.cocks[0].cockThickness = 1.5 + rand(20)/2;
-			monster.cocks[0].cockType = 0;
+			monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 			monster.balls = 2;
 			monster.cumMultiplier = 1.5;
 			monster.ballSize = 2 + rand(13);
@@ -13161,6 +13218,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD NAGGA PLEAS!
 	if(monsterNum == 58) {
 		monster.short="Sirius, a naga hypnotist";
+		monster.imageName="Sirius";
 		monster.plural = false;
 		monster.long = "A strange being with the upper torso of a human man topped with the head of a giant serpent stands before you, hissing in anger and occasionally letting a long, fork-tipped tongue flicker out past his lips.  An imperial-featured masculine human face regards you with an indifferent expression.  A ponytail of deep orange - almost bright red - hair falls down between his shoulders, held together by snake-styled circlets of silver, and matching bracelets of the same material and design adorn his wrists. Scales begin at his lower waist, concealing his manhood from you; he's completely naked otherwise.  His snake body is long and slender, covered in finely meshing scales of a rich orange-red shade, the red broken by a pattern of randomly thick or thin stripes of black.  His burning yellow eyes stare directly into yours, vertical slits of pupils fixated on your own as he undulates and coils in an eerily seductive manner.";
 		monster.a ="";
@@ -13289,6 +13347,7 @@ function startCombat(monsterNum:Number):void {
 	}
 	if(monsterNum == 59) {
 		monster.short="minotaur lord";
+		monster.imageName="MinotaurLord";
 		monster.plural = false;
 		monster.long = "Across from you is the biggest minotaur you've ever seen.  Fully eleven feet tall, this shaggy monstrosity has muscles so thick that they stand even through his thick, obscuring fur.  A leather collar with a tag indicates his status as 'pet' though it seems completely out of place on the herculean minotaur.  His legs and arms are like thick tree trunks, imposing and implacable, flexing fiercely with every movement.  This can only be a minotaur lord, a minotaur of strength and virility far beyond his lesser brothers. In his hands, a massive chain swings, connected to his collar, but used as an impromptu weapon for now.  A simple loincloth girds his groin, though it does little to hide the massive, erect length that tents it.  It winds up looking more like a simple, cloth condom than any sort of clothing, and it drips long strings of musky pre-slime in ribbons onto the ground.  Below, heavy testes, each easily the size of a basketball, swing in a taut, sloshing sack.  You can almost smell the liquid bounty he has for you, and the musk he's giving off makes it seem like a good idea...";
 		monster.a ="the ";
@@ -13410,7 +13469,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = rand(13) + 24;
 		monster.cocks[0].cockThickness = 2 + rand(3);
-		monster.cocks[0].cockType = 1;
+		monster.cocks[0].cockType = CockTypesEnum.HORSE;
 		monster.balls = 2;
 		monster.cumMultiplier = 1.5;
 		monster.ballSize = 2 + rand(13);
@@ -13424,6 +13483,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 60) {
 		plotFight = true;
 		monster.short="milky succubus";
+		monster.imageName="MilkySuccubus";
 		monster.plural = false;
 		monster.long = "You are fighting a milky, cow-like succubus.  She stands about seven feet tall and is hugely voluptuous, with breasts three times the size of her head, tipped with a cluster of four obscenely teat-like nipples.  Her hips flare out into an exaggerated hourglass shape, with a long tail tipped with a fleshy arrow-head spade that waves above her spankable butt.  A small cowbell is tied at the base of the arrow-head with a cute little ribbon.  Wide, cow-like horns, easily appropriate for a minotaur, rise from her head, and she flicks bovine ears about the sides of her head whilst sashaying from side to side on demonic, high-heeled feet.  Her skin is a vibrant purple with splotches of shiny black here and there, including one large spot covering her right eye.  She's using a leather whip as a weapon.";
 		monster.a ="the ";
@@ -13557,6 +13617,7 @@ function startCombat(monsterNum:Number):void {
 	}
 	if(monsterNum == 61) {
 		monster.short="Kelt";
+		monster.imageName="Kelt";
 		monster.plural = false;
 		monster.long = "Kelt has changed for the worse since your first meeting.  Gone is his muscular, barrel chest.  In its place is a softer frame, capped with tiny boobs - remnants of your last treatment.  His jaw is fairly square and chiselled (though less than before).  From the waist down, he has the body of a horse, complete with fairly large pair of balls and a decent-sized dong.  Both are smaller than they used to be, however.  He has his bow strung and out, clearly intent on defending himself from your less than gentle touches.";
 		if(flags[KELT_BREAK_LEVEL] == 2) monster.long = "Kelt is looking less and less like the burly centaur from before, and more and more like a woman.  He looks more like an odd, androgynous hybrid than the beautiful woman you had turned him into.  He currently sports roughly b-cup breasts and a smallish, miniature horse-cock.  There's barely any hair on his human body, aside from a long mane of hair.  Each treatment seems to be more effective than the last, and you can't wait to see what happens after you tame him THIS time.";
@@ -13679,7 +13740,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 36;
 		monster.cocks[0].cockThickness = 3.5;
-		monster.cocks[0].cockType = 1;
+		monster.cocks[0].cockType = CockTypesEnum.HORSE;
 		monster.balls = 2;
 		monster.cumMultiplier = 1.5;
 		monster.ballSize = 2 + rand(13);
@@ -13692,6 +13753,7 @@ function startCombat(monsterNum:Number):void {
 	//Sheila
 	if(monsterNum == 62) {
 		monster.short="Sheila";
+		monster.imageName="Sheila";
 		monster.plural = false;
 		monster.long = "Sheila is a slim, somewhat athletic woman, over six feet in height.  Most of her lightly-tanned skin is hidden, either by her vest and shorts or by the fuzzy fur that covers her legs from the thighs down to her prominent nails.  Her " + sheilaCup() + " breasts are briefly defined against the white of her shirt as she sways on her feet, ";
 		//[(sheila corruption <=40)
@@ -13849,6 +13911,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 63) {
 		plotFight = true;
 		monster.short="Minerva";
+		monster.imageName="Minerva";
 		monster.plural = false;
 		monster.long = "You're fighting the tainted siren, Minerva.  Standing around eight feet and wielding a weapon just as tall, she is a force to be reckoned with.  Her skin is a dark navy blue, though her belly, neck and inner thighs are as white as the clouds in the sky, and a golden piecing decorates her navel.  Orange and white stripes adorn her legs, tail and back.  Two large wings sprout from her back, their feathers an attention-grabbing red and orange mix.  She wears a tube-top that hold back her double d-cups, and short shorts around her wide waist that seem to be holding back a huge bulge.\n\nHer weapon is a halberd, made from a shiny, silvery metal, and seems to have an unnatural glow to it.";
 		monster.a ="";
@@ -13985,6 +14048,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD IMP
 	if(monsterNum == 64) {
 		monster.short="imp lord";
+		monster.imageName="ImpLord";
 		monster.plural = false;
 		monster.long = "The greater imp has an angular face, complete with curved nose and burnt red skin typical of imps.  He has no hair on his head, leaving his cold, lust-clouded, black eyes unobstructed.  Just above his long pointed ears are two curved bovine horns.  While still short, he's much taller then the average imp, being nearly four feet tall, and extremely well-muscled.  A pair of powerful wings extends out from his shoulders, however, you suspect he wouldn't be able to fly for long due to his extreme bulk.  A thick coating of fur starts at his well toned hips and works it's way down his powerful legs.  His legs end in a pair of oddly jointed, demonic hooves.  His demonic figure is completed by a thin tail that has an arrowhead shaped tip.\n\nThe greater imp, like most imps wears very little clothing, only a simple loincloth and satchel hang from his waist.  You also note that the imp has two barbell piercings in his nipples. The creature doesn't seem to have any weapons, aside from his sharp black finger nails.";
 		monster.a ="the ";
@@ -14104,7 +14168,7 @@ function startCombat(monsterNum:Number):void {
 		monster.cocks[0].cockLength = rand(2) + 11;
 		monster.cocks[0].cockThickness = 2.5;
 		monster.cocks[0].cockType = rand(3);
-		if(monster.cocks[0].cockType == 0) monster.cocks[0].cockType = 3;
+		if(monster.cocks[0].cockType == CockTypesEnum.HUMAN) monster.cocks[0].cockType = CockTypesEnum.DEMON;
 		monster.balls = 2;
 		monster.cumMultiplier = 3;
 		monster.ballSize = 1;
@@ -14117,6 +14181,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 65) {
 		plotFight = true;
 		monster.short="sand witches";
+		monster.imageName="SandWitchMob";
 		monster.plural = true;
 		monster.long = "You are surrounded by a veritable tribe of sand witches.  Like the ones that roam the sands, they have simple robes, blond hair, and four big breasts that push at the concealing cloth immodestly.  Glowering at you hatefully, the pack of female spellcasters readies itself to drag you down with sheer numbers.";
 		monster.a ="the ";
@@ -14250,6 +14315,7 @@ function startCombat(monsterNum:Number):void {
 	//LOAD CUM WITCH
 	if(monsterNum == 66) {
 		monster.short="Cum Witch";
+		monster.imageName="CumWitch";
 		monster.plural = false;
 		monster.long = "The Cum Witch is a moderately tall woman, almost six feet in height.  Her dark ebony skin is nearly as black as pitch, though it glitters with sweat from her recent sexual activities and the fight.  She has plump lips and long, smooth blonde hair, though much of it is hidden behind a pointed, wide-brimmed hat.  Her robes are even blacker than she is, but she wields an alabaster staff that fairly sizzles with magical might.  Of course, her garments don't do much to conceal her gigantic breasts.  Though there are only two, they're large enough to dwarf the four tits most sand witches are packing.";
 		monster.a ="the ";
@@ -14379,7 +14445,7 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 12;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 
 		doNext(1);
 	}
@@ -14387,6 +14453,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 67) {
 		plotFight = true;
 		monster.short="Sand Mother";
+		monster.imageName="SandMother";
 		monster.plural = false;
 		monster.long = "The Sand Mother is a towering woman of imposing stature and bust.  She wears a much silkier, regal-looking robe than her sisters, and it barely serves to contain her four milk-laden breasts, straining under their jiggling weight.  Dangling around her in a way that reminds you oddly of a halo, the Sand Mother's blonde-white hair fans around her, hanging long behind her.  The queen witch is brandishing a pearly white scepter rather threateningly, though from the way she holds it, it's clear she doesn't intend to use it as a physical weapon.";
 		monster.a ="the ";
@@ -14525,6 +14592,7 @@ function startCombat(monsterNum:Number):void {
 	if(monsterNum == 68) {
 		flags[FOUGHT_HOLLI] = 1;
 		monster.short="Holli";
+		monster.imageName="Holli";
 		monster.plural = false;
 		monster.long = "Marae's offshoot, Holli stands rooted in front of you.  Solid black eyes with golden pupils stare out at you.  Her normally-nude body is concealed inside her tree, though occasionally she will flash you the devilish grin of a sadistic temptress and the bark will split to reveal a pale, jiggling bit of flesh.  A pair of gnarled oak horns sprout from her forehead; leaves and flowers alternately bloom and wither on them as her face contorts with emotion.";
 		monster.a ="";
@@ -14654,13 +14722,14 @@ function startCombat(monsterNum:Number):void {
 		monster.createCock();
 		monster.cocks[0].cockLength = 12;
 		monster.cocks[0].cockThickness = 2;
-		monster.cocks[0].cockType = 0;
+		monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 
 		doNext(1);
 	}
 	//LOAD HOLLI
 	if(monsterNum == 69) {
 		monster.short = flags[HELSPAWN_NAME];
+		monster.imageName = "HolliSpawn"
 		monster.plural = false;
 		monster.long = "Marae's offshoot, Holli stands rooted in front of you.  Solid black eyes with golden pupils stare out at you.  Her normally-nude body is concealed inside her tree, though occasionally she will flash you the devilish grin of a sadistic temptress and the bark will split to reveal a pale, jiggling bit of flesh.  A pair of gnarled oak horns sprout from her forehead; leaves and flowers alternately bloom and wither on them as her face contorts with emotion.";
 		helSpawnDesc();
@@ -14801,7 +14870,18 @@ function display():void {
 	var percent:String = "";
 	var math:Number = monster.HP/eMaxHP();
 	if(monster.short == "worms") math = monster.HP/40;
-	percent = "(<b>" + String(int(math*1000)/10) + "% HP</b>)";
+	percent = "(<b>" + String(int(math * 1000) / 10) + "% HP</b>)";
+	if (monster.imageName != "")
+	{
+		if (monster.imageName.indexOf("Mob") >= 0)
+		{
+			outputText(images.showImage("monster-" + monster.imageName), false);
+		}
+		else
+		{
+			outputText(images.showImage("monster-" + monster.imageName), false);
+		}
+	}
 	if(gameState == 2) outputText("<b>You are grappling with:\n</b>", false);
 	else outputText("<b>You are fighting ", false);
 	outputText(monster.a + monster.short + ":</b> (Level: " + monster.level + ")\n");
@@ -16369,7 +16449,7 @@ function tease():void {
 		}
 		if(monster.plural) damage *= 1.3;
 		enemyTeaseReaction(damage + rand(bonusDamage));
-		if(flags[23] >= 1) {
+		if(flags[PC_FETISH] >= 1) {
 			if(player.lust < 75) outputText("\nFlaunting your body in such a way gets you a little hot and bothered.", false);
 			else outputText("\nIf you keep exposing yourself you're going to get too horny to fight back.  This exhibitionism fetish makes it hard to resist just stripping naked and giving up.", false);
 			stats(0,0,0,0,0,0,2 + rand(3),0);
@@ -16879,7 +16959,7 @@ function kick():void {
 	//(bipedal hoof-kick) 
 	else if(player.lowerBody == 1) outputText("You twist and lurch as you raise a leg and slam your hoof forward in a kick.  ", false);
 
-	if(flags[23] >= 3) {
+	if(flags[PC_FETISH] >= 3) {
 		outputText("You attempt to attack, but at the last moment your body wrenches away, preventing you from even coming close to landing a blow!  Ceraph's piercings have made normal attack impossible!  Maybe you could try something else?\n\n", false);
 		enemyAI();
 		return;
@@ -17496,8 +17576,8 @@ function runAway():void {
 		doNext(5000);
 		return;
 	}
-	if(flags[329] == 1 && (monster.short == "minotaur gang" || monster.short == "minotaur tribe")) {
-		flags[329] = 0;
+	if(flags[UNKNOWN_FLAG_NUMBER_00329] == 1 && (monster.short == "minotaur gang" || monster.short == "minotaur tribe")) {
+		flags[UNKNOWN_FLAG_NUMBER_00329] = 0;
 		//(Free run away) 
 		outputText("You slink away while the pack of brutes is arguing.  Once they finish that argument, they'll be sorely disappointed!", true);
 		gameState = 0;

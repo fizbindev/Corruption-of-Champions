@@ -1,13 +1,13 @@
 ﻿/*FLAGS STUFF*/
 //1 = PC asked her about it, past that it counts the times paid
-const KIHA_TOLL:int = 341;
+//const KIHA_TOLL:int = 341;
 //Tracks how many special explores the PC gets.
-const KIHA_TOLL_DURATION:int = 342;
-const TIMES_MET_KIHA:int = 343;
+//const KIHA_TOLL_DURATION:int = 342;
+//const TIMES_MET_KIHA:int = 343;
 //used to track the different levels of 'talk to Kiha
-const KIHA_TALK_STAGE:int = 344;
-const PC_WIN_LAST_KIHA_FIGHT:int = 345;
-const KIHA_CHOKED_OUT_PC:int = 432;
+//const KIHA_TALK_STAGE:int = 344;
+//const PC_WIN_LAST_KIHA_FIGHT:int = 345;
+//const KIHA_CHOKED_OUT_PC:int = 432;
 
 //Encounter Dragon-Gal 
 function encounterKiha():void {
@@ -56,7 +56,7 @@ function encounterKiha():void {
 		
 		outputText("What do you do?", false);
 		//[Fight] [Ask Why][Buy Passage][Leave]
-		simpleChoices("Fight",3177,"Ask Why",3178,"Buy Passage",3175,"",0,"Leave",3176);
+		simpleChoices("Fight",meetKihaAndFight,"Ask Why",askWhy,"Buy Passage",offerToBuyPassageFromKiha,"",0,"Leave",leaveWhenMeetingAgressiveKiha);
 	}
 	//*Repeat Encounter - PC WAS VICTORIOUS LAST FIGHT 
 	else if(flags[PC_WIN_LAST_KIHA_FIGHT] == 1) {
@@ -77,7 +77,7 @@ function encounterKiha():void {
 			temp = 0;
 		}
 		//[Pay] [This was my idea] [Leave] [Fight] - Leave uses standard leave text
-		simpleChoices("Fight",3177,"Pay",temp,"My Idea",3180,"",0,"Leave",3176);
+		simpleChoices("Fight",meetKihaAndFight,"Pay",temp,"My Idea",tellKihaTributeWasYourIdea,"",0,"Leave",leaveWhenMeetingAgressiveKiha);
 	}
 	//*Repeat Encounter - Tribute Wore off 
 	else if(flags[KIHA_TOLL] > 1 && 
@@ -90,7 +90,7 @@ function encounterKiha():void {
 			temp = 0;
 		}
 		//[Pay Again] [This was my idea] [Leave]  [Fight] - As first time Tribute Offer encounter
-		simpleChoices("Fight",3177,"Pay",temp,"My Idea",3180,"",0,"Leave",3176);
+		simpleChoices("Fight",meetKihaAndFight,"Pay",temp,"My Idea",tellKihaTributeWasYourIdea,"",0,"Leave",leaveWhenMeetingAgressiveKiha);
 	}
 	//Generic Repeat Encounter 
 	else {
@@ -101,7 +101,7 @@ function encounterKiha():void {
 		if(flags[KIHA_TOLL] == 0) {
 			outputText("If you hurry, you might get a word in edge-wise.  What do you do?", false);
 			//[Fight] [Ask Why][Buy Passage][Leave]
-			simpleChoices("Fight",3177,"Ask Why",3178,"Buy Passage",3175,"",0,"Leave",3176);
+			simpleChoices("Fight",meetKihaAndFight,"Ask Why",askWhy,"Buy Passage",offerToBuyPassageFromKiha,"",0,"Leave",leaveWhenMeetingAgressiveKiha);
 		}
 		else {
 			outputText("It's a fight!", false);
@@ -118,7 +118,7 @@ function offerToBuyPassageFromKiha():void {
 	//(Unlocks toll option next encounter)
 	flags[KIHA_TOLL] = 1;
 	//[Fight] [Leave] - Same results as main fight/leave.
-	simpleChoices("Fight",3177,"",0,"",0,"",0,"Leave",3176);
+	simpleChoices("Fight",meetKihaAndFight,"",0,"",0,"",0,"Leave",leaveWhenMeetingAgressiveKiha);
 }
 //[Leave] 
 function leaveWhenMeetingAgressiveKiha():void {
@@ -158,7 +158,7 @@ function payKihaTribute():void {
 	flags[KIHA_TOLL]++;
 	//(2-5 more explorations of her area before she shows up demanding more tribute!)
 	//(do a 'Kiha' exploration with chances of fantabulous prizes)
-	doNext(3186);	
+	doNext(kihaExplore);	
 }
 function kihaExplore(clearScreen:Boolean = true):void {
 	if(clearScreen) outputText("", true);
@@ -558,7 +558,7 @@ function victoryDickKiha():void {
 		temp = player.cocks.length;
 		while(temp > 0) {
 			temp--;
-			if(player.cocks[temp].cockType == 4 && temp != x && temp != y) {
+			if(player.cocks[temp].cockType == CockTypesEnum.TENTACLE && temp != x && temp != y) {
 				z = temp;
 				break;
 			}
@@ -660,7 +660,7 @@ function rapeKihaWithWORDS():void {
 		outputText("Shrugging, you decide she's unlikely to talk more on this topic for now, so you change the topic to something else - your own history.  You tell her of your village, of the portal, and the day you were chosen as champion.  You talk of your training, and how different this land was from everything you expected.  You tell of your struggles.  You describe your victories.  You commiserate about your defeats.  You pour out all of the best and worst of your journeys in this strange realm.  Surprisingly, Kiha listens with rapt attention, never once interrupting.\n\n", false);
 		
 		outputText("Once you finish she comes out of it and mutters, \"<i>So you had it hard?  It doesn't matter.  I had it harder.</i>\"  She launches into the air and flies away before you can answer.", false);
-		if(silly() && flags[281] > 0 && lottieMorale() <= 33) outputText("  Is that what it feels like to be Lottie?", false);
+		if(silly() && flags[UNKNOWN_FLAG_NUMBER_00281] > 0 && lottieMorale() <= 33) outputText("  Is that what it feels like to be Lottie?", false);
 	}
 	//Conversation Level 3 (40- Corruption! PUREBABIES ONLY!) (Zed)
 	else if(flags[KIHA_TALK_STAGE] == 2) {
@@ -836,7 +836,7 @@ function analRapuzulaKiha():void {
 
 	outputText("She shrieks in shock from your sudden treatment. Having the desired effect, your distraction gives you the split second you need to slip your genitals out of her tail's grasp. You quickly place your " + cockDescript(x) + " at her tight pucker, and forcefully slide forward.  Your head breaks through the tight ring and pushes its way inside.  Your surprise teasing seems to have shocked her enough to stop clenching her ass, and the additional lube helps in letting you sheath half your length inside.  The dragoness moans in what you assume is pleasure, finally breaking the cold facade that she's been so desperately trying to maintain.\n\n", false);
 	
-	outputText("The heat that now encircles your " + cockNoun(player.cocks[x].cockType) + " is tremendous; her tightness, incredible.  You're nearly overwhelmed by the urge to slam your whole length home and just cum your brains out.  But you want her to enjoy this, too.  You slowly slide back out of her rectum, stopping when just the tip of the head is barely inside. You lean forward, resting your chest against the warm skin of her back, and thrust your " + cockDescript(x) + " back into the crushing heat of her asshole.\n\n", false);
+	outputText("The heat that now encircles your " + Appearance.cockNoun(player.cocks[x].cockType) + " is tremendous; her tightness, incredible.  You're nearly overwhelmed by the urge to slam your whole length home and just cum your brains out.  But you want her to enjoy this, too.  You slowly slide back out of her rectum, stopping when just the tip of the head is barely inside. You lean forward, resting your chest against the warm skin of her back, and thrust your " + cockDescript(x) + " back into the crushing heat of her asshole.\n\n", false);
 	
 	outputText("She squirms from the sudden penetration of her ass.  You revel in the sensation of your member crawling into her dark depths, and by the way the dragon-slut is starting to move her hips, you're pretty sure she is, too.  Grinning, you grab her hips and give a hard thrust, completely hilting yourself inside her butt.  You hear a grunt of pain from your unwilling partner, but the feeling of her hot, crushing bum is all you can think about right now as your cock begin an all-out assault on her anus.\n\n", false);
 
@@ -853,7 +853,7 @@ function analRapuzulaKiha():void {
 		
 		outputText("You pull out one final time, placing them at her gaping ring.  Knowing what you're about to do, the dragon visibly relaxes in an attempt to make it as painless as possible.  Getting a good grip on her hips, you thrust your dongs forward and pull her back onto your cocks simultaneously.  Your " + cockDescript(y) + " slips from the exposed hole and slides itself between her buttcheeks, while your remaining " + cockDescript(x) + " hits home.\n\n", false);
 
-		outputText("Kiha shudders in her own climax, soaking her thighs as you finally release your seed into her ravaged ass.  Your other " + cockNoun(player.cocks[y].cockType) + " follows its brother, painting her leather-colored skin with alabaster cream", false);
+		outputText("Kiha shudders in her own climax, soaking her thighs as you finally release your seed into her ravaged ass.  Your other " + Appearance.cockNoun(player.cocks[y].cockType) + " follows its brother, painting her leather-colored skin with alabaster cream", false);
 		if(player.cockTotal() >= 3) {
 			if(player.cockTotal() == 3) outputText("; your remaining cock tarnishes the ground with your cum", false);
 			else outputText("; your remaining cocks tarnish the ground with your cum", false);

@@ -1,5 +1,5 @@
-﻿const AKBAL_TIMES_BITCHED:int = 902;
-const AKBAL_BITCH_Q:int = 903;
+﻿//  AKBAL_TIMES_BITCHED:int = 902;
+//  AKBAL_BITCH_Q:int = 903;
 
 //Akbal of the Terrestrial Fire [EDITED]
 //2. AKBAL'S MY BITCH
@@ -12,20 +12,20 @@ function supahAkabalEdition():void {
 	monster.createCock();
 	monster.cocks[0].cockLength = 15;
 	monster.cocks[0].cockThickness = 2.5;
-	monster.cocks[0].cockType = 0;
+	monster.cocks[0].cockType = CockTypesEnum.HUMAN;
 	if(flags[AKBAL_BITCH_Q] >= 2) {
 		akbitchEncounter();
 		return;
 	}
-	if(flags[17] == 2) {
+	if(flags[AKBAL_SUBMISSION_STATE] == 2) {
 		repeatAkbalPostSubmission();
 		return;
 	}
-	if(flags[17] == 1) {
+	if(flags[AKBAL_SUBMISSION_STATE] == 1) {
 		ackbalRepeatAfterWin();
 		return;
 	}
-	if(flags[17] == -1) {
+	if(flags[AKBAL_SUBMISSION_STATE] == -1) {
 		ackbalRepeatAfterLoss();
 		return;
 	}
@@ -42,7 +42,7 @@ function supahAkabalEdition():void {
 
 	outputText("The aura pouring forth from this 'Akbal' is anything but god-like; you recognize the demon for what it truly is.  Yet its ivory teeth and sharp claws prove to you that it can make good on its threat.  What do you do?", false);
 	//Talk / Fight / Run	
-	simpleChoices("Talk",2307,"Fight",2312,"",0,"",0,"Leave",13);
+	simpleChoices("Talk",superAkbalioTalk,"Fight",startuAkabalFightomon,"",0,"",0,"Leave",13);
 }
 
 
@@ -54,7 +54,7 @@ function superAkbalioTalk():void {
 	outputText("After a few moments of silence you ask, \"<i>What do you mean, 'submit'?</i>\" Akbal grins, revealing a row of wicked ivory teeth as he opens his mouth. You suddenly feel the demon's powerful body pinning you down, a wide tongue licking your neck and claws tickling your back in a way that is both horrifying and sensual. Yet after a moment of taking it in, you realize that he is still there in front of you, unmoved and grinning. You can guess what the image means: he wants you to become his mate for a day to make up for invading his territory.  What do you do?\n\n", false);
 
 	//Submit / Fight
-	simpleChoices("Fight",2312,"Submit",2313,"",0,"",0,"",0);
+	simpleChoices("Fight",startuAkabalFightomon,"Submit",akbalSubmit,"",0,"",0,"",0);
 }
 
 //[Encounter if previously submitted]
@@ -64,7 +64,7 @@ function repeatAkbalPostSubmission():void {
 	outputText("As you walk through the forest, you hear a purring coming from behind you.  Turning around reveals that Akbal has come to find you.  He uses his head to push you in the direction of his territory, obviously wanting to dominate you again.\n\n", false);
 	outputText("What do you do?", false);
 	//Submit / Deny / Fight
-	simpleChoices("Submit",2313,"Deny",2309,"Fight",2312,"",0,"",0);
+	simpleChoices("Submit",akbalSubmit,"Deny",akbalDeny,"Fight",startuAkabalFightomon,"",0,"",0);
 }
 
 //[Deny]
@@ -84,7 +84,7 @@ function ackbalRepeatAfterWin():void {
 	if(player.lowerBody == 4) outputText("equine leap places you a good distance away from him.  Do you fight or flee?\n\n", false);
 	else outputText("dodging roll places you a good distance away from him.  Do you fight or flee?\n\n", false);
 	//Fight / Flee
-	simpleChoices("Fight",2312,"",0,"",0,"",0,"Leave",13);
+	simpleChoices("Fight",startuAkabalFightomon,"",0,"",0,"",0,"Leave",13);
 }
 
 //[Encounter if previously fought and lost]
@@ -94,7 +94,7 @@ function ackbalRepeatAfterLoss():void {
 	outputText("A chorus of laughter sounds inside your mind as the jaguar demon, Akbal, drops to the ground in front of you.  His masculine voice says, \"<i>Well, if it isn't the defiant welp who, in all their great idiocy, has wandered into my territory again.  Will you submit, or do I have to teach you another harsh lesson?</i>\"\n\n", false);
 	
 	//Submit / Fight / Run
-	simpleChoices("Submit",2313,"Fight",2312,"",0,"",0,"Leave",13);
+	simpleChoices("Submit",akbalSubmit,"Fight",startuAkabalFightomon,"",0,"",0,"Leave",13);
 }
 
 //[Fight]
@@ -104,18 +104,18 @@ function startuAkabalFightomon():void {
 	outputText("You ready your " + player.weaponName + " and prepare to battle the demon jaguar.", false);
 	//[battle ensues]
 	startCombat(22);	
-	flags[15]++;
+	flags[PLAYER_RESISTED_AKBAL]++;
 }
 
 //[Submit]
 function akbalSubmit():void {
 	spriteSelect(2);
 	slimeFeed();
-	flags[16]++;
-	flags[17] = 2;
+	flags[AKBAL_SUBMISSION_COUNTER]++;
+	flags[AKBAL_SUBMISSION_STATE] = 2;
 	flags[AKBAL_BITCH_Q] = -1;
 	//Big booty special
-	if(flags[16] > 5 && flags[15] < 2 && player.buttRating >= 13 && player.tone < 80) {
+	if(flags[AKBAL_SUBMISSION_COUNTER] > 5 && flags[PLAYER_RESISTED_AKBAL] < 2 && player.buttRating >= 13 && player.tone < 80) {
 		akbalBigButtSubmit();
 		return;
 	}
@@ -316,12 +316,12 @@ function akbalSubmit():void {
 function akbalSubmissionFollowup():void {
 	spriteSelect(2);
 	outputText("", true);
-	if(flags[16] < 4) {
+	if(flags[AKBAL_SUBMISSION_COUNTER] < 4) {
 		outputText("You awake in your camp feeling dangerous, powerful and fiercely satisfied.", false);
 	}
 	//[After 8th submission, if whispered and corruption is greater than 80%]
 	//(fighting Akbal disables this scene, but you retain the ability if you rape him after)
-	else if(flags[15] == 0 && flags[16] >= 8 && player.cor > 80) {
+	else if(flags[PLAYER_RESISTED_AKBAL] == 0 && flags[AKBAL_SUBMISSION_COUNTER] >= 8 && player.cor > 80) {
 		if(player.cor < 80 || player.hasPerk("Fire Lord") >= 0) {
 			outputText("You awake in your camp feeling dangerous, powerful and fiercely satisfied.", false);
 		}
@@ -481,7 +481,7 @@ function akbalHeal():void {
 //Victory/Defeat Scenes
 //[Victory via HP]
 function victoryChoices():void {
-	flags[17] = 1;
+	flags[AKBAL_SUBMISSION_STATE] = 1;
 	//[General Victory]
 	if(monster.HP < 1) {
 		/*if(rand(10) == 0) {
@@ -831,7 +831,7 @@ function girlsRapeAkbal():void {
 	}
 	stats(0,0,0,0,0,0,50,0);
 	//-Page Turn-
-	doNext(3024);
+	doNext(girlsRapeAkbalPart2);
 }
 
 function girlsRapeAkbalPart2():void {
@@ -946,7 +946,7 @@ function girlsRapeAkbalPart2():void {
 	eventParser(5007);
 }
 function loseToAckballllllz():void {
-	flags[17] = -1;
+	flags[AKBAL_SUBMISSION_STATE] = -1;
 	flags[AKBAL_BITCH_Q] = 0;
 	outputText("", true);
 	//[Defeat via HP]
@@ -1043,7 +1043,7 @@ function whisperJojobait():void {
 	
 	outputText("You bend down to pat Jojo's obscenely swollen sac; you're determined to empty them of the liquid you hear sloshing around inside.  Jojo yelps as you do, your spell having made his body overtly sensitive to your touch.  ", false);
 	//[Tentacle Penis] 
-	if(player.cocks[0].cockType == 4) {
+	if(player.cocks[0].cockType == CockTypesEnum.TENTACLE) {
 		outputText("His rodent tail wraps around your waist as you get into position, causing your " + cockDescript(0) + " to writhe even harder, searching for the hole Jojo's tail is pulling you towards.  As soon as you're close enough, your " + cockDescript(0) + " pushes into Jojo, twisting around to widen the mouse's hole even further.  Jojo squirms as you brutally stretch him out, stiffening once his hole is stretched to the max.  After admiring the now obscenely gaping hole of your mouse slut, you begin to grind your member around, causing Jojo to scream in ectasy as your " + cockDescript(0) + " goes ballistic inside of his hungry bowels.\n\n", false);
 	}
 	//[Small penis (7 inches or less)]
@@ -1273,11 +1273,11 @@ function fuckAkbitchsButt():void {
 	//{if player has dog cock + knot}
 	if(player.hasKnot(x)) outputText("\n\nYou meet your new bitch’s ass with a clap of your hips, sawing your [cock biggest] in and out of his gloriously tight hole.  He howls as you force your swollen knot into his back door with an audible pop.  He reacts by falling flat against the ground in an attempt to get away from the sudden extra girth invading his tailhole, pulling you with him. With your arms wrapped around his you howl and grind your exploding [cock biggest] into his corked bowels, filling the demon body full of hot seed, causing his stomach to swell slightly.");
 	//{if player has horse cock}
-	else if(player.cocks[x].cockType == 1) outputText("\n\nAs your shaft splits Akbal in two, he somehow can’t even begin to keep up with the renewed viciousness of your pounding [cock biggest].  One deep, soul shattering thrust causes Akbal to spit fire as you yank his collar and hold, pouring baby batter into his bowels until it spills from the brutally stretched hole around you [cock biggest] in streams of thick white goo.");
+	else if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("\n\nAs your shaft splits Akbal in two, he somehow can’t even begin to keep up with the renewed viciousness of your pounding [cock biggest].  One deep, soul shattering thrust causes Akbal to spit fire as you yank his collar and hold, pouring baby batter into his bowels until it spills from the brutally stretched hole around you [cock biggest] in streams of thick white goo.");
 	//{if player has tentacle dick}
-	else if(player.cocks[x].cockType == 4) outputText("\n\nSuddenly your [cock biggest] goes wild.  Akbal is howling as his bowls are rearranged by your [cock biggest].  Looking down you can see your [cock biggest] moving around beneath his skin and fur.  When the first spurts of your orgasm begin to fire into his dancing bowls, Akbal pushes back, smashing himself into you as he is hit by a second orgasm thanks to you [cock biggest] agitating his very swollen and very abused prostate.");
+	else if(player.cocks[x].cockType == CockTypesEnum.TENTACLE) outputText("\n\nSuddenly your [cock biggest] goes wild.  Akbal is howling as his bowls are rearranged by your [cock biggest].  Looking down you can see your [cock biggest] moving around beneath his skin and fur.  When the first spurts of your orgasm begin to fire into his dancing bowls, Akbal pushes back, smashing himself into you as he is hit by a second orgasm thanks to you [cock biggest] agitating his very swollen and very abused prostate.");
 	//{if player has cat dick}
-	else if(player.cocks[x].cockType == 5) outputText("\n\nAkbal seems particularly fond of your [cock biggest] as he dances on its rigid length.  When your embedded [cock biggest] begins to spurt hot seed into the demon’s bowels you take control and start mercilessly slamming your [hips] into the jaguar upturned back side.  He shivers as you beat out a titanic orgasm.  Even after you are spent, he continues to grind against your [cock biggest].");
+	else if(player.cocks[x].cockType == CockTypesEnum.CAT) outputText("\n\nAkbal seems particularly fond of your [cock biggest] as he dances on its rigid length.  When your embedded [cock biggest] begins to spurt hot seed into the demon’s bowels you take control and start mercilessly slamming your [hips] into the jaguar upturned back side.  He shivers as you beat out a titanic orgasm.  Even after you are spent, he continues to grind against your [cock biggest].");
 	//{if player has human/kanga dick}
 	else outputText("\n\nYou pull on the collar and fall forward.  You begin to blast hot seed into Akbal’s shivering bowels while continuing to pound him into submission, the collar clenched in your fist as you beat out your orgasm, streams of baby batter running down the bitch’s legs and scrotum.");
 	
@@ -1365,15 +1365,15 @@ function akbitchHighStrengthVariant():void {
 		//{if player has dog cock + knot}
 		if(player.hasKnot(x)) outputText("\n\nWith all your strength, you slam your [cock biggest] down into the bitch’s abused tailhole, forcing your swollen knot in with an audible pop.  the demon growls as you cork his anal ring, ensuring your seed won’t escape his hot little hole.  With a rumbling howl, you unload into the demon’s corked bowels, your seed pouring into the hot tube until your [cockHead biggest] is swimming in your own baby batter and Akbal’s stomach is slightly swollen.");
 		//{if player has horse dick}
-		else if(player.cocks[x].cockType == 1) outputText("\n\nYour thrusts double in force as you throw your head back and ram into the little bitch with all your strength.  Deep inside his rearranged bowls, your [cock biggest] expels a tidal wave of dick snot into Akbal’s quivering insides.  You and the demon cry out together as your [cock biggest] twitches inside him, breeding him with fresh baby batter as you grind your [cock biggest] around in his little bitch hole.");
+		else if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("\n\nYour thrusts double in force as you throw your head back and ram into the little bitch with all your strength.  Deep inside his rearranged bowls, your [cock biggest] expels a tidal wave of dick snot into Akbal’s quivering insides.  You and the demon cry out together as your [cock biggest] twitches inside him, breeding him with fresh baby batter as you grind your [cock biggest] around in his little bitch hole.");
 		//{if player has tentacle dick}
-		else if(player.cocks[x].cockType == 4) outputText("\n\nWhen you feel the pressure of your impending orgasm building, you slam your [cock biggest] in to the hilt.  Inside Akbal’s bowels your [cock biggest] goes crazy.  You have to redouble your efforts to hold his thighs to his cum stained chest as he struggles while your [cock biggest] twists and turns inside his overstimulated ass.  When your deeply embedded [cock biggest] begins to spill your seed, you can’t help but grind your [cock biggest] into Akbal’s wrecked bowels as the demon goes limp, too tired to fight the intense sensations your [cock biggest] causes him.");
+		else if(player.cocks[x].cockType == CockTypesEnum.TENTACLE) outputText("\n\nWhen you feel the pressure of your impending orgasm building, you slam your [cock biggest] in to the hilt.  Inside Akbal’s bowels your [cock biggest] goes crazy.  You have to redouble your efforts to hold his thighs to his cum stained chest as he struggles while your [cock biggest] twists and turns inside his overstimulated ass.  When your deeply embedded [cock biggest] begins to spill your seed, you can’t help but grind your [cock biggest] into Akbal’s wrecked bowels as the demon goes limp, too tired to fight the intense sensations your [cock biggest] causes him.");
 		//{if player has cat dick} 
-		else if(player.cocks[x].cockType == 5) outputText("\n\nAs you slam your [cock biggest] in to the hilt, Akbal wraps his legs around your waist, obviously very fond of your [cock biggest].  With your [fullChest] against his jizz-soaked chest, your [cock biggest] begins to blast his innards with hot cum.  As your orgasm rages on, you grind your [cock biggest] around in the demon’s massaging hole.");
+		else if(player.cocks[x].cockType == CockTypesEnum.CAT) outputText("\n\nAs you slam your [cock biggest] in to the hilt, Akbal wraps his legs around your waist, obviously very fond of your [cock biggest].  With your [fullChest] against his jizz-soaked chest, your [cock biggest] begins to blast his innards with hot cum.  As your orgasm rages on, you grind your [cock biggest] around in the demon’s massaging hole.");
 		//{if player has dragon dick}
-		else if(player.cocks[x].cockType == 9) outputText("\n\nAs you slam the full length of your [cock biggest] into Akbal’s upturned ass, he flinches as the bulb at the base of your shaft is shoved into him.  This matters very little to you as your [cockHead biggest] begins to blast torrents of hot seed into his quivering bowels.  The demon squirms as you grind your [cock biggest] into his hole as a river of white cream spills from the abused hole and slides down his body to the forest floor.");
+		else if(player.cocks[x].cockType == CockTypesEnum.DRAGON) outputText("\n\nAs you slam the full length of your [cock biggest] into Akbal’s upturned ass, he flinches as the bulb at the base of your shaft is shoved into him.  This matters very little to you as your [cockHead biggest] begins to blast torrents of hot seed into his quivering bowels.  The demon squirms as you grind your [cock biggest] into his hole as a river of white cream spills from the abused hole and slides down his body to the forest floor.");
 		//{If player has Lizard dick}
-		else if(player.cocks[x].cockType == 6) outputText("\n\nAs you smash your [hips] into Akbal’s upturned ass, he suddenly clenches.  Relishing in the bumpy texture, the demon groans as your embedded [cock biggest] explodes and shoots hot cream into his stuffed bowels.  As your body convulses with each twitch of your [cock biggest], the bitch’s hole begins to overflow, spilling from his abused hole in thick gobs.");
+		else if(player.cocks[x].cockType == CockTypesEnum.LIZARD) outputText("\n\nAs you smash your [hips] into Akbal’s upturned ass, he suddenly clenches.  Relishing in the bumpy texture, the demon groans as your embedded [cock biggest] explodes and shoots hot cream into his stuffed bowels.  As your body convulses with each twitch of your [cock biggest], the bitch’s hole begins to overflow, spilling from his abused hole in thick gobs.");
 		//{if player has human/kanga dick}
 		else outputText("\n\nYou ram your [cock biggest] into his upturned ass with all your strength and hold, causing the demon to roar as you shoot globs of white-hot cream into his wrecked and abused hole.  Soon your seed is dribbling down his upturned ass cheeks and spilling onto the forest floor.");
 		
@@ -1551,15 +1551,15 @@ function akbitchToughness():void {
 		//{if player has dog cock + knot}
 		if(player.hasKnot(x)) outputText("\n\nAkbal hisses as you force your swollen knot into his decimated anal ring.  Your entire body cringes as the swollen flesh is engulfed in his hot wet innards.  Your [cock biggest] explodes with the force of a megaton bomb.  With a wordless scream, you shiver as you fill Akbal full of baby batter.  As your orgasm subsides, you fall into his back, grinding your knot around in his corked bowls until the swelling goes down enough for you to tug your [cock biggest] out of his hole, sending a cascade of your seed down his gaped tailhole.");
 		//{if player has horse dick} 
-		else if(player.cocks[x].cockType == 1) outputText("\n\nAkbal grabs his face to keep quiet again as your [cock biggest] spears into him and flares.  Trembling, you grab his hips and rear back, blasting your baby batter into the demon’s stuffed bowels with clenched teeth.  You can feel Akbal’s innards convulsing around each segment of your [cock biggest] as he milks it for all he is worth.");
+		else if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("\n\nAkbal grabs his face to keep quiet again as your [cock biggest] spears into him and flares.  Trembling, you grab his hips and rear back, blasting your baby batter into the demon’s stuffed bowels with clenched teeth.  You can feel Akbal’s innards convulsing around each segment of your [cock biggest] as he milks it for all he is worth.");
 		//{if player has tentacle dick} 
-		else if(player.cocks[x].cockType == 4) outputText("\n\nYou can hear nothing but the sound of Akbal roaring as you shove the full length of your [cock biggest] into his battered hole.  He grits his teeth as your [cock biggest] goes ballistic, rearranging his intestines with a mad dance that causes the demon to shiver out another smaller orgasm.  The mad dance stretches his hole, causing your seed to spill down your [legs], and his scrotum as you grind your [cock biggest] around in his decimated hole.");
+		else if(player.cocks[x].cockType == CockTypesEnum.TENTACLE) outputText("\n\nYou can hear nothing but the sound of Akbal roaring as you shove the full length of your [cock biggest] into his battered hole.  He grits his teeth as your [cock biggest] goes ballistic, rearranging his intestines with a mad dance that causes the demon to shiver out another smaller orgasm.  The mad dance stretches his hole, causing your seed to spill down your [legs], and his scrotum as you grind your [cock biggest] around in his decimated hole.");
 		//{if player has cat dick}
-		else if(player.cocks[x].cockType == 5) outputText("\n\nYou feel your [cock biggest] begin to jump around in Akbal’s wrecked tailhole, and he suddenly pushes back, enveloping your entire [cock biggest] and squeezing.  You roar as the demon’s flexing anal muscles send you over the edge of ecstasy.  You blast your seed into his squeezing bowls with violent convulsions that rock your body like hammer blows.  Even after your climax has fully fizzled out, the little bitch still squeezes your softening [cock biggest], making your baby batter stream down your [legs] and his.");
+		else if(player.cocks[x].cockType == CockTypesEnum.CAT) outputText("\n\nYou feel your [cock biggest] begin to jump around in Akbal’s wrecked tailhole, and he suddenly pushes back, enveloping your entire [cock biggest] and squeezing.  You roar as the demon’s flexing anal muscles send you over the edge of ecstasy.  You blast your seed into his squeezing bowls with violent convulsions that rock your body like hammer blows.  Even after your climax has fully fizzled out, the little bitch still squeezes your softening [cock biggest], making your baby batter stream down your [legs] and his.");
 		//{if player has dragon dick}
-		else if(player.cocks[x].cockType == 9) outputText("\n\nYou pound the demon’s muscular ass with steadily mounting force, sawing the bulb at the base of your [cock biggest] in and out of his hole and making him yelp with each battering ram like hammer blow to his insides.  With a dragon’s roar you climax, filling the demon’s shivering bowls with your funky seed as he shivers from the rough fucking and spanking you’ve given him.  Streams of your white goo spill down his scrotum and your [legs] making you smile as the demon goes limp beneath you.");
+		else if(player.cocks[x].cockType == CockTypesEnum.DRAGON) outputText("\n\nYou pound the demon’s muscular ass with steadily mounting force, sawing the bulb at the base of your [cock biggest] in and out of his hole and making him yelp with each battering ram like hammer blow to his insides.  With a dragon’s roar you climax, filling the demon’s shivering bowls with your funky seed as he shivers from the rough fucking and spanking you’ve given him.  Streams of your white goo spill down his scrotum and your [legs] making you smile as the demon goes limp beneath you.");
 		//{If player has Lizard dick}
-		else if(player.cocks[x].cockType == 6) outputText("\n\nAkbal’s insides quiver in time with your mad thrusts.  You watch the bumpy, purple blur of your [cock biggest] sawing in and out of Akbal until the sensation causes you to throw you head back.  With a groan your [cock biggest] explodes, sending torrents of spunk into Akbal’s bowls as you shove in and hold.  Your body trembles as you yank your still spurting [cock biggest] out of Akbal’s hole and paint his round muscular abused cheeks with a few gouts of jizz.");
+		else if(player.cocks[x].cockType == CockTypesEnum.LIZARD) outputText("\n\nAkbal’s insides quiver in time with your mad thrusts.  You watch the bumpy, purple blur of your [cock biggest] sawing in and out of Akbal until the sensation causes you to throw you head back.  With a groan your [cock biggest] explodes, sending torrents of spunk into Akbal’s bowls as you shove in and hold.  Your body trembles as you yank your still spurting [cock biggest] out of Akbal’s hole and paint his round muscular abused cheeks with a few gouts of jizz.");
 		//{if player has human/kanga dick}
 		else outputText("\n\nAs your [cock biggest] paints Akbal’s anal walls white, you continue to fuck his decimated ass.  Each spurt from your brings a wave of relief as you slam into the demon’s hole with freight train force, pounding his tender ass as you shoot cream into his quivering hole.  As your orgasm subsides, you aim a last slap at the demon’s ass, one that causes him to squeeze his abused cheeks and send cream rushing past your embedded [cock biggest] and down his furry scrotum.");
 		

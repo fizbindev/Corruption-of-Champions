@@ -549,11 +549,11 @@
 		}
 		else outputText (num2Text(Math.round(10*player.cocks[temp].cockThickness)/10) + " inches wide.", false);
 		//Horsecock flavor
-		if(player.cocks[temp].cockType == 1) {
+		if(player.cocks[temp].cockType == CockTypesEnum.HORSE) {
 			outputText("  It's mottled black and brown in a very animalistic pattern.  The 'head' of your shaft flares proudly, just like a horse's.", false);
 		}
 		//dog cock flavor
-		if(player.cocks[temp].cockType == 2) {
+		if(player.cocks[temp].cockType == CockTypesEnum.DOG) {
 			if(player.cocks[temp].knotMultiplier > 1 && player.cocks[temp].knotMultiplier < 1.4) outputText("  A small knot of thicker flesh is near the base of your " + cockDescript(temp) + ", ready to expand to help you lodge it inside a female.", false);
 			if(player.cocks[temp].knotMultiplier >= 1.4 && player.cocks[temp].knotMultiplier < 1.8) outputText("  A large bulge of flesh nestles just above the bottom of your " + cockDescript(temp) + ", to ensure it stays where it belongs during mating.", false);
 			if(player.cocks[temp].knotMultiplier >= 1.8) outputText("  The obscenely swollen lump of flesh near the base of your " + cockDescript(temp) + " looks almost too big for your cock.", false);
@@ -561,36 +561,38 @@
 			outputText("  The knot is " + Math.round(player.cocks[temp].cockThickness * player.cocks[temp].knotMultiplier * 10)/10 + " inches wide when at full size.", false);
 		}
 		//Demon cock flavor
-		if(player.cocks[temp].cockType == 3) {
+		if(player.cocks[temp].cockType == CockTypesEnum.DEMON) {
 			outputText("  The crown is ringed with a circle of rubbery protrusions that grow larger as you get more aroused.  The entire thing is shiny and covered with tiny, sensitive nodules that leave no doubt about its demonic origins.", false);
 		}
 		//Tentacle cock flavor
-		if(player.cocks[temp].cockType == 4) {
+		if(player.cocks[temp].cockType == CockTypesEnum.TENTACLE) {
 			outputText("  The entirety of its green surface is covered in perspiring beads of slick moisture.  It frequently shifts and moves of its own volition, the slightly oversized and mushroom-like head shifting in coloration to purplish-red whenever you become aroused.", false);
 		}
 		//Cat cock flavor
-		if(player.cocks[temp].cockType == 5) {
+		if(player.cocks[temp].cockType == CockTypesEnum.CAT) {
 			outputText("  It ends in a single point, much like a spike, and is covered in small, fleshy barbs. The barbs are larger at the base and shrink in size as they get closer to the tip.  Each of the spines is soft and flexible, and shouldn't be painful for any of your partners.", false);
 		}
 		//Snake cock flavor
-		if(player.cocks[temp].cockType == 6) {
+		if(player.cocks[temp].cockType == CockTypesEnum.LIZARD) {
 			outputText("  It's a deep, iridescent purple in color.  Unlike a human penis, the shaft is not smooth, and is instead patterned with multiple bulbous bumps.", false);
 		}
 		//Anemone cock flavor
-		if(player.cocks[temp].cockType == 7) {
+		if(player.cocks[temp].cockType == CockTypesEnum.ANEMONE) {
 			outputText("  The crown is surrounded by tiny tentacles with a venomous, aphrodisiac payload.  At its base a number of similar, longer tentacles have formed, guaranteeing that pleasure will be forced upon your partners.", false);
 		}
 		//Kangawang flavor
-		if(player.cocks[temp].cockType == 8) {
+		if(player.cocks[temp].cockType == CockTypesEnum.KANGAROO) {
 			outputText("  It usually lies coiled inside a sheath, but undulates gently and tapers to a point when erect, somewhat like a taproot.", false);
 		}
 		//Draconic Cawk Flava flav
-		if(player.cocks[temp].cockType == 9) {
+		if(player.cocks[temp].cockType == CockTypesEnum.DRAGON) {
 			outputText("  With its tapered tip, there are few holes you wouldn't be able to get into.  It has a strange, knot-like bulb at its base, but doesn't usually flare during arousal as a dog's knot would.");
 		}
 		//Worm flavor
-		if(player.hasStatusAffect("infested") >= 0) outputText("  Every now and again a slimy worm coated in spunk slips partway out of your " + cockDescript(0) + ", tasting the air like a snake's tongue.", false);		
-		if(player.cocks[temp].sock != "") sockDescript(temp);
+		if(player.hasStatusAffect("infested") >= 0) 
+			outputText("  Every now and again a slimy worm coated in spunk slips partway out of your " + cockDescript(0) + ", tasting the air like a snake's tongue.", false);		
+		if(player.cocks[temp].sock) 
+			sockDescript(temp);
 		//DONE WITH COCKS, moving on!
 		outputText("\n", false);
 	}
@@ -646,11 +648,11 @@
 				}
 			}
 			//horse cock flavor
-			if(player.cocks[temp].cockType == 1) {
+			if(player.cocks[temp].cockType == CockTypesEnum.HORSE) {
 				outputText("  It's mottled black and brown in a very animalistic pattern.  The 'head' of your " + cockDescript(temp) + " flares proudly, just like a horse's.", false);
 			}
 			//dog cock flavor
-			if(player.cocks[temp].cockType == 2) {
+			if(player.cocks[temp].cockType == CockTypesEnum.DOG) {
 				outputText("  It is shiny, pointed, and covered in veins, just like a large dog's cock.", false);
 				if(player.cocks[temp].knotMultiplier > 1 && player.cocks[temp].knotMultiplier < 1.4) outputText("  A small knot of thicker flesh is near the base of your " + cockDescript(temp) + ", ready to expand to help you lodge your " + cockDescript(temp) + " inside a female.", false);
 				if(player.cocks[temp].knotMultiplier >= 1.4 && player.cocks[temp].knotMultiplier < 1.8) outputText("  A large bulge of flesh nestles just above the bottom of your " + cockDescript(temp) + ", to ensure it stays where it belongs during mating.", false);
@@ -659,34 +661,38 @@
 				outputText("  The knot is " + Math.floor(player.cocks[temp].cockThickness * player.cocks[temp].knotMultiplier * 10)/10 + " inches thick when at full size.", false);
 			}
 			//Demon cock flavor
-			if(player.cocks[temp].cockType == 3) {
+			if(player.cocks[temp].cockType == CockTypesEnum.DEMON) {
 				outputText("  The crown is ringed with a circle of rubbery protrusions that grow larger as you get more aroused.  The entire thing is shiny and covered with tiny, sensitive nodules that leave no doubt about its demonic origins.", false);
 			}
 			//Tentacle cock flavor
-			if(player.cocks[temp].cockType == 4) {
+			if(player.cocks[temp].cockType == CockTypesEnum.TENTACLE) {
 				outputText("  The entirety of its green surface is covered in perspiring beads of slick moisture.  It frequently shifts and moves of its own volition, the slightly oversized and mushroom-like head shifting in coloration to purplish-red whenever you become aroused.", false);
 			}
 			//Cat cock flavor
-			if(player.cocks[temp].cockType == 5) {
+			if(player.cocks[temp].cockType == CockTypesEnum.CAT) {
 				outputText("  It ends in a single point, much like a spike, and is covered in small, fleshy barbs. The barbs are larger at the base and shrink in size as they get closer to the tip.  Each of the spines is soft and flexible, and shouldn't be painful for any of your partners.", false);
 			}
 			//Snake cock flavor
-			if(player.cocks[temp].cockType == 6) {
+			if(player.cocks[temp].cockType == CockTypesEnum.LIZARD) {
 				outputText("  It's a deep, iridescent purple in color.  Unlike a human penis, the shaft is not smooth, and is instead patterned with multiple bulbous bumps.", false);
 			}
 			//Anemone cock flavor
-			if(player.cocks[temp].cockType == 7) {
+			if(player.cocks[temp].cockType == CockTypesEnum.ANEMONE) {
 				outputText("  The crown is surrounded by tiny tentacles with a venomous, aphrodisiac payload.  At its base a number of similar, longer tentacles have formed, guaranteeing that pleasure will be forced upon your partners.", false);
 			}
 			//Kangwang flavor
-			if(player.cocks[temp].cockType == 8) {
+			if(player.cocks[temp].cockType == CockTypesEnum.KANGAROO) {
 				outputText("  It usually lies coiled inside a sheath, but undulates gently and tapers to a point when erect, somewhat like a taproot.", false);
 			}
 			//Draconic Cawk Flava flav
-			if(player.cocks[temp].cockType == 9) {
+			if(player.cocks[temp].cockType == CockTypesEnum.DRAGON) {
 				outputText("  With its tapered tip, there are few holes you wouldn't be able to get into.  It has a strange, knot-like bulb at its base, but doesn't usually flare during arousal as a dog's knot would.");
 			}
-			if(player.cocks[temp].sock != "") sockDescript(temp);
+			if(player.cocks[temp].sock != "" && player.cocks[temp].sock != null)	// I dunno what was happening, but it looks like .sock is null, as it doesn't exist. I guess this is probably more left over from some of the restucturing.
+			{																		// Anyways, check against null values, and stuff works again.
+				trace("Found a sock description (WTF even is a sock?)", player.cocks[temp].sock);
+				sockDescript(temp);
+			}
 			temp++;
 			rando++
 			outputText("\n", false);
@@ -715,7 +721,8 @@
 			if(player.skinType == 3) outputText("An oozing, semi-solid sack with " + ballsDescript() + " swings heavily beneath your " + multiCockDescriptLight() + ".", false);
 		}
 		outputText("  You estimate each of them to be about " + num2Text(Math.round(player.ballSize)) + " ", false);
-		if(Math.round(player.ballSize) == 1) outputText("inch", false);
+		if(Math.round(player.ballSize) == 1) 
+			outputText("inch", false);
 		else outputText("inches", false);
 		outputText(" across.\n", false);
 	}	
@@ -803,9 +810,9 @@
 	if(player.nipplesPierced == 3) outputText("\nYour " + nippleDescript(0) + "s ache and tingle with every step, as your heavy " + player.nipplesPShort + " swings back and forth.", false);
 	else if(player.nipplesPierced > 0) outputText("\nYour " + nippleDescript(0) + "s are pierced with " + player.nipplesPShort + ".", false);
 	if(player.totalCocks() > 0) {
-		if(player.cocks[0].pierced > 0) outputText("\nLooking positively perverse, a " + player.cocks[0].pShort + " adorns your " + cockDescript(0) + ".", false);
+		if(player.cocks[0].pierced > 0) outputText("\nLooking positively perverse, a " + player.cocks[0].pShortDesc + " adorns your " + cockDescript(0) + ".", false);
 	}
-	if(flags[286] == 1) outputText("\nA magical, ruby-studded bar pierces your belly button, allowing you to summon Ceraph on a whim.", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00286] == 1) outputText("\nA magical, ruby-studded bar pierces your belly button, allowing you to summon Ceraph on a whim.", false);
 	if(player.hasVagina()) {
 		if(player.vaginas[0].labiaPierced > 0) outputText("\nYour " + vaginaDescript(0) + " glitters with the " + player.vaginas[0].labiaPShort + " hanging from your lips.", false);
 		if(player.vaginas[0].clitPierced > 0) outputText("\nImpossible to ignore, your " + clitDescript() + " glitters with its " + player.vaginas[0].clitPShort + ".", false);
@@ -816,21 +823,33 @@
 	if(player.gems == 1) outputText("\n\n<b>You have " + player.gems + " shining gem, collected in your travels.", false);
 	mainText.htmlText = currentText;
 	scrollBar.update();
+	//menu();
+	//addButton(0,"Next",camp);
 }
 
 function sockDescript(index:int):void {
 	outputText("  ");
-	if(player.cocks[index].sock == "wool") outputText("It's covered by a wooly white cock-sock, keeping it snug and warm despite how cold it might get.");
-	else if(player.cocks[index].sock == "alabaster") outputText("It's covered by a white, lacey cock-sock, snugly wrapping around it like a bridal dress around a bride.");
-	else if(player.cocks[index].sock == "cockring") outputText("It's covered by a black latex cock-sock with two attached metal rings, keeping your cock just a little harder and [balls] aching for release.");
-	else if(player.cocks[index].sock == "viridian") outputText("It's covered by a lacey dark green cock-sock accented with red rose-like patterns.  Just wearing it makes your body, especially your cock, tingle.");
-	else if(player.cocks[index].sock == "scarlet") outputText("It's covered by a lacey red cock-sock that clings tightly to your member.  Just wearing it makes your cock throb, as if it yearns to be larger...");
-	else if(player.cocks[index].sock == "cobalt") outputText("It's covered by a lacey blue cock-sock that clings tightly to your member... really tightly.  It's so tight it's almost uncomfortable, and you wonder if any growth might be inhibited.");
-	else if(player.cocks[index].sock == "gilded") outputText("It's covered by a metallic gold cock-sock that clings tightly to you, its surface covered in glittering gems.  Despite the warmth of your body, the cock-sock remains cool.");
-	else if(player.cocks[index].sock == "amaranthine") {
+	if(player.cocks[index].sock == "wool") 
+		outputText("It's covered by a wooly white cock-sock, keeping it snug and warm despite how cold it might get.");
+	else if(player.cocks[index].sock == "alabaster") 
+		outputText("It's covered by a white, lacey cock-sock, snugly wrapping around it like a bridal dress around a bride.");
+	else if(player.cocks[index].sock == "cockring") 
+		outputText("It's covered by a black latex cock-sock with two attached metal rings, keeping your cock just a little harder and [balls] aching for release.");
+	else if(player.cocks[index].sock == "viridian") 
+		outputText("It's covered by a lacey dark green cock-sock accented with red rose-like patterns.  Just wearing it makes your body, especially your cock, tingle.");
+	else if(player.cocks[index].sock == "scarlet") 
+		outputText("It's covered by a lacey red cock-sock that clings tightly to your member.  Just wearing it makes your cock throb, as if it yearns to be larger...");
+	else if(player.cocks[index].sock == "cobalt") 
+		outputText("It's covered by a lacey blue cock-sock that clings tightly to your member... really tightly.  It's so tight it's almost uncomfortable, and you wonder if any growth might be inhibited.");
+	else if(player.cocks[index].sock == "gilded") 
+		outputText("It's covered by a metallic gold cock-sock that clings tightly to you, its surface covered in glittering gems.  Despite the warmth of your body, the cock-sock remains cool.");
+	else if(player.cocks[index].sock == "amaranthine") 
+	{
 		outputText("It's covered by a lacey purple cock-sock");
-		if(player.cocks[index].cockType != 10) outputText(" that fits somewhat awkwardly on your member");
-		else outputText(" that fits your coeurl cock perfectly");
+		if(player.cocks[index].cockType != CockTypesEnum.DISPLACER) 
+			outputText(" that fits somewhat awkwardly on your member");
+		else
+			outputText(" that fits your coeurl cock perfectly");
 		outputText(".  Just wearing it makes you feel stronger and more powerful.");
 	}
 	else outputText("<b>Yo, this is an error.</b>");

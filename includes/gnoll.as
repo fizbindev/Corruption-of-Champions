@@ -221,7 +221,7 @@ function getRapedByGnoll():void {
 			if(player.cockTotal() > 1) outputText("The gnoll fishes into your " + multiCockDescriptLight() + " and quickly snaps up the thickest one.  ", false);
 			//(if cockTotal=1)
 			else outputText("The gnoll's hands dart down to your crotch and grabs " + cockDescript(0) + ".  ", false);
-			outputText("\"<i>Yes, this will do nicely,</i>\" she says with relish, pumping your " + cockNoun(player.cocks[player.thickestCock()].cockType) + " until it plumps up, filling with blood.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your " + cockNoun(player.cocks[player.thickestCock()].cockType) + ".  ", false);
+			outputText("\"<i>Yes, this will do nicely,</i>\" she says with relish, pumping your " + Appearance.cockNoun(player.cocks[player.thickestCock()].cockType) + " until it plumps up, filling with blood.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your " + Appearance.cockNoun(player.cocks[player.thickestCock()].cockType) + ".  ", false);
 			outputText("You gasp at the feeling of her hot skin rippling down the interior of your dick, and all she can do is laugh as she plunges it deeper and deeper into you.\n\n", false);
 		}
 		//(if cockTotal>0 AND thickestCock()<2")
@@ -230,7 +230,7 @@ function getRapedByGnoll():void {
 			if(player.cockTotal() > 1) outputText("\"<i>This will have to do,</i>\" she says with the barest trace of disappointment as she grabs your thickest cock.  ", false);
 			//(if cockTotal=1)
 			else outputText("\"<i>This will have to do,</i>\" she says as she grabs your cock.  ", false);
-			outputText("She runs her rough hand up and down its length until it begins to plump up.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your " + cockNoun(player.cocks[player.thickestCock()].cockType) + ".  ", false);
+			outputText("She runs her rough hand up and down its length until it begins to plump up.  She cantilevers her body over yours, knees bent sharply, and brings the tip of her massive clitoris up against the head of your dick.  The moment a dollop of pre forms at your urethra, her hips surge forward, sinking her giant clit down the length of your " + Appearance.cockNoun(player.cocks[player.thickestCock()].cockType) + ".  ", false);
 			outputText("You scream in pain as she forces her bizarre pseudo-penis down the length of your dick.  In horror, you watch as the bulge of her anatomy's invasion of yours slowly descends towards your ", false);
 			if(player.balls > 0) outputText("balls", false);
 			else outputText("groin", false);
@@ -277,26 +277,26 @@ function defeatHyena():void {
 			if(player.cockThatFits(monster.vaginalCapacity()) != -1) dickDownClit = 2742;
 			outputText("  The gnoll is at your mercy.  What will you do with her?", false);
 			//[DickDownClit] [DickInAss] [SuckHerClit] [Leave]
-			simpleChoices("DickDownClit",dickDownClit,"DickInAss",2743,"SuckHerClit",2744,"",0,"Leave",5007);
+			simpleChoices("DickDownClit",dickDownClit,"DickInAss",dickInGnollAss,"SuckHerClit",suckGnollClit,"",0,"Leave",5007);
 		}
 		//(if cockTotal>0 AND vaginas=1)
 		else if(player.gender == 3) {
 			if(player.cockThatFits(monster.vaginalCapacity()) != -1) dickDownClit = 2742;
 			outputText("  The gnoll is at your mercy.  What will you do with her?", false);
 			//[DickDownClit] [DickInAss] [SuckHerClit] [TakeHerClit] [Leave]
-			simpleChoices("DickDownClit",dickDownClit,"DickInAss",2743,"SuckHerClit",2744,"TakeHerClit",2745,"Leave",5007);
+			simpleChoices("DickDownClit",dickDownClit,"DickInAss",dickInGnollAss,"SuckHerClit",suckGnollClit,"TakeHerClit",takeGnollClit,"Leave",5007);
 		}
 		//(if cockTotal=0 AND vaginas=1)
 		else if(player.gender == 2) {
 			outputText("  The gnoll is at your mercy.  What will you do with her?", false);
 			//[SuckHerClit] [TakeHerClit] [Leave]
-			simpleChoices("SuckHerClit",2744,"TakeHerClit",2745,"",0,"",0,"Leave",5007);
+			simpleChoices("SuckHerClit",suckGnollClit,"TakeHerClit",takeGnollClit,"",0,"",0,"Leave",5007);
 		}
 		//(if cockTotal=0 AND vaginas=0)
 		else {
 			outputText("  The gnoll is at your mercy.  What will you do with her?", false);
 			//[SuckHerClit] [Leave]
-			simpleChoices("SuckHerClit",2744,"",0,"",0,"",0,"Leave",5007);
+			simpleChoices("SuckHerClit",suckGnollClit,"",0,"",0,"",0,"Leave",5007);
 		}
 	}
 	else eventParser(5007);
@@ -337,7 +337,7 @@ function dickInGnollAss():void {
 		outputText("The gnoll must be taught a lesson, but you're staying the hell away from her freaky anatomy.  You roughly roll her onto her belly and pull her lean ass up into the air.  You line up your " + cockDescript(x) + " and ram it home into her tiny puckered entrance, eliciting a half-conscious gasp from the hyena girl.\n\n", false);
 		//(if cockTotal>1)
 		if(player.totalCocks() > 1 && player.cockArea(x) < monster.analCapacity() && y != -1) {
-			outputText("With a smirk, you pound away for a few minutes to get her loosened up.  Then you reach down and slap another " + cockNoun(0) + " alongside the first.  With a grunt and a thrust, you shove both of them inside.", false);
+			outputText("With a smirk, you pound away for a few minutes to get her loosened up.  Then you reach down and slap another " + Appearance.cockNoun(CockTypesEnum.HUMAN) + " alongside the first.  With a grunt and a thrust, you shove both of them inside.", false);
 			//(if cockTotal>2)
 			if(player.totalCocks() > 2 && player.cockArea(x) + player.cockArea(y) < monster.analCapacity()) outputText("  A few thrusts more, and you slow again.  As you gather up your third cock, the gnoll whimpers quietly, fearing what she knows will come next.  You slowly push forward, sinking your rigid meat into her ass.  When all three are in, it's very slow going, but you don't let up.", false);
 			//(if cockTotal>3)
@@ -443,7 +443,7 @@ function yoDawgIHeardULiekGNollBallzzzdahdakjldh():void {
 
 	outputText("\"<i>What... what have you poisoned me with?</i>\" she gasps, staggering to her knees.  Catching herself, the gnoll pulls her hands away from her crotch, revealing the effects of the Succubi's Dream.  A pair of huge, apple-sized testicles sway under her throbbing pussy lips, covered in a fine chocolate fuzz that glistens from the honey that leaks from her over-stimulated cunt.  The hyena's balls hang heavily from her groin, achingly filled with seed that she has no way of emptying.  \"<i>What is this?</i>\" she demands, her voice frantic with seething, unfamiliar urges.  \"<i>I don't... I can't...</i>\" She stumbles to all fours, her hips impotently bucking at the air, as her eyes cloud over, mouth hanging open in the primal need to mate.\n\n", false);
 	//[NEXT]
-	doNext(3412);
+	doNext(yoDawgHyenaBallz2);
 }
 function yoDawgHyenaBallz2():void {
 	outputText("", true);
@@ -463,7 +463,7 @@ function yoDawgHyenaBallz2():void {
 	
 	outputText("Again and again, she rushes toward a release, and every time, her balls slosh with overflowing lust, unable to climax yet urging her to greater depravity until even words are too difficult to manage.  Your ravaged body aches under the endless rape.  It's all you can do to work your hands under your hips to masturbate in the blissful pauses while the gnoll's muscles clench in near orgasm, before she slams you back to the dirt for another round.  You lose track of time as your world narrows to the endlessly thrusting shaft of the hyena-girl's massive clitoris and the merciless weight of her ball-slapping, spunk-swollen pouch. Every time you climax, it fuels her mad frenzy until you silently beg your body to shut out the overwhelming sensations, to no avail.  Day fades into night and night into day as the amazon fucks your spasming, shuddering pucker without thought, or pity, or release.\n\n", false);
 	//[NEXT]
-	doNext(3413);
+	doNext(yoDawgHyenaBallz3);
 	hours = 7;
 	days++;
 	statScreenRefresh();

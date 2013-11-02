@@ -1,40 +1,41 @@
-﻿const ANTS_PC_FAILED_PHYLLA:int = 467;
-const ANT_COLONY_KEPT_HIDDEN:int = 468;
-const PC_READY_FOR_ANT_COLONY_CHALLENGE:int = 469;
-const PHYLLA_SAVED:int = 470;
-const MET_ANT_ARENA:int = 471;
-const ANT_ARENA_WINS:int = 472;
-const ANT_ARENA_LOSSES:int = 473;
-const ANTS_PC_BEAT_GNOLL:int = 474;
-const ANTS_PC_LOST_TO_GNOLL:int = 475;
-const MET_ANT_ARENA_GNOLL:int = 476;
+﻿import classes.Player;
+//  ANTS_PC_FAILED_PHYLLA:int = 467;
+//  ANT_COLONY_KEPT_HIDDEN:int = 468;
+//  PC_READY_FOR_ANT_COLONY_CHALLENGE:int = 469;
+//  PHYLLA_SAVED:int = 470;
+//  MET_ANT_ARENA:int = 471;
+//  ANT_ARENA_WINS:int = 472;
+//  ANT_ARENA_LOSSES:int = 473;
+//  ANTS_PC_BEAT_GNOLL:int = 474;
+//  ANTS_PC_LOST_TO_GNOLL:int = 475;
+//  MET_ANT_ARENA_GNOLL:int = 476;
 
-const PHYLLA_CAPACITY:int = 873;
-const ANT_KIDS:int = 874;
-const ANT_WAIFU:int = 875;
-const PHYLLA_STAY_HOME:int = 876;
+//  PHYLLA_CAPACITY:int = 873;
+//  ANT_KIDS:int = 874;
+//  ANT_WAIFU:int = 875;
+//  PHYLLA_STAY_HOME:int = 876;
 
-const PHYLLA_CAMP_VISITS:int = 877;
-const DAYS_PHYLLA_IN_CAMP:int = 878;
-const PHYLLA_EGG_LAYING:int = 879;
+//  PHYLLA_CAMP_VISITS:int = 877;
+//  DAYS_PHYLLA_IN_CAMP:int = 878;
+//  PHYLLA_EGG_LAYING:int = 879;
 
-const PHYLLA_BLOWJOBS:int = 880;
-const TALKED_WITH_PHYLLA_ABOUT_HISTORY:int = 881;
-const TIMES_LINKED_BJ_SUCK:int = 882;
-const PHYLLA_FUCKS:int = 883;
-const TIMES_CORRUPT_MALE_ANT_ORGY:int = 884;
-const TIMES_CORRUPT_FEMALE_ANT_ORGY:int = 885;
-const PHYLLA_TIMES_DRIDER_EGG_LAYED:int = 886;
-const DAYS_PHYLLA_HAS_SPENT_BIRTHING:int = 887;
-const ANTS_BIRTHED_FROM_LICKING:int = 888;
-const PHYLLA_COOLDOWN:int = 889;
-const TIMES_EGG_IMPREGNATING_PHYLLA:int = 890;
-const PHYLLA_DRIDER_INCUBATION:int = 891;
-const PHYLLA_DRIDER_BABIES_COUNT:int = 894;
-const PHYLLA_INHERITED_KNOWLEDGE:int = 900;
-const PHYLLA_IZMA_TALK:int = 901;
+//  PHYLLA_BLOWJOBS:int = 880;
+//  TALKED_WITH_PHYLLA_ABOUT_HISTORY:int = 881;
+//  TIMES_LINKED_BJ_SUCK:int = 882;
+//  PHYLLA_FUCKS:int = 883;
+//  TIMES_CORRUPT_MALE_ANT_ORGY:int = 884;
+//  TIMES_CORRUPT_FEMALE_ANT_ORGY:int = 885;
+//  PHYLLA_TIMES_DRIDER_EGG_LAYED:int = 886;
+//  DAYS_PHYLLA_HAS_SPENT_BIRTHING:int = 887;
+//  ANTS_BIRTHED_FROM_LICKING:int = 888;
+//  PHYLLA_COOLDOWN:int = 889;
+//  TIMES_EGG_IMPREGNATING_PHYLLA:int = 890;
+//  PHYLLA_DRIDER_INCUBATION:int = 891;
+//  PHYLLA_DRIDER_BABIES_COUNT:int = 894;
+//  PHYLLA_INHERITED_KNOWLEDGE:int = 900;
+//  PHYLLA_IZMA_TALK:int = 901;
 
-const DIDNT_FUCK_PHYLLA_ON_RECRUITMENT:int = 925;
+//  DIDNT_FUCK_PHYLLA_ON_RECRUITMENT:int = 925;
 
 function phyllaWaifu():Boolean {
 	if(flags[ANT_WAIFU] > 0) return true;
@@ -78,7 +79,7 @@ function firstAntColonyEncounter():void {
 	outputText("\n\nYou could watch from where you're hiding, or you could play the hero and step in.");
 	//[Keep Hidden]
 	//[Play Hero]
-	simpleChoices("Play Hero",3577,"Keep Hidden",3578,"",0,"",0,"",0);
+	simpleChoices("Play Hero",playHero,"Keep Hidden",keepHidden,"",0,"",0,"",0);
 }
 //►[Keep Hidden]
 function keepHidden():void {
@@ -246,7 +247,7 @@ function antColonyChallenge():void {
 		outputText("\n\n\"<i>Oh good, you're here.  I was beginning to think you were a coward.</i>\"  Before you can respond to his insult, he cuts you off.  \"<i>We're ready to start when you are.  Let's hope you survive longer than the last guy.</i>\"");
 	}
 	//[Fight] [Leave]
-	simpleChoices("Fight",3575,"",0,"",0,"",0,"Leave",3576);
+	simpleChoices("Fight",antColiseumFight,"",0,"",0,"",0,"Leave",leaveAntColony);
 }
 
 //►[Leave]
@@ -847,9 +848,10 @@ function femalePhyllaFirstTimePlusCock():void {
 		}
 		else {
 			//PC has one/two dick(s) not exceeding 4 inches in width total: 
-			if(player.cockTotal() == 2 && player.cockArea(player.smallestCockIndex2()) + player.cockArea(player.smallestCockIndex()) <= phyllaCapacity())
+			if(player.cockTotal() == 2 && (player.cockArea(player.smallestCockIndex2()) + player.cockArea(player.smallestCockIndex()) <= phyllaCapacity()))
 				outputText("two of your " + multiCockDescriptLight() + ", stroking them apologetically as she scissors you.  You feel her almost insatiable appetite for all parts of your body.  You feel Phylla's, mind slowly becoming lost in pleasure.");
-			else if(player.cocks[player.smallestCockIndex()] < 4) outputText("your " + cockDescript(player.smallestCockIndex()) + ", stroking it apologetically as she scissors you.  You feel her almost insatiable appetite for all parts of your body.  You feel Phylla's, mind slowly becoming lost in pleasure.");
+			//TODO: "player.cocks[player.smallestCockIndex()] < 4" changed to cockLength. Not sure if it is the appropriate attribute.
+			else if(player.cocks[player.smallestCockIndex()].cockLength < 4) outputText("your " + cockDescript(player.smallestCockIndex()) + ", stroking it apologetically as she scissors you.  You feel her almost insatiable appetite for all parts of your body.  You feel Phylla's mind slowly becoming lost in pleasure.");
 			//PC only has a dick(s) that('s) (are) more than 4 inches in width: 
 			else outputText("your " + cockDescript(player.smallestCockIndex()) + ", but simply can't fit any number of her hands around the entirety of your glans; instead, she takes to caressing the head of your " + cockDescript(player.biggestCockIndex()) + ".");
 			//(Leads to - Scissoring Continuation)
@@ -2553,7 +2555,7 @@ function eggDatBitch():void {
 		outputText("\n\nEgg after egg slides in Phylla, causing her to moan louder and louder with each egg. Her stomach quickly starts to bulge bigger and bigger with your brood as you stuff more into her.");
 		
 		//If PC corruption over 75: 
-		if(player.cor < 75) outputText("\n\nYou can feel her ask you to stop though the link as her body starts to pull away from you, stating that she's nice and full and that any more could hurt her. Not yet! You know she can fit at LEAST three or four more! You KNOW she can hold them safely, she just needs to \"<i>man up</i>\". Using your numerous legs and arms you pin Phylla to the ground. Completely stopping her pulling away. Phylla screams in pleasure or pain, you can't really tell but you continue to deposit your eggs into her.");
+		if(player.cor >= 75) outputText("\n\nYou can feel her ask you to stop though the link as her body starts to pull away from you, stating that she's nice and full and that any more could hurt her. Not yet! You know she can fit at LEAST three or four more! You KNOW she can hold them safely, she just needs to \"<i>man up</i>\". Using your numerous legs and arms you pin Phylla to the ground. Completely stopping her pulling away. Phylla screams in pleasure or pain, you can't really tell but you continue to deposit your eggs into her.");
 		outputText("\n\nAt last, the final egg laid inside of Phylla, you retract your ovipositor from her love hole; it'll recover in time. Phylla rubs her belly and gleams with delight, filled with her lover's future children that will help the colony to grow strong.");
 		//PC Drider eggs will take 8 days regardless of where she houses them to hatch. (3 
 		//through 8 children per pregnancy)

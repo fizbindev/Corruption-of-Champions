@@ -17,7 +17,7 @@ function encounterFaerie():void {
 			}
 			else outputText("\n\nYou lazily make a grab for her and easily snatch her out of the air.  Her body is sticky with a mix of desire and your last encounter.  You can feel her humping against your pinky while she begs, \"<i>Come on, let me crawl into your " + player.armorName + " and wrap myself around your shaft.  I promise I'll only drink a little pre-cum this time, just enough to let me get off.  I'll be a good faerie slut, just let me get you off!</i>\"\n\nDo you let the faerie get you off?", false);
 			stats(0,0,0,0,0,0,player.lib/10+2,0);
-			doYesNo(2170,2171);
+			doYesNo(faerieCaptureHJ,letFaerieGo);
 			return;
 		}
 		stats(0,0,0,0,0,0,player.lib/10+2,0);
@@ -35,8 +35,8 @@ function encounterFaerie():void {
 	outputText("The faerie slows the beating of her wings and hovers towards you. You dismiss your fearful notions, certain a small faerie is quite harmless to you.\n\n", false);
 	outputText("How do you react?", false);
 	//Shoo Away, Nothing, RAEP
-	if(player.hasVagina()) simpleChoices("Shoo Away",2187,"Nothing",2186,"Rape",2185,"",0,"",0);
-	else simpleChoices("Shoo Away",2187,"Nothing",2186,"",0,"",0,"",0);
+	if(player.hasVagina()) simpleChoices("Shoo Away",faerieShooAway,"Nothing",faerieDoNothing,"Rape",faerieRAEP,"",0,"",0);
+	else simpleChoices("Shoo Away",faerieShooAway,"Nothing",faerieDoNothing,"",0,"",0,"",0);
 }
 
 function faerieRAEP():void {
@@ -202,7 +202,7 @@ function faerieCaptureHJ():void {
 	//Taurs get a special scene!
 	if(player.isTaur()) {
 		outputText("The tiny Faerie climbs on top of your " + cockDescript(0), false);
-		if(player.cockTotal() > 0) outputText("largest " + cockNoun(0), false);
+		if(player.cockTotal() > 0) outputText("largest " + Appearance.cockNoun(CockTypesEnum.HUMAN), false);
 		outputText(" and crawls about on it for a while, getting used to its shape and taking in deep lungfuls of its musky odour. She wraps herself around you and begins rubbing herself up and down your hard length. As she moves around her tiny slit leaks cum in long streaks, teasing you with a cunt you can't penetrate. Pre begins to leak steadily from your tip as the faerie continues to work her way around, moaning quietly and betraying her inner desire.\n\n", false);
 		outputText("Your body begins to naturally jerk forward and backward, attempting to hump the mare that isn't there. You can feel the faerie sliding about until she clenches onto you tighter, which only serves to make you hump harder. Realizing her mistake too late, she attempts to loosen herself, but your wild bucking sends her flying forward.\n\n", false);
 		outputText("She smashes onto the end of your " + multiCockDescriptLight() + " and grasps at it. Her face crushes into your urethra as her tiny legs wrap themselves around the tip. Your wildly flailing cock starts to grow larger as your orgasm approaches, but the faerie doesn't notice as she happily drinks up your pre.\n\n", false);
@@ -228,9 +228,9 @@ function faerieCaptureHJ():void {
 	else {
 		outputText("The faerie reaches your swollen member and ", false);
 		if(player.hasKnot(0)) outputText("climbs atop your knot, wrapping her legs around the narrower shaft to hold on.  You can feel her cheeks resting atop the 'bulb' of your canine anatomy, teasing you with feminine features you're far too large to penetrate.  ", false);
-		else if(player.cocks[0].cockType == 1) outputText("climbs atop your " + cockDescript(0) + ", hanging onto your ring of prepuce and wrapping her legs as far around your horse-like maleness as she can.  ", false);
-		else if(player.cocks[0].cockType == 3) outputText("climbs atop your " + cockDescript(0) + ", hanging on to the corrupted nubs and nodules as she threads her legs between them, squeezing you tightly as she hangs on.  You can feel her wet gash sitting atop a particularly sensitive bump, teasing you with a tiny cunt you'll never be able to penetrate.  ", false);
-		else if(player.cocks[0].cockType == 4) outputText("climbs onto your squirming " + cockDescript(0) + ", wrapping her legs tightly around it as it wiggles and writhes with excitement.  Unbidden, it curls around and rubs its reddish-purple head against her face like an animal.  She gives it a gentle squeeze and licks it.  ", false);
+		else if(player.cocks[0].cockType == CockTypesEnum.HORSE) outputText("climbs atop your " + cockDescript(0) + ", hanging onto your ring of prepuce and wrapping her legs as far around your horse-like maleness as she can.  ", false);
+		else if(player.cocks[0].cockType == CockTypesEnum.DEMON) outputText("climbs atop your " + cockDescript(0) + ", hanging on to the corrupted nubs and nodules as she threads her legs between them, squeezing you tightly as she hangs on.  You can feel her wet gash sitting atop a particularly sensitive bump, teasing you with a tiny cunt you'll never be able to penetrate.  ", false);
+		else if(player.cocks[0].cockType == CockTypesEnum.TENTACLE) outputText("climbs onto your squirming " + cockDescript(0) + ", wrapping her legs tightly around it as it wiggles and writhes with excitement.  Unbidden, it curls around and rubs its reddish-purple head against her face like an animal.  She gives it a gentle squeeze and licks it.  ", false);
 		else outputText("climbs on to your hardness, wrapping her legs tightly around it as she secures a perch against you.   You can feel her wet gash rubbing against your sensitive skin, teasing you with a tiny cunt you'll never be able to penetrate.  ", false);
 		outputText("Your internal muscles clench unconsciously, squeezing out a dollop of pre that rolls down into the faerie's hair, soaking her head and face.  You can't see her reaction, but you can feel it oozing between her body and you, lubricating her as she humps and rubs against you.  Tiny muffled moans escape your " + player.armorName + ", indicating that some part of her is enjoying the task.\n\n", false);
 		outputText("Though she can only stimulate a few inches of you at a time, it feels really good – better than it should, and a budding warmth on the edge of release builds inside you.  Too late you realize you should have gotten at least partially undressed.  You cum before you can do anything about it, splattering your " + player.armorName + " with seed and leaving a wet patch on the crotch.  You can feel it dripping back onto you and the faerie as more spunk squirts out, soaking the tiny girl in spooge as the wet spot grows.  ", false);

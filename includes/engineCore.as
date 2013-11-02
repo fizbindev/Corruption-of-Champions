@@ -1,7 +1,7 @@
 ﻿// import flash.events.MouseEvent;
 
-const DOUBLE_ATTACK_STYLE:int = 867;
-const SPELLS_CAST:int = 868;
+//const DOUBLE_ATTACK_STYLE:int = 867;
+//const SPELLS_CAST:int = 868;
 
 //Fenoxo loves his temps
 var temp:int = 0;
@@ -34,7 +34,7 @@ function maxHP():Number {
 }
 
 function silly():Boolean {
-	if(flags[305] == 1) return true;
+	if(flags[SILLY_MODE_ENABLE_FLAG] == 1) return true;
 	return false
 }
 
@@ -938,6 +938,12 @@ function perkLongDescription(perkName:String = ""):String {
 			return "You choose the 'Speedy Recovery' perk, boosting your fatigue recovery rate!";
 		case "Regeneration 2":
 			return "You choose the 'Regeneration 2' perk, giving an addition 2% of max HP per turn in combat and 4% of max HP per hour.";
+		case "Fera's Boon - Seeder":
+			return "Increases cum output by 1,000 mLs.";
+		case "Fera's Boon - Wide Open":
+			return "Keeps your pussy permanently gaped and increases pregnancy speed.";
+		case "Fera's Boon - Milking Twat":
+			return "Keeps your pussy from ever getting too loose and increases pregnancy speed.";
 		case "Tank 2":
 			return "You choose the 'Tank 2' perk, granting an extra maximum HP for each point of toughness.";
 		case "Weapon Mastery":
@@ -1279,6 +1285,12 @@ function perkDescription(perkName:String = ""):String {
 		case "Regeneration 2":
 			return "Gain 2% of max HP per round of combat and 4% of max HP per hour out of combat.";
 			break;
+		case "Fera's Boon - Seeder":
+			return "Increases cum output by 1,000 mLs.";
+		case "Fera's Boon - Wide Open":
+			return "Keeps your pussy permanently gaped and increases pregnancy speed.";
+		case "Fera's Boon - Milking Twat":
+			return "Keeps your pussy from ever getting too loose and increases pregnancy speed.";
 		case "Spellcasting Affinity":
 			return "Reduces spell costs by " + player.perkv1("Spellcasting Affinity") + "%.";
 			break;
@@ -3599,6 +3611,20 @@ function mouseOverTextin(e:MouseEvent, texts:String)
 		mouseOverText.htmlText = "How to play.  Starting tips.  And hotkeys for easy left-handed play...";
 		return;
 	}
+	if(texts.indexOf("Settings") != -1) {
+		positionMOB(e.target.x, e.target.y)			
+		mouseOverText.visible = true;
+		popUpBG.visible = true;
+		mouseOverText.htmlText = "Configure game settings and enable cheats.";
+		return;
+	}
+	if(texts.indexOf("ASPLODE") != -1) {
+		positionMOB(e.target.x, e.target.y)			
+		mouseOverText.visible = true;
+		popUpBG.visible = true;
+		mouseOverText.htmlText = "MAKE SHIT ASPLODE";
+		return;
+	}
 	mouseOverText.visible = false;
 	popUpBG.visible = false;
 }
@@ -3964,78 +3990,6 @@ function menu(text1:String = "", func1:Function = null, arg1:Number = -9000, tex
 	scrollBar.update();
 }
 
-/*
-function choices(text1:String, butt1:Number, 
-					text2:String, butt2:Number, 
-					text3:String, butt3:Number, 
-					text4:String, butt4:Number, 
-					text5:String, butt5:Number, 
-					text6:String, butt6:Number, 
-					text7:String, butt7:Number, 
-					text8:String, butt8:Number, 
-					text9:String, butt9:Number, 
-					text0:String, butt0:Number):void 
-{
-	//Transfer event code to storage
-	buttonEvents[0] = butt1;
-	buttonEvents[1] = butt2;
-	buttonEvents[2] = butt3;
-	buttonEvents[3] = butt4;
-	buttonEvents[4] = butt5;
-	buttonEvents[5] = butt6;
-	buttonEvents[6] = butt7;
-	buttonEvents[7] = butt8;
-	buttonEvents[8] = butt9;
-	buttonEvents[9] = butt0;
-	//Set button texts
-	b1Text.htmlText = text1;
-	b2Text.htmlText = text2;
-	b3Text.htmlText = text3;
-	b4Text.htmlText = text4;
-	b5Text.htmlText = text5;
-	b6Text.htmlText = text6;
-	b7Text.htmlText = text7;
-	b8Text.htmlText = text8;
-	b9Text.htmlText = text9;
-	b0Text.htmlText = text0;
-
-
-	var bTextArr:Array = new Array( b1Text,
-									b2Text,
-									b3Text,
-									b4Text,
-									b5Text,
-									b6Text,
-									b7Text,
-									b8Text,
-									b9Text,
-									b0Text);
-
-	var j:int;
-
-	// iterate over the button options, and only enable the ones which have a corresponding event number
-
-	for (j = 0; j < 10; j += 1)
-	{
-
-		if(buttonEvents[j] == 0) {
-			bTextArr[j].visible = false;
-			gButtons[j].visible = false;
-		}
-		else {
-			bTextArr[j].visible = true;
-			gButtons[j].visible = true;
-		}
-
-	}
-
-
-	funcs = new Array();
-	args = new Array();
-	mainText.htmlText = currentText;
-	scrollBar.update();
-}
-*/
 
 function choices(text1:String, butt1:*, 
 						text2:String, butt2:*, 
@@ -4108,121 +4062,58 @@ function choices(text1:String, butt1:*,
 	scrollBar.update();
 }
 
-
-function simpleChoices(text1:String, butt1:Number, text2:String, butt2:Number, text3:String, butt3:Number, text4:String, butt4:Number, text5:String, butt5:Number):void 
+// simpleChoices and doYesNo are convenience functions. They shouldn't re-implement code from choices()
+function simpleChoices(text1:String, butt1:*, 
+						text2:String, butt2:*, 
+						text3:String, butt3:*, 
+						text4:String, butt4:*, 
+						text5:String, butt5:*):void 
 {
-	//Cancel change due to game being over
+
+	trace("SimpleChoices");
+	choices(text1,butt1,
+			text2,butt2,
+			text3,butt3,
+			text4,butt4,
+			text5,butt5,
+			"",0,
+			"",0,
+			"",0,
+			"",0,
+			"",0);
+}
+
+function doYesNo(eventYes:*, eventNo:*):void {
+	//Make buttons 1-2 visible and hide the rest.
+
+	trace("doYesNo");
+	choices("Yes",eventYes,
+			"No",eventNo,
+			"",0,
+			"",0,
+			"",0,
+			"",0,
+			"",0,
+			"",0,
+			"",0,
+			"",0);
+
+}
+
+
+
+function doNext(eventNo:*):void {
+	//Prevent new events in combat from automatically overwriting a game over. 
 	if(b1Text.text.indexOf("Game Over") != -1) {
-		trace("simplechoices setup cancelled by game over");
+		trace("Do next setup cancelled by game over");
 		return;
 	}
-	//outputText("", false, true);
-	//Transfer event code to storage
-	buttonEvents[0] = butt1;
-	buttonEvents[1] = butt2;
-	buttonEvents[2] = butt3;
-	buttonEvents[3] = butt4;
-	buttonEvents[4] = butt5;
-	buttonEvents[5] = 0;
-	buttonEvents[6] = 0;
-	buttonEvents[7] = 0;
-	buttonEvents[8] = 0;
-	buttonEvents[9] = 0;
-	//Set button texts
-	b1Text.htmlText = text1;
-	b2Text.htmlText = text2;
-	b3Text.htmlText = text3;
-	b4Text.htmlText = text4;
-	b5Text.htmlText = text5;
-	if(buttonEvents[0] == 0) {
-		b1Text.visible = false;
-		gButtons[0].visible = false;
-	}
-	else {
-		b1Text.visible = true;
-		gButtons[0].visible = true;
-	}
-	if(buttonEvents[1] == 0) {
-		b2Text.visible = false;
-		gButtons[1].visible = false;
-	}
-	else {
-		b2Text.visible = true;
-		gButtons[1].visible = true;
-	}
-	if(buttonEvents[2] == 0) {
-		b3Text.visible = false;
-		gButtons[2].visible = false;
-	}
-	else {
-		b3Text.visible = true;
-		gButtons[2].visible = true;
-	}
-	if(buttonEvents[3] == 0) {
-		b4Text.visible = false;
-		gButtons[3].visible = false;
-	}
-	else {
-		b4Text.visible = true;
-		gButtons[3].visible = true;
-	}
-	if(buttonEvents[4] == 0) {
-		b5Text.visible = false;
-		gButtons[4].visible = false;
-	}
-	else {
-		b5Text.visible = true;
-		gButtons[4].visible = true;
-	}
-	b6Text.visible = false;
-	gButtons[5].visible = false;
-	b7Text.visible = false;
-	gButtons[6].visible = false;
-	b8Text.visible = false;
-	gButtons[7].visible = false;
-	b9Text.visible = false;
-	gButtons[8].visible = false;
-	b0Text.visible = false;
-	gButtons[9].visible = false;
-	funcs = new Array();
-	args = new Array();
-	mainText.htmlText = currentText;
-	scrollBar.update();
+	
+	trace("DoNext have item:", eventNo);
+	choices("Next", eventNo, "", 0, "", 0, "", 0, "", 0, "", 0, "", 0, "", 0, "", 0, "", 0); 
 }
 
-function doYesNo(eventYes:Number, eventNo:Number):void {
-	//Make buttons 1-2 visible and hide the rest.
-	b1Text.visible = true;
-	gButtons[0].visible = true;
-	b2Text.visible = true;
-	gButtons[1].visible = true;
-	buttonEvents[0] = eventYes;
-	buttonEvents[1] = eventNo;
-	b1Text.htmlText = "Yes";
-	b2Text.htmlText = "No";
-	//Hide the others.
-	b3Text.visible = false;
-	gButtons[2].visible = false;
-	b4Text.visible = false;
-	gButtons[3].visible = false;
-	b5Text.visible = false;
-	gButtons[4].visible = false;
-	b6Text.visible = false;
-	gButtons[5].visible = false;
-	b7Text.visible = false;
-	gButtons[6].visible = false;
-	b8Text.visible = false;
-	gButtons[7].visible = false;
-	b9Text.visible = false;
-	gButtons[8].visible = false;
-	b0Text.visible = false;
-	gButtons[9].visible = false;
-	outputText("", false, true);
-	funcs = new Array();
-	args = new Array();
-	mainText.htmlText = currentText;
-	scrollBar.update();
-}
+
 function invertGo():void{ 
 	if (blackBackground.visible == false){
 		blackBackground.visible = true;
@@ -4588,8 +4479,8 @@ function displayStats(e:MouseEvent) {
 		else outputText("100%\n", false);
 	}
 	//MINO!
-	if(flags[340] > 0 || flags[18] > 0 || player.hasPerk("Minotaur Cum Addict") >= 0) {
-		if(player.hasPerk("Minotaur Cum Addict") < 0) outputText("<b>Minotaur Cum Addiction:</b> " + Math.round(flags[18] * 10)/10 + "%\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00340] > 0 || flags[MINOTAUR_CUM_ADDICTION_TRACKER] > 0 || player.hasPerk("Minotaur Cum Addict") >= 0) {
+		if(player.hasPerk("Minotaur Cum Addict") < 0) outputText("<b>Minotaur Cum Addiction:</b> " + Math.round(flags[MINOTAUR_CUM_ADDICTION_TRACKER] * 10)/10 + "%\n", false);
 		else outputText("<b>Minotaur Cum Addiction:</b> 100+%\n", false);
 	}
 	if(player.hasPerk("Spider Ovipositor") >= 0 || player.hasPerk("Bee Ovipositor") >= 0) outputText("<b>Ovipositor Total Egg Count: " + player.eggs() + "\nOvipositor Fertilized Egg Count: " + player.fertilizedEggs() + "</b>\n");
@@ -4601,6 +4492,7 @@ function displayStats(e:MouseEvent) {
 		if(player.hasPerk("Brood Mother") >= 0) preg++;
 		if(player.hasPerk("Fera's Boon - Breeding Bitch") >= 0) preg++;
 		if(player.hasPerk("Magical Fertility") >= 0) preg++;
+		if(player.hasPerk("Fera's Boon - Wide Open") >= 0 || player.hasPerk("Fera's Boon - Milking Twat") >= 0) preg++;
 		outputText(preg + "\n", false);
 	}	
 	if(player.hasStatusAffect("Slime Craving") >= 0) {
@@ -4620,11 +4512,11 @@ function displayStats(e:MouseEvent) {
 	if(benoitAffection() > 0) outputText("<b>" + benoitMF("Benoit","Benoite") + " Affection: </b>" + Math.round(benoitAffection()) + "%\n");
 	if(flags[BENOIT_EGGS] > 0) outputText("<b>Benoit Eggs Laid: </b>" + flags[BENOIT_EGGS] + "\n");
 	if(flags[BROOKE_MET] > 0) outputText("<b>Brooke Affection: </b>" + Math.round(brookeAffection()) + "\n");
-	if(flags[218]+flags[219]+flags[220] > 0) outputText("<b>Body Parts Taken By Ceraph: </b>" + (flags[218]+flags[219]+flags[220]) + "\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00218]+flags[UNKNOWN_FLAG_NUMBER_00219]+flags[UNKNOWN_FLAG_NUMBER_00220] > 0) outputText("<b>Body Parts Taken By Ceraph: </b>" + (flags[UNKNOWN_FLAG_NUMBER_00218]+flags[UNKNOWN_FLAG_NUMBER_00219]+flags[UNKNOWN_FLAG_NUMBER_00220]) + "\n", false);
 	if(flags[COTTON_KID_COUNT] > 0) outputText("<b>Children With Cotton: </b>" + flags[COTTON_KID_COUNT] + "\n");
-	if(flags[69] > 0) outputText("<b>Children With Edryn: </b>" + flags[69] + "\n", false);
-	if(flags[251]+flags[252] > 0) outputText("<b>Children With Izma: </b>" + (flags[251]+flags[252]) + "\n", false);
-	if(flags[8] > 0) outputText("<b>Children With Marble:</b> " + flags[8] + "\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00069] > 0) outputText("<b>Children With Edryn: </b>" + flags[UNKNOWN_FLAG_NUMBER_00069] + "\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00251]+flags[UNKNOWN_FLAG_NUMBER_00252] > 0) outputText("<b>Children With Izma: </b>" + (flags[UNKNOWN_FLAG_NUMBER_00251]+flags[UNKNOWN_FLAG_NUMBER_00252]) + "\n", false);
+	if(flags[MARBLE_KIDS] > 0) outputText("<b>Children With Marble:</b> " + flags[MARBLE_KIDS] + "\n", false);
 	if(flags[ANT_KIDS] > 0) outputText("<b>Ant Children With Phylla:</b> " + flags[ANT_KIDS] + "\n");
 	if(flags[PHYLLA_DRIDER_BABIES_COUNT] > 0) outputText("<b>Drider Children With Phylla:</b> " + flags[PHYLLA_DRIDER_BABIES_COUNT] + "\n");
 	if(flags[SHEILA_JOEYS] > 0) outputText("<b>Children With Sheila (Joeys):</b> " + flags[SHEILA_JOEYS] + "\n");
@@ -4641,7 +4533,7 @@ function displayStats(e:MouseEvent) {
 	}
 	if(player.statusAffectv2("Tamani") > 0) outputText("<b>Children With Tamani: </b>" + player.statusAffectv2("Tamani") + " (after all forms of natural selection)\n", false);
 	if(urtaKids() > 0) outputText("<b>Children With Urta: </b>" + urtaKids() + "\n");
-	if(flags[94] > 0) outputText("<b>Eggs Fertilized For Sophie: </b>" + (flags[94] + sophie) + "\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00094] > 0) outputText("<b>Eggs Fertilized For Sophie: </b>" + (flags[UNKNOWN_FLAG_NUMBER_00094] + sophie) + "\n", false);
 	if(emberAffection() > 0) outputText("<b>Ember Affection:</b> " + Math.round(emberAffection()) + "%\n");
 	if(emberChildren() > 0) {
 		outputText("<b>Ember Offspring (Males): </b>" + flags[EMBER_CHILDREN_MALES] + "\n");
@@ -4663,15 +4555,15 @@ function displayStats(e:MouseEvent) {
 		if(followerKiha()) outputText("<b>Kiha Affection:</b> " + 100 + "%\n", false);
 		else outputText("<b>Kiha Affection:</b> " + Math.round(flags[KIHA_AFFECTION]) + "%\n", false);
 	}
-	if(flags[35] > 0) outputText("<b>Litters With Amily: </b>" + (flags[40]+ flags[162]) + "\n", false);
+	if(flags[AMILY_MET] > 0) outputText("<b>Litters With Amily: </b>" + (flags[AMILY_BIRTH_TOTAL]+ flags[PC_TIMES_BIRTHED_AMILYKIDS]) + "\n", false);
 	//Lottie stuff
-	if(flags[281] > 0) {
+	if(flags[UNKNOWN_FLAG_NUMBER_00281] > 0) {
 		outputText("<b>Lottie's Encouragement: </b>" + lottieMorale() + " (higher is better)\n", false);
 		outputText("<b>Lottie's Figure: </b>" + lottieTone() + " (higher is better)\n", false);
 	}
 	//Mino sons
-	if(flags[326] > 0) {
-		outputText("<b>Number of Adult Minotaur Offspring: </b>" + flags[326] + "\n", false);
+	if(flags[UNKNOWN_FLAG_NUMBER_00326] > 0) {
+		outputText("<b>Number of Adult Minotaur Offspring: </b>" + flags[UNKNOWN_FLAG_NUMBER_00326] + "\n", false);
 	}
 	if(flags[OWCAS_ATTITUDE] > 0) outputText("<b>Owca's Attitude: </b>" + flags[OWCAS_ATTITUDE] + "\n");
 	if(flags[SHEILA_XP] != 0) {
@@ -4686,10 +4578,10 @@ function displayStats(e:MouseEvent) {
 	if(rubiAffection() > 0) outputText("<b>Rubi's Affection:</b> " + Math.round(rubiAffection()) + "%\n");
 	if(rubiAffection() > 0) outputText("<b>Rubi's Orifice Capacity:</b> " + Math.round(rubiCapacity()) + "%\n");
 	
-	if(flags[12] != 0) {
+	if(flags[URTA_COMFORTABLE_WITH_OWN_BODY] != 0) {
 		if(urtaLove()) outputText("<b>Urta Status: </b>Lover\n");
-		else if(flags[12] == -1) outputText("<b>Urta Status: </b>Ashamed\n");
-		else if(flags[29] < 30) outputText("<b>Urta Status: </b>" + Math.round(flags[29] * 3.3333) + "% Affection\n");
+		else if(flags[URTA_COMFORTABLE_WITH_OWN_BODY] == -1) outputText("<b>Urta Status: </b>Ashamed\n");
+		else if(flags[URTA_PC_AFFECTION_COUNTER] < 30) outputText("<b>Urta Status: </b>" + Math.round(flags[URTA_PC_AFFECTION_COUNTER] * 3.3333) + "% Affection\n");
 		else outputText("<b>Urta Status: </b>Ready To Confess Love\n");
 	}
 	
@@ -4752,7 +4644,7 @@ function lustPercent():Number {
 //Modify stats
 function stats(stre:Number, toug:Number, spee:Number, intel:Number, libi:Number, sens:Number, lust2:Number, corr:Number, resisted:Boolean = true) {
 	//Easy mode cuts lust gains!
-	if(flags[99] == 1 && lust2 > 0 && resisted) lust2 /= 2;
+	if(flags[EASY_MODE_ENABLE_FLAG] == 1 && lust2 > 0 && resisted) lust2 /= 2;
 	//Set original values to begin tracking for up/down values if
 	//they aren't set yet.
 	//These are reset when up/down arrows are hidden with 
@@ -4964,7 +4856,7 @@ function cuntChangeOld(cIndex:Number, vIndex:Number, display:Boolean):void {
 }
 
 function spriteSelect(choice:Number = 0):void {
-	if(choice < 0 || flags[273] == 1) sprite.visible = false;
+	if(choice < 0 || flags[SHOW_SPRITES_FLAG]) sprite.visible = false;
 	else {
 		sprite.visible = true;
 		sprite.gotoAndStop(choice);
@@ -4973,7 +4865,8 @@ function spriteSelect(choice:Number = 0):void {
 	}
 }
 
-loadImage("artPack/white_devil_urta.jpg");
+//DEPRECATED. Images are handled by ImageManager class in classes
+/*loadImage("artPack/white_devil_urta.jpg");
 
 function loadImage(imageURL:String) {
     var imageLoader:Loader = new Loader();
@@ -4987,7 +4880,12 @@ function ImageLoaded(e:Event) {
     //this.addChild(e.target.loader.content); // loaded content is stored in e.target.loader.content variable
 	images[images.length] = e.target.loader.content;
 }
+/*The stuff below is a stupid experiment, all except the following line:
+<img src='artPack/white_devil_urta.jpg' width='400' height='514'/>
+Drop that into the text in a scene and BLAMMO! You got an Urta pic. It looks like you need to 
+have the width and height both specified to do it
 
+//Deprecated. Using showImage from ImageManager now.
 function showImage(arg:Number = 0):void {
 	if(arg > images.length-1) {
 		trace("Attempt to show invalid image!");
@@ -5008,4 +4906,4 @@ function clearImages():void {
 	}
 	mainText.x = 208.5;
 	mainText.width = 771.4;
-}
+}*/

@@ -1,4 +1,4 @@
-﻿const SATYR_KIDS:int = 603;
+﻿//const SATYR_KIDS:int = 603;
 //Game Implementation (code from here)
 //Fight Encounter (Z)
 //Happens either in the plains or the swamp.
@@ -181,7 +181,7 @@ function consensualSatyrFuck(loc:int = 0):void {
 	}
 	//What should you do?
 	//[Trick him] [Keep Drinking] [Skip Foreplay] [Leave]
-	simpleChoices("Trick Him",trick,"Keep Drinking",3872,"Skip Foreplay",foreplay,"",0,"Leave",3873);
+	simpleChoices("Trick Him",trick,"Keep Drinking",keepDrinking,"Skip Foreplay",foreplay,"",0,"Leave",leavePartySatyr);
 }
 
 //[=Keep Drinking=]
@@ -250,7 +250,7 @@ function skipForeplay():void {
 	outputText("\n\nThe satyr looks surprised, then grins.  \"<i>Very well, if you insist...</i>\" he purrs, reaching out to grab and push you to the ground, tearing roughly at your [armor] until you are naked.");
 	
 	//Play appropriate willing sex scene//
-	doNext(3878);
+	doNext(willinglyBoneSatyr);
 }
 
 //Sex Scenes
@@ -543,7 +543,7 @@ function trappedSatyr():void {
 	else {
 		outputText("You can see his goat tail flitting happily above his tight, squeezable asscheeks, the loincloth discarded beside him failing to obscure his black cherry, ripe for the picking.  Do you take advantage of his distraction and ravage his ass while he's helpless?\n\n", false);
 		//[Yes] [No]
-		simpleChoices("Ravage",3238,"",0,"",0,"",0,"Leave",3237);
+		simpleChoices("Ravage",rapeSatyr,"",0,"",0,"",0,"Leave",ignoreSatyr);
 	}
 }
 
@@ -577,7 +577,7 @@ function rapeSatyr():void {
 	
 	outputText("The satyr lets out a startled yelp, struggling against you, but between his awkward position and the mutant flower ravenously sucking on his sizable cock, he's helpless.\n\n", false);
 	
-	outputText("You slap his butt with a open palm, leaving a clear mark on his taut behind.  He bleats, bucking wildly, but this serves only to slam his butt into your crotch until the flower hungrily sucks him back, sliding him off your prick.  You smile as a wicked idea hits you; you hit his ass again and again, making him buck into your throbbing " + cockNoun(player.cocks[x].cockType) + ", while the flower keeps pulling him back inside; effectively making the satyr fuck himself.\n\n", false);
+	outputText("You slap his butt with a open palm, leaving a clear mark on his taut behind.  He bleats, bucking wildly, but this serves only to slam his butt into your crotch until the flower hungrily sucks him back, sliding him off your prick.  You smile as a wicked idea hits you; you hit his ass again and again, making him buck into your throbbing " + Appearance.cockNoun(player.cocks[x].cockType) + ", while the flower keeps pulling him back inside; effectively making the satyr fuck himself.\n\n", false);
 	
 	outputText("Eventually, his bleating and screaming start to annoy you, so you silence him by grabbing at his horns and shoving his head to the side, into one of the breast-like growths nearby.  The satyr unthinkingly latches onto the floral nipple and starts to suckle, quieting him as you hoped.  You're not sure why, but he starts to voluntarily buck back and forth between you and the flower; maybe he's getting into the spirit of things, or maybe the vegetal teat he's pulling on has introduced an aphrodisiac chemical after so many violent attempts to pull out of the kindred flower.\n\n", false);
 	
@@ -608,7 +608,7 @@ function rapeSatyr():void {
 	outputText("As you watch the lewd display, you feel your arousal building and your " + cockDescript(x) + " growing back into full mast. Figuring you already have a willing slut readily available, you consider using him to relieve yourself once more... What do you do?", false);
 	stats(0,0,0,0,0,0,-100,0);
 	//[Again][Leave]
-	simpleChoices("Again",3240,"",0,"",0,"",0,"Leave",3239);
+	simpleChoices("Again",secondSatyrFuck,"",0,"",0,"",0,"Leave",dontRepeatFuckSatyr);
 }
 
 //[=Leave=]

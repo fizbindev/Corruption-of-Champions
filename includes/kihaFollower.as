@@ -21,21 +21,21 @@
 //ANAL CAPACITY = 94
 
 //-1 = left to spiders, 0 = normal, 1 = friend, 2 = warm
-const KIHA_AFFECTION_LEVEL:int = 421;
+//const KIHA_AFFECTION_LEVEL:int = 421;
 //Used during warm.  Maxes at 100
-const KIHA_AFFECTION:int = 422;
+//const KIHA_AFFECTION:int = 422;
 //0 = normal, 1 = Kiha has bitched/moved out about corruption, 2 she came back
-const KIHA_CORRUPTION_BITCH:int = 423;
-const KIHA_NEED_SPIDER_TEXT:int = 424;
+//const KIHA_CORRUPTION_BITCH:int = 423;
+//const KIHA_NEED_SPIDER_TEXT:int = 424;
 //1 if they fucked, -1 if you ran
-const KIHA_AND_HEL_WHOOPIE:int = 425;
-const KIHA_ADMITTED_WARM_FEELINZ:int = 426;
-const KIHA_MOVE_IN_OFFER:int = 427;
-const KIHA_FOLLOWER:int = 428;
-const KIHA_NEEDS_TO_REACT_TO_HORSECOCKING:int = 429;
-const KIHA_CERVIXGINITY_TAKEN:int = 430;
-const KIHA_HORSECOCK_FUCKED:int = 431;
-const KIHA_CAMP_WATCH:int = 982;
+//const KIHA_AND_HEL_WHOOPIE:int = 425;
+//const KIHA_ADMITTED_WARM_FEELINZ:int = 426;
+//const KIHA_MOVE_IN_OFFER:int = 427;
+//const KIHA_FOLLOWER:int = 428;
+//const KIHA_NEEDS_TO_REACT_TO_HORSECOCKING:int = 429;
+//const KIHA_CERVIXGINITY_TAKEN:int = 430;
+//const KIHA_HORSECOCK_FUCKED:int = 431;
+//const KIHA_CAMP_WATCH:int = 982;
 
 function followerKiha():Boolean {
 	if(flags[KIHA_CORRUPTION_BITCH] == 1) return false;
@@ -92,7 +92,7 @@ function loseKihaPreSpiderFight():void {
 
 	outputText("You could warn Kiha of the approaching mob - or you could let them jump her and scamper away in the confusion, leaving Kiha to whatever horrible fate awaits her.  What do you do?", false);
 	//(Display Options: [Warn Kiha] [Let Them])
-	simpleChoices("Warn Kiha",3418,"Let Them",3419,"",0,"",0,"",0);
+	simpleChoices("Warn Kiha",warnKihaOfHerImpendingDemise,"Let Them",letTheSpidersHaveTheirWayWithKiha,"",0,"",0,"",0);
 }
 
 //Player Wins Against Kiha (Z)
@@ -111,7 +111,7 @@ function playerBeatsUpKihaPreSpiderFight():void {
 
 	outputText("You could make like a baker and move your buns, but Gods knows what will happen to Kiha if you do.", false);
 	//(Display Options: [Help Kiha] [Leave Her]
-	simpleChoices("Help Kiha",3420,"Leave Her",3421,"",0,"",0,"",0);
+	simpleChoices("Help Kiha",helpKihaAgainstSpoidahs,"Leave Her",leaveKihaToSpoidahHorde,"",0,"",0,"",0);
 }
 
 //Warn Kiha (Z)
@@ -360,7 +360,7 @@ function kihaFriendlyGreeting(output = true):void {
 	var talk:int = 0;
 	if(flags[KIHA_TALK_STAGE] < 6) talk = 3426;
 	//(Display Options: [Talk] [Spar] [Hug] [Leave]
-	simpleChoices("Talk",talk,"Spar",3422,"Hug",3425,"",0,"Leave",13);
+	simpleChoices("Talk",talk,"Spar",sparWithKiha,"Hug",hugFriendWarmKiha,"",0,"Leave",13);
 }
 //Spar with Friendly Kiha - Intro (Z)
 function sparWithKiha():void {
@@ -492,7 +492,7 @@ function kihaXSalamander():void {
 	outputText("[pg]You consider warning the dragoness, but too late!  The mysterious figure leaps from the brush and shoulder-slams into Kiha, throwing her right off you and into the mud.  Before you can even say a word to your new friend, she grabs you by the scruff of your neck and throws you to the ground behind her, putting herself between you and Kiha.", false);
 	outputText("[pg]You could just lie there, but you're not sure how well you'd fare against two powerful warriors at once - you could end up dominated, at the very least.  You could instead try and get the jump on the fighters before they jump you... Or, you suppose you could get the fuck out while you have the chance.", false);
 	//(Display Options: [Lie There] [Jump Them] [GTFO])
-	simpleChoices("Lie There",3424,"Jump Them",3427,"GTFO",3423,"",0,"",0);
+	simpleChoices("Lie There",lieThere,"Jump Them",jumpDaBitches,"GTFO",GTFO,"",0,"",0);
 }
 
 //GTFO (Z)
@@ -635,7 +635,7 @@ function kihaAdmitsSheLikesYourWang():void {
 		outputText("Kiha lightly drops out of the trees in front of you, kicking up a small splash of fetid water as she comes to rest a few feet away.  She rests her axe over her shoulder nonchalantly and smiles as she says, \"<i>Did you come back to get your ass kicked?  You wouldn't be the first to throw fights so you could check me out while you're lying on the ground.</i>\"  Her tail swings around to playfully catch you on the " + buttDescript() + ", a hint of crimson spreading on her dark skin, matching the ruby hue of her shimmering scales.  Kiha strikes a battle-ready pose that looks a bit more lewd than normal as she asks, \"<i>So, you here to fight, or waste more time talking?</i>\"");
 		outputText("[pg]Do you hug her, and potentially take things to the next level, or would you rather do something else?");
 	}
-	simpleChoices("Talk",0,"Spar",3422,"Hug",3425,"LovinHug",3445,"Leave",13);
+	simpleChoices("Talk",0,"Spar",sparWithKiha,"Hug",hugFriendWarmKiha,"LovinHug",lovinHugKiha,"Leave",13);
 }
 //Loving Hug
 function lovinHugKiha():void {
@@ -673,9 +673,9 @@ function lovinHugKiha():void {
 	outputText("[pg]\"<i>Does getting dragons off really make you that light-headed?</i>\" Kiha asks.  She tackles you into her bed before you can answer.  Her attitude, while still fierce, reminds you more of a playful kitten than a threat.", false);
 	//[Route to appropriate sex scene!]
 	stats(0,0,0,0,0,0,100,0);
-	if(player.hasCock()) doNext(3428);
-	else if(player.hasVagina()) doNext(3429);
-	else doNext(3430);
+	if(player.hasCock()) doNext(lovingHugDickings);
+	else if(player.hasVagina()) doNext(lovingHugsGirlFuckSex);
+	else doNext(lovingHugsForRetards);
 }
 //Loving Hug Continued: Dicks Ahoy!
 function lovingHugDickings():void {
@@ -799,7 +799,7 @@ function warmLoverKihaIntro(output:Boolean = true):void {
 			}
 			outputText("When you approach your dragoness lover, a warm smile spreads across her dark features.  She gives you a playful punch on the shoulder and laughs, \"<i>Hey, doofus. You need something -- maybe a little dragon loving?</i>\" she adds with a wink.");
 			leave = 121;
-			//choices("Hang Out",3431,"Hug",3425,"InviteCamp",campo,"Sex",3434,"Spar",3422,"",0,"",0,"",0,"",0,"Leave",leave);
+			//choices("Hang Out",hangOutWithKiha,"Hug",hugFriendWarmKiha,"InviteCamp",campo,"Sex",kihaSexMenu,"Spar",sparWithKiha,"",0,"",0,"",0,"",0,"Leave",leave);
 			menu();
 			addButton(0,"Hang Out",eventParser,3431);
 			addButton(1,"Hug",eventParser,3425);
@@ -825,7 +825,7 @@ function warmLoverKihaIntro(output:Boolean = true):void {
 	//   Biggus Dickus // Vaginal // Anal // 69+Tail // Tail Pegging // Item/Morph-specific scenes?
 	//-[Invite to Camp] (If KihaAffection >= 200)
 	//-[Leave])
-	choices("Hang Out",3431,"Hug",3425,"InviteCamp",campo,"Sex",3434,"Spar",3422,"",0,"",0,"",0,"",0,"Leave",leave);
+	choices("Hang Out",hangOutWithKiha,"Hug",hugFriendWarmKiha,"InviteCamp",campo,"Sex",kihaSexMenu,"Spar",sparWithKiha,"",0,"",0,"",0,"",0,"Leave",leave);
 }
 
 
@@ -1007,7 +1007,7 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 		temp = player.cockTotal();
 		while(temp > 0) {
 			temp--;
-			if(player.cocks[temp].cockType == 1 && player.cockArea(temp) >= 40) {
+			if(player.cocks[temp].cockType == CockTypesEnum.HORSE && player.cockArea(temp) >= 40) {
 				x = temp;
 				y = x+1;
 				break;
@@ -1023,7 +1023,7 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	if(minLust() < 50) outputText("half-turgid");
 	else outputText("always semi-hard");
 	outputText(" length of your ");
-	if(player.cocks[x].cockType == 1) outputText("fat horse-cock");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("fat horse-cock");
 	else outputText(cockDescript(x));
 	outputText(" flop free in the breeze.  The haughty dragoness's eyes zero in on [eachCock], a knowing smirk gracing her proud features as she takes in the sight of your swelling manhood", false);
 	if(player.cockTotal() > 1) outputText("s");
@@ -1032,38 +1032,38 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	outputText("[pg]Kiha drops down to her knees");
 	if(player.isTaur()) outputText(", crawling under your horse body");
 	outputText(", the better to examine your ");
-	if(player.cocks[x].cockType == 1) outputText("bestial equine dong");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("bestial equine dong");
 	else outputText("[cock " + y + "]");
 	outputText(" and its slowly-filling ");
-	if(player.cocks[x].cockType == 1) outputText("flared ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flared ");
 	outputText("tip.  A single dollop of creamy ooze drips from the wide, semi-dilated cum-slit in the center to plop on the floor, a strong reminder of your unquenched lust and potent virility.  The powerful warrioress sniffs experimentally, taking in the musky, aromatic odor of your thick maleness.  She licks her lips as she cradles the heavy shaft in her hands.  It pulses hotly from her touches, thrumming with each hammering beat of your heart.  She seems distracted by something, but shakes her head to clear to it.");
 	outputText("[pg]You part your lips to speak, ready to inquire about Kiha's distraction, at least, until Kiha's dark, spit-glossed lips press against your urethra, slowly spreading across the top of your ");
-	if(player.cocks[x].cockType == 1) outputText("flare's mesa");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flare's mesa");
 	else outputText(cockHead(x));
 	outputText(" as she opens wide.  ");
 	if(player.hasSheath()) outputText("She pumps you just above the sheath");
 	else outputText("She pumps your shaft");
 	outputText(" with one hand, using slow, even strokes that tickle every sensitive area.  ");
-	if(player.cocks[x].cockType == 1) outputText("Her other caresses the skin of your sheath, fingers slipping in between the folded outer skin and your dick's concealed, untouched flesh.  ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("Her other caresses the skin of your sheath, fingers slipping in between the folded outer skin and your dick's concealed, untouched flesh.  ");
 	else if(player.balls > 0) outputText("Her other fondles your [balls], steadily increasing your desire for release.  ");
 	else outputText("Her other fondles your taint, steadily increasing your desire for release.  ");
 	outputText("It feels almost supernaturally sensitive.");
 	if(player.inte < 20) {
 		outputText("  An unthinking, ");
-		if(player.cocks[x].cockType == 1) outputText("bestial whinny ");
+		if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("bestial whinny ");
 		else outputText("groan ");
 		outputText("of pleasure bursts from your lips, ");
 		if(player.isTaur()) outputText("hooves stamping as ");
 		outputText("your concern for the dragon evaporating thanks to the pleasure coursing through your ");
-		if(player.cocks[x].cockType == 1) outputText("animal");
+		if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("animal");
 		else outputText("well");
 		outputText("-endowed form.");
 	}
 	else outputText("  A ");
-	if(player.cocks[x].cockType == 1 || player.isTaur()) outputText("whinny ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE || player.isTaur()) outputText("whinny ");
 	else outputText("groan ");
 	var horse:Boolean = false;
-	if(player.cocks[x].cockType == 1 || player.isTaur()) horse = true;
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE || player.isTaur()) horse = true;
 	outputText("starts in your throat, but ");
 	if(horse) outputText("you catch yourself before you start braying like an animal");
 	else outputText("you catch yourself before it manages to escape your lips");
@@ -1072,21 +1072,21 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	else outputText("well");
 	outputText("-endowed form, you forget all about your concern for the dragon.");
 	outputText("[pg]Filled with mirth, the fiery orbs of Kiha's eyes watch your every reaction.  Her lips slowly stretch into a wide, obscene 'O' in order to accommodate the entire circumference of your mouth-wrecking ");
-	if(player.cocks[x].cockType == 1) outputText("beast-");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("beast-");
 	outputText("prick.  The ");
-	if(player.cocks[x].cockType == 1) outputText("thick flare");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("thick flare");
 	else outputText(cockHead(x));
 	outputText(" proves a satisfying challenge for your partner.  Working slowly, her jaw spreads wider and wider, the puffy softness of her lips squeezing and struggling waves of sensation up the root of your cock.  The blissful agony is soon over, as Kiha works the turgid ");
 	if(horse) outputText("animal ");
 	outputText("endowment into the interior of her mouth, the dragon-like tongue coiling your member as easily as a snake encircles its prey.");
 	outputText("[pg]Your reptilian lover bobs haltingly on your shaft.  Even with her efforts, she's struggling to slide more than a half-inch at a time through the lip-lined gateway to her mouth.  Consternated, she begins to pump you faster, ");
-	if(player.cocks[x].cockType == 1) outputText("her free hand eagerly caressing you inside your own sheath with inhuman warmth");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("her free hand eagerly caressing you inside your own sheath with inhuman warmth");
 	else {
 		if(player.balls > 0) outputText("her tongue working as much of your shaft as possible with inhuman warmth.");
 		else outputText("her free hand eagerly caressing your [balls] with inhuman warmth.");
 	}
 	outputText(".  Her eyes seem a trifle irritated, but the fire of arousal is far more visible in her gaze than that lesser, blighted emotion.  She works your dick like a woman possessed, rubbing, stroking, licking, and squeezing, every motion designed to please your ");
-	if(player.cocks[x].cockType == 1) outputText("big, pony-like prick.");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("big, pony-like prick.");
 	else outputText("[cock " + y + "].");
 	if(player.balls > 0) outputText("  Your [balls] smear and shudder against her chin, so tight, hot, and ready to explode.");
 	outputText("[pg]Kiha ");
@@ -1094,14 +1094,14 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	else if(player.hasVagina()) outputText("fondles your [vag]");
 	else outputText("gives her tongue an encouraging twist");
 	outputText(", and you can endure it no longer.  It's so hot, so tight, and so... right to have her like this, half-impaled on your shaft just as you start to cum.  Your [sack] tightens from the effort of expelling your seed, flooding your senses with the familiar, tight clench of orgasmic pleasure.  Kiha's mouth is stretched wider for the briefest moment by your swelling ");
-	if(player.cocks[x].cockType == 1) outputText("flare");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flare");
 	else outputText(cockHead(x));
 	outputText(", an incredulous yet hungry look plastered on her somewhat confused face.  The next second, she's gurgling and gulping, her mouth flooding with seed as you pump it out like a firehose.  ");
 	if(c <= 250) outputText("She manages to guzzle it all down without too much difficulty.");
 	else if(c <= 1000) outputText("Her eyes water, and trickles of cum run from her nose, but she still manages to gulp most of it down.");
 	else {
 		outputText("Her eyes water copiously as semen back-floods out her nostrils.  Her throat works to swallow it all, guzzling it noisily, but it just isn't enough.  Jizz squirts from the corners of her mouth and makes a mess of her heaving breasts before it finally winds down to a manageable level.  Her belly even looks a bit pudgy from all the ");
-		if(player.cocks[x].cockType == 1) outputText("animal ");
+		if(player.cocks[x].cockType.Index > 0 && player.cocks[x].cockType.Index < 10) outputText("animal ");
 		outputText("sperm she's been forced to swallow.");
 	}
 	outputText("[pg]Kiha pulls back and releases your tip from her sore, semen-drenched puckers.  She coughs and gasps for a moment, inadvertently smearing the salty sludge all over herself.  When she recovers, she sighs, \"<i>You got it everywhere, idiot.  Now I'll have to go get a bath, but first, you had better return the favor.</i>\"");
@@ -1119,12 +1119,12 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 		outputText("[if (isTaur = true) \"clambers out from beneath you, pulling herself onto a nearby rock, putting herself into position for your horse-body to mount her. She spreads her legs wide, her slick pussy releasing a tantalizing musk that begs for a cock to fill it.\" else \"leans back against a rock and spreads her legs, exposing you to a tantalizing, cock-filling scent\"]");
 	}
 	outputText(".  Pre-cum trails from your tip in thick ropes, swaying beneath your bobbing, blood-filled ");
-	if(player.cocks[x].cockType == 1) outputText("horse-");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("horse-");
 	outputText("cock.  That aroma... that wondrous odor.  It fills your nostrils, and as your hormone-flooded consciousness slowly turns it over, you recognize it for what it is - breeding scent.  You're smelling a female... no, a fertile female - a bitch, a ");
 	if(horse) outputText("mare");
 	else outputText("slut");
 	outputText("... a tight cock-sleeve already marked with your seed, just waiting to be mounted and impregnated with your young. You zero in on her cunt - her breeding hole - and step forward, ");
-	if(player.cocks[x].cockType == 1) {
+	if(player.cocks[x].cockType.Index > 0) {
 		if(player.isTaur()) outputText("throwing your hooves onto the rock, looming over Kiha");
 		else outputText("fondling your beastial tool with one hand");
 	}
@@ -1136,7 +1136,7 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	else outputText("\"<i>Fuck, why am I... ?!</i>\"  ");
 	outputText("you manage to wonder, instantly sidetracking yourself, \"<i>Mmmm... yes... fucking...</i>\"");
 	outputText("[pg]Kiha gives you an odd look when you roughly spread her legs and batter your ");
-	if(player.cocks[x].cockType == 1) outputText("flat ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flat ");
 	outputText("cockhead against her unprepared cunt.  A frightened squeak slips through her lips as you push harder and harder, eventually popping in with little care for your partners feelings - you're far too focused on plugging her womb full of your ");
 	if(horse) outputText("horse-");
 	outputText("spunk to worry about such trivialities.  The dragoness ");
@@ -1150,20 +1150,20 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	if(horse) outputText("savage shaft");
 	else outputText(cockDescript(x));
 	outputText(" over her face and forcing her to get a good whiff of your potent cock-scent.  Her eyes gradually lose their focus, gravitating down the thick cylinder of ");
-	if(player.cocks[x].cockType == 1) outputText("horse-");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("horse-");
 	outputText("meat slapping at her cheeks.  Soon, she is licking it in a daze.  Her breeding-scent is now much stronger in the air, perhaps double what it was before.  Judging her ready, you give her jaw a gentle smack and return to your previous task: insemination.");
 	outputText("[pg]Kiha babbles, \"<i>Wh-what's g-going onnn... mmm... smells nice... fuck me?</i>\"  Happily, you oblige.  After battering her lips open the first time, the repeat insertion goes much more smoothly, allowing the ");
-	if(player.cocks[x].cockType == 1) outputText("wide head of your stallion-shaft");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("wide head of your stallion-shaft");
 	else outputText(cockHead(x) + " of your " + cockDescript(x));
 	outputText(" to spear through Kiha's entrance and into her womanly canal.  She groans appreciably, and the wordless exultations of your mate are all the encouragement you need to push deeper, shoving inch after inch of ");
-	if(player.cocks[x].cockType == 1) outputText("well-lubed horse-dick");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("well-lubed horse-dick");
 	else outputText(cockDescript(x));
 	outputText(" into Kiha's fully-dilated pussy.  The dragon-cunt is nice and tight around your large");
-	if(player.cocks[x].cockType == 1) outputText(", mammalian");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText(", mammalian");
 	outputText(" member.  It slurps up inch after inch of pulsating cock, devouring your dick with a hunger born of the female's instinctive drives and desires.");
 	//{UPCOMING HENTAI LOGIC} 
 	outputText("[pg]Pussy-juice dribbles onto the ground and immediately disappears into the parched earth as you butt up against her cervix.  You draw back and thrust, smashing your ");
-	if(player.cocks[x].cockType == 1) outputText("flat-tipped horsecock");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flat-tipped horsecock");
 	else outputText(cockDescript(x));
 	outputText(" up against her inner entrance, pre-cum slipping through the tiny opening to baste her womb.  Each time you butt up against it, you feel Kiha's cervix give a little bit more, open up just a little wider.  Sweat runs down your body as you pump Kiha's cunt mercilessly, fucking her hard, just like the little ");
 	if(horse) outputText("mare ");
@@ -1179,10 +1179,10 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	if(player.balls) outputText("  You slap your [balls] into in her ass hard as you thrust, smearing them all over her sweaty ass and tail.");
 	else outputText("  You slap into her hard as you thrust, feeling her tail thrashing beneath your [butt].");
 	outputText("  The lust-lost warrior violently thrashes and begins to scream, not in pain, but bliss.  Her snatch clenches like a vice, wringing your ");
-	if(player.cocks[x].cockType == 1) outputText("equine ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("equine ");
 	else outputText("thick ");
 	outputText("inseminator in achingly tight hotness.  You bellow and bury yourself fully inside of her, clenching heat surging out from your [balls], dick-tip ");
-	if(player.cocks[x].cockType == 1) outputText("flaring ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flaring ");
 	else outputText("engorging ");
 	outputText("to seal itself inside your fuck-broken lover's baby-hole.  What feels like a gallon of seed lurches out from your cock.  Kiha's innards turn white from the creamy deluge");
 	if(c <= 250) outputText(", stuffed up with hot cum");
@@ -1191,7 +1191,7 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	else outputText(", her belly distending hugely, grossly even, utterly filled with cum until its squirting from her pussy in a river of white");
 	outputText(".");
 	outputText("[pg]Sighing, you pull out of the twitching dragoness.  Her violated twat runs white with cum, dripping out in the messiest creampie you've made in some time.  Kiha shivers and reaches down, scooping your musky ");
-	if(player.cocks[x].cockType == 1) outputText("animal-");
+	if(player.cocks[x].cockType.Index > 0) outputText("animal-");
 	outputText("cum from herself to sample its unique flavor.  The sight invigorates your flagging cock, raising it back to towering, horse-like proportions");
 	if(player.isTaur()) outputText(" until the shaft bumps your belly");
 	outputText(".  You've just started to breed this bitch!");
@@ -1202,27 +1202,27 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	if(player.isTaur()) outputText("you push her onto her hands and knees atop the rock and re-mount her, and ");
 	outputText("you slide your cock between Kiha's sweat-soaked asscheeks.  Some small part of you is aware that there's no sense mating this hole, but with the air so heavily laden in fuck-scent, you don't really care.");
 	outputText("[pg]You shove your ");
-	if(player.cocks[x].cockType == 1) outputText("flare");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flare");
 	else outputText(cockHead(x));
 	outputText(" against Kiha's tight anal opening, eliciting a squeal of surprise from your breeding bitch at the unexpected thrust.  Unfortunately, it's so tightly closed that you can't quite get in, even with all the juices soaking your cock.  Regretfully, you dip your dick into the river of slime that trails from your ");
 	if(horse) outputText("mare");
 	else outputText("slut");
 	outputText("'s cunny and try again.  Still, you cannot quite force your way in.  ");
-	if(player.cocks[x].cockType == 1) outputText("The unique shape of your cockhead makes such penetration difficult, but with animalistic stubbornness, you keep at it.");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("The unique shape of your cockhead makes such penetration difficult, but with animalistic stubbornness, you keep at it.");
 	else outputText("The sheer size of your cockhead makes such penetration difficult, but with animalistic stubbornness, you keep at it.");
 	outputText("  Battering against her pucker, relaxing, and circling the tight hole with your ");
-	if(player.cocks[x].cockType == 1) outputText("flare");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flare");
 	else outputText(cockHead(x));
 	outputText(", you work her asshole until it begins to give.  It won't be long now.");
 	if(player.isTaur()) outputText("[pg]You reach down and grab Kiha's tail, providing ");
 	else outputText("[pg]The dragon's limp tail provides ");
 	outputText("a suitable handhold to help level your tool into her dark, rear cavern.  Pulling hard on it, you ram forward, and at last, your slime-slicked ");
-	if(player.cocks[x].cockType == 1) outputText("horse-");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("horse-");
 	outputText("cock pops through Kiha's sphincter to nestle in her gut.  She's blessedly hot, and her back-door feels twice as tight as her well-fucked pussy.   It will be more than suitable for breeding.  ");
 	if(!player.isTaur()) outputText("You run a hand over her rump, stopping only to give it familiar slaps as y");
 	else outputText("Y");
 	outputText("ou force the rest of your thick ");
-	if(player.cocks[x].cockType == 1) outputText("animal-");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("animal-");
 	outputText("cock into the dragon's butthole.  Her tight, anal ring acts like a cock-ring for your immense member, keeping it ultra-hard inside her even as it kisses up ");
 	if(player.hasSheath()) outputText("to your sensitive sheath");
 	else outputText("to your sensitive loins");
@@ -1243,7 +1243,7 @@ function boneTheShitOutofKihaHolesWithHorsecock():void {
 	if(horse) outputText("the unquestionable authority of a herd alpha.");
 	else outputText("an unquestionable air of authority.");
 	outputText("  Kiha twists her head slightly, wincing as it pulls her hair.  She can only get far enough to let you see one of her reptilian eyes, but you can see drool hanging from her dusky lips as she speaks, \"<i>G-give it to me.  F-fill my ass.  Mount me!  CLAIM ME!</i>\"  You grunt and bottom out in her gut, your ");
-	if(player.cocks[x].cockType == 1) outputText("flare ");
+	if(player.cocks[x].cockType == CockTypesEnum.HORSE) outputText("flare ");
 	else outputText(cockHead(x) + " ");
 	outputText("spreading wide as you reach your absolute apex.  Cum surges through your body, stretching your urethra, opening the tip of your sensitive cumslit as it launches into your slut's rear.  She groans happily, her eyes rolling back and tongue lolling from her mouth.  Kiha's vocalizations aren't even words at this point, just animal grunts of pleasure, much like your own.  You flood her rectum with seed, pumping her rump with jism.  You hold her immobile against you until you finish inseminating her, and then, with a quick smack on her reddening cheek, you slide out and release her hair.");
 	if(c >= 3000) outputText("[pg]A torrent of cum runs from her overfilled butthole and cunt.  It seems there just isn't enough room inside her to hold it all, and with two plus-sized loads in her bottom holes, most of it has to escape.  Even with that, she still looks heavily pregnant, a perfect tribute to your unholy virility.");
@@ -1315,12 +1315,12 @@ function kihaPlaysWithBigassCocksFemDomAhoy():void {
 	if(followerKiha()) outputText("rock");
 	else outputText("tree");
 	outputText(" and sigh in contentment, happy to let Kiha tend to the omnipresent beast that hangs down with your [legs].  The heavy, sensitive burden that is your [cock biggest] is always making it hard to move, and worse, it practically immobilizes you when it gets hard.  But in moments like this, you're glad you have so much sensitive dick for Kiha's hands to explore");
-	if(player.cocks[x].cockType == 1) outputText(", particularly your medial ring and the sensitive edge of your flare.");
+	if(player.cocks[x].cockType == CockTypesEnum.HUMAN) outputText(", particularly your medial ring and the sensitive edge of your flare.");
 	else if(player.hasKnot(x)) outputText(", particularly your massive, bulging canid knot.");
-	else if(player.cocks[x].cockType == 3) outputText(", particularly the hundreds of demonic nodules that ring your shaft.");
-	else if(player.cocks[x].cockType == 7) outputText(", particularly the groups of aphrodisiac laced tentacles under your crown.");
-	else if(player.cocks[x].cockType == 4) outputText(", particularly the underside of your tentacle's mushroom-like tip.");
-	else if(player.cocks[x].cockType == 5) outputText(", particularly the hundreds of rubbery spines covering your feline maleness.");
+	else if(player.cocks[x].cockType == CockTypesEnum.DEMON) outputText(", particularly the hundreds of demonic nodules that ring your shaft.");
+	else if(player.cocks[x].cockType == CockTypesEnum.ANEMONE) outputText(", particularly the groups of aphrodisiac laced tentacles under your crown.");
+	else if(player.cocks[x].cockType == CockTypesEnum.TENTACLE) outputText(", particularly the underside of your tentacle's mushroom-like tip.");
+	else if(player.cocks[x].cockType == CockTypesEnum.CAT) outputText(", particularly the hundreds of rubbery spines covering your feline maleness.");
 	else outputText(".");
 	outputText("  The whole world seems to spin as Kiha's attentions bring you to ever-higher levels of pleasure, and you grab hold of her hips to steady yourself when you nearly slide off your resting place.  She ");
 	if(player.cocks[x].cockLength > 48) outputText("pulls your cockhead down and ");
@@ -1345,12 +1345,12 @@ function kihaPlaysWithBigassCocksFemDomAhoy():void {
 	if(player.cumQ() >= 2000) outputText("Wave after wave of spunk rains down over you, forming a gratuitous puddle and utterly, completely sliming you both.  ");
 	outputText("Kiha shivers slightly and brushes a few ropes of jism away from her eyes as she says, \"<i>Idiot!  You got me wet!</i>\"");
 	outputText("[pg]You slump down with a dopey smile, dragging the spooge-spattered dragoness with you, back into a hug.  Kiha snorts a puff of fire in irritation, but admits, \"<i>You know, if I do that to you... I wouldn't mind you getting all hot and bothered for me more often.  J-just keep it out of my hair next time, doofus!</i>\"  She stands, uncoiling her tail from your slowly-softening shaft and stretching, forcing you to look at the absolutely soaked wetness of her pussy.  The lips are tinged reddish and enflamed with lust, though Kiha seems to manage it well as she saunters away towards a stream.");
-	if(flags[252] > 0) {
+	if(flags[UNKNOWN_FLAG_NUMBER_00252] > 0) {
 		if(player.cor < 50) outputText("  You hope she doesn't get jumped by your tiger-shark children.");
 		else outputText("  You wonder what would happen if she got jumped by your tigershark children.");
 	}
 	outputText("[pg]Wiping up as best you can, you don your [armor] and walk back");
-	if(monk >= 5 && player.hasStatusAffect("noJojo") < 0 && flags[80] == 0) {
+	if(monk >= 5 && player.hasStatusAffect("noJojo") < 0 && flags[UNKNOWN_FLAG_NUMBER_00080] == 0) {
 		if(!tentacleJojo()) outputText(", ignoring the sounds of Jojo feverishly masturbating in the woods");
 		else outputText(", ignoring the sound of Jojo vigorously fucking himself with all his tentacles in the trees");
 	}
@@ -1523,7 +1523,7 @@ function fuckKihaWithATentacle():void {
 	temp = player.cockTotal();
 	while(temp > 0) {
 		temp--;
-		if(player.cocks[temp].cockType == 4) {
+		if(player.cocks[temp].cockType == CockTypesEnum.TENTACLE) {
 			if(x == -1) {
 				x = temp;
 				x++;
@@ -1659,7 +1659,7 @@ function kihaBitchesOutCorruptPCs():void {
 		outputText("[pg]\"<i>[name].</i>\"  She says flatly, planting the haft of her axe in the ground, leaning heavily upon it.");
 		outputText("[pg]You say hello, looking nervously around.  Something isn't right here, and your hand drifts toward your [weaponName].");
 		outputText("[pg]\"<i>Listen, [name],</i>\" Kiha says, eyeing you from behind her axe.  \"<i>Maybe we've gotten to be friends lately, but... something's changed about you.  I can SMELL the corruption on you, the lust... I-I can't do it, [name].  I can't be around someone that could turn into someTHING at any moment, someone who's just letting themselves go like... like you are. Please j-just go, [name].</i>\"  You try to protest, to reason with the fiery warrior, but she only lifts up her axe and levels it at you...  \"<i>J-JUST GO!</i>\"");
-		simpleChoices("Fight",3177,"",0,"",0,"",0,"Leave",13);
+		simpleChoices("Fight",meetKihaAndFight,"",0,"",0,"",0,"Leave",13);
 	}
 	else {
 		outputText("Kiha approaches you, her belongings gathered in her hands.  The sexy dragoness seems visibly upset, and before you can say a word, she interrupts, \"<i>Don't say a word, [name].  You're corrupt.  I can smell the corruption rolling off you from over here.  I won't be here when you turn into a demon, and I don't want to fight you... but if you come after me, I won't hesitate to defend myself!</i>\"");
@@ -1698,7 +1698,7 @@ function kihaCampAppearance():void {
 	outputText("[pg]She has a pair of dusky, soft D-cup tits, with a single 0.5 inch nipple on each breast.");
 	outputText("[pg]Kiha has a loose twat between her legs which constantly drips a warm, wet lubricant that stains her thighs.");
 	outputText("[pg]Between her gropable butt-cheeks, Kiha has a single tight asshole, right where it belongs.");
-	doNext(3435);
+	doNext(encounterKiha);
 }
 
 
@@ -1720,7 +1720,7 @@ function dominateKihasFaceWithStuffAndStuffOrSomethingIDunnoWhyImStillWritingThi
 	outputText("[pg]\"<i>If you want have your way with me, you'll need to earn it, just like anyone else,</i>\" Kiha explains.  She narrows her eyes at you and questions, \"<i>The question is, are you " + player.mf("man","woman") + " enough to take what you want?  I wouldn't want you to get hurt.</i>\"");
 	outputText("[pg]That seems like a challenge.  Will you rise to it, or will you back down?");
 	//[Back down]    [Fight for position]
-	simpleChoices("Back Down",3447,"FightForDom",3448,"",0,"",0,"",0);
+	simpleChoices("Back Down",beABitchDumbass,"FightForDom",fightForDominanceWithDragonCunnies,"",0,"",0,"",0);
 }
 
 //[Back down]

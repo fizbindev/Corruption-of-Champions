@@ -1,5 +1,5 @@
-﻿const TIMES_OVIPOSITED_TAMANI:int = 581;
-const TAMANI_TIME_OUT:int = 580;
+﻿//const TIMES_OVIPOSITED_TAMANI:int = 581;
+//const TAMANI_TIME_OUT:int = 580;
 
 /*NOTES:
 Tamani encountered if you have a dick, short alternate female scene available.
@@ -67,7 +67,7 @@ function tamaniFemaleEncounter():void {
 	outputText("A goblin leaps out from behind a rock outcropping.  She keeps her arms folded across her " + tamaniChest() + " and glares at you.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little 'do.  The greenish-gray skin of her breasts bulges out around her arms, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn't any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.\n\n", false);
 	outputText("She says, \"<i>There's only so much cock around, and I got dibs on ALL of it, O.K. skank?</i>\"\n\n", false);
 	//[Umm OK?] [No]
-	simpleChoices("Umm OK?",2193,"No",2194,"PreferGirls",3973,"",0,"",0);
+	simpleChoices("Umm OK?",tamaniFemaleYes,"No",tamaniFemaleNo,"PreferGirls",preferTamaniFemdom,"",0,"",0);
 }
 
 //(Umm OK?)
@@ -103,7 +103,7 @@ function tamaniMaleFirstEncounter():void {
 	outputText("A goblin leaps out from behind a rock outcropping.  For something so small, she has a lot of curves.  She advances towards you, rolling her hips in a suggestive way, immediately diverting your blood-flow to your crotch.  The little thing is only about four feet tall, with pink and black dyed hair cut into a cute little 'do.  The greenish-gray skin of her breasts jiggles pleasantly with every step, supported by a few leather straps, amplifying her cleavage.  Her cunt lips are pierced multiple times, inflamed, and slightly parted.  There really isn't any clothing on her to hide them, just more of the ever-present straps wrapping around her thighs.\n\n", false);
 	outputText("The goblin makes you an offer that's difficult to turn down, \"<i>Hey there stud, want to fuck me pregnant?  I promise my box will milk your dick dry.  Just let Tamani take care of all your boners OK?</i>\"", false);
 	//[Fuck Her] [Refuse]
-	simpleChoices("Fuck Her",2195,"Refuse",2196,"",0,"",0,"",0);
+	simpleChoices("Fuck Her",tamaniFirstTimeConsentual,"Refuse",tamaniFirstTimeRefusal,"",0,"",0,"",0);
 }
 //[Fuck Her – Consentual First Time]
 function tamaniFirstTimeConsentual():void {
@@ -168,7 +168,7 @@ function tamaniFirstTimeRefusal():void {
 	outputText("Tamani's eyes widen in surprise, \"<i>Don't let the size fool you, big " + player.boyGirl() + ". I can take more than you think,</i>\" she says while her hands begins playing with her box, \"<i>Are you sure you don't want to just let off a little steam?</i>\"\n\n", false);
 	//[Fuck Her (Goes to fuck her - consensual first time)]
 	//[No means no]
-	simpleChoices("Fuck Her",2195,"No",2197,"",0,"",0,"",0);
+	simpleChoices("Fuck Her",tamaniFirstTimeConsentual,"No",tamaniSecondRefusal,"",0,"",0,"",0);
 	stats(0,0,0,0,0,0,5,0);
 }
 //[No Means No]
@@ -188,7 +188,7 @@ function tamaniMaleRepeatEncounter():void {
 	if(player.statusAffectv1("Tamani") != -500 || player.statusAffectv2("Tamani") > 0) outputText("While exploring, you're startled by the feeling of tiny hands stroking the insides of your thighs.  You look down and find Tamani there, grinning wolfishly,  \"<i>Ready for another fuck, big " + player.boyGirl() + "?\"\n\n", false);
 	//(ELSE) 
 	else outputText("While exploring, you're startled by the feeling of tiny hands stroking the insides of your thighs.  You look down and find Tamani the goblin there, grinning with desire, \"<i>Ready to stuff me with cum?  I'm not taking no for an answer this time.</i>\"\n\n", false);
-	if(flags[56] > 19 && rand(2) == 0) {
+	if(flags[UNKNOWN_FLAG_NUMBER_00056] > 19 && rand(2) == 0) {
 		getRapedByTamaniYouHypnoSlut();
 		return;
 	}
@@ -197,7 +197,7 @@ function tamaniMaleRepeatEncounter():void {
 	//[Take Her – win sex] 
 	//[Let Her – Get dommed] 
 	//[No – starts fight]
-	simpleChoices("Take Her",2200,"Let Her",2198,"No",2203,"",0,"",0);
+	simpleChoices("Take Her",tamaniSexWon,"Let Her",tamaniSexLetHer,"No",2203,"",0,"",0);
 }
 
 //[Let Her (Or Combat Rape)]
@@ -537,7 +537,7 @@ function tamaniPregnantEncounter():void {
 	outputText("Tamani strolls out from behind a boulder, and wow is she ever pregnant.  It doesn't diminish the look of lust in her eyes when she meets your gaze, but her hands do keep rubbing the outside of her belly, only pausing to squeeze drops of milk from her nipples.  Her leather straps seem to fit her even better than before, accentuating her expanding curves and looking fantastic on her pregnant form.\n\n", false);
 	outputText("She parts her legs and rubs her lower lips while she begs you, \"<i>Please fuck me!   I'm so horny from the pregnancy and I can't wait to give you daughters so you can knock me up all over again!</i>\"", false);
 	//[Fuck Her] [Refuse]
-	simpleChoices("Fuck Her",2201,"Refuse",2202,"",0,"",0,"",0);
+	simpleChoices("Fuck Her",tamaniPregnantFuck,"Refuse",tamaniPregnantRefusal,"",0,"",0,"",0);
 }
 
 //[Refuse]
@@ -702,14 +702,14 @@ function tamaniHypnoTease():void {
 	
 	//REACTIONS
 	//LOW HYPNO VALUE:
-	if(flags[56] < 5) {
+	if(flags[UNKNOWN_FLAG_NUMBER_00056] < 5) {
 		selector = rand(3);
 		if(selector == 0) outputText("You reluctantly pull your stare away from the heavenly entrance between her legs.  There's an urge to walk over to her and plunge yourself inside her over and over, but you dismiss it.", false);
 		if(selector == 1) outputText("You find it hard to pull your gaze from her inviting twat, but you manage.  You shake your head, clearing away thoughts of fertilizing your wife.  Her rhetoric must be getting to you.", false);
 		if(selector == 2) outputText("No matter the case, her actions shifted a fair bit of your blood-flow to your groin.", false);
 	}
 	//MEDIUM HYPNO VALUE:
-	else if(flags[56] < 10) {
+	else if(flags[UNKNOWN_FLAG_NUMBER_00056] < 10) {
 		selector = rand(2);
 		if(selector == 0) {
 			outputText("With effort you manage to wrench your eyes away from the inviting folds of Tamani's vagina.  ", false);
@@ -748,7 +748,7 @@ function tamaniHypnoTease():void {
 			outputText("our " + multiCockDescriptLight() + " pulses and dribbles pre-cum, aching to do its duty and fire load after load into Tamani's perfect pussy.", false);
 		}
 	}
-	stats(0,0,0,0,0,0,(rand(player.lib/5)+3+(flags[56])),0);
+	stats(0,0,0,0,0,0,(rand(player.lib/5)+3+(flags[UNKNOWN_FLAG_NUMBER_00056])),0);
 	combatRoundOver();
 }
 
@@ -801,9 +801,9 @@ function getRapedByTamaniYouHypnoSlut():void {
 		
 		outputText("An intense orgasm rolls through you, making your body clench as your piston your " + cockDescript(primary) + " forwards, burying it deeply inside the goblin-shaped cum-receptacle.  ", false);
 		if(player.hasKnot(primary)) outputText("Your knot balloons inside her, locking her place", false);
-		else if(player.cocks[primary].cockType == 1) outputText("Your flare widens, actually holding itself inside Tamani's womb", false);
-		else if(player.cocks[primary].cockType == 3) outputText("The corrupted nodules along your " + cockDescript(primary) + " pulsate in rippling, wave-like motions, massaging the interior of Tamani's twat", false);
-		else if(player.cocks[primary].cockType == 4) outputText("Your tentacle-cock's tip widens, mushroom-like inside Tamani's womb", false);
+		else if(player.cocks[primary].cockType == CockTypesEnum.HORSE) outputText("Your flare widens, actually holding itself inside Tamani's womb", false);
+		else if(player.cocks[primary].cockType == CockTypesEnum.DEMON) outputText("The corrupted nodules along your " + cockDescript(primary) + " pulsate in rippling, wave-like motions, massaging the interior of Tamani's twat", false);
+		else if(player.cocks[primary].cockType == CockTypesEnum.TENTACLE) outputText("Your tentacle-cock's tip widens, mushroom-like inside Tamani's womb", false);
 		else outputText("Your sensitive head swells slightly in time with the contractions of your orgasm", false);
 		outputText(" as you begin to fill your wife's womb with seed.   The orgasm is intense", false);
 		if(player.cumQ() < 50) outputText(", but brief, and after a few moments of spasming pleasure, the flood of cum slows to a trickle.", false);
@@ -850,9 +850,9 @@ function getRapedByTamaniYouHypnoSlut():void {
 		
 		outputText("You do as your are told, like a good husband, and Tamani stays close, bound to you by a flexible, artificial umbilical.  She sits next to you, propping her feet up onto your " + cockDescript(0) + ".   The goblin doesn't have any shoes on her green-tinted feet, and in spite of the rough living conditions, they're softer than her hands, and nearly as dextrous.  You look over at her, questioningly at first, though it shifts to confused happiness as she begins stroking her left foot up and down your legth.  Your wife shifts her right leg underneath you, and curls her toes around to interlock them with her left.\n\n", false);
 		
-		outputText("With both her feet locked together, wrapped around most of your sensitive " + cockNoun(0) + " and sliding along it, your petite wife begins giving you the foot-job of a lifetime.  The awkward position and intense desire make the both of you break out in a sweat, and before long her slippery feet are lubricated enough for her to pick up the tempo.  You rock against her soles, gazing lovingly into her eyes as she fondles her clit and gives you a perverted wink.  Tamani exclaims, \"<i>Oooh I can feel you twitching under my toes!  Does Tamani's little feet feel good on her ", false);
+		outputText("With both her feet locked together, wrapped around most of your sensitive " + Appearance.cockNoun(CockTypesEnum.HUMAN) + " and sliding along it, your petite wife begins giving you the foot-job of a lifetime.  The awkward position and intense desire make the both of you break out in a sweat, and before long her slippery feet are lubricated enough for her to pick up the tempo.  You rock against her soles, gazing lovingly into her eyes as she fondles her clit and gives you a perverted wink.  Tamani exclaims, \"<i>Oooh I can feel you twitching under my toes!  Does Tamani's little feet feel good on her ", false);
 		if(player.tallness > 60) outputText("big ", false);
-		outputText(player.mf("strong man's","sexy lover's") + " " + cockNoun(0) + "?</i>\"\n\n", false);
+		outputText(player.mf("strong man's","sexy lover's") + " " + Appearance.cockNoun(CockTypesEnum.HUMAN) + "?</i>\"\n\n", false);
 		
 		outputText("You assure her that they do like what she is doing – very much so – and ", false);
 		if(player.cor < 33) outputText("beg", false);

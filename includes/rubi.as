@@ -1,62 +1,62 @@
-﻿const RUBI_AFFECTION:int = 604;
-const RUBI_DISABLED:int = 605;
+﻿//const RUBI_AFFECTION:int = 604;
+//const RUBI_DISABLED:int = 605;
 
 //0 = not admitted (she), 1 = "he", 2 = "she"
-const RUBI_ADMITTED_GENDER:int = 606;
-const RUBI_INTRODUCED:int = 607;
-const RUBI_BLU_BALLS:int = 608;
-const RUBI_ORGASM_DENIAL:int = 609;
-const RUBI_BIMBO:int = 610;
-const RUBI_INCUBUS_PROGRESS:int = 611;
-const RUBI_SUITCLOTHES:int = 612;
-const RUBI_FETISH_CLOTHES:int = 613;
-const RUBI_GREEN_ADVENTURER:int = 614;
-const RUBI_TUBE_TOP:int = 615;
-const RUBI_BODYSUIT:int = 616;
-const RUBI_LONGDRESS:int = 617;
-const RUBI_TIGHT_PANTS:int = 618;
-const RUBI_NURSE_CLOTHES:int = 619;
-const RUBI_SWIMWEAR:int = 620;
-const RUBI_PROSTITUTION:int = 621;
-const RUBIS_HOUSE_FIRST_TIME:int = 622;
-const RUBI_GOT_BIMBO_SKIRT:int = 623;
-const RUBI_PROFIT:int = 624;
-const RUBI_BIMBO_MINIDRESS:int = 625;
-const TIMES_RUBI_MASSAGED:int = 832;
+//const RUBI_ADMITTED_GENDER:int = 606;
+//const RUBI_INTRODUCED:int = 607;
+//const RUBI_BLU_BALLS:int = 608;
+//const RUBI_ORGASM_DENIAL:int = 609;
+//const RUBI_BIMBO:int = 610;
+//const RUBI_INCUBUS_PROGRESS:int = 611;
+//const RUBI_SUITCLOTHES:int = 612;
+//const RUBI_FETISH_CLOTHES:int = 613;
+//const RUBI_GREEN_ADVENTURER:int = 614;
+//const RUBI_TUBE_TOP:int = 615;
+//const RUBI_BODYSUIT:int = 616;
+//const RUBI_LONGDRESS:int = 617;
+//const RUBI_TIGHT_PANTS:int = 618;
+//const RUBI_NURSE_CLOTHES:int = 619;
+//const RUBI_SWIMWEAR:int = 620;
+//const RUBI_PROSTITUTION:int = 621;
+//const RUBIS_HOUSE_FIRST_TIME:int = 622;
+//const RUBI_GOT_BIMBO_SKIRT:int = 623;
+//const RUBI_PROFIT:int = 624;
+//const RUBI_BIMBO_MINIDRESS:int = 625;
+//const TIMES_RUBI_MASSAGED:int = 832;
 //Third's horrible new shit
-const RUBI_BREAST_SIZE:int = 984;
-const RUBI_COCK_SIZE:int = 985;
-const RUBI_COCK_TYPE:int = 986;
-const RUBI_LOWERBODY:int = 987;
-const RUBI_HORNTYPE:int = 988; 
+//const RUBI_BREAST_SIZE:int = 984;
+//const RUBI_COCK_SIZE:int = 985;
+//const RUBI_COCK_TYPE:int = 986;
+//const RUBI_LOWERBODY:int = 987;
+//const RUBI_HORNTYPE:int = 988; 
 //0 = normal, 1 = black
-const RUBI_NIPPLETYPE:int = 989;
-const RUBI_NO_CUNT:int = 990;
-const RUBI_CUNTTYPE:int = 991;
-const RUBI_EYE_DESCRIPT:int = 992;
-const RUBI_EYE_TYPE:int = 993;
-const RUBI_SKIN:int = 994;
-const RUBI_HAIR:int = 995;
-const RUBI_HAIR_LENGTH:int = 996;
-const RUBI_BALLS_TYPE:int = 997;
-const RUBI_EAR_TYPE:int = 998;
-const RUBI_HANDS:int = 999;
-const RUBI_WHISKERS:int = 1000;
-const RUBI_FEET:int = 1001;
-const RUBI_DEBIMBO:int = 1002;
-const RUBI_NIPPLE_TYPE:int = 1003;
+//const RUBI_NIPPLETYPE:int = 989;
+//const RUBI_NO_CUNT:int = 990;
+//const RUBI_CUNTTYPE:int = 991;
+//const RUBI_EYE_DESCRIPT:int = 992;
+//const RUBI_EYE_TYPE:int = 993;
+//const RUBI_SKIN:int = 994;
+//const RUBI_HAIR:int = 995;
+//const RUBI_HAIR_LENGTH:int = 996;
+//const RUBI_BALLS_TYPE:int = 997;
+//const RUBI_EAR_TYPE:int = 998;
+//const RUBI_HANDS:int = 999;
+//const RUBI_WHISKERS:int = 1000;
+//const RUBI_FEET:int = 1001;
+//const RUBI_DEBIMBO:int = 1002;
+//const RUBI_NIPPLE_TYPE:int = 1003;
 //HE/SHE
-const RUBI_SHE:int = 1004;
-const TIMES_DISCUSSED_RUBIS_IDENTITY:int = 1005;
-const RUBI_ICECREAM_CONFESSION:int = 1006;
-const TIMES_RUBI_DATED:int = 1007;
-const RUBI_FANCY_CONFESSION:int = 1008;
-const RUBI_BAR_CONFESSION:int = 1009;
-const RUBI_TIMES_ANALLY_TRAINED:int = 1010;
-const RUBI_TIMES_GIVEN_AN_ITEM:int = 1011;
-const RUBI_BONDAGE_STRAPS:int = 1012;
-const RUBI_INQUISITORS_CORSET:int = 1013;
-const RUBI_SETUP:int = 1014;
+//const RUBI_SHE:int = 1004;
+//const TIMES_DISCUSSED_RUBIS_IDENTITY:int = 1005;
+//const RUBI_ICECREAM_CONFESSION:int = 1006;
+//const TIMES_RUBI_DATED:int = 1007;
+//const RUBI_FANCY_CONFESSION:int = 1008;
+//const RUBI_BAR_CONFESSION:int = 1009;
+//const RUBI_TIMES_ANALLY_TRAINED:int = 1010;
+//const RUBI_TIMES_GIVEN_AN_ITEM:int = 1011;
+//const RUBI_BONDAGE_STRAPS:int = 1012;
+//const RUBI_INQUISITORS_CORSET:int = 1013;
+//const RUBI_SETUP:int = 1014;
 
 function initializeRubi():void {
 	if(flags[RUBI_BIMBO] == 0) {
@@ -97,8 +97,19 @@ function rubiCock():String {
 	return NPCCockDescript(flags[RUBI_COCK_TYPE], flags[RUBI_COCK_SIZE], 50);
 }
 function rubiBreasts():String {
-	if(flags[RUBI_BREAST_SIZE] < 1) return "chest";
-	else return npcBreastDescript(flags[RUBI_BREAST_SIZE]);
+	var ret:String = "pair of ";
+
+
+	if(flags[RUBI_BREAST_SIZE] < 1)
+		ret = "chest";
+	else
+	{
+		ret += breastCup(flags[RUBI_BREAST_SIZE]);
+		ret += " ";
+		ret += npcBreastDescript(flags[RUBI_BREAST_SIZE]);
+	}
+
+	return ret;
 }
 function rubiChest():String {
 	return rubiBreasts();
@@ -106,6 +117,8 @@ function rubiChest():String {
 function rubiCapacity():Number {
 	var bonus:int = flags[RUBI_TIMES_ANALLY_TRAINED]*10;
 	if(bonus > 76) bonus = 76;
+	if (flags[HYPER_HAPPY])
+		bonus += 200;		// MAKE IT FIT
 	return 24 + bonus;
 }
 function rubiMF(man:String,woman:String):String {
@@ -143,7 +156,7 @@ function specialRelationship20scene():void {
 	outputText("\n\nYou're a little surprised, but it does make sense.  She... he is pretty flat-chested, and you'd often wondered if you'd seen a bulge of some sort in her skirt from time to time...");
 	flags[RUBI_ADMITTED_GENDER] = 1;
 	//(Accept) or (Reject)
-	simpleChoices("Accept",3891,"Reject",3892,"",0,"",0,"",0);
+	simpleChoices("Accept",acceptRubi,"Reject",rejectRubi,"",0,"",0,"",0);
 }
 //[If Accept]
 function acceptRubi():void {
@@ -196,7 +209,6 @@ function rubiIntros():Number {
 	outputText("\n");
 	return 3894;
 }
-
 //Approach Rubi scenes
 function approachRubiScenes():void {
 	clearOutput();
@@ -492,7 +504,7 @@ function buyRubiMilk():void {
 	player.gems -= 3;
  	rubiAffection(3);
 	player.modThickness(100,1);
-	if(rubiAffection() >= 30 && flags[RUBI_ADMITTED_GENDER] == 0) doNext(3890);
+	if(rubiAffection() >= 30 && flags[RUBI_ADMITTED_GENDER] == 0) doNext(specialRelationship20scene);
 	else doNext(13);
 }
  
@@ -518,7 +530,7 @@ function getTeaFromRubi():void {
 	player.gems -= 6;
 	rubiAffection(5);
 	fatigue(-25);
-	if(rubiAffection() >= 30 && flags[RUBI_ADMITTED_GENDER] == 0) doNext(3890);
+	if(rubiAffection() >= 30 && flags[RUBI_ADMITTED_GENDER] == 0) doNext(specialRelationship20scene);
 	else doNext(13);
 }
  
@@ -553,7 +565,7 @@ function chatWithRubi():void {
 		outputText("You decide not to order anything to drink, instead taking the opportunity to hang out with Rubi whenever " + rubiMF("he","she") + " has a free moment.  You talk of pleasant but inconsequential things.  Rubi spends some time discussing " + rubiMF("his","her") + " old village, an honest-to-goodness human village.  Life there was good, they had plenty of farms bringing in food, and very little corruption to contend with.  There were some residents with inhuman features, usually achieved willingly, but the majority were pureblood humans.  That changed years ago when a detachment of incubi, succubi and imps attacked.  Rubi and a handful made it out fine, but got split up along the way.  As far as Rubi knows, everyone else either perished or was corrupted in the aftermath.");
 		outputText("\n\nEventually you run out of topics to discuss and excuse yourself, giving Rubi a kiss on the lips before heading back to camp.");
 	}
-	if(rubiAffection() >= 30 && flags[RUBI_ADMITTED_GENDER] == 0) doNext(3890);
+	if(rubiAffection() >= 30 && flags[RUBI_ADMITTED_GENDER] == 0) doNext(specialRelationship20scene);
 	else doNext(13);
 }
  
@@ -678,11 +690,14 @@ function rubiIdentity():void {
 	//Identity
 	if(flags[TIMES_DISCUSSED_RUBIS_IDENTITY] == 0) {
 		outputText("You've noticed Rubi always refers to himself as a \"he\", despite ");
-		if(flags[RUBI_NO_CUNT] == 1) outputText("his attempts to appear otherwise");
-		else outputText("his relatively recent transformation to the contrary");
+		if(flags[RUBI_NO_CUNT] == 1) 
+			outputText("his attempts to appear otherwise");
+		else 
+			outputText("his relatively recent transformation to the contrary");
 		outputText(".  Questioning him about it, he simply blushes.");
 		outputText("\n\n\"<i>Oh, that… Um, I guess I never really figured I was a girl, you know?  I really love pretty clothes and other things people call girly, but I never necessarily wanted to be a girl.");
-		if(flags[RUBI_NO_CUNT] == 0) outputText("  Though now that I am, I absolutely love it!");
+		if(flags[RUBI_NO_CUNT] == 0) 
+			outputText("  Though now that I am, I absolutely love it!");
 		outputText("</i>\" he confides, fidgeting slightly.  \"<i>If you wanted to call me a \"she\", I'd be OK with that, just so you know.</i>\"");
 		outputText("\n\nWhich type of pronoun would you prefer Rubi to use?");
 	}
@@ -719,14 +734,21 @@ function rubiIsAShe():void {
 //Fuck Rubi
 //(available for players with cocks or large clits (at least 4</i>\")) (If Orgasm Denial is activated, adds 1 to Blue Balls)
 function fuckRubi():void {
-	var x:int = player.cockThatFits(rubiCapacity());
-	if(x < 0) x = player.biggestCockIndex();
+	var x:int;
+	x = player.cockThatFits(rubiCapacity());
+	if(x < 0) 
+		x = player.biggestCockIndex();
 	clearOutput();
 	//(-100 Arousal)
 	outputText("You take Rubi by the hand and head into the bedroom, clutching " + rubiMF("him","her") + " close.  You sit on the edge of the soft fluffy bed and pull the little demon " + rubiMF("boy","girl") + " onto your lap.  The two of you kiss, letting your " + tongueDescript() + " explore the depths of your partner's mouth.");
 	outputText("\n\nRunning your hands along Rubi's body, you pull and tear at the clothes keeping you apart.  Garments fly as you ravish each other, and it isn't long before you're both naked, with Rubi straddling your waist.  " + rubiMF("He giggles and reaches between his legs","She giggles and reaches between her legs") + ", wrapping slender fingers around your ");
-	if(player.hasCock()) outputText(cockDescript(x));
-	else outputText(clitDescript());
+	if(player.hasCock()) 
+	{
+		// trace("Rubi - PlayerHasCock");
+		outputText(cockDescript(x), false);
+	}
+	else 
+		outputText(clitDescript(), false);
 	outputText(".");
 	
 	var size:int = 0;
@@ -739,7 +761,7 @@ function fuckRubi():void {
 	}
 	else {
 		if(player.clitLength <= 4) size = 0;
-		else if(player.clitLength <= 12) size = 1;
+		else if(player.clitLength <= 12 || flags[HYPER_HAPPY]) size = 1;
 		else size = 2;
 	}
 	if(size == 0) {
@@ -799,7 +821,7 @@ function fuckRubi():void {
 		if(player.hasCock()) outputText(cockDescript(x));
 		else outputText("[clit]");
 		outputText(" slipping between Rubi's thighs, which grip you tightly.  You feel " + rubiMF("his","her") + " ");
-		if(player.hasCock()) outputText("hard cock");
+		if(flags[RUBI_COCK_SIZE] > 0) outputText("hard cock");
 		else outputText("stiff clit");
 		outputText(" pressing against the top of ");
 		if(player.hasCock()) outputText("your dick");
@@ -1119,7 +1141,7 @@ function findBimboCheatster():void {
 	outputText("\n\nThere she is, Rubi, splayed out on the couch, naked with two fingers buried deep inside her pussy.  You shift around a bit, and see nearby her a tanned man in the process of taking off his shirt.  So, you got to them before they did anything.  Rubi moans, running a hand through her platinum blonde hair and staring at the tanned man.");
 	outputText("\n\nYou could interrupt them before they go any further, or wait until it's over.");
 	//[Interrupt] [Wait]
-	simpleChoices("Interrupt",3906,"Watch n Wait",3907,"",0,"",0,"",0);
+	simpleChoices("Interrupt",interruptTheNTRsYouCrazyFool,"Watch n Wait",waitAndGetNTRedLikeTheBoyBitchYouAre,"",0,"",0,"",0);
 }
 //(Interrupt)
 function interruptTheNTRsYouCrazyFool():void {
@@ -1147,7 +1169,7 @@ function interruptTheNTRsYouCrazyFool():void {
 		}
 	}
 	//[Leads to Resolution]
-	doNext(3908);
+	doNext(NTRbimboBitchResolution);
 }
 
 //(Wait)
@@ -1173,7 +1195,7 @@ function waitAndGetNTRedLikeTheBoyBitchYouAre():void {
 	outputText("\n\nWell, this is as good of a time as any to confront her...  You stand up, adjust your clothing, and walk inside as a naked Rubi cleans herself off with a moist towel.");
 	outputText("\n\nShe spots you and lights up, \"<i>Oh baby!  Like, I didn't know you'd be coming by!</i>\"  She then seems to realize that she's stark naked, mostly covered in cum, and that you came in just seconds after her previous lover left.  \"<i>Oh.  Yeah.</i>\"");
 	//[leads to Resolution]
-	doNext(3908);
+	doNext(NTRbimboBitchResolution);
 }
 
 //(Resolution)
@@ -1186,7 +1208,7 @@ function NTRbimboBitchResolution():void {
 	outputText("\n\nRubi hugs the cushion close, apparently done with her speech.  So how do you react?");
 	outputText("\n\nYou could tell her no, forbidding her to see anyone else.  Or you could say yes, letting her sleep with anyone.  You could always break up with her.  Or there might be a fourth option...");
 	//[No] [Yes] [Break Up] [Pimp]
-	simpleChoices("No",3909,"Yes",3910,"Break Up",3911,"Pimp",3912,"",0);
+	simpleChoices("No",noBimboNTR,"Yes",yesBimboNTR,"Break Up",breakUpWithRubi,"Pimp",pimpOutRubi,"",0);
 }
 
 //(No)
@@ -2183,7 +2205,7 @@ function anallyTrainYourBitchBoySlutHowToBeAnalForDCL():void {
 		outputText("\n\nWith the stupid grin still plastered across your face, you take a seat at the edge of Rubi's bed, a fluffy white monster with a lilac-colored bedspread laid across it.  You get comfortable as your demon-tailed lover disappears into the bathroom. Almost ten minutes later, " + rubiMF("he","she") + " reemerges, posing in the doorway.");
 		
 		outputText("\n\nWith one arm raised " + rubiMF("he","she") + " leans against the frame of the door, showing off " + rubiMF("his","her") + " powder blue babydoll.  The skimpy, sheer lingerie barely covers Rubi's body, and in fact leaves " + rubiMF("his","her") + " " + rubiBreasts() + " completely open, framed by a triangle of white lace.  The wavy hem of the babydoll drapes low, but not low enough to cover " + rubiMF("his","her") + " crotch.  Rubi's ");
-		if(flags[RUBI_COCK_SIZE] == 0) outputText(rubiCock());
+		if(flags[RUBI_COCK_SIZE] > 0) outputText(rubiCock());
 		else outputText("sweet pussy");
 		outputText(" is readily on display, and it's all for you.  Rubi's makeup is less than subtle, with bright red lips and a light dusting of silver eyeshadow, enough to make " + rubiMF("his","her") + " eyes pop and not clash with the outfit.  Completing the look is a pair of white fishnet stockings that go up " + rubiMF("his","her") + " legs, ending about mid-thigh.");
 		
@@ -2218,12 +2240,12 @@ function anallyTrainYourBitchBoySlutHowToBeAnalForDCL():void {
 		if(flags[RUBI_COCK_SIZE] > 0) outputText("\n\nRubi's " + rubiCock() + " twitches, rising from its state of semi-hardness.  Within a minute it's standing straight up, creating a noticeable tent in the pale blue, sheer fabric covering your lover's body.  ");
 		else outputText("\n\n");
 		outputText("It takes another minute or so for Rubi to sink all the way down onto the cock, a huge feat in and of itself… but then, of course, there's the knot.  Even now with it deflated, you're not sure your demonic little vixen could handle it.  In fact, " + rubiMF("he","she") + " struggles with it for quite a while, until you lean over and whisper words of encouragement into " + rubiMF("his","her") + " ear.  Naughty words saying what you'll do to that ");
-		if(flags[RUBI_COCK_SIZE] == 1) outputText("ass");
+		if(flags[RUBI_COCK_SIZE] > 0) outputText("ass");
 		else outputText("pussy");
 		outputText(" once it's been properly trained.");
 		
 		outputText("\n\nNeeding no more encouragement, Rubi pushes " + rubiMF("him","her") + "self down further.  " + rubiMF("His","Her") + " eyes rolling up into their sockets in delight as " + rubiMF("his","her") + " ");
-		if(flags[RUBI_COCK_SIZE] == 1) outputText("asshole");
+		if(flags[RUBI_COCK_SIZE] > 0) outputText("asshole");
 		else outputText("cunt");
 		outputText(" is stretched nearly to its limits.  Finally " + rubiMF("he","she") + " lets out a sigh of relief as the knot pops completely into place.  \"<i>Oh… fuck me it's so big,</i>\" " + rubiMF("he","she") + " squeals, " + rubiMF("his","her") + " body visibly shaking.  Rubi's tongue lolls out, dripping a bit of spittle down " + rubiMF("his","her") + " chin.");
 		
@@ -2314,10 +2336,10 @@ function getFuckedByRubi():void {
 	outputText("\n\nRubi wraps " + rubiMF("his","her") + " lips around your [vagOrAss] and flicks " + rubiMF("his","her") + " tongue along the sensitive flesh.  You shiver and sprawl out on the bed, taking it all in.  Rubi lavishes your tight hole with " + rubiMF("his","her") + " lips and tongue, lapping and slurping messily, all in preparation for what is to come, no doubt.  But " + rubiMF("he","she") + " doesn't get ahead of " + rubiMF("him","her") + "self, and takes " + rubiMF("his","her") + " time to make sure you're good and ready.  " + rubiMF("His","Her") + " perfectly manicured fingers trace patterns only " + rubiMF("he","she") + " can decipher on your inner thigh, movements so delicate and precise that your body quivers of its own accord.  " + rubiMF("His","Her") + " other hand slips up your stomach, inching along and teasing your flesh with the same arcane movements of " + rubiMF("his","her") + " fingers.");
 	
 	outputText("\n\nWith your crotch freshly lubricated, Rubi stands and quickly disrobes, adding to the pile of clothing on the floor.  " + rubiMF("His","Her") + " feminine hands run down " + rubiMF("his","her") + " body and grasp at the " + rubiCock() + " sprouting from " + rubiMF("his","her") + " groin, stroking it to its full length.  Its ");
-	if(flags[RUBI_COCK_TYPE] == 0) outputText("pink, mushroom-like tip");
-	else if(flags[RUBI_COCK_TYPE] == 3) outputText("purple, nodule-laden tip");
-	else if(flags[RUBI_COCK_TYPE] == 1) outputText("blunted, musky tip");
-	else if(flags[RUBI_COCK_TYPE] == 1) outputText("tentacle-ringed crown");
+	if(flags[RUBI_COCK_TYPE] == CockTypesEnum.legacySuportLoadCockType("HUMAN")) outputText("pink, mushroom-like tip");
+	else if(flags[RUBI_COCK_TYPE] == CockTypesEnum.legacySuportLoadCockType("DEMON")) outputText("purple, nodule-laden tip");
+	else if(flags[RUBI_COCK_TYPE] == CockTypesEnum.legacySuportLoadCockType("HORSE")) outputText("blunted, musky tip");
+	else if(flags[RUBI_COCK_TYPE] == CockTypesEnum.legacySuportLoadCockType("TENTACLE")) outputText("tentacle-ringed crown");
 	outputText(" emerges from the foreskin surrounding it as " + rubiMF("his","her") + " cock strains, aching for something, anything to fill.");
 
 	outputText("\n\nWith a look into your eyes, confirming " + rubiMF("his","her") + " desires, " + rubiMF("he","she") + " gives " + rubiMF("his","her") + " cock what it wants.  One swift motion is all it takes as Rubi sinks " + rubiMF("his","her") + " dick inside you several inches.  The feeling of penetration makes you moan suddenly, louder than you wanted to.  Rubi smiles, pulls out a few inches, and pushes back inside, just a little deeper.  This time it's your demonic lover's turn to moan as you clamp your [vagOrAss] around " + rubiMF("his","her") + " invading member, tightening around " + rubiMF("him","her") + " like a vice.");
@@ -2414,7 +2436,7 @@ function rubiHotdogging():void {
 	outputText("\n\nYour fingers return to the spellbound demon before you, tantalizing " + rubiMF("his","her") + " flesh with the slightest of touches.  It does its job, as between " + rubiMF("his","her") + " legs you can see " + rubiMF("his","her") + " ");
 	if(flags[RUBI_NO_CUNT] == 0) outputText("cunt moistening");
 	if(flags[RUBI_NO_CUNT] == 0 && flags[RUBI_COCK_SIZE] > 0) outputText(" and ");
-	if(flags[RUBI_NO_CUNT] == 0) outputText("cock hardening");
+	if(flags[RUBI_COCK_SIZE] > 0) outputText("cock hardening");
 	outputText(".  " + rubiMF("He","She") + " obviously enjoys this light, playful teasing.  You give Rubi's ass another playful smack, watching " + rubiMF("his","her") + " ");
 	if(flags[RUBI_SKIN] == 0) outputText("pale skin");
 	else if(flags[RUBI_SKIN] == 1|| flags[RUBI_SKIN] == 3) outputText("crimson skin");
@@ -2555,12 +2577,12 @@ function giveRubiATFItem(short:String):void {
 			outputText("You hand over the bottle of purified milky white fluids to Rubi.  " + rubiMF("He","She") + " takes a moment to read over the pink label before pulling out the cork and downing the whole bottle in one gulp.");
 		}
 		//(If Bust size increases)
-		if(flags[RUBI_BREAST_SIZE] < 7) {
+		if(flags[RUBI_BREAST_SIZE] < 7 || (flags[RUBI_BREAST_SIZE] < 30 && flags[HYPER_HAPPY])) {
 			outputText("\n\nRubi gasps a little and " + rubiMF("his","her") + " hands immediately dart to " + rubiMF("his","her") + " chest.  Before your eyes, Rubi's breasts begin to swell, growing an entire cup size.  Rubi cups " + rubiMF("his","her") + " breasts experimentally, getting used to their new weight.");
 			flags[RUBI_BREAST_SIZE]++;
 		}		
 		//(If Penis size decreases)
-		if(flags[RUBI_COCK_SIZE] > 4) {
+		if((flags[RUBI_COCK_SIZE] > 4) && (!flags[HYPER_HAPPY])) {
 			outputText("\n\nRubi's " + rubiCock() + " swells up suddenly, growing painfully hard.  " + rubiMF("He","She") + " grasps it and moans suddenly as it begins to dwindle in size, shrinking down by at least an inch, leaving " + rubiMF("him","her") + " with a ");
 			flags[RUBI_COCK_SIZE]--;
 			outputText(Math.round(flags[RUBI_COCK_SIZE]*10)/10 + "-inch penis.");
@@ -2573,6 +2595,7 @@ function giveRubiATFItem(short:String):void {
 			if(flags[RUBI_NO_CUNT] == 1) {
 				outputText("\n\nRubi shudders suddenly, a soft moan escaping " + rubiMF("his","her") + " lips.  " + rubiMF("His","Her") + " fingers dive deeper, seemingly going inside " + rubiMF("his","her") + " body!  Although it seems strange, you're certain that <b>Rubi has grown a brand new vagina</b>.");
 				flags[RUBI_NO_CUNT] = 0;
+				flags[RUBI_SHE] = 1;
 				flags[RUBI_CUNTTYPE] = 0;
 			}
 		}
@@ -2580,6 +2603,7 @@ function giveRubiATFItem(short:String):void {
 		if(rand(3) == 0 && flags[RUBI_NO_CUNT] > 0) {
 			outputText("\n\nRubi shudders suddenly, a soft moan escaping " + rubiMF("his","her") + " lips.  " + rubiMF("His","Her") + " fingers dive between " + rubiMF("his","her") + " thighs, seemingly going inside " + rubiMF("his","her") + " body!  Although it seems strange, you're certain that <b>Rubi has grown a brand new vagina</b>.  \"<i>Oooh,</i>\" Rubi says, " + rubiMF("his","her") + " body quivering.  \"<i>It's so sensitive!</i>\"");
 			flags[RUBI_NO_CUNT] = 0;
+			flags[RUBI_SHE] = 1;
 		}
 		//(If Rubi gets demonic heels)
 		if(flags[RUBI_FEET] == 0 && rand(3) == 0 && short == "SucMilk") {
@@ -2618,13 +2642,15 @@ function giveRubiATFItem(short:String):void {
 		else outputText("You hand over the bottle of purified milky white fluids to Rubi.  " + rubiMF("He","She") + " takes a moment to read over the pink label before pulling out the cork and downing the whole bottle in one gulp.");
 		
 		//(If Bust size decreases)
-		if(flags[RUBI_BREAST_SIZE] > 0) {
+		if((flags[RUBI_BREAST_SIZE] > 0) && (!flags[HYPER_HAPPY])){
 			outputText("\n\nRubi gasps a little and " + rubiMF("his","her") + " hands immediately dart to " + rubiMF("his","her") + " chest.  Before your eyes, Rubi's breasts begin to dwindle, shrinking down an entire cup size.  Rubi cups " + rubiMF("his","her") + " breasts experimentally, getting used to their new, reduced, weight.");
 			flags[RUBI_BREAST_SIZE]--;
 			if(flags[RUBI_BREAST_SIZE] < 0) flags[RUBI_BREAST_SIZE] = 0;
 		}
 		//(If Penis size increases)
-		if(flags[RUBI_COCK_SIZE] > 0 && (flags[RUBI_COCK_SIZE] < 12 || (flags[RUBI_COCK_TYPE] == 1 && flags[RUBI_COCK_SIZE] < 20))) {
+		if(flags[RUBI_COCK_SIZE] > 0 && ((flags[RUBI_COCK_SIZE] < 12 || (flags[RUBI_COCK_TYPE] == CockTypesEnum["human"] && flags[RUBI_COCK_SIZE] < 20)) ||
+										(flags[RUBI_COCK_SIZE] < 30 && flags[HYPER_HAPPY]) ) )
+		{
 			outputText("\n\nRubi's " + rubiCock() + " swells up suddenly, growing painfully hard.  " + rubiMF("He","She") + " grasps it and moans suddenly as it begins to pulse, growing larger with every throb, increasing in size by at least an inch, leaving " + rubiMF("him","her") + " with a ");
 			flags[RUBI_COCK_SIZE]++;
 			outputText(Math.round(flags[RUBI_COCK_SIZE]*10)/10 + "-inch penis.");
@@ -2641,6 +2667,7 @@ function giveRubiATFItem(short:String):void {
 		if(flags[RUBI_NO_CUNT] == 0 && rand(3) == 0) {
 			outputText("\n\nRubi trembles, " + rubiMF("his","her") + " hand dipping between " + rubiMF("his","her") + " thighs, searching around for something.  " + rubiMF("He","She") + " pokes around madly, apparently finding nothing.  \"<i>It... It's gone!</i>\" " + rubiMF("he","she") + " says with a shaky voice.  \"<i>My vagina's gone!</i>\"");
 			flags[RUBI_NO_CUNT] = 1;
+			flags[RUBI_SHE] = 0;
 			flags[RUBI_CUNTTYPE] = 0;
 		}
 	}
@@ -2690,6 +2717,7 @@ function giveRubiATFItem(short:String):void {
 			outputText(".  It's pretty clear, this former male is now completely female.  Rubi collapses backwards onto the couch, the transformations seemingly done.");
 			flags[RUBI_COCK_SIZE] = 0;
 			flags[RUBI_NO_CUNT] = 0;
+			flags[RUBI_SHE] = 1;
 		}
 		outputText("\n\n\"<i>Like, oh.  My.  Gods.  That was so wild,</i>\" " + rubiMF("he","she") + " says, and suddenly grips " + rubiMF("his","her") + " throat.  \"<i>Whoa, like, my voice is different!</i>\"  Though " + rubiMF("he","she") + " had a very feminine voice to begin with, it is noticeably more girly.  Not high pitched, just... girly, and tinged with a hint of a ditzy accent.");
 		
@@ -2734,9 +2762,9 @@ function giveRubiATFItem(short:String):void {
 			flags[RUBI_COCK_SIZE] = 5;
 		}
 		//(If Rubi gets Horsecock)
-		if(flags[RUBI_COCK_TYPE] != 1) {
+		if(flags[RUBI_COCK_TYPE] != CockTypesEnum["human"]) {
 			outputText("\n\nFor a few moments nothing happens.  Then Rubi suddenly doubles over, clutching " + rubiMF("his","her") + " stomach in pain.  With one hand clamped firmly around " + rubiMF("his","her") + " midsection, " + rubiMF("his","her") + " other hand reaches down to grasp at " + rubiMF("his","her") + " " + rubiCock() + ".  The flesh on " + rubiMF("his","her") + " cock ripples, veins suddenly bulging.  A low moan wrestles its way out of Rubi's throat as " + rubiMF("his","her") + " cock morphs, the pink head flattening all of a sudden and flaring outwards.");
-			flags[RUBI_COCK_TYPE] = 1;
+			flags[RUBI_COCK_TYPE] = CockTypesEnum["human"];
 			outputText("\n\nRubi's dick thickens in " + rubiMF("his","her") + " hand, gaining at least an inch of width as it continues to change.  A thick, fleshy ring bulges out near the base of the cock... the beginnings of a sheathe, no doubt.  As you watch on in awe, the flesh at the base of Rubi's cock begins to darken, slowly become a dusky grey-black, which also overtakes " + rubiMF("his","her") + " ");
 			if(flags[RUBI_BLU_BALLS] >= 4 && flags[RUBI_BLU_BALLS] < 9) outputText("swollen ");
 			else if(flags[RUBI_BLU_BALLS] >= 9) outputText("engorged ");
@@ -2771,7 +2799,7 @@ function giveRubiATFItem(short:String):void {
 		
 		outputText("\n\nWith Rubi finally covered from the neck down in the oils, you stand back and smile, waiting for the transformations to kick in.");
 		//(If Bust size decreases)
-		if(flags[RUBI_BREAST_SIZE] > 1) {
+		if((flags[RUBI_BREAST_SIZE] > 1) && (!flags[HYPER_HAPPY])) {
 			outputText("\n\nRubi gasps a little and " + rubiMF("his","her") + " hands immediately dart to " + rubiMF("his","her") + " chest.  Before your eyes, Rubi's breasts begin to dwindle, shrinking down an entire cup size.  Rubi cups " + rubiMF("his","her") + " breasts experimentally, getting used to their new, reduced, weight.");
 			flags[RUBI_BREAST_SIZE]--;
 			if(flags[RUBI_BREAST_SIZE] < 1) flags[RUBI_BREAST_SIZE] = 1;
@@ -2783,7 +2811,7 @@ function giveRubiATFItem(short:String):void {
 			if(flags[RUBI_BREAST_SIZE] > 1) flags[RUBI_BREAST_SIZE] = 1;
 		}
 		//(If Penis size decreases)
-		else if(flags[RUBI_COCK_SIZE] > 3) {
+		else if((flags[RUBI_COCK_SIZE] > 3) && (!flags[HYPER_HAPPY])) {
 			outputText("\n\nRubi's " + rubiCock() + " swells up suddenly, growing painfully hard.  " + rubiMF("He","She") + " grasps it and moans suddenly as it begins to dwindle in size, shrinking down by at least an inch, leaving " + rubiMF("him","her") + " with a ");
 			flags[RUBI_COCK_SIZE]--;
 			if(flags[RUBI_COCK_SIZE] < 3) flags[RUBI_COCK_SIZE] = 3;
@@ -2827,9 +2855,9 @@ function giveRubiATFItem(short:String):void {
 			flags[RUBI_LOWERBODY] = 1;
 		}
 		//(Gaining Cat Penis)
-		else if(flags[RUBI_COCK_TYPE] != 5) {
+		else if(flags[RUBI_COCK_TYPE] != CockTypesEnum["cat"] && flags[RUBI_COCK_SIZE] > 0) {
 			outputText("\n\nFor a few moments nothing happens.  Then Rubi suddenly doubles over, clutching " + rubiMF("his","her") + " stomach in pain.  With one hand clamped firmly around " + rubiMF("his","her") + " midsection, " + rubiMF("his","her") + " other hand reaches down to grasp at " + rubiMF("his","her") + " " + rubiCock() + ".  The flesh on " + rubiMF("his","her") + " cock ripples, veins suddenly bulging.  A low moan wrestles its way out of Rubi's throat as " + rubiMF("his","her") + " cock morphs, its tip lengthening out while a number of barb-like protrusions sprout from the head.  Before your eyes the barbs quiver and then go flush against " + rubiMF("his","her") + " cock.  They don't seem sharp, more like they're ready to stimulate a potential mate.");
-			flags[RUBI_COCK_TYPE] = 5;
+			flags[RUBI_COCK_TYPE] = CockTypesEnum["cat"];
 		}
 		//(Gaining Fur)
 		else if(flags[RUBI_SKIN] != 2) {
@@ -2859,7 +2887,7 @@ function giveRubiATFItem(short:String):void {
 		outputText(" underneath.  The demon-marked " + rubiMF("boy","girl") + " rubs " + rubiMF("his","her") + " stomach appreciatively.  \"<i>Those were some great peaches, babe.</i>\"");
 		
 		//(Any changes? Yes)
-		if(flags[RUBI_EAR_TYPE] != 2 || flags[RUBI_SKIN] != 3 || (flags[RUBI_COCK_SIZE] > 0 && flags[RUBI_COCK_TYPE] != 7)) {
+		if(flags[RUBI_EAR_TYPE] != 2 || flags[RUBI_SKIN] != 3 || (flags[RUBI_COCK_SIZE] > 0 && flags[RUBI_COCK_TYPE] != CockTypesEnum.legacySuportLoadCockType(7))) {
 			outputText("\n\nRubi's eyes suddenly dart open and " + rubiMF("he","she") + " clutches " + rubiMF("his","her") + " stomach.  \"<i>Oh gods…  My belly feels so warm all of a sudden.</i>\"");
 			//(Feathery ears)
 			if(flags[RUBI_EAR_TYPE] != 2) {
@@ -2883,16 +2911,16 @@ function giveRubiATFItem(short:String):void {
 				flags[RUBI_SKIN] = 3;
 			}
 			//(Anemone Penis, must have a penis)
-			else if(flags[RUBI_COCK_SIZE] > 0 && flags[RUBI_COCK_TYPE] != 7) {
+			else if(flags[RUBI_COCK_SIZE] > 0 && flags[RUBI_COCK_TYPE] != CockTypesEnum.legacySuportLoadCockType(7)) {
 				outputText("\n\n" + rubiMF("His","Her") + " hands don't dally there long before darting down to " + rubiMF("his","her") + " crotch, groping at the " + rubiCock() + " betwixt " + rubiMF("his","her") + " legs.  The flesh seems to  ripple, with veins suddenly bulging.  A low, husky groan wrestles its way out of Rubi's throat as " + rubiMF("his","her") + " cock morphs");
-				if(flags[RUBI_COCK_TYPE] != 0) outputText(", first shifting towards a more human-like appearance");
+				if(flags[RUBI_COCK_TYPE] != CockTypesEnum.legacySuportLoadCockType(0)) outputText(", first shifting towards a more human-like appearance");
 				outputText(".  Small nodules appear, around the crown of the penis, and around its base.  Rubi's delicate hands run across two of the nodules, and " + rubiMF("his","her") + " cock suddenly stiffens, harder than you've ever seen it!  Whatever those things are, they're quite sensitive.");
 				
 				outputText("\n\nThe little nubs quickly grow outwards, lengthening into tiny, anemone-like tentacles.  When the changes finally stop, Rubi gazes down with no small amount of trepidation, as the four tentacles around the head of " + rubiMF("his","her") + " penis and the four at its base wriggle and writhe of their own accord.");
 				
 				outputText("\n\n\"<i>Oh... Oh my.</i>\"  It's all " + rubiMF("he","she") + " can say as " + rubiMF("he","she") + " wraps a hand around this newly modified appendage.  The tentacles likewise attempt to wrap themselves around Rubi's hand, clearly having a mind of their own.  You're fairly certain this will take a little while to adapt to.");
 			}
-			flags[RUBI_COCK_TYPE] = 7;
+			flags[RUBI_COCK_TYPE] = CockTypesEnum.legacySuportLoadCockType(7);
 		}
 		//(No)
 		else {
@@ -2933,10 +2961,10 @@ function rubiPenisGroPlus():void {
 	outputText("You hand over the vial of greenish liquid.  Rubi takes a moment to look it over before, before taking a deep breath and injecting the entire thing into the base of " + rubiMF("his","her") + " " + rubiCock() + ".");
 	
 	//(If Penis increase)
-	if(flags[RUBI_COCK_SIZE] < 12 || (flags[RUBI_COCK_TYPE] == 1 && flags[RUBI_COCK_SIZE] < 20)) {
+	if(flags[RUBI_COCK_SIZE] < 12 || (flags[RUBI_COCK_TYPE] == CockTypesEnum.legacySuportLoadCockType(1) && flags[RUBI_COCK_SIZE] < 20)) {
 		outputText("\n\nRubi grips " + rubiMF("his","her") + " cock as it suddenly hardens, visibly throbbing in " + rubiMF("his","her") + " grasp.  It surges, growing larger, gaining about two inches right before your eyes.");
 		flags[RUBI_COCK_SIZE] += 2 + rand(2);
-		if(flags[RUBI_COCK_TYPE] != 1) {
+		if(flags[RUBI_COCK_TYPE] != CockTypesEnum.legacySuportLoadCockType(1)) {
 			if(flags[RUBI_COCK_SIZE] > 12) flags[RUBI_COCK_SIZE] = 12;
 		}
 		else {
@@ -2945,7 +2973,7 @@ function rubiPenisGroPlus():void {
 	}
 	else {
 		outputText("\n\nSadly, apart from making " + rubiMF("his","her") + " cock hard, it doesn't seem to have much of an effect on Rubi's ");
-		if(flags[RUBI_COCK_TYPE] == 1) outputText("sheath-stuffing horse-dick");
+		if(flags[RUBI_COCK_TYPE] == CockTypesEnum.legacySuportLoadCockType(1)) outputText("sheath-stuffing horse-dick");
 		else outputText("foot-long dick.");
 	}
 	consumeItem("GroPlus",1);
@@ -3091,7 +3119,7 @@ function pickAnItemToFeedRubi():void {
 		outputText("\n\n");
 	}
 	if(!rubiBimbo() && !rubiIncubus() && rubiAffection() >= 100) {
-		outputText("You could give Rubi some incubi draft to make him a little more manly but corrupt, or you could give Rubi a Bimbo Draft to turn him into a smoking hot, female sex-bomb.");
+		outputText("You could give Rubi some incubi draft to make " + rubiMF("him","her") + " a little more manly but corrupt, or you could give Rubi a Bimbo Draft to turn " + rubiMF("him","her") + " into a smoking hot, female sex-bomb.\n\n");
 	}
 	outputText("What will you give " + rubiMF("him","her") + "?");
 	//The following items can be given to Rubi at Relationship 20+: Suit Clothes, Rubber Fetish Outfit, Green Adventurer's Clothing, Tube Top, Bodysuit, Long Dress, Tight Leather Pants, Nurse Clothes, Slutty Swimwear.  Only once per item.
@@ -3163,7 +3191,7 @@ function pickAnItemToFeedRubi():void {
 		events[events.length] = "P.S.Mlk";
 		functions[functions.length] = giveRubiATFItem;
 	}
-	if(hasItem("PurPeac",1)) {
+	if(hasItem("PurPeac",5)) {
 		events[events.length] = "PurPeac";
 		functions[functions.length] = giveRubiATFItem;
 	}
@@ -3252,5 +3280,5 @@ function giveRubiClothes(short:String = ""):void {
 	else if(short == "I.Corst") flags[RUBI_INQUISITORS_CORSET] = 1;
 	else if(short == "BonStrp") flags[RUBI_BONDAGE_STRAPS] = 1;
 	rubiAffection(20);
-	doNext(3898);
+	doNext(rubisFuckingHouseYouPervert);
 }

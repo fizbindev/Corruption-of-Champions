@@ -2,9 +2,9 @@
 //" + flags[MILK_NAME] + ": This slut's name. Can't call her Bath Slut forever. Unless you do.
 //[MilkySize]: Does Milky have GIANT HUGE BOOBS that she can't fucking walk with, does she have a big plump set of HHH cups you can smother yourself and your big fat cock with, or a more reasonable DD bust, the perfect size to drink from, titfuck, and play with all day long.
 
-const MILK_NAME:int = 869;
-const MILK_SIZE:int = 870;
-const MET_MILK_SLAVE:int = 871;
+//const MILK_NAME:int = 869;
+//const MILK_SIZE:int = 870;
+//const MET_MILK_SLAVE:int = 871;
 
 function milkSlave():Boolean {
 	if(flags[MILK_NAME] is String) return true;
@@ -116,7 +116,7 @@ function arriveWithLacticWaifuAtCamp():void {
 	clearOutput();
 	outputText("It's slow going, having to support your milky friend all the way back to camp, but after a few hours, you manage to make it home.  By the time you arrive, you see that the Sand Mother has kept her word, and a small part of the camp's perimeter has been cleared away, your belongings moved aside to make room for a large pool, its radius easily ten feet, buried in the hard-packed dirt of the wasteland.  A metallic brim surrounds the pool, just wide enough to sit or lie on with your [legs] dangling into the milky waters that will soon be filling it.");
 	
-	outputText("\n\nSeeing the pool, the milk girl gasps with glee, stumbling over to it before collapsing onto all fours, chest resting on her massive tits and ass up in the air, bare for all to see.  \"<i>Bath Slut milk time?</i>\" she asks, her bright brown eyes looking up at your pleadingly.");
+	outputText("\n\nSeeing the pool, the milk girl gasps with glee, stumbling over to it before collapsing onto all fours, chest resting on her massive tits and ass up in the air, bare for all to see.  \"<i>Bath Slut milk time?</i>\" she asks, her bright brown eyes looking up at yours pleadingly.");
 	
 	outputText("\n\nSpeaking of which, you don't really have anything to call this dusky beauty.  You suppose you could just keep calling her \"Bath Slut,\" but that's hardly a fitting name for a free girl...");
 	
@@ -260,7 +260,7 @@ function superReductoUsage():void {
 	
 	outputText("\n\n\"<i>Come on, you'll feel a lot better afterwards, I promise,</i>\" you say, crouching down beside her, locking onto " + flags[MILK_NAME] + "'s big brown eyes.");
 	
-	outputText("\n\nIf by nothing else than your soothing tone, " + flags[MILK_NAME] + " stops fussing about the Reducto and does her best to curl up in your lap, giving your free access to her big ol' rack.  You tussle her hair and start thinking about how to go about this.");
+	outputText("\n\nIf by nothing else than your soothing tone, " + flags[MILK_NAME] + " stops fussing about the Reducto and does her best to curl up in your lap, giving you free access to her big ol' rack.  You tussle her hair and start thinking about how to go about this.");
 	
 	//If GIANT BOOBS:
 	if(flags[MILK_SIZE] == 0) {
@@ -349,7 +349,7 @@ function milkBathTime():void {
 	if(flags[VALARIA_AT_CAMP] == 1) count++;
 	if(amilyFollower() && !amilyCorrupt()) count++;
 	if(followerHel()) count++;
-	if(flags[238] == 1) count++;
+	if(flags[UNKNOWN_FLAG_NUMBER_00238] == 1) count++;
 	if(followerEmber()) count++;
 	if(followerKiha()) count++;
 	if(count >= 3) {
@@ -362,7 +362,7 @@ function milkBathTime():void {
 //[Next] (Relax)
 function relaxWithMilkWaifu():void {
 	clearOutput();
-	outputText("You sit in the tub for a while, letting the fragrant fluids soak into your " + player.skinFurScales() + ".   You spend the better part of an hour lounging, letting your cares float away in " + flags[MILK_NAME] + "'s endless white bounty.   Finally, though, you pull out the tub's plug and climb out, finding a towel nearby.   Thankfully, the milk doesn't seem to leave behind any residue, and you feel clean and refreshed, if a bit horny.");
+	outputText("You sit in the tub for a while, letting the fragrant fluids soak into your " + player.skinFurScales() + ".   You spend the better part of an hour lounging, letting your cares float away in " + flags[MILK_NAME] + "'s endless white bounty.   Finally though, you pull out the tub's plug and climb out, finding a towel nearby.   Thankfully, the milk doesn't seem to leave behind any residue, and you feel clean and refreshed, if a bit horny.");
 	//(+Lust, -Fatigue)
 	stats(0,0,0,0,0,0,10+player.sens/10,0,false);
 	fatigue(-34);
@@ -399,7 +399,7 @@ function communalBath():void {
 	if(followerHel()) outputText("\n\nWith a gleeful shout, Hel rushes the pool.  In one swift motion, she tosses her scale bikini aside and cannon-balls in, splashing everyone with a creamy tidal wave.  Chuckling, you clear your eyes - just in time for her bikini bottom to land on your face.");
 	
 	//If PC has Izma: 
-	if(flags[238] == 1) outputText("\n\nYou didn't even notice Izma getting into the pool.  The first sign of her is the sudden appearance of a bright red fin sticking above the water, closing in on you.  She breaches at the last moment, laughing gaily as she gives her alpha a kiss.");
+	if(flags[UNKNOWN_FLAG_NUMBER_00238] == 1) outputText("\n\nYou didn't even notice Izma getting into the pool.  The first sign of her is the sudden appearance of a bright red fin sticking above the water, closing in on you.  She breaches at the last moment, laughing gaily as she gives her alpha a kiss.");
 	
 	//{If PC has Ember:
 	if(followerEmber()) outputText("\n\nEmber approaches the pool, reptilian tail swishing eagerly.  " + emberMF("He","She") + " lowers " + emberMF("himself","herself") + " in with ease, sighing contentedly as milk washes over " + emberMF("his","her") + " scaled body.  \"<i>Is this how you humans bathe normally?</i>\"  " + emberMF("He","She") + " muses.  \"<i>How bizarre.</i>\"");

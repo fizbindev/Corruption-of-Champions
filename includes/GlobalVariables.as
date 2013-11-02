@@ -12,11 +12,13 @@
 var debug:Boolean = false;
 
 //Version NUMBER
-var ver:String = "0.8.3b";
-var version:String = "v0.8.3b (<b>Bog Lovin'</b>)";
+var ver:String = "0.8.3d1";
+var version:String = "v0.8.3d1 (<b>Dick or Treat</b>)";
 
 //Indicates if building for mobile?
 var mobile:Boolean = false;
+
+var images:ImageManager = new ImageManager();
 //} endregion
 
 /**
@@ -26,13 +28,13 @@ var mobile:Boolean = false;
 //{ region PlayerVariables
 
 //The Player object, used everywhere
-var player:creature = new creature();
+var player:Player = new Player();
 
 //Used in perk selection, mainly eventParser, input and engineCore
 var tempPerk:String = "";
 
 //Create monster, used all over the place
-var monster:creature = new creature();
+var monster:Monster = new Monster();
 //} endregion
 
 /**
@@ -46,7 +48,7 @@ var itemSwapping:Boolean = false;
 
 //The extreme flag state array. This needs to go. Holds information about everything, whether it be certain attacks for NPCs 
 //or state information to do with the game. 
-var flags = new Array();
+var flags = new DefaultDict();
 for (var i = 0; i < 3000; i++)
 {
 	flags.push(0);
@@ -123,7 +125,7 @@ var currentText:String = "";
  */
 //{ region PlotVariables
 
- //Plot variables
+//Plot variables
 var explored:Boolean = false;
 var foundForest:Boolean = false;
 var foundDesert:Boolean = false;

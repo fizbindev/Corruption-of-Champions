@@ -69,7 +69,7 @@ function cultistRapesYou():void {
 	if(player.lowerBody == 4 || player.lowerBody == 3) {
 		//Special centaur version by Astronomy
 		if(player.lowerBody == 4 && player.balls > 0 && player.totalCocks() > 0 && rand(4) < 3) {
-			if(player.cocks[0].cockType == 1) {
+			if(player.cocks[0].cockType == CockTypesEnum.HORSE) {
 				outputText("The entrance door to the stables swings open. Standing there is the familiar sight of your favorite zookeeper.  She's wearing overalls and a plain, dirt marked t-shirt, but you notice the overalls have the familiar logo of the zoo – your home.  You can make out a part of the logo says  \"Featsy's Slutty Beast Zoo - Zoo Keeper\" on it. As she walks into the stables, you see she's carrying a small stool with her, a sight that fills you with anticipation. You watch her walk down the aisle in between all the stable stands, glancing between all the zoo's pet centaurs, yourself included.  Most of them are male and you can even see the odd herm going by her big pair of tits and large set of balls with a dangling cock. The zookeeper smiles lustfully as she looks from side to side at the different centaurs available. As she slowly walks towards you, you can't help but hope that she'll choose you for today's 'treatment'.  To your immense delight, you see that the girl has stopped in front of you.  You try to move but the ropes holding you in place arrest your movement.  The omnipresent weight of your cock as it dangles between your legs grows heavier and heavier as your body remembers the zookeeper.  The girl steps into your stand, closing the door behind her.  As you look at her, you can see her face is blushing red, and her eyes are clearly fixated on your " + cockDescript(0) + " and " + ballsDescriptLight() + ".\n\n", false);
 			
 				outputText("As she stands there, she sets her stool down beside her. With a hungry grin, she snaps the buttons to her overalls off and lets them fall down around her feet, revealing her cunt. She grips the bottom of her t-shirt and pulls it up and off of her, tossing it to the side. You can see she's got a big pair of tits, roughly DD-cup you guess. You feel confused as she walks up to you and starts to stroke her hands along your torso, feeling the shape of your 'human' upper body with her fingers. You know what she's planning and whicker excitedly, eager for her to get on with it. The girl leans her head into your torso and kisses the skin gently, her tongue slipping beyond her lips to taste your skin. You gasp in surprise as you feel the warm tickle of her tongue on your " + player.skinDesc + ". Your " + cockDescript(0) + " twitches beneath you, surging with blood as it fills to full erectness.  She kisses you again, licking her tongue over more of your body this time. You gasp again, her touches and kisses arousing you as you feel a light sweat break out over your skin. Seeing the beads of moisture beginning to drip from you, she hungrily licks across your skin, tasting you as she closes her eyes and sighs with joy.  An animalistic hunger grows from your crotch as your " + cockDescript(0) + " gradually throbs, growing harder and harder. The zoo-keeper presses herself right up against you, her breasts squishing against your skin as she rubs herself over you, clearly getting more and more aroused herself at the feel of your bestial body.\n\n", false);
@@ -460,7 +460,7 @@ function playerRapesCultist():void {
 
 		outputText("You slowly ask her why, if she likes it so much, is she covering herself up?  She looks around a little nervously for a moment before pulling her hands away and giving you a good look at her body.  You see her breathing becoming more rapid.  \"<i>Oh fuck yeah, look at me in this slutty outfit,</i>\" she says, starting to shiver.  She giggles and does a stretch while \"accidentally\" getting part of her suit to slip off.  \"<i>Oops, you can totally see my nipple now, can't you?</i>\" she says breathlessly, her crotch now visibly soaked with her arousal.\n\n", false);
 		//if (PC is an exhibitionist)
-		if(flags[23] > 0) outputText("Given your experience with Ceraph, you can definitely understand why she is having so much fun showing off her body.  In fact, you think you'll start to do the same.", false);
+		if(flags[PC_FETISH] > 0) outputText("Given your experience with Ceraph, you can definitely understand why she is having so much fun showing off her body.  In fact, you think you'll start to do the same.", false);
 		else outputText("You don't really understand what could be so arousing about showing off your body to others, but you decided you were going to rape her, so you might as well strip down now.", false);
 		outputText("  At the sight of your nude body, the nearly naked woman gives another shiver.  \"<i>Oh sweet cocks, you look so sexy,</i>\" she says running her hands over her heaving breasts.  \"<i>Please, can we fuck?</i>\" she begs you.\n\n", false);
 		//corruption check!
@@ -582,7 +582,7 @@ function swimsuitVibrators():void {
 		monster.lust = 98;
 		monster.HP = 2;
 		player.lust = 100;
-		flags[89] = monster.XP;
+		flags[UNKNOWN_FLAG_NUMBER_00089] = monster.XP;
 		eventParser(5007);
 		stats(0,0,0,0,1,-3,-100,0);
 	}
@@ -682,7 +682,7 @@ function fetishCultistHasAMilkFetish():void {
 
 	outputText("You see the cultist is sleeping on the ground, still in the fantasy she created.", false);
 	//[You have found 1xBee Honey]
-	flags[65] = 1;
+	flags[UNKNOWN_FLAG_NUMBER_00065] = 1;
 	//set lust to 0, increase sensitivity slightly
 	stats(0,0,0,0,.2,0,-100,0);
 	//You've now been milked, reset the timer for that

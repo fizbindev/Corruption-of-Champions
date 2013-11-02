@@ -1,11 +1,11 @@
 ﻿//CAPACITY: 70
 
-const KATHERINE_UNLOCKED:int = 398;
-const KATHERINE_DICK_COUNT:int = 399;
-const KATHERINE_DICK_LENGTH:int = 400;
-const KATHERINE_KNOT_THICKNESS:int = 401;
-const KATHERINE_BALL_SIZE:int = 402;
-const KATHERINE_TIMES_SEXED:int = 403;
+//const KATHERINE_UNLOCKED:int = 398;
+//const KATHERINE_DICK_COUNT:int = 399;
+//const KATHERINE_DICK_LENGTH:int = 400;
+//const KATHERINE_KNOT_THICKNESS:int = 401;
+//const KATHERINE_BALL_SIZE:int = 402;
+//const KATHERINE_TIMES_SEXED:int = 403;
 
 function kathCock():String {
 	return NPCCockDescript(2,flags[KATHERINE_DICK_LENGTH]);
@@ -117,7 +117,7 @@ function katherineMenu():void {
 	//[Sex] [Talk] [Appearance] [Give Item]
 	var sex:int = 0;
 	if(player.lust >= 33) sex = 3335;
-	simpleChoices("Sex",sex,"Talk",3319,"Appearance",3326,"Give Item",3327,"Back",2211);
+	simpleChoices("Sex",sex,"Talk",talkToKatherine,"Appearance",katherinesAppearance,"Give Item",giveKatherineAnItem,"Back",telAdreMenu);
 }
 //Talk
 function talkToKatherine():void {
@@ -125,7 +125,7 @@ function talkToKatherine():void {
 	outputText("You tell Katherine that you'd like to talk.  The pink-haired black cat looks shy, but excited at that.  \"<i>Okay... what do you want to talk about?</i>\" she asks, nervously looking at her feet.", false);
 
 	//[Racial Tension] [Her History] [Gang] [Dog Cock] [Vagrancy] [Love & Lust]
-	choices("RacialTension",3320,"Her History",3321,"Gang",3322,"Dog Cock",3323,"Vagrancy",3324,"LoveAndLust",3325,"",0,"",0,"",0,"Back",3318);
+	choices("RacialTension",katherineDefur,"Her History",katherinesHistory,"Gang",askKatherineAboutGang,"Dog Cock",askKatherineAboutDogCock,"Vagrancy",askKatherineAboutVagrancy,"LoveAndLust",askKatherineAboutLoveAndLust,"",0,"",0,"",0,"Back",katherineMenu);
 }
 
 //Talk Scenes
@@ -142,7 +142,7 @@ function katherineDefur():void {
 
 	outputText("You click your tongue reflexively.  Politely thanking Katherine for the talk, you turn and walk away.\n\n", false);
 	//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it
-	doNext(2211);
+	doNext(telAdreMenu);
 }
 
 //Her History
@@ -162,7 +162,7 @@ function katherinesHistory():void {
 
 	outputText("You're skeptical, but reason there's nothing you can do about it right now.  Politely thanking Katherine for the talk, you turn and walk away.", false);
 	//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it
-	doNext(2211);
+	doNext(telAdreMenu);
 }
 
 //Gang
@@ -196,7 +196,7 @@ function askKatherineAboutGang():void {
 
 	outputText("Politely thanking Katherine for the talk, you turn and walk away.\n\n", false);
 	//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it
-	doNext(2211);
+	doNext(telAdreMenu);
 }
 
 //Dog Cock
@@ -218,7 +218,7 @@ function askKatherineAboutDogCock():void {
 
 	outputText("Politely thanking Katherine for the chat, you turn and walk away.", false);
 	//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it
-	doNext(2211);
+	doNext(telAdreMenu);
 }
 
 //Vagrancy
@@ -230,7 +230,7 @@ function askKatherineAboutVagrancy():void {
 
 	outputText("You can't help wondering how much of that is true and how much of that is prejudice.  Politely thanking Katherine for the talk, you turn and walk away.", false);
 	//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it
-	doNext(2211);
+	doNext(telAdreMenu);
 }
 
 //Love & Lust
@@ -246,7 +246,7 @@ function askKatherineAboutLoveAndLust():void {
 
 	outputText("Politely thanking Katherine for the talk, you turn and walk away.", false);
 	//Player returns to Tel'Adre Menu Screen or to camp, if code insists on it
-	doNext(2211);
+	doNext(telAdreMenu);
 }
 
 //Katherine Appearance:
@@ -287,7 +287,7 @@ function giveKatherineAnItem():void {
 	if(hasItem("DblPepp",1)) double = 3333;
 	if(hasItem("LargePp",1)) large = 3334;
 	//[Reducto] [Bulbous Pepper] [Double Pepper] [Overly Large Pepper]
-	simpleChoices("Reducto",reducto,"BulbPepper",bulb,"DblPeppr",double,"LrgPepp",large,"Back",3318);
+	simpleChoices("Reducto",reducto,"BulbPepper",bulb,"DblPeppr",double,"LrgPepp",large,"Back",katherineMenu);
 }
 
 //Reducto
@@ -298,7 +298,7 @@ function useReductoOnKat():void {
 		outputText("She looks at the jar and then visibly thinks about it, but shakes her head.  \"<i>I'm sorry, " + player.short + ", but I don't think it's possible for that stuff to make any of my remaining parts shrink any more...  Or rather, I should say I don't want to get any smaller than I am now, thank you.</i>\"\n\n", false);
 		outputText("You nod in understanding and put the jar away.  She looks apologetic.  \"<i>Did you maybe want to do something else?</i>\" she asks.", false);
 		//Display main Kat menu
-		doNext(3327);
+		doNext(giveKatherineAnItem);
 	}
 	else {
 		var knot:Number = 0;
@@ -314,7 +314,7 @@ function useReductoOnKat():void {
 		if(player.lib > 50) outputText("and planning exactly what you're going to do to it.", false);
 		else outputText("and wondering how to begin.", false);
 		//[Knot] [Length] [Balls]
-		simpleChoices("Knot",knot,"Length",leng,"Balls",balls,"",0,"Back",3327);
+		simpleChoices("Knot",knot,"Length",leng,"Balls",balls,"",0,"Back",giveKatherineAnItem);
 	}
 	
 }
@@ -517,7 +517,7 @@ function katSexMenu():void {
 	}
 	if(player.lactationQ() > 0 && player.biggestLactation() >= 1 && player.biggestTitSize() >= 1)
 		suckle = 3354;
-	simpleChoices("Penetration",penetrate,"GetPenetrated",getPen,"Oral",3348,"DoubleHelix",helix,"Suckle",suckle);
+	simpleChoices("Penetration",penetrate,"GetPenetrated",getPen,"Oral",oralKatherineChoices,"DoubleHelix",helix,"Suckle",suckle);
 }
 
 //Penetrate
@@ -709,7 +709,7 @@ function letKatKnotYou():void {
 	if(player.hasVagina()) vag = 3344;
 	//This scene requires the PC has a penis and has fucked Kat at least once since moving her
 	if(player.hasCock() && flags[KATHERINE_TIMES_SEXED] > 0) sukn = 3347;
-	simpleChoices("Vagina",vag,"Anus",3345,"DblPenetr",dubs,"SuckNFuckd",sukn,"",0);
+	simpleChoices("Vagina",vag,"Anus",getPenetrated,"DblPenetr",dubs,"SuckNFuckd",sukn,"",0);
 }
 
 //Get Penetrated (Vaginal)
@@ -1008,7 +1008,7 @@ function suckedNFuckedByKat():void {
 	if(flags[KATHERINE_DICK_COUNT] > 1) outputText("s", false);
 	outputText(" out and then thrusting home, her knot", false);
 	if(flags[KATHERINE_DICK_COUNT] > 1) outputText("s", false);
-	outputText(" starting to swell and stretching you out in all the right ways... if only she wasn't going so slow, this would be so great.  But any complaints about the pace are lost when she bends over again and starts to lap at your " + cockDescript(x) + ", running her tongue over and around it several times before she takes it into her mouth, swallowing inch after inch of " + cockNoun(0) + " until her nose is pressed flat into the base of your belly.  She lets out a muffled grunt that might be \"<i>right</i>\", then tries to manage the task of picking up the pace of her thrusts while sucking and slurping on your " + cockDescript(x) + " at the same time.\n\n", false);
+	outputText(" starting to swell and stretching you out in all the right ways... if only she wasn't going so slow, this would be so great.  But any complaints about the pace are lost when she bends over again and starts to lap at your " + cockDescript(x) + ", running her tongue over and around it several times before she takes it into her mouth, swallowing inch after inch of " + Appearance.cockNoun(CockTypesEnum.HUMAN) + " until her nose is pressed flat into the base of your belly.  She lets out a muffled grunt that might be \"<i>right</i>\", then tries to manage the task of picking up the pace of her thrusts while sucking and slurping on your " + cockDescript(x) + " at the same time.\n\n", false);
 
 	outputText("You're in no position to complain.  This feels... incredible!  Her mouth around your cock is so hot and wet, her tongue sliding along the underside of your shaft and stroking in a sensation that no human could ever match, greedily sucking on you and hungry for everything you have.  At the same time, she's stretching your hole", false);
 	if(player.hasVagina() && flags[KATHERINE_DICK_COUNT] > 1) outputText("s", false);
@@ -1301,8 +1301,8 @@ function giveKatOralPenisWingWang():void {
 function katherineGivesPCOralAllDayLongDotJPG():void {
 	outputText("", true);
 	outputText("You tell Katherine you'd like to see what she can do with her tongue.  The black cat blinks in surprise, then grins widely.  \"<i>Well, that can be arranged...</i>\"  She purrs, taking you by the arm and leading you around to a specific crate.  Once you are seated and both of you are naked, she kneels in front of you.  \"<i>Now, let's see what you have, my dear...</i>\" she says, tail waving in the way that only a happy cat's does.\n\n", false);
-	if(player.hasCock() && (player.gender == 1 || rand(2) == 0)) doNext(3352);
-	else doNext(3351);
+	if(player.hasCock() && (player.gender == 1 || rand(2) == 0)) doNext(katherineLicksAllTheBoyPenises);
+	else doNext(katherineGoesDownOnTheGirlsOhYahBabyLesbo);
 	
 }
 //[Female]
@@ -1391,7 +1391,7 @@ function katDoubleHelixCraziness():void {
 
 	outputText("Katherine flexes her legs and pulls you inside her, penetrating you as well.  She yowls in pleasure as she feels the simultaneous pleasure of penetrating and being penetrated.  \"<i>Ah... just move your hips - mmm - with me.</i>\"\n\n", false);
 
-	outputText("Shivering with delight as her hot, soaking wet walls envelop your " + cockNoun(0) + " and her rubbery, pointy dog-cock slides into your " + vaginaDescript() + ", you need no further encouragement, eagerly pumping your hips against hers, trying to push into her and push her into you without letting either cock slip free of its appointed hole.  Katherine gyrates her hips, attempting to stimulate both your parts, panting in pleasure.\n\n", false);
+	outputText("Shivering with delight as her hot, soaking wet walls envelop your " + Appearance.cockNoun(CockTypesEnum.HUMAN) + " and her rubbery, pointy dog-cock slides into your " + vaginaDescript() + ", you need no further encouragement, eagerly pumping your hips against hers, trying to push into her and push her into you without letting either cock slip free of its appointed hole.  Katherine gyrates her hips, attempting to stimulate both your parts, panting in pleasure.\n\n", false);
 
 	outputText("You whine and whimper at the stimulus, moving your own hips likewise in an effort to intensify the sensations without accidentally enveloping her knot in your cunt.  Katherine mewls and yowls in pleasure in response, voicing her approval and pulling you dangerously closer to her knot in an attempt to feel more of you.  Barely coherent of what's happening, your world shrinks down to the feeling of cock in cunt... then with a wet SCHLUCK Katherine's half-swollen knot slips inside your pussy and your hips collide.", false);
 	cuntChange(flags[KATHERINE_DICK_LENGTH] * 2,true,true,false);
