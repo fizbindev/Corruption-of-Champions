@@ -2,7 +2,7 @@
 //const DOMINIKAS_SWORD_GIVEN:int = 416;
 
 //[INTRO]
-function inquisitorRobesDiscovery():void {
+public function inquisitorRobesDiscovery():void {
 	outputText("", true);
 	outputText("Cutting your way through the swamps in the hopes of finding something that isn't a spider, you are pleasantly surprised when you actually succeed.  You discover what seems to be a mossy stone door in a low hillside, adorned with some sort of complex puzzle lock composed of multiple stone circles decorated with animal symbols.  You don't know what lurks beyond the door, but if adventuring has taught you nothing else it is that something cool is always behind a puzzle.\n\n", false);
 
@@ -52,11 +52,11 @@ function inquisitorRobesDiscovery():void {
 
 	//if implying that Rathazul used to be an advisor to the queen before the fall, start by spelling his name correctly; else, proceed as normal
 	//[Retribution] [Carnality] [No]
-	simpleChoices("Retribution",3390,"Carnality",3389,"",0,"",0,"NOPE!",3391);
+	simpleChoices("Retribution",retributionArmorIsCoolShit,"Carnality",carnalityArmorIsCoolShitToo,"",0,"",0,"NOPE!",noThankYouSirIDontWantAwesomeArmors);
 }
 
 //[No]
-function noThankYouSirIDontWantAwesomeArmors():void {
+public function noThankYouSirIDontWantAwesomeArmors():void {
 	outputText("", true);
 	outputText("Uninterested in the proffered reward, you turn and leave the way you came.  At the entrance, you replace the moss, doing your best to conceal the portal in the event you wish to return, or at least to keep any items of power inside from the hands of hostile swamp denizens.  You may as well not have spent the effort, for as you're walking away, you hear the stones grinding and shifting behind you.  Sure enough, an inspection affirms that the door has sealed itself again.\n\n", false);
 	//allows player to find again later, like the B.Sword
@@ -64,7 +64,7 @@ function noThankYouSirIDontWantAwesomeArmors():void {
 }
 
 //[Retribution]
-function retributionArmorIsCoolShit():void {
+public function retributionArmorIsCoolShit():void {
 	outputText("", true);
 	outputText("With your word, the chest clicks.  Moving to lift the lid, you start when it does so of its own will.  Gleaming, brilliant light floods the room.  You had expected there to be a bit of showiness from the magic, yes, but having the robes actually rise up out of the chest seems excessive.  Dark red fabric stretches up as though on a mannequin - or a ghost.  Golden trim runs along its edges.  The back of the gloves feature clearly embroidered sigils that you do not recognize, but which you suspect meant something to a culture long forgotten.  It seems to be constructed primarily of two main portions - a sleeveless high-collared undershirt and skirt, and a hooded overcoat and mantle.  You gather the robes and place them in your pack to inspect further at camp.\n\n", false);
 
@@ -73,13 +73,12 @@ function retributionArmorIsCoolShit():void {
 	outputText("The display makes you feel righteous.\n\n", false);
 	//[Player receives: 1x Inquisitor's Robes]
 	menuLoc = 2;
-	shortName = "I.Robes";
-	flags[GOTTEN_INQUISITOR_ARMOR] = 1;
-	takeItem();
+	flags[kFLAGS.GOTTEN_INQUISITOR_ARMOR] = 1;
+	inventory.takeItem(armors.I_ROBES);
 }
 
 //[Carnality]
-function carnalityArmorIsCoolShitToo():void {
+public function carnalityArmorIsCoolShitToo():void {
 	outputText("", true);
 	outputText("With your word, the chest clicks.  Moving to lift the lid, you start when it does so of its own will.  Gleaming, brilliant light floods the room.  You had expected there to be a bit of showiness from the magic, yes, but having the robes actually rise up out of the chest seems excessive.  A dark red posture collar attached to sleeves floats above it as though on a mannequin - or a ghost.  The corset that rises beneath it looks perfectly fitted to you", false);
 	if(player.biggestTitSize() < 1) outputText(", which strikes you as unusual given your flat chest", false);
@@ -90,9 +89,8 @@ function carnalityArmorIsCoolShitToo():void {
 	outputText("The display makes you feel like a badass.\n\n", false);
 	//[Player receives 1x Inquisitor's Corset]
 	menuLoc = 2;
-	shortName = "I.Corst";
-	flags[GOTTEN_INQUISITOR_ARMOR] = 1;
-	takeItem();
+	flags[kFLAGS.GOTTEN_INQUISITOR_ARMOR] = 1;
+	inventory.takeItem(armors.I_CORST);
 }
 
 
@@ -101,10 +99,10 @@ function carnalityArmorIsCoolShitToo():void {
 //Mouseover description: Forged not by a swordsmith but a sorceress, this arcane-infused blade amplifies your magic.  Unlike the wizard staves it is based on, this weapon also has a sharp edge, a technological innovation which has proven historically useful in battle.
 
 //[Approach Dominika post-D2 in bar, requires having used her at least once before?]
-function dominikaSpellblade():void {
+public function dominikaSpellblade():void {
 	outputText("", true);
 	//[Approach Dominika post-D2 in bar, on Dominika's \"<i>I'm a racist bitch</i>\" list]
-	if((player.minoScore() >= 3 && player.faceType == 3 && player.gender == 1) || !player.isBiped()) {
+	if((player.minoScore() >= 3 && player.faceType == FACE_COW_MINOTAUR && player.gender == 1) || !player.isBiped()) {
 		outputText("You greet Dominika and make small talk, but as usual she seems distracted and the conversation is strained at best.  Drumming her fingers on the table and glancing outside her attention is constantly drawn away from you, and eventually she outright cuts the conversation off.  \"<i>I need to go, I'm afraid,</i>\" she says quickly, and half-heartedly adds, \"<i>It was nice talking to you.</i>\"\n\n", false);
 
 		outputText("She exits, leaving you at the table alone.  You shrug a little and finish your drink, before noticing that she left something behind.  It looks like a wrapped sword and, while you don't know why she'd have such a thing, you figure you might as well give it back to her.  Hell, maybe she'll actually be worth a goddamn conversation afterwards.\n\n", false);
@@ -133,7 +131,7 @@ function dominikaSpellblade():void {
 	
 		outputText("Holding the package in the palms of both hands, she extends it to you.  You take the offered gift and open it on the table.  Much as you anticipated it is indeed a sword, though one with strangely familiar lines and patterns engraved along its pommel and blade.  \"<i>My people found that it was best to perform magic with something that could - if necessary - also serve as a weapon on its own.  A crystal orb or stick tends to simply leave an opponent lightly bruised if employed as a weapon, rather than drawing blood.</i>\"  She reaches across the table and traces the lines on the blade with her finger.  \"<i>These inscriptions are based on the movement of the stars, and will draw power from them to enhance your magic - though admittedly given the difficulty of seeing the skies in this land, it's not as powerful as it would have been in my homeland.</i>\"  The connection to the night sky triggers the memory of where you've seen similar runes: Dominika's tattoos draw on the same iconography.\n\n", false);
 	
-		outputText("You grip the sword by its handle and lift it experimentally.  It's balanced well, seems functional.  \"<i>I'll admit that the blade may not be as sharp as one tempered by a blacksmith's hammer,</i>\" Dominika continues, \"<i>but it should serve your needs in sorcery no less than any other weapon.</i>\"  The magical power you can feel while wielding the weapon supports her claim.\n\n", false);
+		outputText("You grip the sword by its handle and lift it experimentally.  It's balanced well and seems functional.  \"<i>I'll admit that the blade may not be as sharp as one tempered by a blacksmith's hammer,</i>\" Dominika continues, \"<i>but it should serve your needs in sorcery no less than any other weapon.</i>\"  The magical power you can feel while wielding the weapon supports her claim.\n\n", false);
 	
 		outputText("Thanking her, you make a bit more small talk and idly bring up the possibility of returning to her apartment.  She chuckles a little and rests her chin on her hands. \"<i>Oh, I'm afraid I'm not hungry, and either way I need to do a little preparation for our next lesson.  Perhaps a bit later?</i>\"\n\n", false);
 	
@@ -141,9 +139,8 @@ function dominikaSpellblade():void {
 	}
 	//(Player receives Spellblade)
 	menuLoc = 2;
-	shortName = "S.Blade";
-	takeItem();
-	flags[DOMINIKAS_SWORD_GIVEN] = 1;
+	inventory.takeItem(weapons.S_BLADE);
+	flags[kFLAGS.DOMINIKAS_SWORD_GIVEN] = 1;
 }
 
 

@@ -41,7 +41,7 @@ Meeting Jack
 */
 
 //Takes place when exploring the mountain.
-function meetJackFrostInTheMountains():void {
+public function meetJackFrostInTheMountains():void {
 	clearOutput();
 	outputText("As you explore the mountainous heights, you come across something strange - a great spray of cold, wet, soft, creamy substance.  You realise with a start that it's snow!  You haven't even seen rain since you came to this world.  What's more, looking around shows you other strange drifts of snow; it almost looks like a path of some sort.  Curious, you decide to follow them, see if you can track down what's causing it.");
 	
@@ -75,53 +75,51 @@ function meetJackFrostInTheMountains():void {
 }
 
 //[=No=]
-function noJizzingInMyCampPlease():void {
+public function noJizzingInMyCampPlease():void {
 	clearOutput();
 	outputText("You thank the giant for his offer, but you'll have to refuse.  You really can't take even one day off your quest.");
 	outputText("\n\n\"<i>Pity... well, if you'll excuse me, this mountain ain't snowy enough just yet!</i>\"  He resumes his furious masturbation, spraying another gush of snow on the side of the mountain.");
 	
 	outputText("\n\nSeeing no reason to linger, you return to your camp.");
-	flags[JACK_FROST_YEAR] = date.fullYear;
+	flags[kFLAGS.JACK_FROST_YEAR] = date.fullYear;
 	doNext(13);
 }
 
 //[=Yes=]
-function jizzSnowOnMyCampPlease():void {
+public function jizzSnowOnMyCampPlease():void {
 	clearOutput();
 	outputText("You look around, and then find a convenient rock to climb.  From here, you can see your camp, and you indicate to the friendly giant where it is.  \"<i>Alright, I'll make sure to paint it white.</i>\"  He chuckles once more.  \"<i>I have a pretty good aim, I'll have you know, and my friend here can pump it far!</i>\"  He pats his enormous dick.  \"<i>Off you go, then.  And merry Winterfest.</i>\"  He smiles turning to point his gigantic prick at your camp and beginning to masturbate furiously.");
 
 	outputText("\n\nYou thank him for the surprisingly kind gesture, and start to head back down to camp.  Even as you go, you can see the first huge jet of snow arcing its way across the sky...");
-	flags[JACK_FROST_YEAR] = date.fullYear;
-	flags[JACK_FROST_PROGRESS] = 1;
+	flags[kFLAGS.JACK_FROST_YEAR] = date.fullYear;
+	flags[kFLAGS.JACK_FROST_PROGRESS] = 1;
 	doNext(13);
 }
 
 //Back in camp
-function processJackFrostEvent():void {
+public function processJackFrostEvent():void {
 	hideUpDown();
 	clearOutput();
 	//Each follower PC has adds a block, having no followers just plays the no followers block.
 	//Corrupts can forget about their lust for one day to play on the snow.
-	if(flags[JACK_FROST_PROGRESS] == 1) {
+	if(flags[kFLAGS.JACK_FROST_PROGRESS] == 1) {
 		outputText("As you approach your camp, you can see that Jack Frost's efforts are paying off.  A great, constant flurry of snowflakes is gently drifting down, swaying in the wind as it makes its inevitable descent towards the ground.  A layer of snowflakes is quickly building up, growing wider and deeper as more snow is launched from out of the mountains to rain down on your camp. You can't help but enjoy the cool air as the snowflakes fall down languidly onto the ground.  It's so beautiful you almost forget the rather perverted origin of it all.\n\n");
-		flags[JACK_FROST_PROGRESS] = 2;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 2;
 		menu();
 		addButton(0,"Next",processJackFrostEvent);
-		return;
 	}
 	//No followers
-	else if(companionsCount() == 0) {
+	else if(camp.companionsCount() == 0) {
 		//Only if PC really has NO ONE to be with. aka: ForeverAlone.gif
 		outputText("You sigh... this really reminds you of back home... you only wish you had someone to share this feeling with... Well, there is no reason you shouldn't enjoy yourself while it snows, so you set about rolling a big ball of snow to make a snowman out of...");
 		//Skip to next day...
-		flags[JACK_FROST_PROGRESS] = 0;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 0;
 		HPChange(maxHP(),false);
 		fatigue(-100);
 		doNext(16);
-		return;
 	}
 	//Rathazul
-	else if(player.hasStatusAffect("Camp Rathazul") >= 0 && flags[JACK_FROST_PROGRESS] == 2) {
+	else if(player.findStatusAffect(StatusAffects.CampRathazul) >= 0 && flags[kFLAGS.JACK_FROST_PROGRESS] == 2) {
 		outputText("Rathazul approaches you.  \"<i>[name]?  What is going on?  It hasn't snowed in Mareth for years now.  And why only around the camp?  I wandered out to investigate, but outside there is no snow at all...</i>\" he asks, concerned.");
 		
 		outputText("\n\nYou tell Rathazul that you met a friendly... er... wizard up in the mountains who wanted to try and bring snow back to Mareth.  You offered to let him cast it out over your camp, so it's basically being flung from the mountains to land here.  But, really, why is he worrying about it?  This is the first time it's happened in years, doesn't he want to enjoy it while it lasts, before it melts away?");
@@ -133,11 +131,11 @@ function processJackFrostEvent():void {
 		outputText("\n\nYou begin gathering snow along with the old rat...");
 		menu();
 		addButton(0,"Next",processJackFrostEvent);
-		flags[JACK_FROST_PROGRESS] = 3;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 3;
 		return;
 	}
 	//Izma
-	else if(flags[UNKNOWN_FLAG_NUMBER_00238] == 1 && flags[JACK_FROST_PROGRESS] <= 3) {
+	else if(flags[kFLAGS.UNKNOWN_FLAG_NUMBER_00238] == 1 && flags[kFLAGS.JACK_FROST_PROGRESS] <= 3) {
 		outputText("You wonder where Izma is; as a shark, maybe she doesn't like the cold?  Even as the thought crosses your mind, you note a surprisingly large pile of snow sitting not too far - with a very suspicious striped fin jutting out of it.  You rush over, calling for Izma and asking if she's all right.");
 		outputText("\n\nThe mound snow suddenly explodes as Izma pounces you, knocking you on your back and pinning you against the snowy ground.  \"<i>Gotcha!</i>\"  At once she notices who it is she's pounced upon.  \"<i>Hi there, [name].</i>\"");
 		outputText("\n\nYou tell her she's a bold one indeed to do something like that to you - isn't she supposed to be your beta?");
@@ -158,13 +156,13 @@ function processJackFrostEvent():void {
 		
 		outputText("\n\nYou promise her that they won't be... if she remembers not to start something she can't finish, tapping the chastened tigershark on the nose for emphasis.");
 		addButton(0,"Next",processJackFrostEvent);
-		flags[JACK_FROST_PROGRESS] = 4;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 4;
 		return;
 	}
 	//Jojo
-	else if((player.hasStatusAffect("PureCampJojo") >= 0 || campCorruptJojo()) && flags[JACK_FROST_PROGRESS] <= 4) {
+	else if((player.findStatusAffect(StatusAffects.PureCampJojo) >= 0 || jojoScene.campCorruptJojo()) && flags[kFLAGS.JACK_FROST_PROGRESS] <= 4) {
 		//Pure
-		if(player.hasStatusAffect("PureCampJojo") >= 0) {
+		if(player.findStatusAffect(StatusAffects.PureCampJojo) >= 0) {
 			outputText("Jojo is sitting on his usual rock, one hand out to catch snowflakes with a beatific smile of awe on his face.  \"<i>Look, [name], snow!  I haven't seen snow since I was a very, very small boy.</i>\"  He tells you.");
 			
 			outputText("\n\nSo is he enjoying it?  You ask.  If so, then it was worth it getting someone to make it snow on your camp.");
@@ -181,11 +179,11 @@ function processJackFrostEvent():void {
 			outputText("\n\nLaughter echoes as the two of you exchange snowballs...");
 			menu();
 			addButton(0,"Next",processJackFrostEvent);
-			flags[JACK_FROST_PROGRESS] = 5;
+			flags[kFLAGS.JACK_FROST_PROGRESS] = 5;
 		}
 		//Corrupt
 		else {
-			outputText("Out in the outskirts of of the camp you notice your pet mouse-slut Jojo, casually fucking a small mound of snow like an animal.  You laugh to yourself, now, now... doesn't he know that there are many more better things to fuck than a pitiful mound of snow on the ground...");
+			outputText("Out in the outskirts of the camp you notice your pet mouse-slut Jojo, casually fucking a small mound of snow like an animal.  You laugh to yourself, now, now... doesn't he know that there are better things to fuck than a pitiful mound of snow on the ground...");
 			outputText("\n\nYou casually approach him from behind, stripping off your [armor].  Once behind his heart-shaped ass, you pull on his tail and reach down to grope at his shaft and balls.  Silly slut, you tell him.  This is not how one fucks in the snow... if he doesn't know how to do it right, you'll be happy to demonstrate.");
 			//(How should you demonstrate?)
 			//[Pen Ass] [Ride Cock] [Spank and Finger Ass]
@@ -198,10 +196,10 @@ function processJackFrostEvent():void {
 	}
 	//Amily
 	//less than 5!
-	else if(amilyFollower() && flags[JACK_FROST_PROGRESS] <= 5) {
-		flags[JACK_FROST_PROGRESS] = 6;
+	else if(amilyScene.amilyFollower() && flags[kFLAGS.JACK_FROST_PROGRESS] <= 5) {
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 6;
 		//Pure
-		if(!amilyCorrupt()) {
+		if(!amilyScene.amilyCorrupt()) {
 			outputText("Amily is warily prowling across the icy surface, occasionally glancing all around as if trying to spot an ambush.  Other times, she suddenly leaps up in a flurry, whirling around in mid-air as something catches her over-large ears.  All in all, it's quite obvious she's scared.");
 			outputText("\n\nApproaching her, you ask what's gotten her so worried?");
 			outputText("\n\n\"<i>Can't you see all this snow?  There hasn't been snow in Mareth since I was a little baby girl - the demons must have something to do with this!</i>\"  Amily hisses, clearly expecting an attack to come at any moment.");
@@ -262,58 +260,57 @@ function processJackFrostEvent():void {
 		return;
 	}
 	//Tainted Ember
-	else if(followerEmber() && flags[JACK_FROST_PROGRESS] <= 6) {
-		flags[JACK_FROST_PROGRESS] = 7;
-		outputText("The dragon is wandering your camp in open fascination.  \"<i>What is this weird white stuff?  It's cold and wet... but soft and fluffy, too,</i>\" " + emberMF("he","she") + " says, gently catching a snowflake.");
-		outputText("\n\nHaving heard " + emberMF("his","her") + " question, you approach Ember and tell " + emberMF("him","her") + " that's just snow.");
-		outputText("\n\n\"<i>Snow...?</i>\" " + emberMF("He","She") + " repeats in a curious, blatantly awed voice.  \"<i>...It's so pretty.</i>\" " + emberMF("he","she") + " tells you.");
-		outputText("\n\nYou ask if this is " + emberMF("his","her") + " first time seeing snow.  It always snowed back home around this time of the year.  Why... back when you were a child, you used to play all the time in the snow.");
+	else if(emberScene.followerEmber() && flags[kFLAGS.JACK_FROST_PROGRESS] <= 6) {
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 7;
+		outputText("The dragon is wandering your camp in open fascination.  \"<i>What is this weird white stuff?  It's cold and wet... but soft and fluffy, too,</i>\" " + emberScene.emberMF("he","she") + " says, gently catching a snowflake.");
+		outputText("\n\nHaving heard " + emberScene.emberMF("his","her") + " question, you approach Ember and tell " + emberScene.emberMF("him","her") + " that's just snow.");
+		outputText("\n\n\"<i>Snow...?</i>\" " + emberScene.emberMF("He","She") + " repeats in a curious, blatantly awed voice.  \"<i>...It's so pretty.</i>\" " + emberScene.emberMF("he","she") + " tells you.");
+		outputText("\n\nYou ask if this is " + emberScene.emberMF("his","her") + " first time seeing snow.  It always snowed back home around this time of the year.  Why... back when you were a child, you used to play all the time in the snow.");
 		
 		outputText("\n\n\"<i>So it's for kids,</i>\" Ember notes, sounding kind of depressed - and a little envious, especially given the way she still looks so eagerly at the snow all around you.");
-		outputText("\n\nPerhaps... would " + emberMF("he","she") + " like to play in the snow with you?");
+		outputText("\n\nPerhaps... would " + emberScene.emberMF("he","she") + " like to play in the snow with you?");
 		outputText("\n\n\"<i>I thought you said this was for little kids?  I'm no baby!</i>\" Ember protests.");
-		outputText("\n\nWho said it was just for kids?  You just said you used to play all the time when you were a child, there is no reason why you couldn't play now that you're grown up either... after all, back in your village, even adults played in the snow.  Unless... " + emberMF("he","she") + " doesn't like the idea of spending the day playing with you?  That would be a pity, since it's " + emberMF("his","her") + " first time seeing snow...");
+		outputText("\n\nWho said it was just for kids?  You just said you used to play all the time when you were a child, there is no reason why you couldn't play now that you're grown up either... after all, back in your village, even adults played in the snow.  Unless... " + emberScene.emberMF("he","she") + " doesn't like the idea of spending the day playing with you?  That would be a pity, since it's " + emberScene.emberMF("his","her") + " first time seeing snow...");
 		outputText("\n\n\"<i>What?  I... ooh, very well.  Teach me how you play with this stuff,</i>\" Ember says, blowing a thin trail of steam out of each nostril.");
-		outputText("\n\nYou smile and begin explaining to the dragon all about the games you used to play when it snowed back home.  Ember listens attentively with a gleam in " + emberMF("his","her") + " eyes.");
+		outputText("\n\nYou smile and begin explaining to the dragon all about the games you used to play when it snowed back home.  Ember listens attentively with a gleam in " + emberScene.emberMF("his","her") + " eyes.");
 		outputText("\n\nBy the time you're done Ember's tail is waving excitedly behind her.  You ask how she'd feel about a snowball fight?");
-		outputText("\n\n\"<i>All right, let's try it!</i>\" " + emberMF("he","she") + " agrees, as eager as any kid back in Ingnam.");
+		outputText("\n\n\"<i>All right, let's try it!</i>\" " + emberScene.emberMF("he","she") + " agrees, as eager as any kid back in Ingnam.");
 		
-		outputText("\n\nYou explain to " + emberMF("him","her") + " the rules and walk a short distance away... then declare the match started!  Ember is pretty good... but being " + emberMF("his","her") + " first time doing this, " + emberMF("he","she") + " ends up not being able to hit you as many times as you hit " + emberMF("him","her") + ", while you expertly dodge and roll her snowballs.");
+		outputText("\n\nYou explain to " + emberScene.emberMF("him","her") + " the rules and walk a short distance away... then declare the match started!  Ember is pretty good... but being " + emberScene.emberMF("his","her") + " first time doing this, " + emberScene.emberMF("he","she") + " ends up not being able to hit you as many times as you hit " + emberScene.emberMF("him","her") + ", while you expertly dodge and roll her snowballs.");
 		outputText("\n\n\"<i>Damn it, stand still, [name]!  You're slippier than the rabbits I go catching in the mornings!</i>\" the irate dragon complains.");
 		
-		outputText("\n\nRather than complaining " + emberMF("he","she") + " should be focusing on hitting you, otherwise you're going to end up crushing " + emberMF("him","her") + " in this match!  You tease " + emberMF("him","her") + ", throwing another snowball right on " + emberMF("his","her") + " belly.");
+		outputText("\n\nRather than complaining " + emberScene.emberMF("he","she") + " should be focusing on hitting you, otherwise you're going to end up crushing " + emberScene.emberMF("him","her") + " in this match!  You tease " + emberScene.emberMF("him","her") + ", throwing another snowball right on " + emberScene.emberMF("his","her") + " belly.");
 		
-		outputText("\n\nThe dragon promptly drops to " + emberMF("him","her") + " knees and starts sweeping together huge armfuls of snow, crushing and melding them together until " + emberMF("he","she") + " has made a snowball the size of a small boulder, which " + emberMF("he","she") + " promptly hurls at you.");
+		outputText("\n\nThe dragon promptly drops to " + emberScene.emberMF("him","her") + " knees and starts sweeping together huge armfuls of snow, crushing and melding them together until " + emberScene.emberMF("he","she") + " has made a snowball the size of a small boulder, which " + emberScene.emberMF("he","she") + " promptly hurls at you.");
 		
 		outputText("\n\nWoah!  The large ball of snow connects squarely with your face, bowling you over and burying you under the snow.  Having the air knocked out of you, you scramble to dig yourself off the snow.");
 		
-		outputText("\n\nA pair of claw-fingered hands promptly come clawing their way through the snow, grabbing you by the shoulders and pulling you bodily out of the snow.  \"<i>Well?  I think I won that round,</i>\" " + emberMF("he","she") + " gloats, a twinkle of delight in " + emberMF("his","her") + " eye.");
+		outputText("\n\nA pair of claw-fingered hands promptly come clawing their way through the snow, grabbing you by the shoulders and pulling you bodily out of the snow.  \"<i>Well?  I think I won that round,</i>\" " + emberScene.emberMF("he","she") + " gloats, a twinkle of delight in " + emberScene.emberMF("his","her") + " eye.");
 		
-		outputText("\n\nCoughing up some snow, you concede defeat, congratulating Ember on winning " + emberMF("his","her") + " first snowball fight... but then, you smirk and tell " + emberMF("him","her") + " this was all beginner's luck... and next time you'll beat " + emberMF("him","her") + " for sure.");
+		outputText("\n\nCoughing up some snow, you concede defeat, congratulating Ember on winning " + emberScene.emberMF("his","her") + " first snowball fight... but then, you smirk and tell " + emberScene.emberMF("him","her") + " this was all beginner's luck... and next time you'll beat " + emberScene.emberMF("him","her") + " for sure.");
 		
-		outputText("\n\n\"<i>So you say, but the truth is you know you'll never beat me,</i>\" Ember brags.  Then " + emberMF("he","she") + " lowers her eyelids and gives you a coy look.  \"<i>And now, for the victor, a prize,</i>\" " + emberMF("he","she") + " growls, then swoops in to kiss you passionately.  Several minutes pass before " + emberMF("he","she") + " breaks the kiss, a somewhat goofy smile on " + emberMF("his","her") + " face.  \"<i>I'm going to go and play in the snow some more.  See you, [name].</i>\"  " + emberMF("He","She") + " giggles, then ambles off.");
-		outputText("\n\nYou wave " + emberMF("him","her") + " away - maybe being beaten isn't so bad.  Your thoughts turn to Ember's passionate kiss...  It certainly is a nice sight, to see " + emberMF("him","her") + " so happy.  Having it snow on your camp was a great idea after all.");
+		outputText("\n\n\"<i>So you say, but the truth is you know you'll never beat me,</i>\" Ember brags.  Then " + emberScene.emberMF("he","she") + " lowers her eyelids and gives you a coy look.  \"<i>And now, for the victor, a prize,</i>\" " + emberScene.emberMF("he","she") + " growls, then swoops in to kiss you passionately.  Several minutes pass before " + emberScene.emberMF("he","she") + " breaks the kiss, a somewhat goofy smile on " + emberScene.emberMF("his","her") + " face.  \"<i>I'm going to go and play in the snow some more.  See you, [name].</i>\"  " + emberScene.emberMF("He","She") + " giggles, then ambles off.");
+		outputText("\n\nYou wave " + emberScene.emberMF("him","her") + " away - maybe being beaten isn't so bad.  Your thoughts turn to Ember's passionate kiss...  It certainly is a nice sight, to see " + emberScene.emberMF("him","her") + " so happy.  Having it snow on your camp was a great idea after all.");
 		menu();
 		addButton(0,"Next",processJackFrostEvent);
-		return;
 	}
 	//Marble (Written by TDM himself)
-	else if(flags[JACK_FROST_PROGRESS] <= 7 && player.hasStatusAffect("Camp Marble") >= 0) {
-		flags[JACK_FROST_PROGRESS] = 8;
+	else if(flags[kFLAGS.JACK_FROST_PROGRESS] <= 7 && player.findStatusAffect(StatusAffects.CampMarble) >= 0) {
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 8;
 		//With Kids
-		if(flags[MARBLE_KIDS] > 0 && flags[MARBLE_NURSERY_CONSTRUCTION] >= 100) {
+		if(flags[kFLAGS.MARBLE_KIDS] > 0 && flags[kFLAGS.MARBLE_NURSERY_CONSTRUCTION] >= 100) {
 			outputText("You find Marble simply staring into the sky, a look of wonder covering her face.  Dancing around her in excitement ");
-			if(flags[MARBLE_KIDS] > 1) outputText("are ");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("are ");
 			else outputText("is ");
 			outputText("your kid");
-			if(flags[MARBLE_KIDS] > 1) outputText("s");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("s");
 			outputText(", playing in the snow, blowing the snow, and experimenting with the snow.  Exactly what ");
-			if(flags[MARBLE_KIDS] == 1) outputText("she");
+			if(flags[kFLAGS.MARBLE_KIDS] == 1) outputText("she");
 			else outputText("they");
 			outputText(" are up to at any given moment is really hard to say, and you're not even sure that the little girl");
-			if(flags[MARBLE_KIDS] > 1) outputText("s");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("s");
 			outputText(" know");
-			if(flags[MARBLE_KIDS] == 1) outputText("s herself.");
+			if(flags[kFLAGS.MARBLE_KIDS] == 1) outputText("s herself.");
 			else outputText(" themselves.");
 			
 			outputText("\n\nMarble lifts up her hand, then takes a step forward as you approach.  It looks like she is about to catch a flake in her hands, only to instead suddenly slip on the frozen ground under her hooves, and fall down onto her backside with a cry of surprise.  \"<i>Oww...</i>\" she grumbles, giving her backside a rub as you come up in front of her.  You tell her to be careful, that stuff can be slippery while extending your hand to help her up.  \"<i>Yeah, thanks sweetie, I noticed.</i>\" she sighs and accepts your hand.");
@@ -321,37 +318,37 @@ function processJackFrostEvent():void {
 			outputText("\n\n\"<i>" + player.short + ", do you know what this is?</i>\" your lover asks while raising her arms in the air and looking around in amazement once more.  \"<i>How can stuff fall from the sky?</i>\"  You laugh, and say that it's snow, or frozen rain.  The cow-girl looks at you in confusion once more and asks what rain is.  Now it is your turn to be surprised, she has never seen it rain before in her life?  It has never gotten cloudy and water has fallen from the sky?  Marble shakes her head no, \"<i>Sweetie, I'm not sure what a cloud is either.  Every day of my life has always been sunny and warm.  This is something I've never experienced before...</i>\"");
 			
 			outputText("\n\nYou're left at a loss for words once more, and the two of you turn back to look at your ");
-			if(flags[MARBLE_KIDS] == 1) outputText("child");
+			if(flags[kFLAGS.MARBLE_KIDS] == 1) outputText("child");
 			else outputText("children");
 			outputText(" playing together once more.  A moment later, Marble puts her hand to her expansive backend again, before suddenly exclaiming again in realization.  \"<i>Sweetie, watch our kid");
-			if(flags[MARBLE_KIDS] > 1) outputText("s");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("s");
 			outputText(" for a moment, I'll be right back!</i>\" and she leaves the camp as quickly as she can, without slipping and falling on her ass again.");
 
 			outputText("\n\nYou certainly don't mind staying behind for now, it is certainly a lot of fun spending time with your kid");
-			if(flags[MARBLE_KIDS] > 1) outputText("s");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("s");
 			outputText(" and just having fun.  Your cow-girl daughters are certainly not lacking in energy in the cold snow, their fur covered legs and built in shoes probably help a lot with this.  ");
-			if(flags[MARBLE_KIDS] > 1) outputText("They");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("They");
 			else outputText("She");
 			outputText(" listen");
-			if(flags[MARBLE_KIDS] == 1) outputText("s");
+			if(flags[kFLAGS.MARBLE_KIDS] == 1) outputText("s");
 			outputText(" with rapt attention when you explain what snow is, and about all the things you use to do in it back home.  Hands-on demonstrations are also in high demand.");
 			
 			outputText("\n\nWhen Marble returns, she can't find a single face that isn't showing a huge smile.  That isn't to say that there wasn't more excitement when what she went off to get is revealed; a big sled for the little one");
-			if(flags[MARBLE_KIDS] > 1) outputText("s");
+			if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("s");
 			outputText(" to ride on!  Happy cries of joy fill the air for some time, as you and Marble take turns in giving rides on the sled.");
 			
 			//PC strength check:
 			//(>=85)
 			if(player.str >= 85) {
 				outputText("\n\nIt would seem that your strength has won you more favor with ");
-				if(flags[MARBLE_KIDS] > 1) outputText("the girls");
+				if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("the girls");
 				else outputText("your daughter");
 				outputText(" when it comes to giving sled rides, Marble doesn't seem to mind too much though.  Your mate actually decides to join in the riding part after a while!");
 			} 
 			//(60-84)
 			else if(player.str >= 60) {
 				outputText("\n\nSoon you and Marble turn the sled rides into a friendly contest, trying to earn the favor of ");
-				if(flags[MARBLE_KIDS] > 1) outputText("the girls");
+				if(flags[kFLAGS.MARBLE_KIDS] > 1) outputText("the girls");
 				else outputText("your daughter");
 				outputText(" in deciding who gives the best rides.  In the end, a clear winner is never decided, but everyone agrees that it was a lot of fun.");
 			}
@@ -364,7 +361,7 @@ function processJackFrostEvent():void {
 		}
 		//Without kids
 		else {
-			outputText("You find Marble simply staring into the sky, a look of wonder covering her face.  She lifts up her hand, then takes a step forward as you approach.  It looks like she is about to catch a flake in her hands, only to instead suddenly slip on the frozen ground under her hoofs, and fall down onto her backside with a cry of surprise.  \"<i>Oww...</i>\" she grumbles, giving her backside a rub as you come up in front of her her.  You tell her to be careful, that stuff can be slippery while extending your hand to help her up.  \"<i>Yeah, thanks sweetie, I noticed,</i>\" she sighs and accepts your hand.");
+			outputText("You find Marble simply staring into the sky, a look of wonder covering her face.  She lifts up her hand, then takes a step forward as you approach.  It looks like she is about to catch a flake in her hands, only to instead suddenly slip on the frozen ground under her hoofs, and fall down onto her backside with a cry of surprise.  \"<i>Oww...</i>\" she grumbles, giving her backside a rub as you come up in front of her.  You tell her to be careful, that stuff can be slippery while extending your hand to help her up.  \"<i>Yeah, thanks sweetie, I noticed,</i>\" she sighs and accepts your hand.");
 			outputText("\n\n\"<i>" + player.short + ", do you know what this is?</i>\" your lover asks while raising her arms in the air and looking around in amazement once more.  \"<i>How can stuff fall from the sky?</i>\"  You laugh, and say that it's snow, or frozen rain.  The cow-girl looks at you in confusion once more and asks what rain is.  Now it is your turn to be surprised, she has never seen it rain before in her life?  It has never gotten cloudy and water has fallen from the sky?  Marble shakes her head no, \"<i>Sweetie, I'm not sure what a cloud is either.  Every day of my life has always been sunny and warm.  This is something I've never experienced before....</i>\"");
 			
 			outputText("\n\nYou're left at a loss for words once more, and the two of you turn back to look at the snow once more.  You feel Marble gently take a hold of your hand as you two simply watch the flakes fall to the ground.");
@@ -385,7 +382,7 @@ function processJackFrostEvent():void {
 	}
 	//Helia
 	//if she ain't a follower and is a lover, just have her visit.
-	else if(flags[JACK_FROST_PROGRESS] <= 9 && (fuckBuddyHel() || followerHel())) {
+	else if(flags[kFLAGS.JACK_FROST_PROGRESS] <= 9 && (helScene.fuckBuddyHel() || helFollower.followerHel())) {
 		
 		outputText("\"<i>Hey, champ, what's going on here?</i>\"  Helia calls as she sees you approach.  Gentle trails of steam are wafting from the salamander's body as her own internal heat melts any snow that builds up on her.");
 		outputText("\n\nYou greet your salamander lover, telling her you found a way to make it snow on your camp... so you were just planning on having a snow-day play-day on your camp, while it lasts.");
@@ -445,57 +442,56 @@ function processJackFrostEvent():void {
 		outputText("\n\nAs you finally finish cumming, Helia lifts her head and starts to laugh.  \"<i>Oh, man, not how I'd usually do it, but whoo, what a ride, huh?</i>\" she laughs.  You laugh as well.  It certainly felt good, though this is far from what you're used to.  You have to give Helia's wrestling idea some credit.  Rolling around with her, grinding together was pretty hot - in more ways than one.");
 		
 		outputText("\n\n\"<i>Oh, were you maybe wanting another turn, lover?</i>\"  Helia insinuates, gently tapping her fingers on your chest.  You make a show of considering her offer, then, with a smile, say that sounds like a reasonable proposal.  You promptly wrap the salamander-girl, into a tight hug, spreading her legs so you can have access to her dripping vagina...");
-		flags[JACK_FROST_PROGRESS] = 10;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 10;
 		menu();
 		addButton(0,"Next",processJackFrostEvent);
 		return;
 	}
 	//Isabella
-	else if(isabellaFollower() && flags[JACK_FROST_PROGRESS] <= 10) {
+	else if(isabellaFollowerScene.isabellaFollower() && flags[kFLAGS.JACK_FROST_PROGRESS] <= 10) {
 		outputText("The bovine adventurer Isabella is staring at the snow around her with a sad look on her face, one hand gently raised to catch snowflakes.  She watches them gather in her palm and heaves a huge sigh.  You quietly approach her and ask what's wrong; is she homesick?");
 		outputText("\n\n\"<i>");
-		if(isabellaAccent()) outputText("Da, [name], I am,");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("Da, [name], I am,");
 		else outputText("Yes, [name], I am,");
 		outputText("</i>\" she replies.  ");
-		if(isabellaAccent()) outputText("\"<i>Back home, in mine land, it vould be snowing all over at this time of year, and ve vould be having big vinter festival to celebrate ze ending of old year and coming of new year.  This land, it is so dry and hot...  I had forgotten it, but seeing zis snow makes me remember it and all I have lost by being stuck here.</i>\"  She sighs.");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\"<i>Back home, in mine land, it vould be snowing all over at this time of year, and ve vould be having big vinter festival to celebrate ze ending of old year and coming of new year.  This land, it is so dry and hot...  I had forgotten it, but seeing zis snow makes me remember it and all I have lost by being stuck here.</i>\"  She sighs.");
 		else outputText("\"<i>Back home, in my old land, it would be snowing all over at this time of year, and we would be having a big winter festival to celebrate the ending of the old year and the coming of the new one.  This land, it's so dry and hot...  I had forgotten it, but seeing this snow makes me remember it and all I have lost by being stuck here.</i>\"  She sighs.");
 
 		outputText("\n\nYes, you agree.  It does bring back memories.  Though you don't know if you've been in this world quite as long as Isabella has.  You chuckle to yourself.  If you were back in your village, you and your family would be gathering for a big feast, playing in the snow, drinking, laughing... all the jolly good stuff.  Still, at least you're not alone here in Mareth.  You look at Isabella with a smile.");
 		
-		if(isabellaAccent()) outputText("\n\n\"<i>So, you are having a celebration at this time of year too?  How coincidental,</i>\" she muses, but then favors you with a friendly smile.  \"<i>But, da, it is good zat ve have found each other and so must not be lonely at zis time of year.</i>\"  Then she sighs, \"<i>I could use a nice hot cup of yochalot, though.</i>\"");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\n\"<i>So, you are having a celebration at this time of year too?  How coincidental,</i>\" she muses, but then favors you with a friendly smile.  \"<i>But, da, it is good zat ve have found each other and so must not be lonely at zis time of year.</i>\"  Then she sighs, \"<i>I could use a nice hot cup of yochalot, though.</i>\"");
 		else outputText("\n\n\"<i>So, you have a celebration at this time of year too?  How coincidental,</i>\" she muses, but then favors you with a friendly smile.  \"<i>But, yeah, it's good that we have found each other and have each other's company at this time of year.</i>\"  Then she sighs, \"<i>I could use a nice hot cup of yochalot, though.</i>\"");
 		outputText("\n\nYochalot?  You ask in curiosity.");
-		if(isabellaAccent()) outputText("\n\n\"<i>Da, yochalot.  It is very sweet, tasty treat, made from grinding up special bean seeds.  We add powder to warm milk and it is most yummy, mmm...</i>\"  Isabella makes a show of rubbing her hands over her belly with a delighted smile.  \"<i>I would always have a great big mug of hot yochalot at this time of year, ja?</i>\"");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\n\"<i>Da, yochalot.  It is very sweet, tasty treat, made from grinding up special bean seeds.  We add powder to warm milk and it is most yummy, mmm...</i>\"  Isabella makes a show of rubbing her hands over her belly with a delighted smile.  \"<i>I would always have a great big mug of hot yochalot at this time of year, ja?</i>\"");
 		else outputText("\n\n\"<i>Yep! Yochalot.  It's a very sweet, tasty treat, made from grinding up special bean seeds.  We add powder to warm milk and it is most yummy, mmm...</i>\"  Isabella makes a show of rubbing her hands over her belly with a delighted smile.  \"<i>I would always have a great big mug of hot yochalot at this time of year.</i>\"");
 		outputText("\n\nYochalot... sounds a lot like chocolate...  Still, you'd like to try it sometime.  You tell the cow-girl as much.");
 		
-		if(isabellaAccent()) outputText("\n\nAt this, she looks crestfallen.  \"<i>I am sorry, mein little sweety, but I am having no yochalot on me - I drank ze last of mine some time ago, and I do not think zey have such thing in this vorld any more.  At least, none that has not been tampered with, like the demons have ruined so many other nice things.</i>\"  She scowls.  \"<i>The only thing I could be offering you is nice, warm milk, fresh from the tap, so to speak.</i>\"  She pats her hefty quad-nippled boobs to make it clear where the milk would come from.");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\nAt this, she looks crestfallen.  \"<i>I am sorry, mein little sweety, but I am having no yochalot on me - I drank ze last of mine some time ago, and I do not think zey have such thing in this vorld any more.  At least, none that has not been tampered with, like the demons have ruined so many other nice things.</i>\"  She scowls.  \"<i>The only thing I could be offering you is nice, warm milk, fresh from the tap, so to speak.</i>\"  She pats her hefty quad-nippled boobs to make it clear where the milk would come from.");
 		else outputText("\n\nAt this, she looks crestfallen.  \"<i>I am sorry, my little sweet, but I don't have any yochalot on me - I drank the last of mine some time ago, and I don't think they have such thing in this world any more.  At least, none that have not been doubtlessly tampered with, like the demons have ruined so many other nice things.</i>\"  She scowls.  \"<i>The only thing I could be offering you is nice, warm milk, fresh from the tap, so to speak.</i>\"  She pats her hefty quad-nippled boobs to make it clear where the milk would come from.");
 		
 		outputText("\n\nPity, but then again, Isabella's milk is pretty tasty.  You confess you're feeling at least a bit chilly, so, you ask the cow-girl if she wouldn't mind warming you up with some of her sweet-tasting milk?");
 		
-		if(isabellaAccent()) outputText("\n\nIsabella looks surprised, and then grins mischievously.  \"<i>Okay then, mein sweet,</i>\" she says, calmly exposing her breasts.  \"<i>I vill give you all ze milk you could want,</i>\" she adds, then suddenly lunges for you, grabbing your head and pulling you into a headlock that, not so coincidentally, mashes your face against her naked boobs.  \"<i>Naughty, cheeky [name]!  If you are wanting to drink mein milk, zen you are not needing zis subterfuge to get me in the mood,</i>\" she chortles good-naturedly as she finishes, her homesickness evidently forgotten with the diversion you've presented her.");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\nIsabella looks surprised, and then grins mischievously.  \"<i>Okay then, mein sweet,</i>\" she says, calmly exposing her breasts.  \"<i>I vill give you all ze milk you could want,</i>\" she adds, then suddenly lunges for you, grabbing your head and pulling you into a headlock that, not so coincidentally, mashes your face against her naked boobs.  \"<i>Naughty, cheeky [name]!  If you are wanting to drink mein milk, zen you are not needing zis subterfuge to get me in the mood,</i>\" she chortles good-naturedly as she finishes, her homesickness evidently forgotten with the diversion you've presented her.");
 		else outputText("\n\nIsabella looks surprised, and then grins mischievously.  \"<i>Okay then, sweet,</i>\" she says, calmly exposing her breasts.  \"<i>I will give you all the milk you could want,</i>\" she adds, then suddenly lunges for you, grabbing your head and pulling you into a headlock that, not so coincidentally, mashes your face against her naked boobs.  \"<i>Naughty, cheeky [name]!  If you want to drink my milk, then you don't need this subterfuge to get me in the mood,</i>\" she chortles good-naturedly as she finishes, her homesickness evidently forgotten with the diversion you've presented her.");
 
 		outputText("\n\nSeeing as you're already so conveniently positioned, you waste no time in opening your mouth and taking her four nipples into your mouth, suckling in earnest, as the cow-girl's tasty milk fills your mouth and belly.  You momentarily stop your nursing to lick a stray drop of milk that has escaped your mouth, smiling to Isabella, you tell her that her milk truly hits the spot.  You can already feel yourself getting warmer.");
 		
-		if(isabellaAccent()) outputText("\n\nIsabella smiles and cuddles you against her bosom.  \"<i>Be honest; you vere not vanting mein milk, you vere wanting to be cheering me up, da?</i>\" she laughs.  Busted!  You laugh yourself, though your plan seems to have worked pretty well, and you're not complaining about the bellyful of tasty milk you've gotten either.  You burp sheepishly, for emphasis.");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\nIsabella smiles and cuddles you against her bosom.  \"<i>Be honest; you vere not vanting mein milk, you vere wanting to be cheering me up, da?</i>\" she laughs.  Busted!  You laugh yourself, though your plan seems to have worked pretty well, and you're not complaining about the bellyful of tasty milk you've gotten either.  You burp sheepishly, for emphasis.");
 		else outputText("\n\nIsabella smiles and cuddles you against her bosom.  \"<i>Be honest; you weren't wanting my milk, you wanted to cheer me up, huh?</i>\" she laughs.  Busted!  You laugh yourself, though your plan seems to have worked pretty well, and you're not complaining about the bellyful of tasty milk you've gotten either.  You burp sheepishly, for emphasis.");
 		
-		if(isabellaAccent()) outputText("\n\n\"<i>You are just ze sweetest little thing, aren't you, [name]?</i>\"  Isabella laughs, her breasts jiggling heavily from the force.  \"<i>Vell, if you are liking mein milk so much, perhaps you should have some more, da?</i>\"  She grins, gently lifting one breast with a free hand to better offer it to you.");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\n\"<i>You are just ze sweetest little thing, aren't you, [name]?</i>\"  Isabella laughs, her breasts jiggling heavily from the force.  \"<i>Vell, if you are liking mein milk so much, perhaps you should have some more, da?</i>\"  She grins, gently lifting one breast with a free hand to better offer it to you.");
 		else outputText("\n\n\"<i>You are just the sweetest little thing, aren't you, [name]?</i>\"  Isabella laughs, her breasts jiggling heavily from the force.  \"<i>Well, if you are liking my milk so much, perhaps you should have some more, yeah?</i>\"  She grins, gently lifting one breast with a free hand to better offer it to you.");
 		
 		outputText("\n\nSounds like a plan, you tell the cow-girl.  You take the offered tit in your hands and proceed to bury yourself into the pillowy mound, latching onto her nipples and draining them of all its contents as fast as you can without choking.");
 		
-		if(isabellaAccent()) outputText("\n\nIsabella smiles and releases her arm from around your neck to instead stroke your [hair].  \"<i>Da, zat ist good, [name].  I love to empty zese big boobs of mine, but I am loving you more,</i>\" she says this last-part in a stage whisper, clearly intending for you to hear it.  You decide that for now, you'll just busy yourself with the cow-girl's teats, you can return the feelings later...");
+		if(isabellaFollowerScene.isabellaAccent()) outputText("\n\nIsabella smiles and releases her arm from around your neck to instead stroke your [hair].  \"<i>Da, zat ist good, [name].  I love to empty zese big boobs of mine, but I am loving you more,</i>\" she says this last-part in a stage whisper, clearly intending for you to hear it.  You decide that for now, you'll just busy yourself with the cow-girl's teats, you can return the feelings later...");
 		else outputText("\n\nIsabella smiles and releases her arm from around your neck to instead stroke your [hair].  \"<i>Yeah, that's good, [name].  I love to empty these big boobs of mine, but I think I love you more,</i>\" she says this last-part in a stage whisper, clearly intending for you to hear it.  You decide that for now, you'll just busy yourself with the cow-girl's teats, you can return the feelings later...");
-		flags[JACK_FROST_PROGRESS] = 11;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 11;
 		menu();
 		addButton(0,"Next",processJackFrostEvent);
-		return;
 	}
 	//Kiha
-	else if(followerKiha() && flags[JACK_FROST_PROGRESS] <= 11) {
+	else if(kihaFollower.followerKiha() && flags[kFLAGS.JACK_FROST_PROGRESS] <= 11) {
 		outputText("\"<i>Ah-ah-ahchoo!</i>\"");
 		outputText("\n\n\"<i>Bless you,</i>\" you say to Kiha as you approach the dragon-girl.");
 		outputText("\n\nKiha sniffles and wipes her nose on her arm when she sees you.  \"<i>[name], what is this weird white stuff?  It's cold and wet and - achoo!</i>\"  She sneezes again, spraying a gout of flame across the camp.  \"<i>And the flakes keep flying up my nose,</i>\" she snuffles.");
@@ -510,26 +506,25 @@ function processJackFrostEvent():void {
 		outputText("\n\nSeeing that, you suggest that perhaps the two of you should move somewhere more... private.  You happen to know a way to make her feel even warmer.  She says nothing, looking into your eyes and nodding with a soft smile on her face, obviously trusting you to lead her.");
 		outputText("\n\nYou waste no time in leading her away to a snowy clearing nearby.  Once there you look the shivering dragon-girl over, considering your options...");
 		//[Fuck her] [Lick Boobs and Finger Pussy]
-		flags[JACK_FROST_PROGRESS] = 12;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 12;
 		menu();
 		if(player.hasCock() && player.cockThatFits(67) >= 0) addButton(0,"Fuck Her",kihaXmasFuck);
 		addButton(1,"Finger Her",kihaXmasFingering);
-		return;
 	}
 	//Feast time! Just a collection of words on the pleasant day...
 	else {
 		outputText("This small holiday of yours was much needed.  You feel reinvigorated and even more determined to put an end to this struggle with demons.");
 		outputText("\n\nThe only thing left to end this day is a feast.  Though your family is not here to join you, at least you won't be dining alone.");
 		//(if One sexable follower)
-		if(loversCount() + slavesCount() == 1) {
+		if(camp.loversCount() + camp.slavesCount() == 1) {
 			outputText("\n\nYou take care of the preparations and cooking, whipping up a delightful meal for you and your companion.  You can tell that you were not the only one needing this break, and judging by the way your companions eyes you as the two of you eat... it seems the day is not over yet...");
 		}
 		//(if no sexable follower)
-		else if(loversCount() + slavesCount() == 0) {
+		else if(camp.loversCount() + camp.slavesCount() == 0) {
 			outputText("\n\nYou take care of the preparations and cooking, whipping up a delightful meal for you and your companion");
-			if(companionsCount() > 1) outputText("s");
+			if(camp.companionsCount() > 1) outputText("s");
 			outputText(".  You can tell that you were not the only one needing this break... but unfortunately all good things must come to an end, and so you bid your companion");
-			if(companionsCount() > 1) outputText("s");
+			if(camp.companionsCount() > 1) outputText("s");
 			outputText(" good night and retire for the night.");
 		}
 		////more than one sexable follower.
@@ -539,15 +534,14 @@ function processJackFrostEvent():void {
 		}
 		HPChange(maxHP(),false);
 		fatigue(-100);
-		flags[JACK_FROST_PROGRESS] = 0;
+		flags[kFLAGS.JACK_FROST_PROGRESS] = 0;
 		doNext(16);
-		return;
 	}
 }
 
 //[=Fuck Her=]
 //PC needs to have a cock.
-function kihaXmasFuck():void {
+public function kihaXmasFuck():void {
 	clearOutput();
 	var x:int = player.cockThatFits(67);
 	if(x < 0) x = player.smallestCockIndex();
@@ -567,7 +561,7 @@ function kihaXmasFuck():void {
 }
 //[=Lick Boobs and Finger Pussy=]
 //All sexes!
-function kihaXmasFingering():void {
+public function kihaXmasFingering():void {
 	clearOutput();
 	outputText("You examine Kiha.  A small snowflake lands on one of her nipples and she yelps with a start at the sudden contact.   \"<i>Hey, I asked you to help warm me up, not to stare at me!</i>\" she complains. ");
 	outputText("\n\nYou tell her not to worry, you know just the way to warm her all up.  \"<i>Get on with it then,</i>\" she grumbles.  You grab hold of the impatient dragoness's boobs, massaging them gently, and lick the snowflake off her nipple.  Taking it in your mouth to suckle, you nip at her erect nub.  She gasps and moans in equal parts pleasure and shock.  \"<i>W-what?  Oh, that's nice, but, how's that going to help?</i>\"  You unlatch from her breast momentarily to wink at her and tell her to trust you - you know what you're doing.  \"<i>You perv,</i>\" Kiha says, but she's smiling as she does so.");
@@ -576,7 +570,7 @@ function kihaXmasFingering():void {
 	outputText("\n\nYou begin pistoning your fingers in and out of the dragon-girl, asking her if she's feeling warmer now.  \"<i>Mmm, y-y-yes,</i>\" Kiha answers, even as her legs start to buckle, making her sway in a rather drunken fashion. \"<i>B-but it'll take more than - ooohhh... than that to warm me up,</i>\" she says, then moans.  She wants more, doesn't she?  Well, you're happy to oblige!  You add a couple more fingers to her love-hole, your other hand joining the first one in caring for her womanly needs by pinching and stroking her little, achingly engorged clit.  She shudders and squeals, her nether-lips squeezing you tightly as fem-cum drenches your hand, the orgasm ripping through her body and causing her to lose control of her legs, sending her crashing into you and knocking you both to the ground.");
 	outputText("\n\nYou click your tongue, mocking her for giving in to a little pleasure.  Isn't she supposed to be all strong and mighty?  \"<i>I'll never be defeated,</i>\" right?  \"<i>Shush, love,</i>\" she pants unthinkingly.  You laugh at your scaly lover's reaction, patting her butt gently.  Then, you ask her if she's feeling warmer now?  If she isn't, you'll be happy to warm her up some more, even going so far as to send a questing hand to prod her moist opening.");
 	outputText("\n\n\"<i>Well, I suppose you could get me a little hotter... if you can take the heat, my doofus,</i>\" she croons, snuggling tighter against you...");
-	stats(0,0,0,0,0,0,20+player.sens/20+player.lib/20,0);
+	dynStats("lus", 20+player.sens/20+player.lib/20);
 	menu();
 	addButton(0,"Next",processJackFrostEvent);
 	return;
@@ -584,15 +578,15 @@ function kihaXmasFingering():void {
 
 //[=Fuck Her=]
 //Needs PC with cock that fits.
-function penetradePureMouseWaifu():void {
+public function penetradePureMouseWaifu():void {
 	clearOutput();
 	outputText("Stripping down your [armor] and indicating Amily should do the same... you tell her that you were hoping for some good old-fashioned sex between a horny " + player.mf("man","herm") + " and " + player.mf("his","her") + " lovely mousette.  You playfully ask Amily if she has any objections?");
 	outputText("\n\n\"<i>Well, it's a little counterproductive to take your clothes off if you want to get warm,</i>\" Amily notes.  Despite her words, she's stripping off without the slightest hesitation.  You reply that just the sight of her getting nude is already making you a little warmer... thrusting your hips so she can see your erect " + multiCockDescriptLight() + ".  \"<i>Flattering flirt; you always think with your dick, don't you?</i>\" the mouse laughs.  That's rich; you can see her pussy dripping from here");
-	if(flags[AMILY_WANG_LENGTH] > 0) outputText(", not to mention her dick's pretty hard, too");
+	if(flags[kFLAGS.AMILY_WANG_LENGTH] > 0) outputText(", not to mention her dick's pretty hard, too");
 	outputText(".");
 	
 	outputText("\n\nSitting down on your bedroll, you open your arms, inviting Amily over.  The mouse promptly approaches");
-	if(flags[AMILY_WANG_LENGTH] > 0) outputText(", her own " + amilyCock() + " jutting out in anticipation");
+	if(flags[kFLAGS.AMILY_WANG_LENGTH] > 0) outputText(", her own " + amilyScene.amilyCock() + " jutting out in anticipation");
 	outputText(", wriggling into your arms and angling her pussy over your " + cockDescript(x) + ".  With the ease of long practice, she slides smoothly down its length, her warm, wet depths greedily inhaling your masculinity.  \"<i>Ah, nothing like a nice hard cock in your cunt to make you feel warmer,</i>\" she coos.");
 	
 	outputText("\n\nYou simply grin and begin bucking your hips against her, suppressing your moans by kissing her, hugging her tightly against you, holding your bodies flush together.  The mouse hugs you as tightly as she can, smothering you with kisses as her hands roam nimbly across your back, slinking down to squeeze your ass with an obvious hunger to molest you.");
@@ -600,19 +594,20 @@ function penetradePureMouseWaifu():void {
 	outputText("\n\nYou guide your hands down her sides, towards her behind, taking it into your hands and helping her rise and fall on your shaft.  She breaks the kiss with a loud exclamation.  \"<i>Oh, this feels so good, [name]!  And it's certainly warming... why, I think I'm starting to break a sweat... and I think you are too,</i>\" she grins.");
 	
 	outputText("\n\nYou ask her to tell you how much she wants this... how much she wants your seed... how much she wants you?  \"<i>I want you!  I want you with everything I have, I want everything you have to give!</i>\" she cries out.  Then she can have all of you... with one last thrust, you bury your shaft deeply into her quivering cunny and blast your liquid lust straight into her waiting womb.  She moans loudly, making no effort to hide her delight at your treatment, and shudders violently in your grip as orgasm rocks her body, flooding your crotch with her rodent fem-cum");
-	if(flags[AMILY_WANG_LENGTH] > 0) outputText(" and painting your belly white with futa-spooge");
+	if(flags[kFLAGS.AMILY_WANG_LENGTH] > 0) outputText(" and painting your belly white with futa-spooge");
 	outputText(".");
 	
 	outputText("\n\nYou tell Amily, \"<i>Happy Holidays,</i>\" hugging her in post-coital affection.  \"<i>Happy Holidays, [name]... whatever that is,</i>\" she giggles.  \"<i>But, you know, we might just have a little late Winterfest present brewing after that bit of fun.</i>\"  She bats her eyes at you flirtatiously, patting her cum-stuffed belly.");
 	outputText("\n\nYou agree with her and enjoy your closeness a while longer...");
-	stats(0,0,0,0,-1,0,-100,0);
+	player.orgasm();
+	dynStats("lib", -1);
 	menu();
 	addButton(0,"Next",processJackFrostEvent);
 }
 
 //[=Make out=]
 //For any gender.
-function makeOutWithPureMouseWaifu():void {
+public function makeOutWithPureMouseWaifu():void {
 	clearOutput();
 	outputText("You strip down your [armor] and suggest Amily should do the same.  \"<i>Well, it's a little counterproductive to take your clothes off if you want to get warm,</i>\" Amily notes.  Despite her words, she's stripping off without the slightest hesitation.  \"<i>So, what's on your mind, lover-" + player.mf("boy","girl") + "?</i>\" she asks.");
 	
@@ -623,7 +618,7 @@ function makeOutWithPureMouseWaifu():void {
 	outputText("\n\nSilly mouse, you remark with a smirk.  That's the best way to share body heat... you're still a bit cold... and you're willing to bet so is she... you wink.  \"<i>Ah, so that's your game,</i>\" Amily chuckles.  \"<i>Well, I'm game if you are.</i>\"");
 	
 	outputText("\n\nYou open your arms in a clear invitation for the mousette to sit with you.  ");
-	if(flags[AMILY_WANG_LENGTH] > 0) outputText("Smiling sheepishly you  tell her to mind the erection... though you're not actually looking for sex, you can't help with how cute she looks...  \"<i>Flirt.</i>\"  Amily giggles, but otherwise doesn't comment on it.  ");
+	if(flags[kFLAGS.AMILY_WANG_LENGTH] > 0) outputText("Smiling sheepishly you  tell her to mind the erection... though you're not actually looking for sex, you can't help with how cute she looks...  \"<i>Flirt.</i>\"  Amily giggles, but otherwise doesn't comment on it.  ");
 	outputText("The mouse promptly walks over and sits down just in front of you, her back facing you and giving you a perfect opportunity to hug her.  Not keen on missing such an opportunity, you do so.");
 	
 	if(player.hasCock()) outputText("\n\n\"<i>You know I can feel your dick poking me in the back, right?</i>\" Amily giggles, wriggling back against your jutting shaft for emphasis.  You chuckle and tell her to lay off your man-parts... this is just a natural reaction.  \"<i>Oh yeah?  Maybe you wanna see my natural reaction to this situation, hmm?</i>\" she croons.  Maybe later... right now you just want to enjoy her like this.");
@@ -635,7 +630,7 @@ function makeOutWithPureMouseWaifu():void {
 	outputText("\n\nYou tell her it feels perfect, and you'll fight hard to ensure you will all have more moments like this in the future...  \"<i>Well, I'll be rooting for you all the way... though, right now, I think I'd rather you just shut up and enjoy the moment,</i>\" she adds.");
 	
 	outputText("\n\nYou chuckle, even though she's the one that's been chatting your ears off this whole time?  \"<i>Yes, even though I'm the one that's been chatting your ears off,</i>\" Amily replies with a smile.  You suggest that perhaps all you need to do to stop talking is finding something to keep your mouths busy.  \"<i>Oh?  What are you suggesting?</i>\" she asks, her tail gently looping around your midriff.  Your reply is to simply draw her into a kiss...");
-	stats(0,0,0,0,0,0,30+player.sens/10,0);
+	dynStats("lus", 30+player.sens/10);
 	menu();
 	addButton(0,"Next",processJackFrostEvent);
 }
@@ -644,7 +639,7 @@ function makeOutWithPureMouseWaifu():void {
 
 //[=Pen Ass=]
 //PC needs a cock.
-function penetradeCorruptJojoAss():void {
+public function penetradeCorruptJojoAss():void {
 	clearOutput();
 	outputText("You roughly pull the mouse slut's tail out of the way, getting a clear look at his accommodating ass.  Your broken slut of a murine monk rises to the tips of his toes in anticipation, already moaning in delight at the thought of your ravaging his ass.  You laugh at him, telling him he has come very far ever since the first time you've violated his bum.   \"<i>Yes [master], thank you [master],</i>\" is all Jojo's corrupted brain can think to say.");
 	outputText("\n\nFeeling like you're just wasting your time, you drop your lower garments and begin stroking yourself into an erection.  With a throaty groan, Jojo wiggles his ass, crudely trying to tempt you to start.  You roughly shove your [cock] as far as it'll go on the former monk's ass, sinking a few inches in without any resistance.  Moaning, pre already dribbling from his cock, the fallen mouse bucks eagerly back into you, trying to shove more of your cock up his ass.");
@@ -658,14 +653,15 @@ function penetradeCorruptJojoAss():void {
 	outputText("\n\nLaughing at his reaction, you ask if he has learned how to properly fuck in the snow.  Jojo lifts his face, covered in half-frozen spunk-slush, and nods at you, too tired from his recent fucking to speak.");
 	
 	outputText("\n\nGood, now he should get his face cleaned up.  You order him to lick himself clean.  Without hesitation, Jojo starts doing exactly what you said, slurping up all of the cum-slush on his face and using his fingers to scrape the rest into his reach.  He then begins licking at his arms and chest, clearly not intending to stop until he has it all.   You nod in satisfaction, telling him to keep at it, you want to see him eat it all up...");
-	stats(0,0,0,0,-3,-1,-100,1);
+	player.orgasm();
+	dynStats("lib", -3, "sen", -1, "cor", 1);
 	menu();
 	addButton(0,"Next",processJackFrostEvent);
-	flags[JACK_FROST_PROGRESS] = 5;
+	flags[kFLAGS.JACK_FROST_PROGRESS] = 5;
 }
 //[=Ride Cock=]
 //PC needs vagina
-function rideCorruptJojoCock():void {
+public function rideCorruptJojoCock():void {
 	clearOutput();
 	outputText("With a flourish, you easily discard your [armor].  Then you grab a hold of the mouse-slut's tail and twist it to the side, forcing the former monk to crash into the ground on his back, shaft half-erect and covered in melting snow, pointing upwards like a perverted pole.  You ask him if he can see anything he would like from his current vantage point.");
 	outputText("\n\n\"<i>Y-yes [master],</i>\" Jojo meekly declares, unable to take his eyes from your [cunt].  His cock immediately grows to full mast, which you can't help but think is one of his more convenient features since you remade him into this far more enjoyable version of himself.");
@@ -677,7 +673,7 @@ function rideCorruptJojoCock():void {
 	outputText("\n\nNow that's what you like to hear, and you promptly impale yourself on Jojo's handy shaft, brutally forcing it inch by inch inside you until you have forced him to the ground with your efforts.  Moaning with satisfaction at being stuffed, you begin to roughly rise and fall, pistoning back and forth in order to sate your pleasures.");
 	
 	outputText("\n\nJojo goes berserk, babbling incoherently as he grabs your hips and begins roughly slamming himself into your [vagina], trying to dig as deep into you as he can, even as his pre leaking shaft lubricates your tunnel.  You try to exert some control over the ex-monk, but eventually decide it's better to just sit back and enjoy the ride - however, you can't resist taunting Jojo over what a depraved little slut he has become, totally incapable of controlling himself. \"<i>S-Sluuut... I'm... sluuuut,</i>\" he utters incoherently between moans.");
-	cuntChange(20,true,true,false);
+	player.cuntChange(20,true,true,false);
 	
 	outputText("\n\nYou thrust, buck, and heave, enjoying everything there is about mastering this once-pure soul and reducing him to your fuck puppet.  Finally, with an ecstatic howl, you cum, female lubricants gushing onto his burning hot cock");
 	if(player.hasCock()) outputText(", your own futa-cock spewing its load, which you deliberately spray in his face for amusement");
@@ -686,17 +682,18 @@ function rideCorruptJojoCock():void {
 	outputText("\n\nYou wait until you're sure you dripped the last few drops of femcum from your cunt, then, with a groan, noisily pull yourself off of the mouse's now-limp dick.  Moving so that you are hovering it over Jojo's face, you authoritatively command your slave to clean up all the mouse-spunk he stuffed into your cunt.  The panting mouse-slut breaks out of his trance with a start, and quickly raises to get started and do your bidding, even as drops of your mixed juice and his slutty baby-batter drip on his face.  He drinks the spunk with joy, moaning in enjoyment at the act.");
 	
 	outputText("\n\nYou just stand and watch as he works, waiting for him to finish cleaning you up so you can get started on your next task...");
-	stats(0,0,0,0,-3,-1,-100,1);
+	player.orgasm();
+	dynStats("lib", -3, "sen", -1, "cor", 1);
 	menu();
 	addButton(0,"Next",processJackFrostEvent);
-	flags[JACK_FROST_PROGRESS] = 5;
+	flags[kFLAGS.JACK_FROST_PROGRESS] = 5;
 	//Preggers chance!
-	player.knockUp(4,432);
+	player.knockUp(PregnancyStore.PREGNANCY_JOJO, PregnancyStore.INCUBATION_MOUSE + 82); //Jojo's kids take longer for some reason
 }
 
 //[=Spank and Finger Ass=]
 //Available to all.
-function spankNFingerCorruptJojoAss():void {
+public function spankNFingerCorruptJojoAss():void {
 	clearOutput();
 	outputText("Not bothering to undress, you yank the mouse's ropy tail out of the way with brutal force, to gaze at his white, heart-shaped ass.  Jojo stands on the tips of his toes, moaning at the rough treatment that surely follows.  His ass looks so inviting... so deserving of a good hard smack... you ask the former monk-turned-slut how he would like a good beating on his ass.");
 	outputText("\n\n\"<i>M-[master], please, spank me!  I'm such a naughty boy - spank me hard!</i>\" Jojo cries.  You laugh at your wanton slut.  You've never seen a mouse as perverted as this, begging to be spanked and getting off on the idea... well, the slut certainly deserves it... you're pretty sure he has been masturbating without your permission, and you can't have that.");
@@ -713,8 +710,8 @@ function spankNFingerCorruptJojoAss():void {
 	outputText("\n\nWith a gasp and a howl, Jojo does as you command, a fountain of tainted mouse-spooge gushing from his cock, soaking into the snow to create a great slushy puddle.  He cums and he cums until he's totally exhausted his strength, collapsing bonelessly into the puddle he's just created, his tail slipping off of your wrist as he does so.");
 	
 	outputText("\n\nYou laugh at the mouse-slut's blissed out face of pleasure, feeling like you managed to chip away another part of his broken will.  Before you leave him to pass out on his snowy puddle of mouse-cum you ask him, what is his name?  \"<i>S - Slut...</i>\"  Is the moaning reply.  Satisfied, you decide to leave for the moment.  Maybe you'll get back to him and break him in a little more later...");
-	stats(0,0,0,0,0,0,100,0,true);
+	dynStats("lus=", 100, "resisted", true);
 	menu();
 	addButton(0,"Next",processJackFrostEvent);
-	flags[JACK_FROST_PROGRESS] = 5;
+	flags[kFLAGS.JACK_FROST_PROGRESS] = 5;
 }

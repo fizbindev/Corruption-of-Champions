@@ -1,22 +1,54 @@
-package classes 
+﻿package classes 
 {
-	import classes.creature;
-	
-	/**
+import classes.Scenes.Places.TelAdre.UmasShop;
+
+/**
 	 * Character class for player and NPCs. Has subclasses Player and NonPlayer.
 	 * @author Yoffy
 	 */
-	public class Character extends creature 
+	public class Character extends Creature
 	{
+		private var _femininity:Number = 50;
+
+		// This is the easiest way I could think of to apply "flat" bonuses to certain stats without having to write a whole shitload of crazyshit
+		// I think a better long-term solution may be to hang function references off the end of the statusAffect class and move all of the value
+		// calculation into methods of ContentClasses, so rather than having walls of logic, we just call the method reference with a value, and get back the modified value.
+		// It's still shitty, but it would possibly be an improvement.
+		public function get femininity():Number
+		{
+			var fem:Number = _femininity;
+			var statIndex:int = this.findStatusAffect(StatusAffects.UmasMassage);
+
+			if (statIndex >= 0)
+			{
+				if (this.statusAffect(statIndex).value1 == UmasShop.MASSAGE_MODELLING_BONUS)
+				{
+					fem += this.statusAffect(statIndex).value2;
+				}
+			}
+			
+			if (fem > 100)
+			{
+				fem = 100;
+			}
+			
+			return fem;
+		}
 		
-		public var femininity:Number = 50;
-		
-		//Eyetype
-		//0 - normal
-		//1 - spidah!
-		//2 - sandtrap!
-		public var eyeType:Number = 0;
-		
+		public function set femininity(value:Number):void
+		{
+			if (value > 100)
+			{
+				value = 100;
+			}
+			else if (value < 0)
+			{
+				value = 0;
+			}
+			
+			_femininity = value;
+		}
+
 		//BEARDS! Not used anywhere right now but WHO WANTS A BEARD?
 		public var beardLength:Number = 0;
 		public var beardStyle:Number = 0;
@@ -27,76 +59,32 @@ package classes
 		//Body tone i.e. Lithe, stocky, etc
 		public var tone:Number = 0;
 		
-		//TongueType
-		//0 - normal
-		//1 - snakey
-		//2 - demon
-		//3 - dragon
-		public var tongueType:Number = 0;
-		
-		//Head ornaments. Definitely need to convert away from hard coded types.
-		public var antennae:Number = 0;
-		public var horns:Number = 0;
-		
-		//ArmType
-		//0 - normal
-		//1 - harpy feathered
-		//2 - SPIDA
-		public var armType:Number = 0;
-		
-		//Gills
-		public var gills:Boolean = false;		;
-		
-		//Preggos
-		//TODO: Document pregancy types. Both butt and normal. Mainly butts though.
-		//1 = imp
-		//2 = minotaur
-		//3 = tentacle
-		//4 = mouse
-		//5 = EGGZ
-		//6 = hellhound
-		//7 = centaur
-		//8 = MARBLZ
-		public var pregnancyType = 0;
-		public var pregnancyIncubation = 0;
-		
-		//2 = bee
-		public var buttPregnancyType = 0;
-		public var buttPregnancyIncubation = 0;
+		private var _pregnancyType:int = 0;
+		public function get pregnancyType():int { return _pregnancyType; }
+
+		private var _pregnancyIncubation:int = 0;
+		public function get pregnancyIncubation():int { return _pregnancyIncubation; }
+
+		private var _buttPregnancyType:int = 0;
+		public function get buttPregnancyType():int { return _buttPregnancyType; }
+
+		private var _buttPregnancyIncubation:int = 0;
+		public function get buttPregnancyIncubation():int { return _buttPregnancyIncubation; }
+
+
 		
 		//Key items
 		public var keyItems:Array;
 		
-		public function Character() 
+		public function Character()
 		{
-			
+			keyItems = [];
 		}
 		
 		//Return bonus fertility
-		public function bonusFertility():Number
-		{
-			var counter:Number = 0;
-			if (hasPerk("heat") >= 0)
-				counter += perks[hasPerk("heat")].value1;
-			if (hasPerk("Fertility+") >= 0)
-				counter += 15;
-			if (hasPerk("Marae's Gift - Fertility") >= 0)
-				counter += 50;
-			if (hasPerk("Fera's Boon - Breeding Bitch") >= 0)
-				counter += 30;
-			if (hasPerk("Magical Fertility") >= 0)
-				counter += 10;
-			counter += perkv2("Elven Bounty");
-			counter += perkv1("Pierced: Fertite");
-			return counter;
-		}
-		
+
 		//return total fertility
-		public function totalFertility():Number
-		{
-			return (bonusFertility() + fertility);
-		}
-		
+
 		public function faceDesc():String
 		{
 			var faceo:String = "";
@@ -176,7 +164,7 @@ package classes
 				Changed = true;
 			}
 			//Fix if it went out of bounds!
-			if (hasPerk("Androgyny") < 0)
+			if (findPerk(PerkLib.Androgyny) < 0)
 				fixFemininity();
 			//Abort if nothing changed!
 			if (!Changed)
@@ -201,9 +189,8 @@ package classes
 			return output;
 		}
 		
-		public function modThickness(goal:Number, strength:Number = 1)
+		public function modThickness(goal:Number, strength:Number = 1):String
 		{
-			var oldN:Number = thickness;
 			if (goal == thickness)
 				return "";
 			//Lose weight fatty!
@@ -232,9 +219,8 @@ package classes
 			return "";
 		}
 		
-		public function modTone(goal:Number, strength:Number = 1)
+		public function modTone(goal:Number, strength:Number = 1):String
 		{
-			var oldN:Number = tone;
 			if (goal == tone)
 				return "";
 			//Lose muscle visibility!
@@ -335,10 +321,7 @@ package classes
 		
 		public function hasBeard():Boolean
 		{
-			if (beardLength > 0)
-				return true;
-			else
-				return false;
+			return beardLength > 0;
 		}
 		
 		public function beard():String
@@ -346,7 +329,10 @@ package classes
 			if (hasBeard())
 				return "beard";
 			else
+			{
+				//CoC_Settings.error("");
 				return "ERROR: NO BEARD! <b>YOU ARE NOT A VIKING AND SHOULD TELL FEN IMMEDIATELY.</b>";
+			}
 		}
 		
 		public function skin(noAdj:Boolean = false, noTone:Boolean = false):String
@@ -438,14 +424,6 @@ package classes
 		
 		public function hasLongTail():Boolean
 		{
-			//tailType:
-			//0 - none
-			//1 - horse
-			//2 - dog
-			//3 - demon
-			//4 - cow!
-			//5 - spider!
-			//6 - bee!
 			//7 - shark tail!
 			//8 - catTAIIIIIL
 			//9 - lizard tail
@@ -460,363 +438,19 @@ package classes
 				return true;
 			return false;
 		}
-		
-		public function isBiped():Boolean
-		{
-			//Naga/Centaur
-			if (lowerBody == 3 || lowerBody == 4)
-				return false;
-			if (lowerBody == 8 || lowerBody == 11)
-				return false;
-			return true;
-		}
-		
-		public function isNaga():Boolean
-		{
-			if (lowerBody == 3)
-				return true;
-			return false;
-		}
-		
-		public function isTaur():Boolean
-		{
-			if (lowerBody == 4 || lowerBody == 11)
-				return true;
-			return false;
-		}
-		
-		public function isDrider():Boolean
-		{
-			return (lowerBody == 16);
-		}
-		
-		public function isGoo():Boolean
-		{
-			if (lowerBody == 8)
-				return true;
-			return false;
-		}
-		
-		public function legs():String
-		{
-			var select:Number = 0;
-			//lowerBody:
-			//0 - normal
-			if (lowerBody == 0)
-				return "legs";
-			//1 - hooves
-			if (lowerBody == 1)
-				return "legs";
-			//2 - paws
-			if (lowerBody == 2)
-				return "legs";
-			//3 - snakelike body
-			if (lowerBody == 3)
-				return "snake-like coils";
-			//4 - centaur!
-			if (lowerBody == 4)
-				return "four legs";
-			//8 - goo shit
-			if (lowerBody == 8)
-				return "mounds of goo";
-			//PONY
-			if (lowerBody == 11)
-				return "cute pony-legs";
-			//Bunnah!
-			if (lowerBody == 12)
-			{
-				select = Math.floor(Math.random() * (5));
-				if (select == 0)
-					return "fuzzy, bunny legs";
-				else if (select == 1)
-					return "fur-covered legs";
-				else if (select == 2)
-					return "furry legs";
-				else
-					return "legs";
-			}
-			if (lowerBody == 13)
-			{
-				select = Math.floor(Math.random() * (5));
-				if (select == 0)
-					return "bird-like legs";
-				else if (select == 1)
-					return "feathered legs";
-				else
-					return "legs";
-			}
-			if (lowerBody == 17)
-			{
-				select = Math.floor(Math.random() * (4));
-				if (select == 0)
-					return "fox-like legs";
-				else if (select == 1)
-					return "legs";
-				else if (select == 2)
-					return "legs";
-				else
-					return "vulpine legs";
-			}
-			if (lowerBody == 19)
-			{
-				select = Math.floor(Math.random() * (4));
-				if (select == 0)
-					return "raccoon-like legs";
-				else
-					return "legs";
-			}
-			
-			return "legs";
-		}
-		
-		public function skinFurScales():String
-		{
-			var skinzilla:String = "";
-			//Adjectives first!
-			if (skinAdj != "")
-				skinzilla += skinAdj + ", ";
-			//Fur handled a little differently since it uses
-			//haircolor
-			if (skinType == 1)
-				skinzilla += hairColor + " ";
-			else
-				skinzilla += skinTone + " ";
-			skinzilla += skinDesc;
-			return skinzilla;
-		}
-		
-		public function leg():String
-		{
-			var select:Number = 0;
-			//lowerBody:
-			//0 - normal
-			if (lowerBody == 0)
-				return "leg";
-			//1 - hooves
-			if (lowerBody == 1)
-				return "leg";
-			//2 - paws
-			if (lowerBody == 2)
-				return "leg";
-			//3 - snakelike body
-			if (lowerBody == 3)
-				return "snake-tail";
-			//4 - centaur!
-			if (lowerBody == 4)
-				return "equine leg";
-			//8 - goo shit
-			if (lowerBody == 8)
-				return "mound of goo";
-			//PONY
-			if (lowerBody == 11)
-				return "cartoonish pony-leg";
-			//BUNNAH
-			if (lowerBody == 12)
-			{
-				select = Math.random() * (5);
-				if (select == 0)
-					return "fuzzy, bunny leg";
-				else if (select == 1)
-					return "fur-covered leg";
-				else if (select == 2)
-					return "furry leg";
-				else
-					return "leg";
-			}
-			if (lowerBody == 13)
-			{
-				select = Math.floor(Math.random() * (5));
-				if (select == 0)
-					return "bird-like leg";
-				else if (select == 1)
-					return "feathered leg";
-				else
-					return "leg";
-			}
-			if (lowerBody == 17)
-			{
-				select = Math.floor(Math.random() * (4));
-				if (select == 0)
-					return "fox-like leg";
-				else if (select == 1)
-					return "leg";
-				else if (select == 2)
-					return "leg";
-				else
-					return "vulpine leg";
-			}
-			if (lowerBody == 19)
-			{
-				select = Math.floor(Math.random() * (4));
-				if (select == 0)
-					return "raccoon-like leg";
-				else
-					return "leg";
-			}
-			return "leg";
-		}
-		
-		public function feet():String
-		{
-			var select:Number = 0;
-			//lowerBody:
-			//0 - normal
-			if (lowerBody == 0)
-				return "feet";
-			//1 - hooves
-			if (lowerBody == 1)
-				return "hooves";
-			//2 - paws
-			if (lowerBody == 2)
-				return "paws";
-			//3 - snakelike body
-			if (lowerBody == 3)
-				return "coils";
-			//4 - centaur!
-			if (lowerBody == 4)
-				return "hooves";
-			//5 - demonic heels
-			if (lowerBody == 5)
-				return "demonic high-heels";
-			//6 - demonic claws
-			if (lowerBody == 6)
-				return "demonic foot-claws";
-			//8 - goo shit
-			if (lowerBody == 8)
-				return "slimey cillia";
-			if (lowerBody == 11)
-				return "flat pony-feet";
-			//BUNNAH
-			if (lowerBody == 12)
-			{
-				select = rand(5);
-				if (select == 0)
-					return "large bunny feet";
-				else if (select == 1)
-					return "rabbit feet";
-				else if (select == 2)
-					return "large feet";
-				else
-					return "feet";
-			}
-			if (lowerBody == 13)
-			{
-				select = Math.floor(Math.random() * (5));
-				if (select == 0)
-					return "taloned feet";
-				else
-					return "feet";
-			}
-			if (lowerBody == 14)
-				return "foot-paws";
-			if (lowerBody == 17)
-			{
-				select = rand(4);
-				if (select == 0)
-					return "paws";
-				else if (select == 1)
-					return "soft, padded paws";
-				else if (select == 2)
-					return "fox-like feet";
-				else
-					return "paws";
-			}
-			if (lowerBody == 19)
-			{
-				select = Math.floor(Math.random() * (3));
-				if (select == 0)
-					return "raccoon-like feet";
-				else if (select == 1)
-					return "long-toed paws";
-				else if (select == 2)
-					return "feet";
-				else
-					return "paws";
-			}
-			return "feet";
-		}
-		
-		public function foot():String
-		{
-			var select:Number = 0;
-			//lowerBody:
-			//0 - normal
-			if (lowerBody == 0)
-				return "foot";
-			//1 - hooves
-			if (lowerBody == 1)
-				return "hoof";
-			//2 - paws
-			if (lowerBody == 2)
-				return "paw";
-			//3 - snakelike body
-			if (lowerBody == 3)
-				return "coiled tail";
-			//4 - centaur!
-			if (lowerBody == 4)
-				return "hoof";
-			//8 - goo shit
-			if (lowerBody == 8)
-				return "slimey undercarriage";
-			//PONY
-			if (lowerBody == 11)
-				return "flat pony-foot";
-			//BUNNAH
-			if (lowerBody == 12)
-			{
-				select = Math.random() * (5);
-				if (select == 0)
-					return "large bunny foot";
-				else if (select == 1)
-					return "rabbit foot";
-				else if (select == 2)
-					return "large foot";
-				else
-					return "foot";
-			}
-			if (lowerBody == 13)
-			{
-				select = Math.floor(Math.random() * (5));
-				if (select == 0)
-					return "taloned foot";
-				else
-					return "foot";
-			}
-			if (lowerBody == 17)
-			{
-				select = Math.floor(Math.random() * (4));
-				if (select == 0)
-					return "paw";
-				else if (select == 1)
-					return "soft, padded paw";
-				else if (select == 2)
-					return "fox-like foot";
-				else
-					return "paw";
-			}
-			if (lowerBody == 14)
-				return "foot-paw";
-			if (lowerBody == 19)
-			{
-				select = Math.floor(Math.random() * (3));
-				if (select == 0)
-					return "raccoon-like foot";
-				else if (select == 1)
-					return "long-toed paw";
-				else if (select == 2)
-					return "foot";
-				else
-					return "paw";
-			}
-			return "foot";
-		}
-		
+
+		public function isPregnant():Boolean { return _pregnancyType != 0; }
+
+		public function isButtPregnant():Boolean { return _buttPregnancyType != 0; }
+	
 		//fertility must be >= random(0-beat)
+		//If arg == 1 then override any contraceptives and guarantee fertilization
 		public function knockUp(type:int = 0, incubation:int = 0, beat:int = 100, arg:int = 0):void
 		{
 			//Contraceptives cancel!
-			if (hasStatusAffect("Contraceptives") >= 0 && arg < 1)
+			if (findStatusAffect(StatusAffects.Contraceptives) >= 0 && arg < 1)
 				return;
+//			if (findStatusAffect(StatusAffects.GooStuffed) >= 0) return; //No longer needed thanks to PREGNANCY_GOO_STUFFED being used as a blocking value
 			var bonus:int = 0;
 			//If arg = 1 (always pregnant), bonus = 9000
 			if (arg >= 1)
@@ -824,16 +458,15 @@ package classes
 			if (arg <= -1)
 				bonus = -9000;
 			//If unpregnant and fertility wins out:
-			if ((arg == 2 || (pregnancyIncubation == 0)) && totalFertility() + bonus > Math.floor(Math.random() * beat) && hasVagina())
+			if (pregnancyIncubation == 0 && totalFertility() + bonus > Math.floor(Math.random() * beat) && hasVagina())
 			{
-				pregnancyType = type;
-				pregnancyIncubation = incubation;
+				knockUpForce(type, incubation);
 				trace("PC Knocked up with pregnancy type: " + type + " for " + incubation + " incubation.");
 			}
 			//Chance for eggs fertilization - ovi elixir and imps excluded!
-			if (type != 1 && type != 5 && type != 10)
+			if (type != PregnancyStore.PREGNANCY_IMP && type != PregnancyStore.PREGNANCY_OVIELIXIR_EGGS && type != PregnancyStore.PREGNANCY_ANEMONE)
 			{
-				if (hasPerk("Spider Ovipositor") >= 0 || hasPerk("Bee Ovipositor") >= 0)
+				if (findPerk(PerkLib.SpiderOvipositor) >= 0 || findPerk(PerkLib.BeeOvipositor) >= 0)
 				{
 					if (totalFertility() + bonus > Math.floor(Math.random() * beat))
 					{
@@ -842,12 +475,20 @@ package classes
 				}
 			}
 		}
-		
+
+		//The more complex knockUp function used by the player is defined above
+		//The player doesn't need to be told of the last event triggered, so the code here is quite a bit simpler than that in PregnancyStore
+		public function knockUpForce(type:int = 0, incubation:int = 0):void
+		{
+			_pregnancyType = type;
+			_pregnancyIncubation = (type == 0 ? 0 : incubation); //Won't allow incubation time without pregnancy type
+		}
+	
 		//fertility must be >= random(0-beat)
 		public function buttKnockUp(type:int = 0, incubation:int = 0, beat:int = 100, arg:int = 0):void
 		{
 			//Contraceptives cancel!
-			if (hasStatusAffect("Contraceptives") >= 0 && arg < 1)
+			if (findStatusAffect(StatusAffects.Contraceptives) >= 0 && arg < 1)
 				return;
 			var bonus:int = 0;
 			//If arg = 1 (always pregnant), bonus = 9000
@@ -856,134 +497,43 @@ package classes
 			if (arg <= -1)
 				bonus = -9000;
 			//If unpregnant and fertility wins out:
-			if ((arg == 2 || (buttPregnancyIncubation == 0)) && totalFertility() + bonus > Math.floor(Math.random() * beat))
+			if (buttPregnancyIncubation == 0 && totalFertility() + bonus > Math.floor(Math.random() * beat))
 			{
-				buttPregnancyType = type;
-				buttPregnancyIncubation = incubation;
-				trace("PC Knocked up with pregnancy type: " + type + " for " + incubation + " incubation.");
+				buttKnockUpForce(type, incubation);
+				trace("PC Butt Knocked up with pregnancy type: " + type + " for " + incubation + " incubation.");
 			}
 		}
-		
-		public function canOvipositSpider():Boolean
+
+		//The more complex buttKnockUp function used by the player is defined in Character.as
+		public function buttKnockUpForce(type:int = 0, incubation:int = 0):void
 		{
-			if (eggs() >= 10 && hasPerk("Spider Ovipositor") >= 0 && isDrider() && tailType == 5)
-				return true;
-			return false;
+			_buttPregnancyType = type;
+			_buttPregnancyIncubation = (type == 0 ? 0 : incubation); //Won't allow incubation time without pregnancy type
 		}
-		
-		public function canOvipositBee():Boolean
-		{
-			if (eggs() >= 10 && hasPerk("Bee Ovipositor") >= 0 && tailType == 6)
-				return true;
-			return false;
+
+		public function pregnancyAdvance():Boolean {
+			if (_pregnancyIncubation > 0) _pregnancyIncubation--;
+			if (_pregnancyIncubation < 0) _pregnancyIncubation = 0;
+			if (_buttPregnancyIncubation > 0) _buttPregnancyIncubation--;
+			if (_buttPregnancyIncubation < 0) _buttPregnancyIncubation = 0;
+			return pregnancyUpdate();
 		}
-		
-		public function canOviposit():Boolean
-		{
-			if (canOvipositSpider() || canOvipositBee())
-				return true;
-			return false;
-		}
-		
-		public function eggs():int
-		{
-			if (hasPerk("Spider Ovipositor") < 0 && hasPerk("Bee Ovipositor") < 0)
-				return -1;
-			else if (hasPerk("Spider Ovipositor") >= 0)
-				return perkv1("Spider Ovipositor");
-			else
-				return perkv1("Bee Ovipositor");
-		}
-		
-		public function addEggs(arg:int = 0):int
-		{
-			if (hasPerk("Spider Ovipositor") < 0 && hasPerk("Bee Ovipositor") < 0)
-				return -1;
-			else
-			{
-				if (hasPerk("Spider Ovipositor") >= 0)
-				{
-					addPerkValue("Spider Ovipositor", 1, arg);
-					if (eggs() > 50)
-						changePerkValue("Spider Ovipositor", 1, 50);
-					return perkv1("Spider Ovipositor");
-				}
-				else
-				{
-					addPerkValue("Bee Ovipositor", 1, arg);
-					if (eggs() > 50)
-						changePerkValue("Bee Ovipositor", 1, 50);
-					return perkv1("Bee Ovipositor");
-				}
-			}
-		}
-		
-		public function dumpEggs():void
-		{
-			if (hasPerk("Spider Ovipositor") < 0 && hasPerk("Bee Ovipositor") < 0)
-				return;
-			setEggs(0);
-			//Sets fertile eggs = regular eggs (which are 0)
-			fertilizeEggs();
-		}
-		
-		public function setEggs(arg:int = 0):int
-		{
-			if (hasPerk("Spider Ovipositor") < 0 && hasPerk("Bee Ovipositor") < 0)
-				return -1;
-			else
-			{
-				if (hasPerk("Spider Ovipositor") >= 0)
-				{
-					changePerkValue("Spider Ovipositor", 1, arg);
-					if (eggs() > 50)
-						changePerkValue("Spider Ovipositor", 1, 50);
-					return perkv1("Spider Ovipositor");
-				}
-				else
-				{
-					changePerkValue("Bee Ovipositor", 1, arg);
-					if (eggs() > 50)
-						changePerkValue("Bee Ovipositor", 1, 50);
-					return perkv1("Bee Ovipositor");
-				}
-			}
-		}
-		
-		public function fertilizedEggs():int
-		{
-			if (hasPerk("Spider Ovipositor") < 0 && hasPerk("Bee Ovipositor") < 0)
-				return -1;
-			else if (hasPerk("Spider Ovipositor") >= 0)
-				return perkv2("Spider Ovipositor");
-			else
-				return perkv2("Bee Ovipositor");
-		}
-		
-		public function fertilizeEggs():int
-		{
-			if (hasPerk("Spider Ovipositor") < 0 && hasPerk("Bee Ovipositor") < 0)
-				return -1;
-			else if (hasPerk("Spider Ovipositor") >= 0)
-				changePerkValue("Spider Ovipositor", 2, eggs());
-			else
-				changePerkValue("Bee Ovipositor", 2, eggs());
-			return fertilizedEggs();
-		}
-		
+
+		public function pregnancyUpdate():Boolean { return false; }
+
 		//Create a keyItem
 		public function createKeyItem(keyName:String, value1:Number, value2:Number, value3:Number, value4:Number):void
 		{
-			var newKeyItem = new keyItemClass();
+			var newKeyItem:* = new KeyItemClass();
 			//used to denote that the array has already had its new spot pushed on.
 			var arrayed:Boolean = false;
 			//used to store where the array goes
-			var keySlot:Number = 0
-			var counter:Number = 0
+			var keySlot:Number = 0;
+			var counter:Number = 0;
 			//Start the array if its the first bit
 			if (keyItems.length == 0)
 			{
-				trace("New Key Item Started Array! " + keyName);
+				//trace("New Key Item Started Array! " + keyName);
 				keyItems.push(newKeyItem);
 				arrayed = true;
 				keySlot = 0;
@@ -991,7 +541,7 @@ package classes
 			//If it belongs at the end, push it on
 			if (keyItems[keyItems.length - 1].keyName < keyName && !arrayed)
 			{
-				trace("New Key Item Belongs at the end!! " + keyName);
+				//trace("New Key Item Belongs at the end!! " + keyName);
 				keyItems.push(newKeyItem);
 				arrayed = true;
 				keySlot = keyItems.length - 1;
@@ -999,7 +549,7 @@ package classes
 			//If it belongs in the beginning, splice it in
 			if (keyItems[0].keyName > keyName && !arrayed)
 			{
-				trace("New Key Item Belongs at the beginning! " + keyName);
+				//trace("New Key Item Belongs at the beginning! " + keyName);
 				keyItems.splice(0, 0, newKeyItem);
 				arrayed = true;
 				keySlot = 0;
@@ -1007,7 +557,7 @@ package classes
 			//Find the spot it needs to go in and splice it in.
 			if (!arrayed)
 			{
-				trace("New Key Item using alphabetizer! " + keyName);
+				//trace("New Key Item using alphabetizer! " + keyName);
 				counter = keyItems.length;
 				while (counter > 0 && !arrayed)
 				{
@@ -1043,9 +593,8 @@ package classes
 			//Fallback
 			if (!arrayed)
 			{
-				trace("New Key Item Belongs at the end!! " + keyName);
+				//trace("New Key Item Belongs at the end!! " + keyName);
 				keyItems.push(newKeyItem);
-				arrayed = true;
 				keySlot = keyItems.length - 1;
 			}
 			
@@ -1054,7 +603,7 @@ package classes
 			keyItems[keySlot].value2 = value2;
 			keyItems[keySlot].value3 = value3;
 			keyItems[keySlot].value4 = value4;
-			trace("NEW KEYITEM FOR PLAYER in slot " + keySlot + ": " + keyItems[keySlot].keyName);
+			//trace("NEW KEYITEM FOR PLAYER in slot " + keySlot + ": " + keyItems[keySlot].keyName);
 		}
 		
 		//Remove a key item
@@ -1079,7 +628,7 @@ package classes
 			}
 		}
 		
-		public function addKeyValue(statusName:String, statusValueNum:Number = 1, newNum:Number = 0)
+		public function addKeyValue(statusName:String, statusValueNum:Number = 1, newNum:Number = 0):void
 		{
 			var counter:Number = keyItems.length;
 			//Various Errors preventing action
@@ -1111,7 +660,6 @@ package classes
 				}
 			}
 			//trace("ERROR: Looking for keyitem '" + statusName + "' to change value " + statusValueNum + ", and player does not have the key item.");
-			return;
 		}
 		
 		public function keyItemv1(statusName:String):Number
@@ -1216,242 +764,9 @@ package classes
 		}
 		
 		//Grow
-		public function increaseCock(increase:Number, cockNum:Number):Number
-		{
-			if (hasPerk("Big Cock") >= 0)
-				increase *= perks[hasPerk("Big Cock")].value1;
-			if (hasPerk("Phallic Potential") >= 0)
-				increase *= 1.5;
-			if (hasPerk("Phallic Restraint") >= 0)
-				increase *= .25;
-			return cocks[cockNum].growCock(increase);
-		}
-		
+
 		//BreastCup
-		public function breastCup(rowNum:Number):String
-		{
-			if (breastRows[rowNum].breastRating < 1)
-				return "flat, manly breast";
-			else if (breastRows[rowNum].breastRating < 2)
-				return "A-cup";
-			else if (breastRows[rowNum].breastRating < 3)
-				return "B-cup";
-			else if (breastRows[rowNum].breastRating < 4)
-				return "C-cup";
-			else if (breastRows[rowNum].breastRating < 5)
-				return "D-cup";
-			else if (breastRows[rowNum].breastRating < 6)
-				return "DD-cup";
-			else if (breastRows[rowNum].breastRating < 7)
-				return "big DD-cup";
-			else if (breastRows[rowNum].breastRating < 8)
-				return "E-cup";
-			else if (breastRows[rowNum].breastRating < 9)
-				return "big E-cup";
-			else if (breastRows[rowNum].breastRating < 10)
-				return "EE-cup";
-			else if (breastRows[rowNum].breastRating < 11)
-				return "big EE-cup";
-			else if (breastRows[rowNum].breastRating < 12)
-				return "F-cup";
-			else if (breastRows[rowNum].breastRating < 13)
-				return "big F-cup";
-			else if (breastRows[rowNum].breastRating < 14)
-				return "FF-cup";
-			else if (breastRows[rowNum].breastRating < 15)
-				return "big FF-cup";
-			else if (breastRows[rowNum].breastRating < 16)
-				return "G-cup";
-			else if (breastRows[rowNum].breastRating < 17)
-				return "big G-cup";
-			else if (breastRows[rowNum].breastRating < 18)
-				return "GG-cup";
-			else if (breastRows[rowNum].breastRating < 19)
-				return "big GG-cup";
-			else if (breastRows[rowNum].breastRating < 20)
-				return "H-cup";
-			else if (breastRows[rowNum].breastRating < 21)
-				return "big H-cup";
-			else if (breastRows[rowNum].breastRating < 22)
-				return "HH-cup";
-			else if (breastRows[rowNum].breastRating < 23)
-				return "big HH-cup";
-			else if (breastRows[rowNum].breastRating < 24)
-				return "HHH-cup";
-			else if (breastRows[rowNum].breastRating < 25)
-				return "I-cup";
-			else if (breastRows[rowNum].breastRating < 26)
-				return "big I-cup";
-			else if (breastRows[rowNum].breastRating < 27)
-				return "II-cup";
-			else if (breastRows[rowNum].breastRating < 28)
-				return "big II-cup";
-			else if (breastRows[rowNum].breastRating < 29)
-				return "J-cup";
-			else if (breastRows[rowNum].breastRating < 30)
-				return "big J-cup";
-			else if (breastRows[rowNum].breastRating < 31)
-				return "JJ-cup";
-			else if (breastRows[rowNum].breastRating < 32)
-				return "big JJ-cup";
-			else if (breastRows[rowNum].breastRating < 33)
-				return "K-cup";
-			else if (breastRows[rowNum].breastRating < 34)
-				return "big K-cup";
-			else if (breastRows[rowNum].breastRating < 35)
-				return "KK-cup";
-			else if (breastRows[rowNum].breastRating < 36)
-				return "big KK-cup";
-			else if (breastRows[rowNum].breastRating < 37)
-				return "L-cup";
-			else if (breastRows[rowNum].breastRating < 38)
-				return "big L-cup";
-			else if (breastRows[rowNum].breastRating < 39)
-				return "LL-cup";
-			else if (breastRows[rowNum].breastRating < 40)
-				return "big LL-cup";
-			else if (breastRows[rowNum].breastRating < 41)
-				return "M-cup";
-			else if (breastRows[rowNum].breastRating < 42)
-				return "big M-cup";
-			else if (breastRows[rowNum].breastRating < 43)
-				return "MM-cup";
-			else if (breastRows[rowNum].breastRating < 44)
-				return "big MM-cup";
-			else if (breastRows[rowNum].breastRating < 45)
-				return "MMM-cup";
-			else if (breastRows[rowNum].breastRating < 46)
-				return "large MMM-cup";
-			else if (breastRows[rowNum].breastRating < 47)
-				return "N-cup";
-			else if (breastRows[rowNum].breastRating < 48)
-				return "large N-cup";
-			else if (breastRows[rowNum].breastRating < 49)
-				return "NN-cup";
-			else if (breastRows[rowNum].breastRating < 50)
-				return "large NN-cup";
-			else if (breastRows[rowNum].breastRating < 51)
-				return "O-cup";
-			else if (breastRows[rowNum].breastRating < 52)
-				return "large O-cup";
-			else if (breastRows[rowNum].breastRating < 53)
-				return "OO-cup";
-			else if (breastRows[rowNum].breastRating < 54)
-				return "large OO-cup";
-			else if (breastRows[rowNum].breastRating < 55)
-				return "P-cup";
-			else if (breastRows[rowNum].breastRating < 56)
-				return "large P-cup";
-			else if (breastRows[rowNum].breastRating < 57)
-				return "PP-cup";
-			else if (breastRows[rowNum].breastRating < 58)
-				return "large PP-cup";
-			else if (breastRows[rowNum].breastRating < 59)
-				return "Q-cup";
-			else if (breastRows[rowNum].breastRating < 60)
-				return "large Q-cup";
-			else if (breastRows[rowNum].breastRating < 61)
-				return "QQ-cup";
-			else if (breastRows[rowNum].breastRating < 62)
-				return "large QQ-cup";
-			else if (breastRows[rowNum].breastRating < 63)
-				return "R-cup";
-			else if (breastRows[rowNum].breastRating < 64)
-				return "large R-cup";
-			else if (breastRows[rowNum].breastRating < 65)
-				return "RR-cup";
-			else if (breastRows[rowNum].breastRating < 66)
-				return "large RR-cup";
-			else if (breastRows[rowNum].breastRating < 67)
-				return "S-cup";
-			else if (breastRows[rowNum].breastRating < 68)
-				return "large S-cup";
-			else if (breastRows[rowNum].breastRating < 69)
-				return "SS-cup";
-			else if (breastRows[rowNum].breastRating < 70)
-				return "large SS-cup";
-			else if (breastRows[rowNum].breastRating < 71)
-				return "T-cup";
-			else if (breastRows[rowNum].breastRating < 72)
-				return "large T-cup";
-			else if (breastRows[rowNum].breastRating < 73)
-				return "TT-cup";
-			else if (breastRows[rowNum].breastRating < 74)
-				return "large TT-cup";
-			else if (breastRows[rowNum].breastRating < 75)
-				return "U-cup";
-			else if (breastRows[rowNum].breastRating < 76)
-				return "large U-cup";
-			else if (breastRows[rowNum].breastRating < 77)
-				return "UU-cup";
-			else if (breastRows[rowNum].breastRating < 78)
-				return "large UU-cup";
-			else if (breastRows[rowNum].breastRating < 79)
-				return "V-cup";
-			else if (breastRows[rowNum].breastRating < 80)
-				return "large V-cup";
-			else if (breastRows[rowNum].breastRating < 81)
-				return "VV-cup";
-			else if (breastRows[rowNum].breastRating < 82)
-				return "large VV-cup";
-			else if (breastRows[rowNum].breastRating < 83)
-				return "W-cup";
-			else if (breastRows[rowNum].breastRating < 84)
-				return "large W-cup";
-			else if (breastRows[rowNum].breastRating < 85)
-				return "WW-cup";
-			else if (breastRows[rowNum].breastRating < 86)
-				return "large WW-cup";
-			else if (breastRows[rowNum].breastRating < 87)
-				return "X-cup";
-			else if (breastRows[rowNum].breastRating < 88)
-				return "large X-cup";
-			else if (breastRows[rowNum].breastRating < 89)
-				return "XX-cup";
-			else if (breastRows[rowNum].breastRating < 90)
-				return "large XX-cup";
-			else if (breastRows[rowNum].breastRating < 91)
-				return "Y-cup";
-			else if (breastRows[rowNum].breastRating < 92)
-				return "large Y-cup";
-			else if (breastRows[rowNum].breastRating < 93)
-				return "YY-cup";
-			else if (breastRows[rowNum].breastRating < 94)
-				return "large YY-cup";
-			else if (breastRows[rowNum].breastRating < 95)
-				return "Z-cup";
-			else if (breastRows[rowNum].breastRating < 96)
-				return "large Z-cup";
-			else if (breastRows[rowNum].breastRating < 97)
-				return "ZZ-cup";
-			else if (breastRows[rowNum].breastRating < 98)
-				return "large ZZ-cup";
-			else if (breastRows[rowNum].breastRating < 99)
-				return "ZZZ-cup";
-			else if (breastRows[rowNum].breastRating < 100)
-				return "large ZZZ-cup";
-			
-			/*else if(breastRows[rowNum].breastRating < 20) return "watermelon-sized cup";
-			   else if(breastRows[rowNum].breastRating < 35) return "tent-sized cup";
-			   else if(breastRows[rowNum].breastRating < 60) return "truck-sized cup";
-			 else if(breastRows[rowNum].breastRating < 100) return "parachute-sized cup";*/
-			else
-				return "game-breaking cup";
-			return "Error-Cup (breastSize Error Number: " + breastRows[rowNum].breastRating;
-			//watermelon-sized
-			//tent sized
-			//truck sized
-			//parachute sized
-			//pool-sized
-			//hanger-sized
-			//town-sized
-			//city-sized
-			//state-sized
-			//continent-sized
-			//planet-sized
-			//WTFISTHISWHYISNTITGAMEOVER?
-		}
-		
+
 		/*OLD AND UNUSED
 		   public function breastCupS(rowNum:Number):String {
 		   if(breastRows[rowNum].breastRating < 1) return "tiny";
@@ -1469,206 +784,6 @@ package classes
 		   else if(breastRows[rowNum].breastRating < 13) return "HHH";
 		   return "massive custom-made";
 		 }*/
-		public function bRows():Number
-		{
-			return breastRows.length;
-		}
-		
-		public function totalBreasts():Number
-		{
-			var counter:Number = breastRows.length;
-			var total:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				total += breastRows[counter].breasts;
-			}
-			return total;
-		}
-		
-		public function totalNipples():Number
-		{
-			var counter:Number = breastRows.length;
-			var total:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				total += breastRows[counter].nipplesPerBreast * breastRows[counter].breasts;
-			}
-			return total;
-		}
-		
-				public function smallestTitSize():Number
-		{
-			if (breastRows.length == 0)
-				return -1;
-			var counter:Number = breastRows.length;
-			var index:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				if (breastRows[index].breastRating > breastRows[counter].breastRating)
-					index = counter;
-			}
-			return breastRows[index].breastRating;
-		}
-		
-		public function smallestTitRow():Number
-		{
-			if (breastRows.length == 0)
-				return -1;
-			var counter:Number = breastRows.length;
-			var index:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				if (breastRows[index].breastRating > breastRows[counter].breastRating)
-					index = counter;
-			}
-			return index;
-		}
-		
-		public function biggestTitRow():Number
-		{
-			var counter:Number = breastRows.length;
-			var index:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				if (breastRows[index].breastRating < breastRows[counter].breastRating)
-					index = counter;
-			}
-			return index;
-		}
-		
-		public function averageBreastSize():Number
-		{
-			var counter:Number = breastRows.length;
-			var average:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				average += breastRows[counter].breastRating;
-			}
-			if (breastRows.length == 0)
-				return 0;
-			return (average / breastRows.length);
-		}
-		
-		public function averageCockThickness():Number
-		{
-			var counter:Number = cocks.length;
-			var average:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				average += cocks[counter].cockThickness;
-			}
-			if (cocks.length == 0)
-				return 0;
-			return (average / cocks.length);
-		}
-		
-		public function averageNippleLength():Number
-		{
-			var counter:Number = breastRows.length;
-			var average:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				average += (breastRows[counter].breastRating / 10 + .2);
-			}
-			return (average / breastRows.length);
-		}
-		
-		public function averageVaginalLooseness():Number
-		{
-			var counter:Number = vaginas.length;
-			var average:Number = 0;
-			//If the player has no vaginas
-			if (vaginas.length == 0)
-				return 2;
-			while (counter > 0)
-			{
-				counter--;
-				average += vaginas[counter].vaginalLooseness;
-			}
-			return (average / vaginas.length);
-		}
-		
-		public function averageVaginalWetness():Number
-		{
-			//If the player has no vaginas
-			if (vaginas.length == 0)
-				return 2;
-			var counter:Number = vaginas.length;
-			var average:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				average += vaginas[counter].vaginalWetness;
-			}
-			return (average / vaginas.length);
-		}
-		
-		public function averageCockLength():Number
-		{
-			var counter:Number = cocks.length;
-			var average:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				average += cocks[counter].cockLength;
-			}
-			if (cocks.length == 0)
-				return 0;
-			return (average / cocks.length);
-		}
-		
-		public function canTitFuck():Boolean
-		{
-			var counter:Number = breastRows.length;
-			var index:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				if (breastRows[index].breasts < breastRows[counter].breasts && breastRows[counter].breastRating > 3)
-					index = counter;
-			}
-			if (breastRows[index].breasts >= 2 && breastRows[index].breastRating > 3)
-				return true;
-			return false;
-		}
-		
-		public function mostBreastsPerRow():Number
-		{
-			var counter:Number = breastRows.length;
-			var index:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				if (breastRows[index].breasts < breastRows[counter].breasts)
-					index = counter;
-			}
-			return breastRows[index].breasts;
-		}
-		
-		public function averageNipplesPerBreast():Number
-		{
-			var counter:Number = breastRows.length;
-			var breasts:Number = 0;
-			var nipples:Number = 0;
-			while (counter > 0)
-			{
-				counter--;
-				breasts += breastRows[counter].breasts;
-				nipples += breastRows[counter].nipplesPerBreast * breastRows[counter].breasts;
-			}
-			if (breasts == 0)
-				return 0;
-			return Math.floor(nipples / breasts);
-		}
-		
 		public function viridianChange():Boolean
 		{
 			var count:int = cockTotal();
@@ -1685,19 +800,38 @@ package classes
 		
 		public function hasSheath():Boolean
 		{
-			if (dogCocks() > 0 || horseCocks() > 0 || catCocks() > 0 || kangaCocks() > 0 || displacerCocks() > 0)
-				return true;
-			return false;
+			return dogCocks() > 0 || horseCocks() > 0 || catCocks() > 0 || kangaCocks() > 0 || displacerCocks() > 0;
+
 		}
 		
 		public function hasKnot(arg:int = 0):Boolean
 		{
 			if (arg > cockTotal() - 1 || arg < 0)
 				return false;
-			return (cocks[arg].cockType == CockTypesEnum.DOG || cocks[arg].cockType == CockTypesEnum.DISPLACER);
+			return (cocks[arg].cockType == CockTypesEnum.DOG || cocks[arg].cockType == CockTypesEnum.FOX || cocks[arg].cockType == CockTypesEnum.DISPLACER);
 		}
-		
-		
+
+
+		public function maxHP():Number
+		{
+			var max:Number = 0;
+			max += int(tou * 2 + 50);
+			if (findPerk(PerkLib.Tank) >= 0) max += 50;
+			if (findPerk(PerkLib.Tank2) >= 0) max += Math.round(tou);
+			if (findPerk(PerkLib.ChiReflowDefense) >= 0) max += UmasShop.NEEDLEWORK_DEFENSE_EXTRA_HP;
+			if (level <= 20) max += level * 15;
+			else max += 20 * 15;
+			max = Math.round(max);
+			if (max > 999) max = 999;
+			return max;
+		}
+
+		public function buttDescript():String
+		{
+			return Appearance.buttDescription(this);
+		}
+
+
 	}
 
 }

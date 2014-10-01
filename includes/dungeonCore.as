@@ -1,14 +1,14 @@
-﻿function dungeonRoom(roomNo:Number):void {
+﻿public function dungeonRoom(roomNo:Number):void {
 	//Dungeon Choices!
 	var choice1:Number = 0;
 	var text1:String = "";
 	var choice2:Number = 0;
 	var text2:String = "";
-	var choice3:Number = 0;
+	var choice3:* = 0;
 	var text3:String = "";
 	var choice4:Number = 0;
 	var text4:String = "";
-	var choice5:Number = 0;
+	var choice5:* = 0;
 	var text5:String = "";
 	var choice6:Number = 0;
 	var text6:String = "";
@@ -21,21 +21,17 @@
 	var masturbateMenu:Number = 10;
 		
 	//Display Proper Buttons
-	appearanceText.visible = true;
-	appearanceBG.visible = true;
-	perksText.visible = true;
-	perksBG.visible = true;
-	dataText.visible = false;
-	dataBG.visible = false;
+	mainView.showMenuButton( MainView.MENU_APPEARANCE );
+	mainView.showMenuButton( MainView.MENU_PERKS );
+	mainView.hideMenuButton( MainView.MENU_DATA );
 
 	
 	//clear up/down arrows
 	hideUpDown();
 	//Level junk
 	if(player.XP >= (player.level) * 100) {
-		levelText2.visible = true;
-		levelBG.visible = true;
-		levelUp.visible = true;
+		mainView.showMenuButton( MainView.MENU_LEVEL );
+		mainView.statsView.showLevelUp();
 	}
 	//Entry Room
 	if(roomNo == 0) {
@@ -49,7 +45,7 @@
 	}
 	//Pump Room
 	if(roomNo == 1) {
-		if(player.hasStatusAffect("DungeonShutDown") < 0) {
+		if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) {
 			outputText("<u><b>Pump Room</b></u>\nAs you step through the iron door, a cacophony of thrumming mechanical noise assaults your ears.  Coppery pipes arch overhead, riveted into spiked iron brackets that hang from the ceiling in twisted pairs.  The constant thrum-thrum-thrum of concealed pumps and mechanisms makes it difficult to hear anything, but you swear you can make out the faint sounds of sexual pleasure emanating from the northwest side of the room.  Investigating further, you spot a door along the west wall of the room that appears to be the source of the licentious sounds.  The vibrations of all the machinery are strongest along the east walls, indicating the possible site of this hellish place's power-plant. There is a door on the east wall and a door on the north.  To the south is a solid iron door that leads back to the lobby.", true);
 		}
 		else outputText("<u><b>Pump Room</b></u>\nAs you step through the iron door, silence is the only noise you hear.  Coppery pipes arch overhead, riveted into spiked iron brackets that hang from the ceiling in twisted pairs.  The near-complete silence of the place unnerves you, but allows you to make out the faint sounds of sexual pleasure emanating from northwest side of the room.  Investigating further, you spot a door along the west wall of the room that appears to be the source of the licentious sounds.  There are two other doors, one along the east wall and one on the north.  To the south is a solid iron door that leads back to the lobby.", true);
@@ -64,10 +60,11 @@
 	}
 	//Break Room
 	if(roomNo == 2) {
+		spriteSelect(96);
 		outputText("Stepping through the dark red doorway, you wander into an expansive break room. Tables surrounded by crude wooden chairs fill most of the floor space. Along the far eastern wall sits a small counter, complete with a strange ebony sculpture of a busty woman with 'Mrs. Coffee' printed on the side. Below the sculpture is a pot of steaming hot coffee, giving off an invigoratingly rich smell.", true);
 		//Hooks for succubi encounter
 		//(if succubus gone/defeated)
-		if(player.hasStatusAffect("FactorySuccubusDefeated") >= 0) {
+		if(player.findStatusAffect(StatusAffects.FactorySuccubusDefeated) >= 0) {
 			choice7 = 0;
 			text6 = "West";
 			if(player.hasKeyItem("Iron Key") < 0) {
@@ -88,7 +85,7 @@
 				if(player.gender == 1) outputText("stud", false);
 				else outputText("sexy", false);
 				outputText("!</i>\"  She stops, sniffing the air, a curious expression on her face as she slowly circles you, her heals clicking loudly on the floor.  A knowing grin blooms across her face as understanding hits her.\n\n", false); 
-				outputText("She exclaims, \"<i>Omigawsh!  You're the champion!  Your, like, soul is still there and everything!  But, you're like, completely corrupt an' stuff!  Ya know what'd be fun?  I could fuck you till you cum so hard your soul melts out an' you turn into a demon.  Wouldn't that be great?</i>\"\n\n", false);
+				outputText("She exclaims, \"<i>Omigawsh!  You're the champion!  Your, like, soul is still there and everything!  But, you're like, completely corrupt an' stuff!  Ya know what'd be fun?  I could fuck you 'til you cum so hard your soul melts out an' you turn into a demon.  Wouldn't that be great?</i>\"\n\n", false);
 				outputText("The secretarial demoness pulls out a file and fiddles with her nails, murmuring, \"<i>I guess if you don't wanna, we could just hook you up in the factory.  What's it gonna be?</i>\"", false);
 				text1 = "Fight";
 				choice1 = 11016;
@@ -106,7 +103,7 @@
 				else outputText("sexy", false);
 				outputText("!  You haven't seen a confused human about calling itself a champion have you?</i>\"\n\nShe shakes her more-than-ample bosom from side to side as she licks her lips and offers, \"<i>If you do, be sure and bring them back here ok?  We've got their spot all ready for them, but that little prick Zetaz fucked up the pickup.  Tell you what – if you bring me the 'champion' I'll ", false);
 				if(player.totalCocks() > 0) outputText("give you the blowjob of a lifetime", false);
-				else if(player.hasVagina()) outputText("lick your honeypot till you soak my face", false);
+				else if(player.hasVagina()) outputText("lick your honeypot 'til you soak my face", false);
 				else outputText("give you a new addition and show you how to use it", false);
 				outputText(".</i>\"\n\nThe succubus turns away from you and makes a show of tweaking her make-up, ignoring you for the moment.", false);
 				text1 = "Fight";
@@ -136,21 +133,21 @@
 	}
 	//Furnace Room
 	if(roomNo == 3) {
-		if(player.hasStatusAffect("DungeonShutDown") < 0) {
+		if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) {
 			outputText("<b><u>Furnace Room</u></b>\nThe air inside this room is hot enough to coat your " + player.skinTone + " " + player.skinDesc + " in a fine sheen of sweat.  The eastern side of the chamber is more machine than wall, a solid mass of iron piping covered in small metal blast-doors through which fuel is to be fed.  A small transparent plate is riveted into the wall, allowing you to see some kind of pink crystalline fuel being burned by purple-white fire.  The few visible controls and gauges don't seem to be linked into anything important, and the machinery looks far too durable to damage with what you have.  The only exit is a heavy iron door on the west wall.  ", true);
 		}
 		else {
-			outputText("<b><u>Furnace Room</u></b>\nDespite the machinery being shut down, the air in this room is still hot enough to coat your " + player.skinTone + " " + player.skinDesc + " in a fine sheen of sweat.  The eastern side of the chamber is more machine than wall, a solid mass of iron piping covered in small metal blast-doors through which fuel is to be fed.  A small transparent plate is riveted into the wall, allowing you to see some the ashes of a previous fuel source.  The few visible controls and gauges don't seem to be linked into anything important, and the machinery looks far to durable to damage with what you have.  The only exit is a heavy iron door on the west wall.  ", true);			
+			outputText("<b><u>Furnace Room</u></b>\nDespite the machinery being shut down, the air in this room is still hot enough to coat your " + player.skinTone + " " + player.skinDesc + " in a fine sheen of sweat.  The eastern side of the chamber is more machine than wall, a solid mass of iron piping covered in small metal blast-doors through which fuel is to be fed.  A small transparent plate is riveted into the wall, allowing you to see some the ashes of a previous fuel source.  The few visible controls and gauges don't seem to be linked into anything important, and the machinery looks far too durable to damage with what you have.  The only exit is a heavy iron door on the west wall.  ", true);			
 		}
 
-		if(player.hasStatusAffect("FactoryIncubusDefeated") >= 0) {
+		if(player.findStatusAffect(StatusAffects.FactoryIncubusDefeated) >= 0) {
 			text6 = "West";
 			choice6 = 11001;
 		}
 		//Incubus is ALLLLIVE
 		else {
 			spriteSelect(30);
-			if(player.hasStatusAffect("IncubusBribed") >= 0) {
+			if(player.findStatusAffect(StatusAffects.IncubusBribed) >= 0) {
 				outputText("\n\nThe incubus mechanic is here, thumbing through a hentai comic and laughing to himself at the absurdity of it.  That doesn't stop him from stroking his half-hard member the whole time...", false);
 				choice2 = 11031;
 				text2 = "Fight";
@@ -169,7 +166,7 @@
 	//Repair Closet
 	if(roomNo == 4) {
 		outputText("<b><u>Repair Closet</u></b>\nAs you carefully slip inside the room, you note with some relief that it seems to be an empty storage closet. The room is tiny, barely 6' by 8' and almost entirely empty.  The one piece of furniture inside the closet is a simple wooden cabinet, placed against the far wall.  ", true);
-		if(player.hasStatusAffect("BUILT: Milker") >= 0) outputText("The shelves are empty.  ", false);
+		if(player.findStatusAffect(StatusAffects.BuiltMilker) >= 0) outputText("The shelves are empty.  ", false);
 		else {
 			outputText("The shelves of the cabinet hold various pieces of pump machinery, probably used to repair complete machines further into the factory.  ", false);
 			if(player.inte >= 40) {
@@ -193,7 +190,7 @@
 	//Main Chamber
 	if(roomNo == 5) {
 		//Dungeon still operational
-		if(player.hasStatusAffect("DungeonShutDown") < 0) {
+		if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) {
 			outputText("<b><u>Main Chamber</u></b>\nThis cavernous chamber is filled with a cacophony of sexual moans.  Rows of harnesses are spaced evenly throughout this room, nearly all of them filled with delirious-looking humans.  Each is over-endowed with huge breasts and a penis of elephantine proportions.  The source of their delirium hangs down from the ceiling - groups of hoses that end with needles buried deep into the poor 'girls' flesh, pumping them full of demonic chemicals.  Constant sucking and slurping noises emanate from nipple and cock pumps as they keep the victims in a state of near-constant orgasm.  ", true);
 			if(player.cor < 50) outputText("You wish you could free them, but it would take the better part of a day to get them all free.  It'd be better to find the control room and shut down the infernal machinery.  ", false);
 			else outputText("You wish you had some machinery like this for yourself.  It looks so fun!  Still, you suppose you should find the control panel to shut this down and free these people.  ", false);
@@ -214,11 +211,11 @@
 	//Foreman's Office
 	if(roomNo == 6) {
 		outputText("<b><u>Foreman's Office</u></b>\nThis office provides an excellent view of the 'factory floor' through a glass wall along the north side.  Towards the south side of the room is a simple desk with an even simpler chair behind it.  The desk's surface is clear of any paperwork, and only has a small inkwell and quill on top of it.  There are a few statues of women and men posted at the corners of the room.  All are nude and appear to be trapped in mid-orgasm.  You wonder if they're statues or perhaps some kind of perverted petrified art.  The north has a glass door leading back to the factory.  There are two other doors, both made of very solid looking metal.  One is on the east wall and another is on the south, behind the desk.  The one behind the desk is marked 'Premium Storage' (though it appears to be locked).", true);
-		if(player.hasStatusAffect("FactoryOmnibusDefeated") < 0) {
+		if(player.findStatusAffect(StatusAffects.FactoryOmnibusDefeated) < 0) {
 			spriteSelect(16);
 			outputText("\n\nA nearly nude demonic woman is standing behind the desk, appraising you.  She is gorgeous in the classical sense, with a curvy hourglass figure that radiates pure sexuality untamed by any desire for proper appearance.  Shiny black lip-gloss encapsulates her bubbly lips, while dark eyeshadow highlights her bright red eyes.  The closest thing she has to clothing is a narrow band of fabric that wraps around her significant chest, doing little to hide the pointed nubs of her erect nipples.  Her crotch is totally uncovered, revealing the hairless lips of her glistening womanhood.\n\n", false);
 			outputText("She paces around the edge of the desk, licking her lips and speaking, \"<i>So you've made it all the way here have you, 'champion'?  Too bad you've wasted your time.  Have you figured it out yet?  Have you discovered why you were sent here with no weapons or blessed items?  Have you found out why there are more humans here than anywhere else in this realm?  I'll tell you why.  You weren't a champion.  You were a sacrificial cow, meant to be added to our herd.  You just got lucky enough to get free.</i>\"\n\n", false);
-			outputText("A part of you wants to deny her, to scream that she is wrong.  But it makes too much sense to be a lie...and the evidence is right behind you, on the factory floor.  All those women must be the previous champions, kept alive and cumming for years in order to feed these insatiable demons.  The demoness watches your reaction with something approaching sexual bliss, as if the monstrous betrayal of it all is turning her on.\n\n", false);
+			outputText("A part of you wants to deny her, to scream that she is wrong.  But it makes too much sense to be a lie... and the evidence is right behind you, on the factory floor.  All those women must be the previous champions, kept alive and cumming for years in order to feed these insatiable demons.  The demoness watches your reaction with something approaching sexual bliss, as if the monstrous betrayal of it all is turning her on.\n\n", false);
 			outputText("\"<i>Yes,</i>\" she coos, \"<i>you belong here.  The question is do you accept your fate, or do you fight it?</i>\"", false);
 			choice1 = 11042;
 			text1 = "Fight";   
@@ -242,7 +239,7 @@
 	if(roomNo == 7) {
 		//PUMP CONTROL ROOM
 		outputText("<b><u>Pump Control Room</u></b>\n", true);
-		if(player.hasStatusAffect("DungeonShutDown") < 0) {
+		if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) {
 			outputText("This room is little more than a closet in reality.  There is a simple set of mechanical controls on a finely crafted terminal against the far wall.  You spend a moment looking over them, and realize you have three options to deal with this place.\n\n", true);
 			outputText("-You could close the storage vent valves and overload the fluid storage systems.  The storage tanks along the back portion of the building would rupture, releasing thousands of gallons of tainted fluids into the surrounding area, but the facility's systems would suffer catastrophic failures and shut down forever.\n", false);
 			//(Consequences - lake goddess becomes tainted!)
@@ -251,7 +248,7 @@
 			outputText("-You could leave the equipment to continue running.  After all, the girls downstairs did seem to be enjoying themselves...\n", false);
 			//(Consequences - Marcus takes over if demonic choice taken, if not he shuts down the equipment & things continue as per #3).
 			text4 = "Valves";
-			choice4 = 11059
+			choice4 = 11059;
 			text5 = "Shutdown";
 			choice5 = 11058;
 		}
@@ -266,9 +263,9 @@
 		outputText("<b><u>Premium Products</u></b>\nThis store room is filled with a few opened crates, meant to store the various substances in the factory.  It looks as if the current overseer has allowed supplies to run low, as there is not much to be gleaned from this meager stash.\n\n", true);
 		text1 = "North";
 		choice1 = 11006;
-		if(player.hasStatusAffect("TakenLactaid") >= 0) {
-			if(player.statusAffects[player.hasStatusAffect("TakenLactaid")].value1 > 0) {
-				outputText("There is a crate with " + num2Text(player.statusAffects[player.hasStatusAffect("TakenLactaid")].value1) + " bottles of something called 'Lactaid' inside.\n\n", false);
+		if(player.findStatusAffect(StatusAffects.TakenLactaid) >= 0) {
+			if(player.statusAffectv1(StatusAffects.TakenLactaid) > 0) {
+				outputText("There is a crate with " + num2Text(player.statusAffectv1(StatusAffects.TakenLactaid)) + " bottles of something called 'Lactaid' inside.\n\n", false);
 				text3 = "Lactaid";
 				choice3 = 11062;
 			}
@@ -278,9 +275,9 @@
 			text3 = "Lactaid";
 			choice3 = 11062;
 		}
-		if(player.hasStatusAffect("TakenGro+") >= 0) {
-			if(player.statusAffects[player.hasStatusAffect("TakenGro+")].value1 > 0) {
-				outputText("There is a crate with " + num2Text(player.statusAffects[player.hasStatusAffect("TakenGro+")].value1) + " bottles of something called 'Gro+' inside.\n\n", false);
+		if(player.findStatusAffect(StatusAffects.TakenGroPlus) >= 0) {
+			if(player.statusAffectv1(StatusAffects.TakenGroPlus) > 0) {
+				outputText("There is a crate with " + num2Text(player.statusAffectv1(StatusAffects.TakenGroPlus)) + " bottles of something called 'Gro+' inside.\n\n", false);
 				text4 = "GroPlus";
 				choice4 = 11061;
 			}
@@ -302,13 +299,13 @@
 		choice6 = 11075;
 		text6 = "Leave";
 		//Zetaz gone?  Alchemist shits!
-		if(flags[UNKNOWN_FLAG_NUMBER_00114] > 0) {
-			if(flags[UNKNOWN_FLAG_NUMBER_00130] == 0) {
+		if(flags[kFLAGS.DEFEATED_ZETAZ] > 0) {
+			if(flags[kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT] == 0) {
 				outputText("\n\nThere's a demon lazing around outside the cave entrance.  Judging by his size and apparent gender, he must be an incubus.  You try to stay hidden for now, but all he's doing is throwing darts at a dartboard he's set up across the way from himself.  What kind of demon sits around playing darts?", false);
 				text1 = "Investigate";
 				choice1 = 2639;
 			}
-			else if(flags[UNKNOWN_FLAG_NUMBER_00130] > 0) {
+			else if(flags[kFLAGS.ZETAZ_LAIR_DEMON_VENDOR_PRESENT] > 0) {
 				outputText("\n\nThe incubus known as Sean has set up a small stall around the cave entrance, and is busy tending to his shelves and wares.  He's dressed in an incredibly modest, three-piece suit, and nods to you as you approach, \"<i>Let me know if you want to buy anything.  I haven't done much with the cave, so feel free to poke around if you missed anything on your first pass.  I barely use the first room.</i>\"", false);
 				text3 = "Shop";
 				choice3 = 2642;
@@ -329,7 +326,7 @@
 		outputText("<b><u>Gathering Hall</u></b>\n", true);
 		outputText("This room is clearly some kind of dining or gathering hall.  The chamber's shape has been hewn from the surrounding stone, and judging by the visible tool-marks, it wasn't done with a great deal of care.  Two long wooden tables fill out the room.  They're surprisingly well made, though it appears that part of their legs were hacked off with axes to lower their overall height.  You can't help but wonder where they were stolen from.  The tables haven't been cleaned in ages, as evidenced by their many stains and a number of half-rotten bones that still rest on their battered surfaces.  Two rows of crudely crafted chairs flank their better-made brethren, made to accommodate very short beings.", false);
 		//[Imp Mob Fight]
-		if(flags[UNKNOWN_FLAG_NUMBER_00116] == 0) {
+		if(flags[kFLAGS.ZETAZ_IMP_HORDE_DEFEATED] == 0) {
 			outputText("\n\nThe place is swarming with two dozen imps, and none of them look happy to see you.  A number of them take flight while the rest form a ring around you, trapping you!  It looks like you'll have to fight your way out!", false);
 			text1 = "FIGHT!";
 			choice1 = 11074;
@@ -347,7 +344,7 @@
 	}
 	if(roomNo == 13) {
 		outputText("<b><u>Fungus Cavern</u></b>\n", true);
-		if(flags[UNKNOWN_FLAG_NUMBER_00117] == 0) {
+		if(flags[kFLAGS.ZETAZ_FUNGUS_ROOM_DEFEATED] == 0) {
 			outputText("This cavern is huge!  Though you can see the edge of a large stalactite to the west, the rest of the cave disappears into darkness beyond twenty or thirty feet away.  The floor is covered in spongy, leaf-shaped fungus.  They're huge, shiny, and purple, and they cover the cavern floor for as far as the illumination will reach.  A strange, sweet smell hangs in the cavern's humid air, probably coming from the copious fungal flora.  At the edge of your vision you can see a humanoid skeleton propped up against a stalagmite.  There's a rapier laying a few feet in front of it, and it still looks as good as new.  What do you do?", false);
 			//[Get It] [Fly-Get It]
 			text2 = "East";
@@ -371,10 +368,10 @@
 		outputText("<b><u>Filthy Torture Room</u></b>\n", true);
 		outputText("You step into a dank room, outfitted somewhere between a prison cell and a torture chamber. The ceiling of the sulfur-lined room is hung with an inventive variety of shackles, chains, and devices whose intent are not clear to you. Against the north wall, there appears to be an alchemy lab, laden with a dizzying collection of vials, flasks, and beakers. Against the south, there is a long, sinister-looking wooden rack bearing a sequence of progressively larger and thicker devices, carved to resemble monstrous cocks.  ", false);
 		//Vala here?
-		if(flags[UNKNOWN_FLAG_NUMBER_00119] == 0) {
-			spriteSelect(60);
+		if(flags[kFLAGS.FREED_VALA] == 0) {
+			spriteSelect(85);
 			//Not yet defeated zetaz
-			if(flags[UNKNOWN_FLAG_NUMBER_00114] == 0) {
+			if(flags[kFLAGS.DEFEATED_ZETAZ] == 0) {
 				//Intro:
 				outputText("", true);
 				outputText("In the far corner, there is a small woman, her back to you, hanging limply by manacles that keep her suspended in a half-kneel. Rich purple hair hangs in long, clumped strands that sparkle occasionally with a pink glitter. Above her, there is a tarnished bronze nameplate that you think reads 'Vala,' but it's impossible to tell for sure under all the imp graffiti. She does not seem to be conscious.\n\n", false);
@@ -389,9 +386,9 @@
 					text4 = "Use";
 					choice4 = 2595;
 				}
-				if(player.lust >= 33 && followerShouldra()) {
+				if(player.lust >= 33 && shouldraFollower.followerShouldra()) {
 					text5 = "ShouldraVala";
-					choice5 = 3669;
+					choice5 = shouldraFollower.shouldraMeetsCorruptVala;
 				}
 			}
 			//Zetaz defeated 
@@ -416,10 +413,10 @@
 		outputText("<b><u>Secret Tunnel</u></b>\n", true);
 		outputText("This passage is the least livable area that you've seen out of the entire cave.  The walls and floor are little more than dirt and rocks, and explosions of dust burst from the ceiling with each tentative movement you make.  For a moment, a wave of claustrophobia threatens to rob you of your nerve, but you blink the pervasive particles from your eyes and focus on why you're here.  ", false);
 		//If zetaz not yet defeated
-		if(flags[UNKNOWN_FLAG_NUMBER_00114] == 0) outputText("You're going to find Zetaz and pay him back for drugging you on your first day here.  ", false);
-		outputText("A crude door on the southern edge of the tunnel leads back to imp's sleeping chambers, but the tunnel continues away, curving sharply to the west where a far more lavish door marks the far side of the subterranean passage.", false);
+		if(flags[kFLAGS.DEFEATED_ZETAZ] == 0) outputText("You're going to find Zetaz and pay him back for drugging you on your first day here.  ", false);
+		outputText("A crude door on the southern edge of the tunnel leads back to the imp's sleeping chambers, but the tunnel continues away, curving sharply to the west where a far more lavish door marks the far side of the subterranean passage.", false);
 	
-		if(flags[UNKNOWN_FLAG_NUMBER_00129] == 0) {
+		if(flags[kFLAGS.ZETAZ_LAIR_TOOK_BONDAGE_STRAPS] == 0) {
 			outputText("\n\nA pair of fetishy, discarded straps lies on the floor, half obscured by dust.  It looks like something a goblin would wear.  Sexy!", false);
 			text3 = "B.Straps";
 			choice3 = 2638;
@@ -435,16 +432,16 @@
 	if(roomNo == 16) {
 		outputText("<b><u>Zetaz's Chambers</u></b>\n", true);
 		outputText("You've stepped into the most lavish room in the entire cave system, and marvel at the difference between this magnificent abode and your own crudely constructed campsite.  The stone walls are covered in stolen tapestries that each look to have been liberated from a unique source.  Judging by the variety of depictions and art styles in this one room, you've barely met a fraction of the races that once inhabited the lands of Mareth.  A pair of bright, smokeless lanterns hang from each wall, lit from within by obviously magical spheres of luminescence.  Various pieces of stolen furniture decorate the room, surrounding a four-post bed decorated with masterfully done carvings of various carnal acts.", false);
-		if(flags[UNKNOWN_FLAG_NUMBER_00115] == 0) {
+		if(flags[kFLAGS.ZETAZ_DOOR_UNLOCKED] == 0) {
 			outputText("  <b>There's a bolt holding a door to the south closed, but you give it a gentle tug and it comes unlocked.</b>", false);
-			flags[UNKNOWN_FLAG_NUMBER_00115] = 1;
+			flags[kFLAGS.ZETAZ_DOOR_UNLOCKED] = 1;
 		}
 		outputText("\n\n", false);
 		
-		if(flags[UNKNOWN_FLAG_NUMBER_00114] == 0) {
+		if(flags[kFLAGS.DEFEATED_ZETAZ] == 0) {
 			outputText("A familiar imp is looking at you with a bewildered expression painted across his face.  You recognize his face immediately – this is Zetaz!  Oddly, he seems to have grown much larger in the time since your previous meeting.  He's over four feet tall and much more solidly built!\n\n", false);
 			outputText("Zetaz whines, \"<i>Seriously?  You show up here!?  First you make me lose my job, and now you beat up my friends and track dirt in my bedroom!?  I've had enough!</i>\"", false);
-			startCombat(31);
+			startCombat(new Zetaz(),true);
 			return;
 		}
 		else {
@@ -461,7 +458,7 @@
 		//Room Description:
 		outputText("You stand in what might have been a guard room once upon a time.  Now it is a ruined, ransacked mess.  It seems not to have been used in years, and the table, chairs, and spears lined up against the wall have all rotted away to almost nothing.");
 		//[If Armor has not been taken/fought with: 
-		if(flags[WON_GOO_ARMOR_FIGHT] + flags[LOST_GOO_ARMOR_FIGHT] == 0) {
+		if(flags[kFLAGS.WON_GOO_ARMOR_FIGHT] + flags[kFLAGS.LOST_GOO_ARMOR_FIGHT] == 0) {
 			outputText("  However, a suit of half-plate armor has been left up against the eastern wall, hanging loosely on a rack; it seems to be in usable shape.");
 			text4 = "Armor";
 			choice4 = 11096;
@@ -480,8 +477,8 @@
 		if(player.tallness < 60) outputText("just enough room to stand up in");
 		else outputText("a ceiling so low you have to crouch");
 		outputText(".  To your surprise, nothing horrifying jumps out and tries to rape you.  You see a few horns of mead slung up in a wine rack - they smell a bit pungent, but alcohol improves with age they say...");
-		if(flags[HEL_DUNGEON_MEAD_LOOTED] < 5) {
-			outputText("(There are " + (5-flags[HEL_DUNGEON_MEAD_LOOTED]) + "x God's Mead horns here to take.)\n\n");
+		if(flags[kFLAGS.HEL_DUNGEON_MEAD_LOOTED] < 5) {
+			outputText("(There are " + (5-flags[kFLAGS.HEL_DUNGEON_MEAD_LOOTED]) + "x God's Mead horns here to take.)\n\n");
 			text4 = "God'sMead";
 			choice4 = 11097;
 		}
@@ -494,16 +491,16 @@
 		//Room 3: Stair Well
 		outputText("<b><u>Stair Well</u></b>\n", true);
 		//(Upon clicking in:)
-		if(flags[HEL_HARPIES_DEFEATED] == 0) {
+		if(flags[kFLAGS.HEL_HARPIES_DEFEATED] == 0) {
 			outputText("You open the heavy double doors and cringe as a loud \"<i>SCREECH!</i>\" echoes out and up the next room - a wide open stairwell, it seems, with minimal cover.  The perfect place for a harpy to fight... Oh, shit!");
 			outputText("\n\nYou ready your [weapon] as a wing of harpies looks up from eating at a small table in the center of the stone stairwell, all staring at you with wide, astonished eyes.  Another few harpies peer down from above, poking their heads down the stairs to get a look at the intruder.  Almost in unison, they jump to their feet and bare their claws.");
 			outputText("\n\nIt's a fight!");
-			startCombat(48);
+			startCombat(new HarpyMob());
 			doNext(1);
 			return;
 		}
 		else {
-			if(flags[HEL_HARPY_QUEEN_DEFEATED] == 0) {
+			if(flags[kFLAGS.HEL_HARPY_QUEEN_DEFEATED] == 0) {
 				outputText("There's a pile of drugged, unconscious harpies you've already defeated on the floor, as well as Kiri, the only one that didn't attack you.  You recall that she knows Hel and is here to help the both of you.");
 				//(Display Options: [Talk] [Sex] [Valeria](If Encountered) [Go Upstairs] [Go Downstairs])
 				var valeria:Number = 0;
@@ -515,7 +512,7 @@
 				text1 = "Sex";
 				choice1 = 11103;
 				text5 = "Valeria";
-				choice5 = valeria
+				choice5 = valeria;
 				text3 = "Go Upstairs";
 				choice3 = 11088;
 				text8 = "Go Downstairs";
@@ -536,18 +533,18 @@
 		clearOutput();
 		outputText("<b><u>Dungeon</u></b>\n", true);
 		//(Intro -- Before Fight)
-		if(flags[HEL_BRIGID_DEFEATED] == 0) {
+		if(flags[kFLAGS.HEL_BRIGID_DEFEATED] == 0) {
 			outputText("You make your way downstairs into a small, smoky stone room.  A thick smell of steam and burnt meat hangs over the room, making you cough as you descend the stairs.  As you make your way into the tower's little dungeon, you quickly notice the salamander chained to a table.  He's a great big man, nearly eight feet tall and covered in scars.  He has short, spiky red hair, the same color as his tail and limb scales, and a black eyepatch covers his left socket.  He looks like hell, emaciated and exhausted, covered in thick cum-stains from being used an untold number of times by the harpies of the tower.");
 			outputText("\n\nBeside him, though, is the tallest harpy you've ever seen.  A foot over most of her sisters, she stands stark naked save for a red-hot iron poker in her hand and a heavy iron shield in the other.  Her pink hair is shaved down to a mohawk, and her face is covered with a dozen iron studs and rings.");
-			outputText("\n\n\"<i>Bout time you made it down here, you " + player.mf("bastard","bitch") + ".  Mama Brigid's been waiting a loooong time for someone to try and break out one of her toys.</i>\"  She pats the hefty keyring on the underside of her shield and leers at you.");
+			outputText("\n\n\"<i>'Bout time you made it down here, you " + player.mf("bastard","bitch") + ".  Mama Brigid's been waiting a loooong time for someone to try and break out one of her toys.</i>\"  She pats the hefty keyring on the underside of her shield and leers at you.");
 			outputText("\n\nYou ready your [weapon] and prepare to take the keys from her!");
-			startCombat(49);
+			startCombat(new Brigid());
 			doNext(1);
 			return;
 		}
 		else {
 			outputText("You're standing in a small dungeon room, nearly gagging on the smells of burnt meat and smoke.  A number of nasty torture devices hang on the walls, and a table sits in the middle of the room, ");
-			if(flags[HEL_PC_TALKED_WITH_HAKON] == 0) {
+			if(flags[kFLAGS.HEL_PC_TALKED_WITH_HAKON] == 0) {
 				outputText("on which the salamander prisoner lies");
 				text4 = "Prisoner";
 			}
@@ -570,9 +567,9 @@
 		clearOutput();
 		outputText("<b><u>Mezzanine</u></b>\n", true);
 		//(Intro; Before Battle)
-		if(flags[HEL_PHOENIXES_DEFEATED] == 0) {
+		if(flags[kFLAGS.HEL_PHOENIXES_DEFEATED] == 0) {
 			outputText("You ascend the heavy stone steps, circling the tower's walls as you ascend.  You are stopped perhaps half-way to the second main floor on a small terrace level with a wide open view overlooking the vale beneath the high mountains.  As you step onto the mezzanine, you watch with a scowl as a number of tall, muscular hermaphrodites step out from the shadows.  Each is clad in heavy chainmail and wields a scimitar and a blood-red shield, but is otherwise nude, revealing their reptilian pricks and slick pussies.  The soldiers standing before you look like harpies, but they have scaled, humanoid legs, long, fiery tails and their wings are the darkest crimson.  These are phoenixes - the dread half-breed warriors you and Hel are here to stop!");
-			startCombat(50);
+			startCombat(new PhoenixPlatoon());
 			doNext(1);
 			return;
 		}
@@ -592,7 +589,7 @@
 		clearOutput();
 		outputText("<b><u>Throne Room</u></b>\n");
 		//Throne Room Descript (Before Combat!)
-		if(flags[HEL_HARPY_QUEEN_DEFEATED] == 0) {
+		if(flags[kFLAGS.HEL_HARPY_QUEEN_DEFEATED] == 0) {
 			outputText("Ascending the stairs, you are stopped by a pair of heavy double doors.  They're covered with rotting, chipped purple paint and laurels that look years old.  The sharp, screeching sounds of metal on metal ring out in the next room - the sounds of a fight!  You kick the door open, and charge into what must be some kind of throne room; a large carpet dominates your view, leading up to a towering throne surrounded by pillows and cushions, currently vacant.");
 
 			outputText("\n\nIn the center of the throne room stand Helia the Salamander and a harpy that could only be described as a broodmother.  She isn't particularly tall or menacing looking, but her hips are truly inhuman, thrice as wide as she is at the least, and her pillowy ass seems canyon-like in her nudity, the type of butt you could lose yourself in forever.  The harpy matron, wielding a staff, is currently locked in a fierce battle against Hel's red-hot scimitar.");
@@ -614,7 +611,7 @@
 
 			outputText("\n\nShe now sits upon her throne, her staff laid across her bird-like legs.  \"<i>Idiot,</i>\" she sneers, just loud enough to be heard over the din of battle.  \"<i>You've doomed us all.  So many of my daughters dead or beaten or fled... No, I will not allow you to go unpunished, even if it means my life.</i>\"");
 			outputText("\n\nShe stands, grabbing her great whitewood staff.  A ball of magical whitefire forms in her hand, ready to sear you alive.");
-			startCombat(51);
+			startCombat(new HarpyQueen());
 			doNext(1);
 			return;
 		}
@@ -622,7 +619,7 @@
 			//Room Description:
 			outputText("You stand in the harpy throne room - a long, circular room dominated by a high throne surrounded by cushions and drapes.  A single long carpet flows from the heavy double doors to the throne, reminding you of a castle's great hall in days gone by.  A number of harpies cower in the shadows, afraid to oppose you further now that their mighty leader is defeated.");
 			//[if PC hasn't executed the queen: 
-			if(flags[HARPY_QUEEN_EXECUTED] == 0) {
+			if(flags[kFLAGS.HARPY_QUEEN_EXECUTED] == 0) {
 				text5 = "Harpy Queen";
 				choice5 = 11118;
 				outputText("  The Harpy Queen slumps in her throne, insensate.");
@@ -630,11 +627,11 @@
 			//(Display Options: [Helia] [Harpy Queen] [Go Downstairs])
 			text8 = "Downstairs";
 			choice8 = 11088;
-			if(flags[HARPY_QUEEN_EXECUTED] == 0) {
+			if(flags[kFLAGS.HARPY_QUEEN_EXECUTED] == 0) {
 				text4 = "Helia";
 				choice4 = 11119;
 			}
-			if(flags[HARPY_QUEEN_EXECUTED] == 1 && flags[TOOK_QUEEN_STAFF] == 0) {
+			if(flags[kFLAGS.HARPY_QUEEN_EXECUTED] == 1 && flags[kFLAGS.TOOK_QUEEN_STAFF] == 0) {
 				text5 = "Take Staff";
 				choice5 = 11132;
 			}
@@ -643,22 +640,22 @@
 	if(roomNo == 23) {
 		clearOutput();
 		outputText("<b><u>Strange Gateway in the Sands</u></b>\n");
-		if(flags[SANURA_DISABLED] > 0) {
+		if(flags[kFLAGS.SANURA_DISABLED] > 0) {
 			outputText("Just ahead, in one of the larger dunes, is a square stone doorway, built into the side of a large, sparkling mountain of sand.  You never would have noticed it if the sun hadn't been at the perfect angle to trace a rectangular shadow down the side of the incline.  As you approach, you notice a familiar obsidian orb embedded into the side of it.  It's obviously the mechanism to open it.");
 			text1 = "North";
 			choice1 = 11151;
 			text5 = "Leave";
 			choice5 = 11150;
 		}
-		else if(flags[MET_SANURA] == 0) {
-			flags[MET_SANURA] = 1;
+		else if(flags[kFLAGS.MET_SANURA] == 0) {
+			flags[kFLAGS.MET_SANURA] = 1;
 			outputText("Just ahead, in one of the larger dunes, is a square stone doorway, built into the side of a large, sparkling mountain of sand.  You never would have noticed it if the sun hadn't been at the perfect angle to trace a rectangular shadow down the side of the incline.  As you approach, you notice a smooth obsidian orb embedded into the side of it.  Perhaps that's the mechanism to open it?");
 			outputText("\n\nSuddenly, a huge shadow looms over you, and the sound of beating wings echo from on high. You spin around in time to see a huge creature leap from the dune tops and slam into the ground a few feet away.  At first glance, the creature looks like a tall, tanned woman with flowing black hair, adorned in a great wealth of gold and jewels.  A moment later, though, you're able to take in the full view of her form: from the waist down, her shapely human form morphs into the lower body of a great, golden-haired lion, padding on a quartet of powerful legs ending in sharp claws.  From her leonine sides grow a pair of massive wings, easily over a dozen feet across, which quickly furl up against her body.  She's a sphinx!");
 			outputText("\n\nThe sphinx-girl pads over towards you, her arms crossed under her small, palmable breasts. Chestnut-colored eyes examine you, looking you over from your [hair] to your [feet], a playful grin playing across her feminine features.  \"<i>O-ho!  What's this we have here?  A poor, lost " + player.race() + " wandering the desert; or are you something more?  Indeed, I should think so, with your [weapon] so eager for battle, and your [armor] that looks to have seen a thousand blows.  My, my.  Could it be you've come to brave my Mistress's lair?  Ah, if so... you must answer my riddles three, lest I keep from you the key!</i>\" she says, a little tune springing into her voice as she stalks towards you.");
 			outputText("\n\n\"<i>We could even make it interesting...  If you can't guess my riddles, you must surrender your body to my pleasure.  If you win, your pleasure shall be my wish.</i>\"");
-			if(flags[DISCOVERED_WITCH_DUNGEON] == 0) {
+			if(flags[kFLAGS.DISCOVERED_WITCH_DUNGEON] == 0) {
 				outputText("\n\n(<b>You've discovered a new dungeon, available in the places menu in the future!  Make sure you save before delving too deeply...</b>)");
-				flags[DISCOVERED_WITCH_DUNGEON] = 1;
+				flags[kFLAGS.DISCOVERED_WITCH_DUNGEON] = 1;
 			}
 			//(Display Options: [Riddle Game] [Fight] [Leave])
 			text3 = "Riddle Game";
@@ -669,14 +666,14 @@
 			choice5 = 11150;
 		}
 		else {
-			if(flags[TIMES_SUBMITTED_TO_SANURA] + flags[TIMES_WINFUCKED_SANURA] > 0) {
+			if(flags[kFLAGS.TIMES_SUBMITTED_TO_SANURA] + flags[kFLAGS.TIMES_WINFUCKED_SANURA] > 0) {
 				outputText("You approach Sanura the sphinx as she pads around the great stone doorframe.  A playful grin spreads across her thin lips as you approach.  \"<i>O-ho!  Back again, I see.  Mmm, it's been so dull since last you <i>came</i>.  There's no one more fun to play out here in the wastes.  So... care to try your hand at my game once more?");
-				if(flags[BEATEN_SANURA_COUNT] > 0) outputText("  Or would you rather skip the formalities?  We both know who's got the sharper wit, I should think.");
+				if(flags[kFLAGS.BEATEN_SANURA_COUNT] > 0) outputText("  Or would you rather skip the formalities?  We both know who's got the sharper wit, I should think.");
 				outputText("</i>\"");
 				//(Display Options: [Riddle Game] [Fight] [Leave])
 				text3 = "Riddle Game";
 				choice3 = 11153;
-				if(flags[BEATEN_SANURA_COUNT] > 0) {
+				if(flags[kFLAGS.BEATEN_SANURA_COUNT] > 0) {
 					text1 = "North";
 					choice1 = 11151;
 					text4 = "Fuck";
@@ -689,7 +686,7 @@
 				outputText("The sphinx, Sanura, is padding around the stone doorframe.  Occasionally she beats her leonine wings or gives a mighty yawn, obviously bored by a present lack of stimulation.  Seeing you standing about, however, Sanura gives you a sultry come-hither look and a seductive wink.  You're not sure if she wants to tempt your mind or your body.");
 				text3 = "Riddle Game";
 				choice3 = 11153;
-				if(flags[BEATEN_SANURA_COUNT] > 0) {
+				if(flags[kFLAGS.BEATEN_SANURA_COUNT] > 0) {
 					text1 = "North";
 					choice1 = 11151;
 					text4 = "Fuck";
@@ -704,15 +701,15 @@
 		clearOutput();
 		outputText("<b><u>Cavernous Commons</u></b>\n");
 		outputText("Dancing lights swirl around the roof of the cavern, twirling around each other in patterns too intricate to follow.  Whatever they are, they're clearly magical, and they lend this place an otherworldly ambience unmatched by anything you've seen.  This huge room reminds you of your village commons in a way - it's clearly a communal area.  There's a water-pump in the northwest corner and a blazing purple bonfire in the center of the chamber, heating the cool underground air.  The ground is dirt, rather than sand, and hard-packed as any road.  Various chairs and benches are set up for witches to relax in.  ");
-		if(flags[SANDWITCH_MOB_DEFEATED] == 0) {
+		if(flags[kFLAGS.SANDWITCH_MOB_DEFEATED] == 0) {
 			outputText("Worst of all, a huge assortment of spellcasters is assembling into a mob, obviously hostile.");
-			startCombat(65);
+			startCombat(new SandWitchMob(),true);
 			doNext(1);
 			return;
 		}
 		else outputText("The women you defeated before have returned to their tasks, casting wary glances your way from time to time but no longer threatening.");
 		outputText("  Cave tunnels lead in to the east and west into more underground chambers.  A path leads south towards the exit.");
-		if(flags[SANDWITCH_THRONE_UNLOCKED] == 0) {
+		if(flags[kFLAGS.SANDWITCH_THRONE_UNLOCKED] == 0) {
 			outputText("\n\nA huge stone doorway blocks the path north.  You cannot see a way to open it.");
 		
 		}
@@ -764,18 +761,18 @@
 		clearOutput();
 		outputText("<b><u>West Warrens Main Hall (Western Portion)</u></b>\n");
 		outputText("The smooth tunnel comes to an end here, blocked by the omnipresent sandstone.  The sapphire light plays beautifully across the rough-hewn stone as you watch, but you don't take the time to give it much thought.  To the east, the arching hallway leads back towards a large common area of a cave.  Along the north and south walls are door-sized openings, blocked with rugs of fine make and thick fabric.  They don't leave enough of a gap for any light or sound to bleed into the hall.  You'll have to take a peek if you want to see what's going on.");
-		if(flags[ESSRAYLE_ESCAPED_DUNGEON] == 0 && flags[MET_ESSY] > 0) {
-			flags[ESSY_MET_IN_DUNGEON] = 1;
-			if(flags[TOLD_MOTHER_TO_RELEASE_ESSY] > 0) {
+		if(flags[kFLAGS.ESSRAYLE_ESCAPED_DUNGEON] == 0 && flags[kFLAGS.MET_ESSY] > 0) {
+			flags[kFLAGS.ESSY_MET_IN_DUNGEON] = 1;
+			if(flags[kFLAGS.TOLD_MOTHER_TO_RELEASE_ESSY] > 0) {
 				outputText("\n\n<b>Your attention is immediately drawn to Essrayle...</b>");
 				menu();
-				addButton(0,"Next",essyWitchVictory);
-				flags[ESSRAYLE_ESCAPED_DUNGEON] = 1;
+				addButton(0,"Next",forest.essrayle.essyWitchVictory);
+				flags[kFLAGS.ESSRAYLE_ESCAPED_DUNGEON] = 1;
 				return;
 			}
 			outputText("\n\nQuite an unusual sight awaits you in this chamber.  Sitting in an oversized pot is what looks to be the overly busty, plant girl you encountered earlier, Essrayle.  She's changed quite a bit since you last saw her, however.  While her inhumanly smooth, elfin face seems to be unchanged, the rest of her verdant body seems to have been warped into a hyper-sexual parody of a fertility idol, with features that echo the nomadic sand witch tribe.");
 			text3 = "Essrayle";
-			choice3 = 11162;
+			choice3 = forest.essrayle.approachTrappedEssy;
 		}
 		text1 = "North";
 		choice1 = 11139;
@@ -795,7 +792,7 @@
 		clearOutput();
 		outputText("<b><u>West Warrens Western Portion South Side (Pharmacy)</u></b>\n");
 		outputText("This room is so tiny it can barely get away with being called that.  If anything, it's more of a small, cozy nook.  There isn't anyone else here, though the room is illuminated by the same omnipresent magics found elsewhere in this little cave of wonders.  Standing silent vigil on the southern wall, a large chest looms over you, stretching most of the way to the ceiling.  It is completely, almost impossibly neat, with every drawer fully and completely closed.  Spurred on by this strangeness, you pop a few of them open.  One drawer has pink pills, another brown.  Searching drawer by drawer until you discover that every single compartment houses the same dual medicines.  You glance about the room and spy a faded parchment on the wall.  It reads \"<i>Tnangerp rof knip, nerrab rof nworb.</i>\"  There is an opening in the wall to the north.");
-		if(flags[SANDWITCH_THRONE_UNLOCKED] == 0) {
+		if(flags[kFLAGS.SANDWITCH_THRONE_UNLOCKED] == 0) {
 			outputText("\n\nThere is also a lever on the floor.  Looking closely at it, it appears that it connects with machinery that leads to the east...");
 			text2 = "Pull Lever";
 			choice2 = 11156;
@@ -810,7 +807,7 @@
 	if(roomNo == 31) {
 		clearOutput();
 		outputText("<b><u>Eastern Warrens Main Hall (Western Portion)</u></b>\n");
-		outputText("This smooth, sandstone tunnel proceeds in a perfectly straight line from east to west, as if aligned to some titanic, invisible compass buried below the floor.  Flickering white plumes of illumination undulate through the air along the arched ceiling, trailing streamers of pearl incandescence that light the entire chamber with ghostly brightness.  You are at the entrance to the eastern warrens - the commons are still clearly visible to the west, and the pathway to the east goes on a-ways.  Hand woven tapestries adorn the walls, telling the history of this enclave in pictographic form, from it's inception to present day.  Further east, you can see a few empty places, ready to be covered with more cloth, once the next chapter of history is ready to be told.  To the north, there is a small opening in the wall, blocked off by plain white curtains.");
+		outputText("This smooth, sandstone tunnel proceeds in a perfectly straight line from east to west, as if aligned to some titanic, invisible compass buried below the floor.  Flickering white plumes of illumination undulate through the air along the arched ceiling, trailing streamers of pearl incandescence that light the entire chamber with ghostly brightness.  You are at the entrance to the eastern warrens - the commons are still clearly visible to the west, and the pathway to the east goes on a-ways.  Hand woven tapestries adorn the walls, telling the history of this enclave in pictographic form, from its inception to present day.  Further east, you can see a few empty places, ready to be covered with more cloth, once the next chapter of history is ready to be told.  To the north, there is a small opening in the wall, blocked off by plain white curtains.");
 		text1 = "North";
 		choice1 = 11142;
 		//text7 = "South";
@@ -834,8 +831,8 @@
 		clearOutput();
 		outputText("<b><u>Eastern Warrens East Portion North Side (Bath Room)</u></b>\n");
 		outputText("As soon as you step in, you can smell a sweet, dairy-like scent in the air, but as your eyes adjust to the dimmer lighting, you realize you've stumbled into the sand witches' bathroom!  Fluffy towels hang from the wall, ready for use.  There's one giant tub in the center of the room, recessed deep into the floor.  It has a number of seats carved into the side with a small, open hole in the bottom.  Hanging from the ceiling, a long chain dangles down, topped with a plug.");
-		flags[MET_MILK_SLAVE] = 1;
-		if(flags[MILK_NAME] is Number) {
+		flags[kFLAGS.MET_MILK_SLAVE] = 1;
+		if(flags[kFLAGS.MILK_NAME] is Number) {
 			outputText("  There are no faucets or water sources that you can see, but your unasked questions are answered when a heavy, liquid sloshing sound emanates from the corner.  The source of the noise reveals itself to be a tit-encumbered, black-skinned human girl.  She drags her milk-swollen mammaries up to the edge of the tub and asks in a breathy, excited voice, \"<i>Bath time?</i>\"  Whoever she was, the witches seem to have broken her utterly - she's interested in nothing but being milked or lounging in her corner.  The way out lies west.");
 			text3 = "Bath Time";
 			choice3 = 11158;
@@ -868,18 +865,18 @@
 	if(roomNo == 36) {
 		clearOutput();
 		outputText("<b><u>Eastern Warrens West Portion South Side (Cum Witch's Office)</u></b>\n");
-		if(flags[SAND_WITCHES_FRIENDLY] > 0) {
+		if(flags[kFLAGS.SAND_WITCHES_FRIENDLY] > 0) {
 			//{SAND WITCHES NOW FRIENDLY}
 			outputText("The cum witch is here, pounding away at one of her sister's cunts, like usual.  She seems to CONSTANTLY excrete her jism into her partner's many cunt-folds, but as her passion and speed rises, the flow thickens, eventually filling the poor milk-witch's wombs entirely.  They go at it like animals for a few seconds more, then separate after a climactic orgasm that leaves a puddle of spooge inches deep on part of the uneven floor.  The cum-witch moves her insensate sister to rest on a nearby bench before putting on her hat and robes.  She winks at you and offers, \"<i>Well, I hope you enjoyed the show, interloper.  Did you come here for some of my gift, or something else?</i>\"");
 			//{VOLUNTEER FOR SERVICE: BAD-END, BLESSING: +CUM PRODUCTION}
-			if(flags[BEEN_BLESSED_BY_CUM_WITCH] == 0) {
+			if(flags[kFLAGS.BEEN_BLESSED_BY_CUM_WITCH] == 0) {
 				text3 = "Blessing";
 				choice3 = 11161;
 			}
 		}
 		else {
 			//{CUM WITCH UNDEFEATED}
-			if(flags[CUM_WITCH_DEFEATED] == 0) {
+			if(flags[kFLAGS.CUM_WITCH_DEFEATED] == 0) {
 				outputText("The curtain pulls to the side easily, and as soon as you enter, you're greeted by the sound of flesh slapping on flesh from somewhere to your left.  Briefly, you note a number of desks as you turn towards the sexual audio, but what really catches your eyes are the two girls locked in coitus.  One, a normal-looking sand witch, is bent over a bench and taking quite the fucking.  Milk drips in huge beads from her four fat teats while fresh rivulets of cum run down past the dried-cum on her thighs.  Above her is something else entirely, a taller woman with a single pair of obscenely large breasts.  She's so dark skinned that at first you have difficulty picking out her features in the dim lighting.  Glittering sweat runs down her form, dripping from her pendulous breasts as she throws back her head and moans, \"<i>Gonna... just... take it!  Take my gift!</i>\"");
 				outputText("\n\nBeneath the ebony woman, you see the sand witch begin to quiver and moan, thick gouts of semen back-flooding from her packed cunny as her belly rounds with delicious fecundity.  Her muscles lock, then twitch feebly for a few seconds before she slides off into the new-born cum-puddle, slipping along the floor in an insensate pile of orgasmic bliss.  You're so enraptured by the sight, that you don't even try to hide when the ebony futanari turns to face you, putting on a pointed, wide-brimmed hat and black robe.  For the slightest second you see a pair of orange-sized balls and one thick, cum-lubed member, but those quickly disappear into the voluminous robes.");
 				outputText("\n\n\"<i>Well now, surely you aren't one of the witches here to receive my seed,</i>\" the odd witch muses, \"<i>I'm afraid you must be an interloper then.  Pity, ");
@@ -890,7 +887,7 @@
 				
 				outputText("\n\nThe soot-skinned futanari delicately opens one of her palms and murmurs an unintelligible word. Before your eyes, flickers of light flash into existence and align themselves vertically, slowly sliding together like pieces of a flawless crystal jigsaw puzzle.  The glimmering phantasmal luminance slowly fades as all the pieces come together, leaving a flawless ivory staff in the woman's hand.  She slams the base into the ground, sending ripples of magical force through the many pools of cum scattered around the room.  <b>It looks like you'll have to fight her!</b>");
 				//{START CUM WITCH FIGHT}
-				startCombat(66);
+				startCombat(new CumWitch());
 				doNext(1);
 				return;
 			}
@@ -935,7 +932,7 @@
 	choices(text1,choice1,text2,choice2,text3,choice3,text4,choice4,text5,choice5,text6,choice6,text7,choice7,text8,choice8,"Items",itemMenu,"Masturbate",masturbateMenu);
 }
 
-function factoryFinisher():void {
+public function factoryFinisher():void {
 	outputText("", true);
 	outputText("You crack your sleep-fuzzed eyes, blinking at the sudden light as you try to get your bearings and remember where you are.  A nearby voice is moaning like a bitch in heat, or a drunk slut.  You giggle a bit at the thought as you work at focusing your eyes.  You feel warm and happy, particularly in your chest and groin.  The cobwebs of sleep clear from your mind with agonizing slowness, but you find it hard to worry about with how warm and wonderful you feel.  It's almost like hot wet mouths are latched onto your crotch and breasts, licking and sucking in perfect rhythm.  ", false);
 	if(player.cocks.length == 0 || player.biggestTitSize() <= 1) {
@@ -959,18 +956,18 @@ function factoryFinisher():void {
 	outputText("A snap echoes through the pumping room, nearly drowned out by the moans of the other milk-sluts around you.  You look around as you realize the band to restrain your head has been unlatched.  You take advantage of your newfound freedom and look around.  Rows and rows of other girls are there, just like you.  Almost all of them have bigger tits and fuller milk-tubes.  In addition, they all have enormous members that would drag on the floor were it not for the gigantic tubes encapsulating each and every one.  ", false);
 	outputText("The girl next to you squirms and cums, wriggling inside her harness as waves of sticky goop are pumped down her cock-tube into a floor-socket.  She just keeps going and going, making you wonder how she can make so much of the stuff.  As the sight excites you, the pleasure in your own crotch redoubles.  Looking down thanks to your newfound freedom, you see your own giant encapsulated member; though not as large as your neighbor's, it still looks and feels wonderful.\n\n", false); 
 	outputText("The lining of the tube squeezes and massages your trapped prick expertly, even as those hands continue to work on your mind.  Some part of you suspects that your thoughts are being manipulated, but the carnal pleasure you are experiencing is so amazing that you have no intention of resisting. If being a cumslut for your sexy demonic masters is what it takes, so be it. Cramming a massive demon-cock in your throat, getting a few others up your holes to keep you pregnant all the time, and being their busty hermaphrodite breeding tool would be your joy and privilege.  ", false);
-	if(player.hasStatusAffect("Camp Marble") >= 0) {
-		outputText("As if reading your thoughts, the hands stop massaging, and their owner snaps their fingers. You see Marble step in front of you, wearing an odd set of pink panties with a dick-like protrusion sticking out the front of them.  At the command of the figure behind you, she presents the panty-cock to you.  Happy to be of service, you spread your jaws and engulf as much of the great penis-like thing as you can, while the figure behind you moves around and takes Marble in the ass.  You continue to suck on the pink flesh till you feel it pour some kind of unholy load into your stomach.  Gurgling in pleasure, you start cumming yourself, all the while appeasing your demonic masters by servicing your once lover.\n\n", false);
+	if(player.findStatusAffect(StatusAffects.CampMarble) >= 0) {
+		outputText("As if reading your thoughts, the hands stop massaging, and their owner snaps their fingers. You see Marble step in front of you, wearing an odd set of pink panties with a dick-like protrusion sticking out the front of them.  At the command of the figure behind you, she presents the panty-cock to you.  Happy to be of service, you spread your jaws and engulf as much of the great penis-like thing as you can, while the figure behind you moves around and takes Marble in the ass.  You continue to suck on the pink flesh until you feel it pour some kind of unholy load into your stomach.  Gurgling in pleasure, you start cumming yourself, all the while appeasing your demonic masters by servicing your once lover.\n\n", false);
 	}
-	else outputText("As if reading your thoughts, the hands stop massaging, and their owner comes in front of you, presenting you with a meaty, throbbing cock.  Happy to be of service, you spread your jaws and engulf as much of the great penis as you can, till you feel it pouring his unholy load into your stomach.  Gurgling in pleasure, you start cumming yourself, all the while attending to one or more of your demonic masters.\n\n", false);
+	else outputText("As if reading your thoughts, the hands stop massaging, and their owner comes in front of you, presenting you with a meaty, throbbing cock.  Happy to be of service, you spread your jaws and engulf as much of the great penis as you can, until you feel it pouring his unholy load into your stomach.  Gurgling in pleasure, you start cumming yourself, all the while attending to one or more of your demonic masters.\n\n", false);
 	
 	
-	outputText("<b>This kind of treatment continues for a few days, till sucking, fucking and getting fucked is the only thing you desire. As your mind is now broken, injections are no longer necessary to keep you in a perfect pleasure state. After a month, they even untie you, since you are now their complete cum-puppet, eager only to please and obey.</b>", false);
+	outputText("<b>This kind of treatment continues for a few days, until sucking, fucking and getting fucked is the only thing you desire. As your mind is now broken, injections are no longer necessary to keep you in a perfect pleasure state. After a month, they even untie you, since you are now their complete cum-puppet, eager only to please and obey.</b>", false);
 	//The style on this part wasn't up to par with the rest, so I rewrote some of it, while keeping the meaning
 	eventParser(5035);
 }
 
-function succubusLossRape():void {
+public function succubusLossRape():void {
 	outputText("", true);
 	if(player.cocks.length > 0) {
 		if(player.lust > 99) outputText("Driven half mad with lust, you drop to your knees. Your fingers fly over your body as you pry off every last piece of your " + player.armorName + ", displaying just how hard your alluring opponent has gotten you.  The succubus saunters over, every sinuous step radiating the inhuman sexuality that pours off her skin like heat from a bonfire.\n\n", false);
@@ -1005,7 +1002,7 @@ function succubusLossRape():void {
 		if(player.cumQ() > 400) outputText("Freed at last, your body clenches powerfully as a massive eruption of cum launches from your " + cockDescript(0) + " onto her waiting foot.  The succubus looks on incredulously as her entire foot is soaked with your sticky whiteness, forgetting to move as the second wave of cum drenches her to the ankle and rains down over your stomach.  She giggles and moves it back to your cock, massaging your slick spooge into your cock with her foot, wringing an even bigger explosion of cum from your tortured body.  Flopping back, she gets her other foot in on the action, milking you between her feet as you soak yourself completely with bigger and bigger eruptions until at last your orgasm begins to wane.  She slides forwards, rubbing against you and smearing the mess over herself with a blissful expression.", false);
 		outputText("\n\n\"<i>Good boy,</i>\" she croons, mopping the cum up as it seems to wick into her stockings, \"<i>You'll do well once we get you on the line.</i>\"  You don't have time to ponder the significance of that as you lose consciousness.", false);
 		//ONWARD TO BAD-END-IA!
-		stats(0,0,0,0,0,0,-100,0);
+		player.orgasm();
 		doNext(11025);
 	}
 	else {
@@ -1018,7 +1015,7 @@ function succubusLossRape():void {
 		else outputText("You realize you're wobbling unsteadily, either from a blow to the head or blood loss, you can't be sure which.  In a display of sublime defiance, you manage to stay on your feet.  Though your tenacity does little good as your lightning-fast foe effortlessly undresses you, easily avoiding your clumsy and pain-addled movements.\n\n", false);  
 		//START ZE RAPE
 		outputText("The succubus steps away from you, withdrawing a tiny vial from a pocket in her vest.  She uncaps it with practiced ease, her outfit shifting into latex parody of a nurse's uniform as she attaches a small needle, completing the assembly of her injector.  \"<i>Like, don't worry about a thing hun, this will only hurt for a second,</i>\" she coos as she prances forwards, easily sinking the entire needle into your shoulder.\n\n\"<i>W-what did you do to me?</i>\" you manage to stammer.\n\n", false);
-		outputText("She merely smiles and slips a delicately manicured finger under a rapidly disappearing skirt.  You ignore her crude display of wanton sexuality for the moment and try to focus on figuring out what the drugs did you, and what her needy slit smells like.  No, that wasn't it… you wanted to taste her nipples!  You shake your head and try to focus, but fail completely as the succubus lifts her sticky latex skirt, exposing dripping snatch to you.  Your eyes lock on to the wondrous slut's fuckhole as her fingers tease you with glimpses between her folds every few seconds while she continues pleasuring herself.  With a flash of intuition, you realize what you were trying to think about:  finding something hard to penetrate that perfect hole with.  That little hungry snatch deserves to be filled with something throbbing and hard...\n\n", false);
+		outputText("She merely smiles and slips a delicately manicured finger under a rapidly disappearing skirt.  You ignore her crude display of wanton sexuality for the moment and try to focus on figuring out what the drugs did you, and what her needy slit smells like.  No, that wasn't it... you wanted to taste her nipples!  You shake your head and try to focus, but fail completely as the succubus lifts her sticky latex skirt, exposing her dripping snatch to you.  Your eyes lock on to the wondrous slut's fuckhole as her fingers tease you with glimpses between her folds every few seconds while she continues pleasuring herself.  With a flash of intuition, you realize what you were trying to think about:  finding something hard to penetrate that perfect hole with.  That little hungry snatch deserves to be filled with something throbbing and hard...\n\n", false);
 		outputText("\"<i>OoooooOOOOH!  ...you're feeling it now are-AH AH YES-you dear?  Mmmmm yes, I bet this pussy is all you can think about.  I wonder if you can feel it-aaahhhhhhmmmm-yet?  This is always, like, the best part...</i>\" gasps out the succubus as she pleasures herself.  You wonder what she could be talking about as ", false);
 		if(player.vaginas.length > 0) outputText("your " + clitDescript() + " parts your folds, growing harder.", false);
 		else outputText("a fleshy growth erupts from your pale flesh, growing harder.", false);
@@ -1028,12 +1025,12 @@ function succubusLossRape():void {
 		player.cocks[0].cockLength = 16;
 		player.cocks[0].cockThickness = 1.5;
 		//[[[[To bad end!]]]
-		stats(0,0,0,0,0,0,-100,0);
+		player.orgasm();
 		doNext(11025);
 	}
 }
-function succubusVictoryRape():void {
-	slimeFeed();
+public function succubusVictoryRape():void {
+	player.slimeFeed();
 	outputText("", true);
 	//MALE
 	if(player.cocks.length > 0 && (player.gender != 3 || rand(2))) {
@@ -1046,7 +1043,7 @@ function succubusVictoryRape():void {
 		if(player.hairLength > monster.hairLength) outputText("lengthens", false);
 		else outputText("shortens", false);
 		outputText(", shifting to " + player.hairColor + ".  The bone structures of her cheeks, nose, and face shift ever so slightly, and you suddenly realize you are looking down at a slutty version of yourself!  You aren't sure if it's the growing pool of succubus fluid below you or how hot your female twin is, but your " + cockDescript(0) + " is as hard as a rock.\n\n", false);
-		outputText("Well, you DID decide to rape her, and now you know that you ARE smoking hot.  You shrug and shove your fem-double's legs apart, exposing her glistening fuck-target.  You bend down and bite her nipple as you position yourself at her entrance, allowing her to grasp your " + cockDescript(0) + " and coat it with her slick dark fluids.  It tingles as the tainted cunt-juices wick up into your dick like the oil from a lantern back home. At first it burns painfully, as if badly sunburned, but you adjust to the discomfort and marvel as your skin turns blackish-purple. Midnight-colored nodules sprout along the upper and lower portions of your " + cockDescript(0) + ", perfectly shaped to tease clits.  Just under its head, a ring of larger growths emerge, somewhat pointy, but flexible, rubbery and incredibly sensitive.  Your " + cockDescript(0) + " gets harder and harder as it grows slightly beyond it's normal size.  It tugs your groin forwards, practically leaping towards its demonic mate on its own volition.  You cave in and press forwards, parting her folds and submerging your crown in corruptive bliss.\n\n", false); 
+		outputText("Well, you DID decide to rape her, and now you know that you ARE smoking hot.  You shrug and shove your fem-double's legs apart, exposing her glistening fuck-target.  You bend down and bite her nipple as you position yourself at her entrance, allowing her to grasp your " + cockDescript(0) + " and coat it with her slick dark fluids.  It tingles as the tainted cunt-juices wick up into your dick like the oil from a lantern back home. At first it burns painfully, as if badly sunburned, but you adjust to the discomfort and marvel as your skin turns blackish-purple. Midnight-colored nodules sprout along the upper and lower portions of your " + cockDescript(0) + ", perfectly shaped to tease clits.  Just under its head, a ring of larger growths emerge, somewhat pointy, but flexible, rubbery and incredibly sensitive.  Your " + cockDescript(0) + " gets harder and harder as it grows slightly beyond its normal size.  It tugs your groin forwards, practically leaping towards its demonic mate on its own volition.  You cave in and press forwards, parting her folds and submerging your crown in corruptive bliss.\n\n", false); 
 		//((TOO BIG))
 		if(player.cockArea(0) > monster.vaginalCapacity()) {
 			outputText("But the pleasure is short-lived, as even her altered physiology can't accommodate your massive tool. With a grunt of frustration you yank your hungry demonic cock away from your goal.  She smiles knowingly and massages her breasts, releasing streams of the same black fluid from her tumescent nipples. It coats the valley of her pornstar-sized breasts, allowing the fluid to flow down and pool in her tight little belly button.\n\n", false);
@@ -1064,7 +1061,7 @@ function succubusVictoryRape():void {
 			if(player.cumQ() >= 500) {
 				outputText("A river of pre-cum begins pouring from your cock-tip's slit, soaking your slutty double's face and tits as it mixes with the corruptive fluids already smeared about.  The alien bumps and nodules upon your " + cockDescript(0) + " flex and twitch at every pass through the fuck-able foe's soft tits, slowly growing as they absorb more of your slut-self's taint.  The tight squeeze around your newly retextured " + cockDescript(0) + " overwhelms any sense of control you may have had as your arousal-soaked groin takes over completely.  You begin pounding the tit-pussy as if your life depended on it, jack-hammering  your " + cockDescript(0) + " forward and back hard enough to make the mountains of breast ripple and shake like jello during an earthquake.  The ring of pointed nodules around your crown continues to swell and grow with every pass through the inky passage, soaking up more and more of the corruption until they are each nearly two inches long.  Overwhelmed by the pleasure, your eyes roll back and a mighty orgasm comes to boil in your groin.  ", false);
 				if(player.balls > 0) outputText("Your " + ballsDescript() + " twitch and shake, the veiny surface of your sack darkening as the corruption begins to fill them.  ", false);
-				outputText("\n\nLike a perverted version of the wave, the nodules along your length fill with blood, doubling in size along your length as a massive bulge of cum rushes out your urethra.  Black cream drizzles from the tiny growths as the first blast of cum passes into your dick's crown moments before erupting like a volcano.  One second the sexy female version of you is moaning like a whore and licking her lips. The next she is sputtering and gasping as a half-gallon of inky black cum soaks her from head to tits.  Heedless of her discomfort, your legs keep sawing your " + cockDescript(0) + " deeper into this perfect titfuck as more thick bulges of tainted spunk begin to stretch your urethra on their way out.  You babble incoherently as your cock's tip plants itself against her open lips, blasting even more spunk directly into her waiting gullet.  Her cheeks bulge comically as the stuff drips from her nose, but somehow she manages to swallow the bulk of it, her hands vigorously milking your " + cockDescript(0) + " with her fuck-bags.  By the time the third jet of cum erupts, she's unhinged her jaw and somehow taken the head into her mouth, giving unfettered access to pump her belly full of your black jism.  You groan with uncontrollable pleasure as her belly fills with spunk.  Her eyes roll back as the next blasts expand her belly further, at first making her look slightly pregnant and then gradually stretching her belly until she looks like she could have minotaur twins.  You lose count of how much cum you put into her, but eventually she can take no more and your cock is pushed free by the pressure, splattering her face again.  Far from finished, you blast cum over her face as you realize she's lost consciousness, her eyes are totally rolled back and her tongue lolls from her mouth like that of a sleeping bitch.  Eventually your orgasm winds down, but not before leaving her in a 4 inch deep puddle of spunk, looking like more like a blue balloon full of dark water than woman.\n\n", false); 
+				outputText("\n\nLike a perverted version of the wave, the nodules along your length fill with blood, doubling in size along your length as a massive bulge of cum rushes out your urethra.  Black cream drizzles from the tiny growths as the first blast of cum passes into your dick's crown moments before erupting like a volcano.  One second the sexy female version of you is moaning like a whore and licking her lips. The next she is sputtering and gasping as a half-gallon of inky black cum soaks her from head to tits.  Heedless of her discomfort, your legs keep sawing your " + cockDescript(0) + " deeper into this perfect titfuck as more thick bulges of tainted spunk begin to stretch your urethra on their way out.  You babble incoherently as your cock's tip plants itself against her open lips, blasting even more spunk directly into her waiting gullet.  Her cheeks bulge comically as the stuff drips from her nose, but somehow she manages to swallow the bulk of it, her hands vigorously milking your " + cockDescript(0) + " with her fuck-bags.  By the time the third jet of cum erupts, she's unhinged her jaw and somehow taken the head into her mouth, giving unfettered access to pump her belly full of your black jism.  You groan with uncontrollable pleasure as her belly fills with spunk.  Her eyes roll back as the next blasts expand her belly further, at first making her look slightly pregnant and then gradually stretching her belly until she looks like she could have minotaur twins.  You lose count of how much cum you put into her, but eventually she can take no more and your cock is pushed free by the pressure, splattering her face again.  Far from finished, you blast cum over her face as you realize she's lost consciousness; her eyes are totally rolled back and her tongue lolls from her mouth like that of a sleeping bitch.  Eventually your orgasm winds down, but not before leaving her in a 4 inch deep puddle of spunk, looking like more like a blue balloon full of dark water than woman.\n\n", false); 
 			}
 			outputText("Still, your possessed maleness is far from finished as it continues to slide along her belly and between her still-dripping tits, and before long you feel another orgasm building.  You hang on for dear life, hoping just to stay conscious through the ordeal...\n\n\nHours later you pull away, sated.  For now.", false);
 		}
@@ -1091,8 +1088,9 @@ function succubusVictoryRape():void {
 			outputText("\n\nYou pant with exertion and pull back, only to have your " + cockDescript(0) + " plunge right back in. Beginning another rough fucking session, your hips force-fuck her beyond your control.  Exhausted, you lean over her, figuring you may as well enjoy your double's wondrous breasts until your demonic cock has finally sated itself.  You just hope you don't black out from the waves of pleasure each of your new nubs radiates.\n\n\nHours later you pull away, sated.  For now.", false); 
 		}
 		outputText("\n\nThe succubus licks her fingers clean, looking totally recovered.  In the blink of an eye, she dashes out the door, disappearing.", false);
-		stats(0,0,0,0,0,0,-100,5);
-		eventParser(5007);
+		player.orgasm();
+		dynStats("cor", 5);
+		cleanupAfterCombat();
 	}
 	//FEMSAUCE
 	else {
@@ -1109,16 +1107,17 @@ function succubusVictoryRape():void {
 		}
 	}
 }
-function dungeonSuccubusForceScissor():void {
+public function dungeonSuccubusForceScissor():void {
 	outputText("You shiver with anticipation as you hook your leg under her thick thighs, lining up your " + vaginaDescript(0) + " as you press forwards.  The anticipation builds as your matched honeypots grow ever closer.  Making contact, your folds part as her purplish-red clit slips betwixt your nether-lips, vibrating slightly in tune with the succubus' heartbeats.  You gasp, feeling your own " + clitDescript() + " erecting and rubbing against her smooth mound.\n\n", false);
 	if(player.clitLength >= 3) outputText("You groan with wanton desire as your " + clitDescript() + " continues to grow and grow until reaching full size and slipping inside the defeated slut's sloppy pleasure-hole.  ", false);
 	outputText("It takes only a few seconds to get the succubus' juices really flowing, the sounds of your grinding hips dissolving into a cacophony of liquid squelches.  The gooey corrupt fem-cum tingles, spreading warmth through every patch of skin it touches.  Your locked hips writhe and twist with her's, eliciting pants and squeals from the both of you.  In no time flat, you find yourself cumming and feel your " + vaginaDescript(0) + "'s muscles clench hungrily with an unquenchable desire to be filled.  The succubus shivers in pleasure, probably feeding off your orgasm.  You back off, fingering your " + vaginaDescript(0) + " languidly and denying her a full meal.  Pouting, the succubus dips her fingers back in, determined to cum.", false);
 	outputText("\n\nYou turn away with a bemused sigh.  When you glance back, she has vanished!", false);
-	stats(0,0,0,0,0,0,-100,1);	
-	eventParser(5007);
+	player.orgasm();
+	dynStats("cor", 1);
+	cleanupAfterCombat();
 }
 
-function dungeonSuccubusForceFeed():void {
+public function dungeonSuccubusForceFeed():void {
 	outputText("", true);
 	outputText("You chuckle as you decide to release some of the pent up pressure in your " + allBreastsDescript() + ".  Laying down over your conquest, you grasp her wrists and pin them to the floor as you shove your tits in her face", false);
 	if(player.biggestTitSize() > 6) outputText(", nearly smothering the succubus with the swell of tit-flesh", false);
@@ -1137,7 +1136,7 @@ function dungeonSuccubusForceFeed():void {
 		outputText(" can't help but dribble in sympathy.\n\n", false);
 	}
 	if(player.biggestLactation() >= 4) {
-		outputText("Her flexible tongue wraps around a milk-bloated nipple, immediately releasing a massive spray of cream that pours into her gullet, nearly choking her.  You stifle a giggle and pull her closer.  Thankfully, her determined tongue manages to stay in place and start tugging your nipple about, releasing even more of your over-large milk production.  She struggles, her throat and cheeks bulging from your explosive output milk, until it overwhelms her and begin to pour out of her nose.  More milk pours from your unoccupied nipple", false);
+		outputText("Her flexible tongue wraps around a milk-bloated nipple, immediately releasing a massive spray of cream that pours into her gullet, nearly choking her.  You stifle a giggle and pull her closer.  Thankfully, her determined tongue manages to stay in place and start tugging your nipple about, releasing even more of your over-large milk production.  She struggles, her throat and cheeks bulging from your explosive output of milk, until it overwhelms her and begin to pour out of her nose.  More milk pours from your unoccupied nipple", false);
 		if(player.totalBreasts() > 2) outputText("s", false);
 		outputText(" in sympathy, drenching your " + player.skinDesc + " with creamy goodness until it puddles on your captive demon.\n\n", false);
 	}
@@ -1152,9 +1151,9 @@ function dungeonSuccubusForceFeed():void {
 	outputText("You shove your crotch into your milk-dazed foe's white-stained visage, grinding your " + vaginaDescript(0) + " into her mouth until you cum all over her", false);
 	if(player.cocks.length == 0) {
 		temp = rand(3);
-		if(player.vaginas[0].vaginalWetness >= 5) outputText(", soaking her with girl-cum.", false);
+		if(player.vaginas[0].vaginalWetness >= VAGINA_WETNESS_SLAVERING) outputText(", soaking her with girl-cum.", false);
 		else {
-			if(player.vaginas[0].vaginalWetness <= 2) outputText(", slicking her face with girlish cum.", false);
+			if(player.vaginas[0].vaginalWetness <= VAGINA_WETNESS_WET) outputText(", slicking her face with girlish cum.", false);
 			else outputText(", drenching her with a deluge of girlcum.", false);
 		}
 	}
@@ -1163,11 +1162,11 @@ function dungeonSuccubusForceFeed():void {
 	if(player.cocks.length > 0) outputText(" and a thick layer of spunk", false);
 	outputText(".", false);
 	outputText("\n\nYou turn away with a bemused sigh.  When you glance back, she has vanished!", false);
-	stats(0,0,0,0,0,0,-50,0);
-	eventParser(5007);
+	dynStats("lus", -50);
+	cleanupAfterCombat();
 }
-function incubusLossRape():void {
-	slimeFeed();
+public function incubusLossRape():void {
+	player.slimeFeed();
 	outputText("", true);
 	//Nipplefuck city
 	if(player.hasFuckableNipples() && player.lust >= 100) {
@@ -1180,9 +1179,10 @@ function incubusLossRape():void {
 		if(player.biggestLactation() > 1) outputText("splattering milk and pre everywhere.\n\n", false);
 		else outputText("splattering your tits with escaped sexual fluids.\n\n", false);
 		outputText("The demon tenses, pulling your head forwards and burying your nose against his belly.  The dick in your mouth slides down your throat, hanging just above your belly as it begins to fill your gut with bursts of demonic warmth.  Black cum erupts from your nipples as his orgasm overwhelms their meager storage capacity, soaking your tits in his corruptive essence as the pleasure finally breaks your mind.  Your eyes roll back into your head as you begin cumming... and cumming... and cumming. The orgasm drags on and on as more and more cum pours into your body.  Like a passenger in a car you see what's happening but have no control.  Your body is used and abused for hours before you finally drift off to sleep.", false);
-		stats(0,0,0,0,0,0,-100,20);
-		if(player.hasStatusAffect("DungeonShutDown") < 0) doNext(11025);
-		else eventParser(5007);
+		player.orgasm();
+		dynStats("cor", 20);
+		if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) doNext(11025);
+		else cleanupAfterCombat();
 		return;
 	}
 	//Tentacle gangbang
@@ -1222,13 +1222,14 @@ function incubusLossRape():void {
 			//FemCum
 			if(player.clitLength > 3) outputText("You nearly cum on the spot when the cock fucking your pussy loops its length around your " + clitDescript() + ", the cum-slickened coils driving you mad with pleasure as they coil, slide, and jerk around your clit as if it was a cock.  ", false);
 			else outputText("You nearly cum on the spot when the cock fucking your pussy curves up to rub its textured nodules against your " + clitDescript() + ".  ", false);
-			cuntChange(player.vaginalCapacity()*.8, true);
-			if(player.cor >= 80) outputText("You cum more times than you are able to count, each time causing a tightening of your fuckholes, which increases the rubbing against the demonic nodules and sends another wave of pleasure to your dazed brain.  You begin to drool freely, revelling in this most unholy mating.  ", false);
+			player.cuntChange(player.vaginalCapacity()*.8, true);
+			if(player.cor >= 80) outputText("You cum more times than you are able to count, each time causing a tightening of your fuckholes, which increases the rubbing against the demonic nodules and sends another wave of pleasure to your dazed brain.  You begin to drool freely, reveling in this most unholy mating.  ", false);
 			outputText("The prick in your mouth surges forward, sliding deep into your throat.  The coils around your neck tighten in response, choking your neck into a tight cock-sleeve as you feel bulges of cum moving along its length.  In moments you feel your belly starting to grow full, sloshing with cum as you become desperate to breathe.  The tentacles lodged in your " + assholeDescript() + " and " + vaginaDescript(0) + " react in similar fashion, stretching you wide as they begin pumping your body full of vast quantities of spunk.  A few free tentacles begin spurting gobs of the white stuff onto your " + player.skinDesc + ", soaking you in the stuff as you black out from a combination of oxygen deprivation and pleasure.", false);
-			stats(0,0,0,0,0,0,-100,25);
-			buttChange(monster.cockArea(0), true);
-			if(player.hasStatusAffect("DungeonShutDown") < 0) doNext(11025);
-			else eventParser(5007);
+			player.orgasm();
+			dynStats("cor", 25);
+			player.buttChange(monster.cockArea(0), true);
+			if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) doNext(11025);
+			else cleanupAfterCombat();
 			return;
 		}
 		//Male/Genderless
@@ -1240,7 +1241,7 @@ function incubusLossRape():void {
 			//Genderless Orgasm
 			if(player.gender == 0) outputText("The tainted cum mixed with the sensation of fullness provide you with pleasures beyond what your genderless body could accomplish on its own.  You writhe as the demon face-fucks you with one tendril while another continues to bury itself ever-deeper into your abused " + assholeDescript() + ".  ", false);
 			if(player.cocks.length > 0) outputText("The cock-tentacle around your " + cockDescript(0) + "  increases the pace of its stimulation as it begins to spurt hot wet cum over you, giving it lubrication as it jacks you off while staying tight around your base to prevent you from an orgasming.  ", false);
-			outputText("You feel cum pulse through the tentacles encircling you as the incubus loses control of his tentacles.  Cum pumps into your belly, suffusing you with drug-like warmth as the tentacle around your neck pulls tight enough to squeeze the cock inside your throat.  You squirm and gasp for oxygen as spooge begins unloading into and around your body to the point where you aren't sure where your body begins and the demonic-spunk ends.  You twitch in what you assume is orgasm as you fight to breathe, all the while more cum is squeezed into your stuffed belly and ruined anus. The tentacle in your ass backs out slowly, having filled every inch of your intestines with cum, until it pops free with a splatter.", false);
+			outputText("You feel cum pulse through the tentacles encircling you as the incubus loses control of his tentacles.  Cum pumps into your belly, suffusing you with drug-like warmth as the tentacle around your neck pulls tight enough to squeeze the cock inside your throat.  You squirm and gasp for oxygen as spooge begins unloading into and around your body to the point where you aren't sure where your body begins and the demonic-spunk ends.  You twitch in what you assume is orgasm as you fight to breathe; all the while more cum is squeezed into your stuffed belly and ruined anus. The tentacle in your ass backs out slowly, having filled every inch of your intestines with cum, until it pops free with a splatter.", false);
 			outputText("\n\n", false);
 			if(player.cocks.length > 0) {
 				outputText("Being so thoroughly used and stimulated pushes you over the edge of orgasm, and your ", false);
@@ -1256,26 +1257,28 @@ function incubusLossRape():void {
 			}
 			outputText("The feeling is so intense that your " + hipDescript() + " twitch and move of their own volition while your eyes roll back in pleasure.\n\n", false);
 			outputText("You black out just as you feel the cock-tentacle in your throat retracting. You dully feel your body drop to the ground, your pregnant-looking belly sloshing with demon jizz.", false);
-			buttChange(monster.cockArea(0), true);
-			stats(0,0,0,0,0,0,-100,25);
-			if(player.hasStatusAffect("DungeonShutDown") < 0) doNext(11025);
-			else eventParser(5007);
+			player.buttChange(monster.cockArea(0), true);
+			player.orgasm();
+			dynStats("cor", 25);
+			if(player.findStatusAffect(StatusAffects.DungeonShutDown) < 0) doNext(11025);
+			else cleanupAfterCombat();
 		}
 	}
 }
 
-function incubusVictoryRapeBackdoor():void {
+public function incubusVictoryRapeBackdoor():void {
 	outputText("Every day you've spent in this corrupted landscape has made you stronger and hornier, the evidence of which now kneels at your feet.\n\n", true);
 	outputText("The fight over, your eyes begin to wander. You find you cannot resist staring at the huge swinging cock exposed by the incubus' crotchless overalls. The sight ignites desire that has been building within you ever since you arrived in this corrupted land. With an unnatural hunger, you knock the defeated incubus onto his back. He closes his eyes and groans, lost in his own world of lust and pain and unable to resist as you wantonly straddle him. His tool is hot in your hand as you tease it and his cock begins to grow slick with pre-cum. You lick your lips at the sight of his now glistening member, but not for hunger of food or drink. It is another kind of hunger that longs for satisfaction, a hole that needs to be filled. Eagerly, you position his swollen glans against your " + assholeDescript() + " and begin to ease yourself down over the massive tool. You start slowly, but the pleasure it's giving feels so good you ram the rest of the incubus' cock deep into your " + assholeDescript() + ".  ", false);
 	outputText("His eyes flash open as if you'd just sent a jolt of electricity through him and he regains his senses, becoming hyper-aware of what you're doing. The incubus instinctively moves to control your " + hipDescript() + " and " + buttDescript() + " as they grind against him, guiding his cock towards pleasurable areas up your " + assholeDescript() + " that you would never have guessed were there a short while ago.\n\n", false);
 	outputText("All too soon, he grunts and shivers as loads of his hot cum begin to squirt into you. He may be cumming, but you're not done yet; each squirt of seed only fans the flames of lust within you, making your increasingly wet and noisy thrusts even harder. Enjoying the ride and still nowhere near satisfied, you start sliding up and down on his slick pole even faster than before. He halfheartedly tries to push you off as you continue draining him of his seed, your lust seemingly unquenchable. But you cannot be stopped; his efforts only add to your pleasure as he struggles and unloads underneath you. With your belly beginning to swell with the cum you're relentlessly drawing from the incubus, you don't know how much longer either of you will last. Each movement of his tool inside you heightens the fire inside you until, with an unholy roar, the pleasure peaks and wave after wave of shuddering orgasm crashes over you. Each one hits hotter and harder than the last until finally, your senses are overcome and you lose consciousness entirely.\n\n", false);
 	outputText("You awaken moments later beside a sleeping, limp, and drained incubus. You have definitely come out on top from the encounter. Though you feel stretched, sticky and a little sore, for the moment at least the burning desire to fill your " + assholeDescript() + " is satisfied.", false);
-	buttChange(monster.cockArea(0), true);
-	slimeFeed();
-	stats(0,0,0,0,0,0,-100,2);
-	eventParser(5007);
+	player.buttChange(monster.cockArea(0), true);
+	player.slimeFeed();
+	player.orgasm();
+	dynStats("cor", 2);
+	cleanupAfterCombat();
 }
-function incubusVictoryRapeSex():void {
+public function incubusVictoryRapeSex():void {
 	outputText("", true);
 	//RAPE THE DEMON -
 	//(BUTTRAPE - Requires Penis)
@@ -1309,13 +1312,13 @@ function incubusVictoryRapeSex():void {
 		if(player.cumQ() >= 50 && player.cumQ() < 400) outputText("Thick jets of cum pump into the demon's plump backside, soon building up a wave of pressure that pushes back against you.  Y", false);
 		if(player.cumQ() >= 400) outputText("A massive cock-distending bulge of cum works through your shaft, splashing into the demon's rectum in an explosive burst of pleasure. Unfortunately for your victim, it is only the first of many such cum-blasts. In no time flat, jism is spurting from his overfilled rectum while his belly looks a few months pregnant. You feel weak from discharging so much fluid, and y", false);
 		outputText("ou fall back, the fluid of your orgasm dripping from your " + cockDescript(0) + " and the gaping asshole of your latest conquest.\n\nYou turn to gather your " + player.armorName + ", and when you look back the demon is gone, leaving only a small puddle of male fluids in his wake.", false);
-		stats(0,0,0,0,0,0,-100,0);
-		eventParser(5007);
+		player.orgasm();
+		cleanupAfterCombat();
 		return;
 	}
 	//(VAGINAL - Requires Vagina)
 	else {
-		slimeFeed();
+		player.slimeFeed();
 		outputText("With a few deft motions, you shift your " + player.armorName + " to expose your ", false);
 		//Herm
 		if(player.gender == 3) {
@@ -1330,15 +1333,16 @@ function incubusVictoryRapeSex():void {
 		//(set cocksize = to 80% vaginalCapacity).
 		
 		outputText("Thankful for the gesture, you sink down onto him, letting the nubs of his crown stimulate your lips and the underside of your " + clitDescript() + ".  ", false);
-		if(player.vaginas[0].vaginalWetness >= 3) outputText("In no time flat your drooling fluids soak him in slippery wetness.  ", false);
-		if(player.vaginas[0].vaginalWetness < 3 && player.vaginas[0].vaginalWetness != 0) outputText("Before long, you've lubricated a fair portion of his tool with wetness.  ", false);
-		if(player.vaginas[0].vaginalWetness == 0) outputText("Despite your usual light lubrication, you manage to moisten the top-half of his tool with wetness.  ", false);
+		if(player.vaginas[0].vaginalWetness >= VAGINA_WETNESS_SLICK) outputText("In no time flat your drooling fluids soak him in slippery wetness.  ", false);
+		if(player.vaginas[0].vaginalWetness < VAGINA_WETNESS_SLICK && player.vaginas[0].vaginalWetness != VAGINA_WETNESS_DRY) outputText("Before long, you've lubricated a fair portion of his tool with wetness.  ", false);
+		if(player.vaginas[0].vaginalWetness == VAGINA_WETNESS_DRY) outputText("Despite your usual light lubrication, you manage to moisten the top-half of his tool with wetness.  ", false);
 		outputText("Relaxing the muscles in your " + player.legs() + ", you let a few inches of his length slip inside you, every nub and nodule of his corrupted prick filling the walls of your love-canal with inhuman pleasures that make your knees weak.  A particularly delightful bump brushes your " + clitDescript() + ", causing your " + player.legs() + " to finally give out. The incubus' nubbly cock plunges entirely inside you.\n\n", false);
 		outputText("You gasp and moan like a cheap whore, disgusted by yourself and yet so turned on by the total loss of self-control.  The incubus is leering up at you, having regained some of his lost confidence.  Despite the lust, desire and pleasure burning through the hot pole buried in your abdomen, you work up enough rage to grip his neck with your left hand and practically choke him out.  You work your hips quickly as you feel his pre start to drip into your canal, spreading tingling warmth in the deepest parts of your passage and into your cervix.  You tighten your grip as you forcibly take your pleasure, barking in displeasure at the demon, \"<i>Don't look like you're enjoying this too much bitch, or I'll take it out of your hide.</i>\"  Satisfied at the renewed look of fear in his eyes, you return to using his magnificent tool as a masturbation aid.\n\n", false);
 		outputText("Unable to contain your body's desires due to either the demon's aura or his wonderful penis, you slam your " + vaginaDescript(0) + " onto his member with impunity, twitching and squeezing involuntarily.  His tainted pre-cum begins seeping deep inside your uterus and you cry out with orgasmic intensity.  Your entire body clenches down, even the hand clamped on the incubus' windpipe. You feel his demon-cock swell up inside you in response to his stress, stretching your cunt taut.  His skin darkens from the lack of oxygen as he begins cumming HARD inside you.  Your womb immediately fills with his demon-seed, leaving ribbons of spunk to drip from your tightly-stretched cunt.  You sigh in delight as your muscles slowly stop quivering.  With a pleasured gasp, you rise off the distended demon-prick, and realize that you've choked your foe into unconsciousness. Still, you did let him cum, so maybe he won't mind too much when he wakes.  Feeling sensual and sated, you redress and prepare to explore the rest of the factory. ", false);
-		cuntChange(player.vaginalCapacity()*.8, true);
-		stats(0,0,0,0,0,0,-100,2);
-		eventParser(5007);
+		player.cuntChange(player.vaginalCapacity()*.8, true);
+		player.orgasm();
+		dynStats("cor", 2);
+		cleanupAfterCombat();
 		return;
 	}
 }
@@ -1346,20 +1350,20 @@ function incubusVictoryRapeSex():void {
 
 
 //Service the incubus after winning (WHY DO THIS?  BECAUSE ITS HOT!)
-function incubusVictoryService():void {
-	slimeFeed();
+public function incubusVictoryService():void {
+	player.slimeFeed();
 	outputText("", true);
 	outputText("You lick your lips, moistening them as you decide that the demon will provide your next 'snack'.  Touching the defeated incubus' soft skin, you grab him by the wrists and yank him to his clawed feet. Leaning him back against the wall as he sways unsteadily, you tenderly slide down his body and take the measure of his monstrous meat with your hands. The smooth skin and tiny bumps slide between each finger as his manhood firms and twitches in response.  You glance up and grab his baseball size nuts, caressing the smooth hairless sack that contains them, watching the demon-man sigh and relax with equal parts desire and relief.\n\n", false);
 	outputText("You lean forwards, opening your mouth ", false);
 	if(player.hairLength > 10) outputText("and brushing a strand of " + player.hairColor + " out of the way ", false);
 	outputText("as his shiny purplish monster-cock fills your view. You kiss the tip, swirling your tongue around the nubbly ridge that surrounds the crown.  After a few moments of your tongue's focused attention, you are rewarded with a dollop of slightly sweet pre-cum.  You pause momentarily to smile at your victim before you wrap your hand around as much of him as you can hold and start to jack him off, slowly cramming more and more of his length inside your mouth.  Your free hand continues to fondle his balls, occasionally sliding a finger along the inside of his thigh.\n\n", false); 
 	outputText("You feel his balls begin to grow. Perhaps he can sense your thirst for cum, or maybe he just wants to enjoy it - but you are sure he is going to finish spectacularly. They stop swelling just as they reach the size of grapefruits, tingling and pulsing spectacularly in your hand.  You stroke him faster, letting you guzzle his pre as it pours into your greedy mouth.  A coo of delight escapes from your tightly-stretched lips as you savor his tasty fluids.\n\n", false);
-	outputText("The incubus' hips begin humping your face, stuffing a few more inches of his length into your throat and forcing you to struggle against gagging.  His cock swells wider and nearly unhinge your jaw as you feel a gooey warmth wash your throat, flooding your gullet with demon-seed.  Still impaled on his nubby member, your body is rocked back and forth by the strength of his orgasm, the motions making your belly slosh with an increasingly large load.  You moan at the warmth of his corruption seeping through your body as his orgasm diminishes. Yanking back hard, you let his dick slip free of your mouth as the last spurt of cum blasts your face.\n\n", false); 
+	outputText("The incubus' hips begin humping your face, stuffing a few more inches of his length into your throat and forcing you to struggle against gagging.  His cock swells wider and nearly unhinges your jaw as you feel a gooey warmth wash your throat, flooding your gullet with demon-seed.  Still impaled on his nubby member, your body is rocked back and forth by the strength of his orgasm, the motions making your belly slosh with an increasingly large load.  You moan at the warmth of his corruption seeping through your body as his orgasm diminishes. Yanking back hard, you let his dick slip free of your mouth as the last spurt of cum blasts your face.\n\n", false); 
 	outputText("You push the exhausted demon down and idly collect the cum from your face with your fingers, slowly licking each clean.  Feeling rather sensual and sated, you decide to resume exploring the factory.\n\nAfter redressing you turn about, and see the demon is gone, leaving only a small pool of cum in his wake.", false);
-	eventParser(5007);
+	cleanupAfterCombat();
 	return;
 }
-function omnibusVictoryEvent():void {
+public function omnibusVictoryEvent():void {
 	outputText("", true);
 	if(monster.lust > 99) {
 		outputText("The omnibus trembles where she stands, her proud demonic dick twitching and pulsating as her desires totally overwhelm her.  The tainted nodules covering the purplish hermaphrodite's member ripple and swell from the base towards the tip, culminating with an explosive eruption of sticky, white demon-seed.  She moans with shame and pleasure, pumping larger and larger volumes of cum onto her office's floor.  She drops to her knees, too exhausted and ashamed by her premature orgasm to continue fighting.\n\n", false);
@@ -1372,7 +1376,7 @@ function omnibusVictoryEvent():void {
 	outputText("What do you do?  You could use her boon increase the size of your endowments or maybe regain some of your lost humanity!  Or you could play it safe and turn down her offer.  Although then you'd have to decide to let her go or kill her.", false);
 	choices("GrowBreasts",11048,"GrowDick",11049,"Normal-Face",11050,"Normal-Chest",11051,"Normal-Groin",11052,"Normal-Legs",11053,"",0,"",0,"No (Let go)",11054, "No (Kill Her)",11056);
 }
-function omnibusLossRape():void {
+public function omnibusLossRape():void {
 	outputText("", true);
 	if(player.HP < 1) outputText("You stagger into the desk, clutching tightly just to stay upright.  ", false);
 	else outputText("Forgetting about the fight, you lean on the desk and slide your free hand under your " + player.armorName + ", seeking any pleasure you can get.  ", false);
@@ -1385,7 +1389,7 @@ function omnibusLossRape():void {
 	outputText(" She opens one of the desk drawers, and searches briefly before her eyes light up with recognition.  \"<i>Here we are,</i>\" she says as she pulls something free...", false);
 	doNext(11047);
 }
-function omnibusLossRape2():void {
+public function omnibusLossRape2():void {
 	outputText("", true);
 	//(Multi dicks)
 	if(player.cocks.length > 1) {
@@ -1393,7 +1397,7 @@ function omnibusLossRape2():void {
 		outputText("\"<i>For someone as... different as you, we will have to try this creature.  I've bred it from a mixture of plant-tentacles, dazzle-weed, and what we've taken to calling pussy plants,</i>\" she mentions, her hands working to open the mass on the table.  The interior surface is a mass of slimy undulating protrusions that wriggle feverishly as they are exposed to the air.  She gathers up the thing in her arms while continuing to speak to you, \"<i>You see, my plant will encapsulate your members tightly, wrapping them in sticky wetness.  Its fluids are a perfect blend of aphrodisiacs, lubricants, and will-sapping narcotics.  You'll love it.</i>\"\n\n", false);
 		outputText("You make a desperate attempt to escape her chair, but your body fails to do much more than squirm in place.  She drops the creature squarely into your crotch and hops up onto her desk to watch.  Thousands of tiny wet nodules immediately begin massaging your " + multiCockDescriptLight(), false);
 		if(player.balls > 0) outputText(" and " + ballsDescript(), false);
-		outputText(".  You groan as the pleasure washes over you like a wave.  Your squirming stops as your hips begin twitching into the air, as if begging for even more stimulation.  It's not fair how good this feels...you can't help it, it's just too hard to fight.\n\n", false);
+		outputText(".  You groan as the pleasure washes over you like a wave.  Your squirming stops as your hips begin twitching into the air, as if begging for even more stimulation.  It's not fair how good this feels... you can't help it, it's just too hard to fight.\n\n", false);
 		outputText("You watch with detached fascination as each of your " + multiCockDescript() + " is wrapped tightly in shiny green material.  The shape of each penis is still clearly defined under the pulsating green stuff, though you can see it shifting and rippling over your lengths as it pleasures you.  It almost looks like some kind of kinky bondage-toy.  Aware of your attentions, the green stuff squeezes you tightly and begins flashing beautiful bioluminescent color patterns across its surface that scatter your thoughts as you watch.  You blink a few times as the green mass rolls more of itself out, curling over your ", false);
 		if(player.balls > 0) {
 			outputText("balls", false);
@@ -1412,9 +1416,9 @@ function omnibusLossRape2():void {
 		outputText("\"<i>Being used for your cum is great,</i>\" says the voice and you agree, it is great.\n\n", false);
 		outputText("\"<i>Your greatest fetish is allowing demonic creatures to feed on your cum,</i>\" she says, and it feels so right.  Your cum is meant for demons and plants to feast on.  Just the thought makes you want to orgasm again.\n\n", false);
 		outputText("\"<i>Since you provide food-source, that must make you livestock.  You like being livestock.  Livestock don't have to think.  Livestock follow orders.  Best of all, as livestock you can live your favorite fetish of being milked of all your cum, every hour of every day,</i>\" the voice says, filling your mind with new thoughts.  Of course it's right, you can just let a demon or tentacle plant milk you and do all the hard stuff, like thinking.  All you have to do is cum.  The thought makes you shiver as the plant-suit absorbs the encapsulated bubbles of jizz.  The dazzling lights grow even brighter as it takes in the nutrients.\n\n", false);
-		outputText("*FLASH* \"<i>You want to cum for the plant</i>\"\n\n", false);
+		outputText("*FLASH* \"<i>You want to cum for the plant.</i>\"\n\n", false);
 		outputText("Tendrils of plant crawl up your belly, coating you in slime as they massage every inch of you.\n\n", false);
-		outputText("*FLASH* \"<i>You need to cum for the plant</i>\"\n\n", false);
+		outputText("*FLASH* \"<i>You need to cum for the plant.</i>\"\n\n", false);
 		if(player.breastRows.length == 1) outputText("They reach the lower curve of your breasts.\n\n", false);
 		if(player.breastRows.length > 1) outputText("They slide over your lowest pair of breasts, encapsulating them in wriggling tightness.\n\n", false);
 		outputText("*FLASH* \"<i>You love cumming for anything and anyone.</i>\"\n\n", false);
@@ -1428,13 +1432,13 @@ function omnibusLossRape2():void {
 		outputText("Your mistress' OTHER pet wraps around your neck, forming a choker comprised of shifting green colors.  You smile as you realize it is done - you've become one of her pet cattle.  Your body is wrapped in an emerald sea of shifting pleasure, just like your mistress wanted.  If it weren't for the obvious bulges of your " + multiCockDescriptLight() + ", you'd look to be wearing an extraordinarily revealing one piece swim-suit.  The constant teasing at your crotch continues, and you stay rock-hard, even though you just came.  The idea of being milked to feed your new clothing just turns you on so much that you bet you're leaking constant streams of pre-cum for your new green master.\n\n", false);
 		outputText("The flashing subsides, and your new thoughts rush into the void.  You immediately begin masturbating your encapsulated members as you seek to obey.  To orgasm is to obey.  To obey is to orgasm.  You discover that you can feel every touch through the skin of your 'clothing'.  You increase the tempo, knowing that your orgasm will be feeding the creature that now lives on you, fulfilling your deepest darkest desires.  You cum again, just as hard as before, inflating " + num2Text(player.cocks.length) + " shiny green balloons with the proof of your obedience.\n\n", false);
 		
-		if(player.hasStatusAffect("Camp Marble") >= 0) {
+		if(player.findStatusAffect(StatusAffects.CampMarble) >= 0) {
 			outputText("Suddenly, a loud scream is heard down on the factory floor. You and your mistress turn to see Marble dashing up the stairs to the foremen's office.  Your mistress looks over at her and says with some amusement, \"<i>Oh ho!  So another cow has come to join in the fun.</i>\"\n\n\"<i>Sweetie! What has she done to you?</i>\" Marble exclaims, \"<i>What has she put on you?!</i>\"\n\n\"<i>Oh, so you knew this girl?</i>\" your mistress asks you, \"<i>It's a Lacta Bovine from the looks of it, so it seems this time I'll be adding a real cow to the pens.</i>\"  Marble turns to your mistress and brandishes her hammer, but the horror from the thought of your mistress being hurt causes you to spring forward and grab Marble.  The brief distraction gives your mistress a chance to sink a syringe into Marble's shoulder, and within moments she slumps onto the ground unconscious.\"\n\n", false);
 			outputText("Your mistress turns back to you and smiles.\n\n\"<i>Well, she should make a fine replacement for you in the pens,</i>\" she says before tapping her chin thoughtfully and looking back at you, \"<i>Really is convenient that I don't have to worry about my new pet dying on me now, hun.</i>\"  Then she pushes you back into the chair and says \"<i>But first...\"\n\n", false);
 			
 		}
 		else outputText("Your mistress looks down with approval and speaks, \"<i>Very good.  ", false);
-		outputText("I want you to stay here and cum till morning.  My pet needs lots of nutrition to recharge, and I have plans for new ways to teach you to obey tomorrow.</i>\"\n\n", false);
+		outputText("I want you to stay here and cum 'til morning.  My pet needs lots of nutrition to recharge, and I have plans for new ways to teach you to obey tomorrow.</i>\"\n\n", false);
 		outputText("Happy to have such a wonderful task, you spend the next day being bathed in drugged aphrodisiacs, cumming over and over and over.  Every morning the creature flashes you into obedience while the voice teaches you more and more about how to think.  After a week you're the perfect pet.  By the end of your first month of servitude, any memories of your past life are gone.  You spend the rest of your days feeding your mistress and her pet, and helping her refine and breed her pets in order to teach others the way.", false);
 		eventParser(5035);
 		return;
@@ -1447,14 +1451,14 @@ function omnibusLossRape2():void {
 		if(player.cor >= 66) outputText("tainted ", false);
 		outputText("sexual energies deep into its gullet.  And that's just the start!</i>\"  Her hands let go of the squirming mass, dropping it squarely into your lap.\n\n", false);
 		if(player.averageCockLength() < 15) outputText("With one swift motion, the beast engulfs your " + cockDescript(0) + " in its slimy maw.  ", false);
-		else outputText("Distending obscenely, the beast starts engulfing your " + cockDescript(0) + " in its slimy maw, progressing along its entire length till you can no longer see your pleasure tool.  ", false);		
+		else outputText("Distending obscenely, the beast starts engulfing your " + cockDescript(0) + " in its slimy maw, progressing along its entire length until you can no longer see your pleasure tool.  ", false);		
 		outputText("The slimy tentacles waste no time, massaging you with mechanical precision.  You groan in helpless pleasure, growing to painful hardness within the squirming confines of the creature.  Three protrusions sprout from the creature's core, dripping with slime of their own, and covered on the inside with the same wriggling protrusions that now massage your trapped member.  Two curl around your " + hipDescript() + ", while the last one", false);
 		if(player.balls > 0) outputText(" smothers your balls, entrapping them in sticky sensation as it continues across your taint between your butt-cheeks.  ", false);
 		else outputText(" journeys over your taint before travelling between your butt-cheeks.  ", false);
 		outputText("The three tendrils join together in the back, forming a seemless tiny purple triangle.  It really rides up high, tickling your " + assholeDescript() + " with constant teasing.  You're wearing an organic purple thong!\n\n", false);
 		outputText("You try to endure, but the humiliation is too much for you to take.  The pleasure and shame push you past your limit.  You let out a squeal of mixed agony and delight as the proof of your pleasure boils out into the creature.  You pant and twitch, helpless to resist the strength of your orgasm as your jism fills the creature, distorting it visibly around your member.  Sighing, you relax as the assault winds down, the squirming tentacles relaxing noticeably as they work to digest their 'meal'.\n\n", false);
 		outputText("\"<i>Enjoy yourself?  The best part is about to start,</i>\" she says with an evil glint in her eye.  You sit bolt upright as your living thong squirms and shifts, pressing something rigid against the ring of your " + assholeDescript() + ".  You reach down, trying to pull the creature off, but its outer covering is surprisingly hard, and seals almost perfectly against your " + player.skinDesc + ".  You look up with terror in your eyes, a pleading look painted across your face.\n\n", false);
-		outputText("She cocks her head to the side with an inquisitive look and asks, \"<i>So it's found your back door I take it?</i>\"  You nod sheepishly, squealing as the rigid growth pushes through your sphincter, violating you completely.  She continues with a nonchalant tone, though her eyes seem to be drinking in the scene, \"<i>That thing you feel drilling into your ass?  It's a carefully evolved injection appendage.  Don't worry, once it settles in it won't move much.  It's just going to get nice and cozy with your prostate and a few major blood vessels.  And then it's going to reward you for cumming!</i>\"\n\n", false);
+		outputText("She cocks her head to the side with an inquisitive look and asks, \"<i>So it's found your back door I take it?</i>\"  You nod sheepishly, squealing as the rigid growth pushes through your sphincter, violating you completely.  She continues with a nonchalant tone, though her eyes seem to be drinking in the scene, \"<i>That thing you feel drilling into your ass?  It's a carefully evolved injection appendage.  Don't worry, once it settles in it won't move much.  It's just going to get nice and cozy with your prostate and a few major blood vessels.  Then it's going to reward you for cumming!</i>\"\n\n", false);
 		outputText("You feel it burrow a little deeper, and then curve up.  It presses against something inside of you in a way that makes your " + cockDescript(0) + " twitch uncontrollably.  You're sure that if it weren't for the greedy tentacle-panties around your dick you would've seen a huge dollop of pre-cum squeeze out.  Filled with angst and worry as to what is to come, you ask, \"<i>Ummm, h-h-how is it going to reward me?</i>\"\n\n", false);
 		outputText("She winks, petting the mottled surface of your purple-cock-prison as you feel a sensation of warm wetness in your backside.  At the same time you nearly jump as you feel a painful pinch in your prostate.  The demoness licks her lips and answers, \"<i>Well, it rewards you in two ways pet.  One:  It empties a specially designed cocktail of drugs directly into your bowels, where they'll be absorbed slowly into the body.</i>\"  As if on cue a gentle warmth spreads through your torso, radiating out into your limbs, and settling like calming mist in your head.  You relax utterly, enjoying the feeling in spite of your worries.\n\n", false);
 		outputText("She coos, petting your still-hard member and the creature around it.  Miraculously you can feel both the touch of her silky fingers and the constant pleasurable squirming of the panties themselves.  You twitch your " + cockDescript(0) + " against her hand, giggling happily.\n\n", false);
@@ -1467,7 +1471,7 @@ function omnibusLossRape2():void {
 		outputText("Your mistress pats your obscene purple panties tenderly and whispers in your ear, \"<i>Be a good toy and cum for mistress.</i>\"  You smile broadly as your hips piston in the air, as if fucking an imaginary twat.  Cum boils out from your ", false);
 		if(player.balls > 0) outputText(ballsDescriptLight() + " and ", false);
 		outputText(" over-sized prostate, filling the chamber around your cock with thick blasts of seed.  You smile happily as the tentacle-chamber distorts to hold your load, bulging out into a more spherical appearance.  You slump down as your orgasm finishes and you begin to feel even more 'reward' fill your now greedy-hole.\n\n", false);
-		if(player.hasStatusAffect("Camp Marble") >= 0) {
+		if(player.findStatusAffect(StatusAffects.CampMarble) >= 0) {
 			outputText("Suddenly, a loud scream is heard down on the factory floor. You and your mistress turn to see Marble dashing up the stairs to the foremen's office.  Your mistress looks over at her and says with some amusement, \"<i>Oh ho!  So another cow has come to join in the fun.</i>\"\n\n\"<i>Sweetie! What has she done to you?</i>\" Marble exclaims, \"<i>What has she put on you?!</i>\"\n\n\"<i>Oh, so you knew this girl?</i>\" your mistress asks you, \"<i>It's a Lacta Bovine from the looks of it, so it seems this time I'll be adding a real cow to the pens.</i>\"  Marble turns to your mistress and brandishes her hammer, but the horror from the thought of your mistress being hurt causes you to spring forward and grab Marble.  The brief distraction gives your mistress a chance to sink a syringe into Marble's shoulder, and within moments she slumps onto the ground unconscious.\"\n\n", false);
 			outputText("Your mistress turns back to you and smiles.\n\n\"<i>Well, she should make a fine replacement for you in the pens,</i>\" she says before tapping her chin thoughtfully and looking back at you, \"<i>Really is convenient that I don't have to worry about my new pet dying on me now, hun.</i>\"  Then she pushes you back into the chair and says \"<i>But first...</i>\"\n\n", false);
 		}
@@ -1485,18 +1489,18 @@ function omnibusLossRape2():void {
 			player.createVagina();
 		}
 		else outputText("The demoness smiles with wicked intent and yanks your " + player.armorName + "'s bottom the rest of the way off.  She leans close, smiling and inhaling the scent of your sex, savoring it like a aroma of a fine wine.  Licking her perfect lips with anticipation, she inverts the panties and holds them up for you to see.\n\n", false);
-		outputText("They aren't panties at all, but instead some living creature.  The entire inside surface of the living garment is covered with fleshy pink nodules that wriggle constantly, practically dripping with a pungent lubricant that smells not unlike your own juices.  Horrifyingly, there is a large lump of flesh towards the front.  Its surface is ribbed and pulses, constantly swelling and shrinking.  It's clearly designed to enter the passage of anyone who wears it.  Worse yet is a smaller narrower protrusion on the backside.  This...creature...will certainly do its best to plug both your holes.\n\n", false);
+		outputText("They aren't panties at all, but instead some living creature.  The entire inside surface of the living garment is covered with fleshy pink nodules that wriggle constantly, practically dripping with a pungent lubricant that smells not unlike your own juices.  Horrifyingly, there is a large lump of flesh towards the front.  Its surface is ribbed and pulses, constantly swelling and shrinking.  It's clearly designed to enter the passage of anyone who wears it.  Worse yet is a smaller narrower protrusion on the backside.  This... creature... will certainly do its best to plug both your holes.\n\n", false);
 		outputText("Your captor pulls it back and leans closer, letting the scent of her own fragrant puss fill the air.  It smells tangy and sweet and makes you ", false);
-		if(player.vaginas[0].vaginalWetness <= 2) outputText("wet ", false);
-		else if(player.vaginas[0].vaginalWetness <= 4) outputText("drip on the chair ", false);
+		if(player.vaginas[0].vaginalWetness <= VAGINA_WETNESS_WET) outputText("wet ", false);
+		else if(player.vaginas[0].vaginalWetness <= VAGINA_WETNESS_DROOLING) outputText("drip on the chair ", false);
 		else outputText("soak the chair ", false);
 		outputText("from the heady taste that clings to your nostrils.  She speaks with confidence, \"<i>You needn't worry my dear.  I call this little creature my slut-panties.  You see, when you wear them they will stimulate every part of you.  They'll suck on your clit while the two large mounds grow inside you, filling you with wriggling pleasure.  Their slime is a wonderful lubricant and a mild aphrodisiac.  Between the constant touches and its secretions, you'll be horny and on the edge of orgasm in no time.</i>\"\n\n", false);
 		outputText("You shake your head in desperate denial and start to cry as you realize she intends to keep you locked in some kind of hellish pleasure-prison.  The panties slide up your legs with ease, and with a swift movement, the demon lifts your ass up and slips them into position with a wet 'SQUELCH'.  You moan as it goes to work, wrapping your " + clitDescript() + " in slippery tightness.  The two 'lumps' you observed elongate, the ridged surfaces making your " + vaginaDescript(0) + " quiver and dance with pleasure.  In mere seconds you're panting hotly and ready to cum.  Your crying devolves into heated moans of pleasure and longing.\n\n", false);
 		outputText("Bright red eyes fill your vision as the beautiful visage comes closer.  She whispers hotly in your ear, \"<i>I bet it feels good doesn't it?  Do you feel wet and horny?  I bet you'd love to throw yourself on my cock and get off right now.</i>\"\n\n", false);
-		outputText("You blink away the tears and nod frantically, you're so close!  But every time you feel an orgasm start to build the creature eases up just enough to keep you away from your orgasm.\n\n", false);
+		outputText("You blink away the tears and nod frantically; you're so close!  But every time you feel an orgasm start to build the creature eases up just enough to keep you away from your orgasm.\n\n", false);
 		outputText("\"<i>You see, these panties are attuned to our kind.  I've worked hard to breed a pair that could be taught to only provide release when a demon cums in or on them.  Fortunately for you, the nodules will actually open to allow a demon's dick in either passage.  And just for our succubi friends, they can grow a protrusion from the front, and transmit the sensations to you,</i>\" she says as she demonstrates by bringing her throbbing purplish prick close to your pink-enclosed groin.  The surface of the panties splits with a line down the front, reshaping to reveal your pink-covered camel-toe.\n\n", false);  
 		outputText("She asks, \"<i>I won't be a rapist my dear.  This cock will only enter you if you desire the pleasure it can bring you.  You could say no and just enjoy being on the edge until your will finally crumbles.</i>\"\n\n", false);
-		if(player.hasStatusAffect("Camp Marble") >= 0) {
+		if(player.findStatusAffect(StatusAffects.CampMarble) >= 0) {
 			outputText("Suddenly, a loud scream is heard down on the factory floor. You and your mistress turn to see Marble dashing up the stairs to the foremen's office.  Your mistress looks over at her and says with some amusement, \"<i>Oh ho!  So another cow has come to join in the fun.</i>\"\n\n\"<i>Sweetie! What has she done to you?</i>\" Marble exclaims, \"<i>What has she put on you?!</i>\"\n\n\"<i>Oh, so you knew this girl?</i>\" your mistress asks you, \"<i>It's a Lacta Bovine from the looks of it, so it seems this time I'll be adding a real cow to the pens.</i>\"  Marble turns to your mistress and brandishes her hammer, but the horror from the thought of your mistress being hurt causes you to spring forward and grab Marble.  The brief distraction gives your mistress a chance to sink a syringe into Marble's shoulder, and within moments she slumps onto the ground unconscious.\"\n\n", false);
 			outputText("Your mistress turns back to you and smiles.\n\n\"<i>Well, she should make a fine replacement for you in the pens,</i>\" she says before tapping her chin thoughtfully and looking back at you, \"<i>Really is convenient that I don't have to worry about my new pet dying on me now, hun.</i>\"  Then she pushes you back into the chair and says \"<i>But first, didn't you want something from me?</i>\"\n\n", false);
 			
@@ -1524,13 +1528,13 @@ function omnibusLossRape2():void {
 	}
 }
 //[Turn Demon]
-function demonBadEnd():void {
+public function demonBadEnd():void {
 	outputText("", true);
 	outputText("Advancing slowly, the succubus gives you a hungry look.  She extends a hand, allowing her fingers to lengthen into razor-sharp claws.  With a single expert slash, she cuts away everything holding together your " + player.armorName + ".  They fall into a discarded pile, already forgotten as your ", false);
 	//[genderless]
 	if(player.gender == 0) {
 		outputText("entire body blushes read before the sexy seductress.  She looks at you, frowning as she murmers, \"<i>Now this just won't do.  You look more like a " + player.boyGirl() + " to me, so why don't I make the plumbing match the exterior?</i>\"\n\n", false);  
-		outputText("Her palm caresses your crotch, stoking the warmth inside you till it blazes white-hot with new sensation.  Your skin ripples and parts, ", false);
+		outputText("Her palm caresses your crotch, stoking the warmth inside you until it blazes white-hot with new sensation.  Your skin ripples and parts, ", false);
 		if(player.biggestTitSize() <= 1) {
 			outputText("pushed apart the thick flesh of a powerful demonic member, complete with two swollen balls.", false);
 			player.gender = 1;
@@ -1545,7 +1549,7 @@ function demonBadEnd():void {
 			outputText("gushing with fluids as it shapes itself into a hungry demonic cunt.", false);  
 			player.gender = 2;
 			player.createVagina();
-			player.vaginas[0].vaginalWetness = 3;
+			player.vaginas[0].vaginalWetness = VAGINA_WETNESS_SLICK;
 		}
 		outputText("\n\n\"<i>Much better,</i>\" the demon coos, licking her lips as your ", false);
 	}
@@ -1554,24 +1558,24 @@ function demonBadEnd():void {
 		//Multispoooooo
 		if(player.cockTotal() > 1) {
 			outputText(multiCockDescriptLight() + " pulsate, straining for just a touch of the succubus' hand.  She paces around you, giggling and toying with you as your " + multiCockDescript() + " seem to follow her, twitching and thickening any time she takes a step closer.\n\n", false);
-			outputText("She reaches out, cupping the underside of a shaft, slowly stroking your most sensitive places while she stops the bimbo-like voice and teases, \"<i>Awww so hard and ready.  It looks to me like you're already a slave to your desires.  You're twitching and dripping, just from the soft touches of your enemy's fingers.  Are you truly so in need of release as to willingly offer it to me?  No, don't answer, your " + cockDescript(0) + " already has.</i>\"\n\n", false);
+			outputText("She reaches out, cupping the underside of a shaft, slowly stroking your most sensitive places while she stops the bimbo-like voice and teases, \"<i>Awww, so hard and ready.  It looks to me like you're already a slave to your desires.  You're twitching and dripping, just from the soft touches of your enemy's fingers.  Are you truly so in need of release as to willingly offer it to me?  No, don't answer, your " + cockDescript(0) + " already has.</i>\"\n\n", false);
 			outputText("You glance down, seeing just how hard her words have made you.  You squirm your " + hipDescript() + "s pathetically, trying to hump her hand and increase the stimulation.  The succubus immediately releases you and draws back, shedding her secretary's clothes like a snake sheds its skin.  Now clad only in a tight leather corset and thigh-high stockings with garters, the succubus tosses you onto a table, surprising you with her raw strength.  Seemingly from nowhere, she produces a whip, winding it tightly around ", false);
 			if(player.balls > 0) outputText("your " + ballsDescriptLight() + " and ", false);
 			outputText("the bases of your " + multiCockDescriptLight() + ".\n\n", false);
-			outputText("\"<i>There, that'll make sure you feel every part squeeze and caress of my velvet walls, and keep you from getting off until you're ready,</i>\" says the succubus as she climbs the table and straddles your eager form.\n\n", false);
+			outputText("\"<i>There, that'll make sure you feel every squeeze and caress of my velvet walls, and keep you from getting off until you're ready,</i>\" says the succubus as she climbs the table and straddles your eager form.\n\n", false);
 			outputText("She lifts herself up with her shapely legs and spreads her thighs, proudly revealing her puffy pierced folds.  They drip with demonic nectar as she wiggles over you, spattering you with demon-honey.  Slowly, nearly imperceptibly, she swivels the lewd opening closer and closer, and your cocks, as if possessed, angle themselves upward towards the juicy target.  The grinning succubus looks over her shoulder and asks, \"<i>Ready are we? Ok, I won't keep you waiting.</i>\"\n\n", false);
 			outputText("Marvelous heat and wetness sweeps over you in a fluid motion, wrapping your " + cockDescript(0) + " tightly.  You sigh happily, already lost in the feeling of having a succubus' tight walls wriggling around you.  Were you not already so corrupt, you would probably be coming already, but as it is, you can lie there and enjoy it, reveling in the sensations your unholy lover is spreading through your body.  You shiver, finally approaching your climax, but as it nears you find yourself denied by the whip binding your " + multiCockDescriptLight() + ".  It isn't just the physical tightness either – something else about it keeps your release buried deep, inaccessible.\n\n", false);
-			outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days…</i>\"\n\n", false);
+			outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days...</i>\"\n\n", false);
 			outputText("You moan pitifully, begging for her to remove it and allow you to cum.\n\n", false);
 			outputText("\"<i>Oh I can't remove it,</i>\" she says, \"<i>The only way you'll be rid of it with any sort of certainty is to melt through it with something stronger.  Something, like, I don't know, the focused remains of your soul and humanity.  Now you think on that while I melt away any doubts you might have.</i>\"\n\n", false);
-			outputText("She resumes fucking you, driving you insane with need, all the while fiddling with her clit and pulling up a nipple to lick.  It feels so good, but you NEED to cum.  She fucks you like that for hours, till the table collapses under the pair of you and dumps you both on the floor. More than anything you crave release, and over time cave in further and further to the need.  In time, you can feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, this need for release.  The block shatters, melting away under the force of your need.\n\n", false);
+			outputText("She resumes fucking you, driving you insane with need, all the while fiddling with her clit and pulling up a nipple to lick.  It feels so good, but you NEED to cum.  She fucks you like that for hours, until the table collapses under the pair of you and dumps you both on the floor. More than anything you crave release, and over time you cave in further and further to the need.  In time, you can feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, this need for release.  The block shatters, melting away under the force of your need.\n\n", false);
 			outputText("A look of shock and pleasure spreads over the succubus's face as you release into her hot snatch, cumming with a force unlike anything you've felt before.  Her walls squeeze and caress in time with your orgasm, milking you of every drop.  Your body clenches and squeezes, shuddering as the orgasm continues for far longer than normal.  Though you don't feel like you're pushing out as much fluid as normal, somehow it feels even better, like a slow drip of pleasure and release.  When at last your " + cockDescript(0) + " empties, you feel drained and strangely energized at the same time, and your entire torso is spattered with rapidly hardening pink crystals.\n\n", false);
-			outputText("The slutty succubus stands up, her puffy vulva coating in a shining pink fluid.  Did that just come out of you?  She grunts, her eyes glowing for a moment as the pink goop disappears into her skin, vanishing entirely.\n\n", false);
+			outputText("The slutty succubus stands up, her puffy vulva coated in a shining pink fluid.  Did that just come out of you?  She grunts, her eyes glowing for a moment as the pink goop disappears into her skin, vanishing entirely.\n\n", false);
 			outputText("\"<i>Ahhhhh,</i>\" she sighs, \"<i>nothing like fresh Lethicite.  Mmmm, yours was potent!</i>\"\n\n", false);
 			outputText("You stand up, dissatisfied at the sudden lack of sensation you're forced to endure.  The gloating demoness looks rather pleased with herself, and brimming with newfound power.  You resolve to ", false);
-			if(player.hasStatusAffect("Marae's Lethicite") < 0) outputText("gather some yourself at the next opportunity…", false);
+			if(player.findStatusAffect(StatusAffects.MaraesLethicite) < 0) outputText("gather some yourself at the next opportunity...", false);
 			else outputText("devour Marae's as soon as you get a chance.", false);
-			outputText("You greedily gather up the lethicite splattered on your body and devour it, turning it into raw demonic power.  You really do need to get more of this...but first you know a certain demoness you intend to wrap around your ", false);
+			outputText("You greedily gather up the lethicite splattered on your body and devour it, turning it into raw demonic power.  You really do need to get more of this... but first you know a certain demoness you intend to wrap around your ", false);
 			if(player.demonCocks() > 0) outputText("growing", false);
 			else outputText("new", false);
 			outputText(" demon-cock for a few more orgasms.", false);
@@ -1579,22 +1583,22 @@ function demonBadEnd():void {
 		//SINGLEZ NITE
 		else {
 			outputText(multiCockDescriptLight() + " pulsates, straining for just a touch of the succubus' hand.  She paces around you, giggling and toying with you as your " + multiCockDescript() + " seems to follow her, twitching and thickening anytime she takes a step closer.\n\n", false);
-			outputText("She reaches out, cupping the underside of the shaft, slowly stroking your most sensitive places while she stops the bimbo-like voice and teases, \"<i>Awww so hard and ready.  It looks to me like you're already a slave to your desires.  You're twitching and dripping, just from the soft touches of your enemy's fingers.  Are you truly so in need of release as to willingly offer it to me?  No, don't answer, your " + cockDescript(0) + " already has.</i>\"\n\n", false);
-			outputText("You glance down, seeing just how hard her words have made you.  You squirm your " + hipDescript() + "s pathetically, trying to hump her hand and increase the stimulation.  The succubus immediately releases you and draws back, shedding her secretary's clothes like a shake sheds its skin.  Now clad only in a tight leather corset and thigh-high stockings with garters, the succubus tosses you onto a table, surprising you with her raw strength.  Seemingly from nowhere, she produces a whip, winding it tightly around ", false);
+			outputText("She reaches out, cupping the underside of the shaft, slowly stroking your most sensitive places while she stops the bimbo-like voice and teases, \"<i>Awww, so hard and ready.  It looks to me like you're already a slave to your desires.  You're twitching and dripping, just from the soft touches of your enemy's fingers.  Are you truly so in need of release as to willingly offer it to me?  No, don't answer, your " + cockDescript(0) + " already has.</i>\"\n\n", false);
+			outputText("You glance down, seeing just how hard her words have made you.  You squirm your " + hipDescript() + "s pathetically, trying to hump her hand and increase the stimulation.  The succubus immediately releases you and draws back, shedding her secretary's clothes like a snake sheds its skin.  Now clad only in a tight leather corset and thigh-high stockings with garters, the succubus tosses you onto a table, surprising you with her raw strength.  Seemingly from nowhere, she produces a whip, winding it tightly around ", false);
 			if(player.balls > 0) outputText("your " + ballsDescriptLight() + " and ", false);
 			outputText("the base of your " + cockDescript(0) + ".\n\n", false);
-			outputText("\"<i>There, that'll make sure you feel every part squeeze and caress of my velvet walls, and keep you from getting off until you're ready,</i>\" says the succubus as she climbs the table and straddles your eager form.\n\n", false);
+			outputText("\"<i>There, that'll make sure you feel every squeeze and caress of my velvet walls, and keep you from getting off until you're ready,</i>\" says the succubus as she climbs the table and straddles your eager form.\n\n", false);
 			outputText("She lifts herself up with her shapely legs and spreads her thighs, proudly revealing her puffy pierced folds.  They drip with demonic nectar as she wiggles over you, spattering you with demon-honey.  Slowly, nearly imperceptibly, she swivels the lewd opening closer and closer, and your cock, as if possessed, angles itself upwards towards the juicy target.  The grinning succubus looks over her shoulder and asks, \"<i>Ready are we? Ok, I won't keep you waiting.</i>\"\n\n", false);
 			outputText("Marvelous heat and wetness sweeps over you in a fluid motion, wrapping your " + cockDescript(0) + " tightly.  You sigh happily, already lost in the feeling of having a succubus' tight walls wriggling around you.  Were you not already so corrupt, you would probably be coming already, but as it is, you can lie there and enjoy it, reveling in the sensations your unholy lover is spreading through your body.  You shiver, finally approaching your climax, but as it nears you find yourself denied by the whip binding your " + cockDescript(0) + ".  It isn't just the physical tightness either – something else about it keeps your release buried deep, inaccessible.\n\n", false);
-			outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days…</i>\"\n\n", false);
+			outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days...</i>\"\n\n", false);
 			outputText("You moan pitifully, begging for her to remove it and allow you to cum.\n\n", false);
 			outputText("\"<i>Oh I can't remove it,</i>\" she says, \"<i>The only way you'll be rid of it with any sort of certainty is to melt through it with something stronger.  Something, like, I don't know, the focused remains of your soul and humanity.  Now you think on that while I melt away any doubts you might have.</i>\"\n\n", false);
-			outputText("She resumes fucking you, driving you insane with need, all the while fiddling with her clit and pulling up a nipple to lick.  It feels so good, but you NEED to cum.  She fucks you like that for hours, till the table collapses under the pair of you and dumps you both on the floor. More than anything you crave release, and over time cave in further and further to the need.  In time, you can feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, this need for release.  The block shatters, melting away under the force of your need.\n\n", false);
+			outputText("She resumes fucking you, driving you insane with need, all the while fiddling with her clit and pulling up a nipple to lick.  It feels so good, but you NEED to cum.  She fucks you like that for hours, until the table collapses under the pair of you and dumps you both on the floor. More than anything you crave release, and over time you cave in further and further to the need.  In time, you can feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, this need for release.  The block shatters, melting away under the force of your need.\n\n", false);
 			outputText("A look of shock and pleasure spreads over the succubus's face as you release into her hot snatch, cumming with a force unlike anything you've felt before.  Her walls squeeze and caress in time with your orgasm, milking you of every drop.  Your body clenches and squeezes, shuddering as the orgasm continues for far longer than normal.  Though you don't feel like you're pushing out as much fluid as normal, somehow it feels even better, like a slow drip of pleasure and release.  When at last your " + cockDescript(0) + " empties, you feel drained and strangely energized at the same time.\n\n", false);
-			outputText("The slutty succubus stands up, her puffy vulva coating in a shining pink fluid.  Did that just come out of you?  She grunts, her eyes glowing for a moment as the pink goop disappears into her skin, vanishing entirely.\n\n", false);
+			outputText("The slutty succubus stands up, her puffy vulva coated in a shining pink fluid.  Did that just come out of you?  She grunts, her eyes glowing for a moment as the pink goop disappears into her skin, vanishing entirely.\n\n", false);
 			outputText("\"<i>Ahhhhh,</i>\" she sighs, \"<i>nothing like fresh Lethicite.  Mmmm your's was potent!</i>\"\n\n", false);
 			outputText("You stand up, dissatisfied at the sudden lack of sensation you're forced to endure.  The gloating demoness looks rather pleased with herself, and brimming with newfound power.  You resolve to ", false);
-			if(player.hasStatusAffect("Marae's Lethicite") < 0) outputText("gather some yourself at the next opportunity…", false);
+			if(player.findStatusAffect(StatusAffects.MaraesLethicite) < 0) outputText("gather some yourself at the next opportunity...", false);
 			else outputText("devour Marae's as soon as you get a chance.", false);
 			outputText("  But first you know a certain demoness you intend to wrap around your ", false);
 			if(player.demonCocks() > 0) outputText("growing", false);
@@ -1606,19 +1610,19 @@ function demonBadEnd():void {
 	else if(player.gender == 2) {
 		outputText(vaginaDescript(0) + " grows wet and ready, practically juicing itself as the demoness' hand caresses your inner thigh.  She teases, \"<i>Oh my! You're so wet and ready and I haven't even touched your moist little cum-receptacle.  You're a slut aren't you?  Who else would be so turned on by the idea of cumming until all your humanity drips out?</i>\"\n\n", false);
 		outputText("The words make you blush hard, shaming you and stoking the growing fire between your " + player.legs() + ".  You know two things for certain: she's right and you're more turned on that ever.  You don't resist as the demoness easily lifts you up, setting you down on a table with your " + player.legs() + " spread.  \"<i>There,</i>\" she comments, \"<i>now your juicy snatch is on display, just like you've always wanted.</i>\"\n\n", false);
-		outputText("She effortlessly swings her lissom legs onto the table as she pulls herself up, mounting you as a man might.  You can feel waves of heat rolling off her sex, bathing your own slit in her warmth.  ", false);
+		outputText("She effortlessly swings her lissomelegs onto the table as she pulls herself up, mounting you as a man might.  You can feel waves of heat rolling off her sex, bathing your own slit in her warmth.  ", false);
 		if(player.clitLength >= 2) outputText("Your " + clitDescript() + " pushes free, nuzzling against her hairless cunt and slipping inside, as if drawn in by its desire.  She openly moans, and begins rocking on top of you.  You gasp in delight as she rides your " + clitDescript() + ", fucking and grinding against it.  ", false);
 		else outputText("She lowers herself down, rubbing smooth hairless netherlips over you, smearing you with her fragrant demon-honey.  You feel her clit grinding on your own, drawing out gasps of delight from both of your mouths as she relentlessly scissors against you.  ", false);
 		outputText("In no time flat you feel your climax building.  Your " + vaginaDescript(0) + " quivers and grows wetter in anticipation.  Tugging on your aching " + nippleDescript(0) + "s and aching for release, you squirm under your demonic mistress, smashing your " + vaginaDescript(0) + " against her in a lewd attempt to find your orgasm.  It does not happen, and you moan in disappointment as the pleasure continues to build, oblivious to your desire for orgasm.\n\n", false);
-		outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days…</i>\"\n\n", false);
+		outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days...</i>\"\n\n", false);
 		outputText("You moan pitifully, begging for her to remove it and allow you to cum.\n\n", false);
 		outputText("\"<i>Oh I can't remove it,</i>\" she says, \"<i>The only way you'll be rid of it with any sort of certainty is to melt through it with something stronger.  Something, like, oh I don't know, the focused remains of your soul and humanity.  Now you think on that while I grind away any remaining doubts you might have.</i>\"\n\n", false);
 		outputText("The beautiful succubus on top of you picks up the pace, grinding harder against your " + vaginaDescript(0) + " and " + clitDescript() + ", pushing you beyond anything you've ever felt before.  She leans down over you, licking her lips to reveal an inhumanly long tongue.  It snakes down, curving around you " + allBreastsDescript() + " before it arches up to flick a " + nippleDescript(0) + ".  ", false);
 		if(player.hasFuckableNipples() && player.biggestTitSize() > 2) outputText("You gasp as the tongue slides inside each of your breasts, violating them in turn thanks to your strange anatomy.\n\n", false);
 		else outputText("You gasp as it curls around each of your " + nippleDescript(0) + "s in turn, tugging them lewdly.\n\n", false);  
-	 	outputText("She fucks you like that for hours, till the table collapses under the pair of you and dumps you both on the floor. More than anything you find yourself craving release, and over time cave in further and further to the need.  You start to feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, and this need for release.  The block shatters, melting away under the force of your need as you explosively orgasm.\n\n", false); 
+	 	outputText("She fucks you like that for hours, until the table collapses under the pair of you and dumps you both on the floor. More than anything you find yourself craving release, and over time you cave in further and further to the need.  You start to feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, and this need for release.  The block shatters, melting away under the force of your need as you explosively orgasm.\n\n", false); 
 		outputText("Sparkling pink fluid splatters between the two of you as you cum, squirting hard", false);
-		if(player.vaginas[0].vaginalWetness < 5) outputText(" for the first time", false);
+		if(player.vaginas[0].vaginalWetness < VAGINA_WETNESS_SLAVERING) outputText(" for the first time", false);
 		outputText(".  The succubus throws back her head and lets loose a moan of ecstasy, her entire body shivering with your own as both of your heads fill with fireworks of pleasure.  Nervelessly, she rolls off of you, her tail contracting hard around your leg while the two of you share the moment.\n\n", false);
 		outputText("The succubus interrupts your delight by recovering far faster than you, rolling up to a standing position and watching something between your legs.  You prop yourself up on your elbows to see what the fuss is about.  Between your legs something curious is happening – a trickle of pinkish fluid is still escaping your nethers, rolling towards a rapidly expanding pool, along with every other drop of the pink goop.  Before your very eyes the pool grows until every drop of pink fluid has collected together, and it grows upwards, solidifying into a sparkling crystalline shape.\n\n", false);
 		outputText("Before you can react, she grasps the newly-formed lethicite and noisily begins eating it, her eyes glowing with newfound power.  Watching her makes you more than a little jealous and angry with yourself.  You should've taken the lethicite and gained its power!  No use fretting about it, you can still fuck this succubus for a few hours before you go out in search of your own victims...\n\n", false);
@@ -1628,19 +1632,19 @@ function demonBadEnd():void {
 		//Buh.  Zombie fen need brains.
 		outputText(multiCockDescript() + " and " + vaginaDescript(0) + " grow wet and ready, both starting to leak fluids as the succubus' hand traces your inner thigh.  She teases, \"<i>Oh my! You're so wet and ready and I haven't even touched your moist little cum-receptacle.  And that throbbing cock!  How obscene!  You're a slut aren't you?  Who else would be so turned on by the idea of cumming until your humanity is splattered between my legs?</i>\"\n\n", false);
 		outputText("The words make you blush hard, shaming you and stoking the growing fire between your legs.  You know two things for certain: she's right and you're more turned on that ever.  You don't resist as the demoness easily lifts you up, setting you down on a table with your legs spread.  \"<i>There,</i>\" she comments, \"<i>now all of your fun-parts are on display.  Maybe I should call in an incubus and a few imps to watch.  I bet you'd like that wouldn't you?</i>\"\n\n", false);
-		outputText("She effortlessly swings her lissom legs onto the table as she pulls herself up, mounting you in a single swift motion.  You can feel waves of heat rolling off her sex, bathing your " + cockDescript(0) + " in her warmth.  ", false);
+		outputText("She effortlessly swings her lissomelegs onto the table as she pulls herself up, mounting you in a single swift motion.  You can feel waves of heat rolling off her sex, bathing your " + cockDescript(0) + " in her warmth.  ", false);
 		if(player.clitLength >= 2) outputText("Your " + clitDescript() + " pushes free, nuzzling against her tight asshole and slipping inside, as if drawn in by its desire.  She openly moans, and begins rocking on top of you.  You gasp in delight as she rides your " + clitDescript() + ", fucking her ass and grinding against it.", false);
 		else outputText("She lowers herself down, rubbing smooth hairless netherlips over your crotch and vulva, smearing you with her fragrant demon-honey.  You feel her clit grinding on your belly, drawing out gasps of delight from both of your mouths as she relentlessly works her body against your own.", false);
 		outputText("\n\nMarvelous heat and wetness wraps your " + cockDescript(0) + " tightly.  You sigh happily, already lost in the feeling of having a succubus' tight walls wriggling around you.  Were you not already so corrupt, you would probably be cumming already, but as it is, you can lie there and enjoy it, reveling in the sensations your unholy lover is spreading through your body.  You shiver, finally approaching your climax, but as it nears you find yourself denied by something deep inside you, pushing away your release and hiding it somewhere inaccessible.\n\n", false);
-		outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days…</i>\"\n\n", false);
+		outputText("\"<i>Have you hit it yet?</i>\" the succubus asks as she rocks on top of you, \"<i>I've placed a block inside you.  Don't worry, it's temporary, it'll only stop you from orgasming for a few days...</i>\"\n\n", false);
 		outputText("You moan pitifully, begging for her to remove it and allow you to cum.\n\n", false);
 		outputText("\"<i>Oh I can't remove it,</i>\" she says, \"<i>The only way you'll be rid of it with any sort of certainty is to melt through it with something stronger.  Something, like, I don't know, the focused remains of your soul and humanity.  Now you think on that while I melt away any doubts you might have.</i>\"\n\n", false);
-		outputText("She resumes fucking you, driving you insane with need, all the while fiddling with her clit and pulling up a nipple to lick.  It feels so good, but you NEED to cum.  She fucks you like that for hours, till the table collapses under the pair of you and dumps you both on the floor. More than anything you crave release, and over time cave in further and further to the need.  Eventually, you can feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, this need for release.  The block shatters, melting away under the force of your need.\n\n", false);
+		outputText("She resumes fucking you, driving you insane with need, all the while fiddling with her clit and pulling up a nipple to lick.  It feels so good, but you NEED to cum.  She fucks you like that for hours, until the table collapses under the pair of you and dumps you both on the floor. More than anything you crave release, and over time you cave in further and further to the need.  Eventually, you can feel the block weakening, melting, and eroding.  Your life has been distilled down into this one moment, this one desire, this need for release.  The block shatters, melting away under the force of your need.\n\n", false);
 		outputText("A look of shock and pleasure spreads over the succubus' face as you release into her hot snatch, cumming with a force unlike anything you've felt before.  Her walls squeeze and caress in time with your orgasm, milking you of every drop.  Your body clenches and squeezes, shuddering as the orgasm continues for far longer than normal.  Though you don't feel like you're pushing out as much fluid as normal, somehow it feels even better, like a slow drip of pleasure and release.  When at last your " + cockDescript(0) + " empties, you feel drained and strangely energized at the same time.\n\n", false);
-		outputText("The slutty succubus stands up, her puffy vulva coating in a shining pink fluid.  Did that just come out of you?  She grunts, her eyes glowing for a moment as the pink goop disappears into her skin, vanishing entirely.\n\n", false);
-		outputText("\"<i>Ahhhhh,</i>\" she sighs, \"<i>nothing like fresh Lethicite.  Mmmm your's was soooo potent!</i>\"\n\n", false);
+		outputText("The slutty succubus stands up, her puffy vulva coated in a shining pink fluid.  Did that just come out of you?  She grunts, her eyes glowing for a moment as the pink goop disappears into her skin, vanishing entirely.\n\n", false);
+		outputText("\"<i>Ahhhhh,</i>\" she sighs, \"<i>nothing like fresh Lethicite.  Mmmm, your's was soooo potent!</i>\"\n\n", false);
 		outputText("You stand up, dissatisfied at the sudden lack of sensation you're forced to endure.  The gloating demoness looks rather pleased with herself, and brimming with her new-found power.  You resolve to ", false);
-		if(player.hasStatusAffect("Marae's Lethicite") < 0) outputText("gather some yourself at the next opportunity…", false);
+		if(player.findStatusAffect(StatusAffects.MaraesLethicite) < 0) outputText("gather some yourself at the next opportunity...", false);
 		else outputText("devour Marae's as soon as you get a chance.", false);
 		outputText("  But first you know a certain demoness you intend to wrap around your ", false);
 		if(player.demonCocks() > 0) outputText("growing", false);
@@ -1648,11 +1652,12 @@ function demonBadEnd():void {
 		outputText(" demon-cock for a few more orgasms.", false);
 		outputText("  Before you get into that, you spy a small piece of pink crystal on the floor between your legs.  You snatch it and devour it before the succubus has a chance and eat it, turning part of your soul into new-found demonic strength before you return to a long night of sex...", false);
 	}
-	stats(2,2,2,2,2,2,-100,100);
+	player.orgasm();
+	dynStats("str", 2,"tou", 2, "spe", 2, "int", 2, "lib", 2, "sen", 2, "cor", 100);
 	doNext(demonBadEnd2);
 }
 //epilogues
-function demonBadEnd2():void {
+public function demonBadEnd2():void {
 	outputText("", true);
 	if(player.gender == 1) outputText("As a demon, you rapidly moved up the ranks, eventually taking command of the factory and its inhabitants.  The previous commander was reduced to a willing cock-sleeve, ever-eager to obey your slightest order.  By the time the next year has come around, you've managed to earn the coveted honor of collecting the next champion.", false);
 	else if(player.gender == 2) outputText("Now a full-fledged demon, you leave the factory, setting off on your own.  Over the next year you capture many foolish mortals, and even convince more than a few of them to give up their souls.  With your rapid gain in power, it's easy to rise in the demonic ranks, and in no time flat your power far exceeds that of the succubus that 'turned' you.  You live in luxury, surrounded by a harem of slaves, waiting in your camp for the next victim to step through...", false);

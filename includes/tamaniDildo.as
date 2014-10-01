@@ -1,11 +1,11 @@
 ﻿//RAEP SOME FUKKIN SHARKGIRLZ NIGGA
-function sharkGirlGetsDildoed():void {
+public function sharkGirlGetsDildoed():void {
 	outputText("", true);
 	outputText("You grin from ear to ear, revealing enough teeth to make even the defeated shark-girl shiver.  Advancing upon the prone monster-woman, you ", false);
 	if(player.weaponName != "fists") outputText("put away your " + player.weaponName + " and ", false);
 	outputText("draw out a glistening pink dildo from your pouches, as if it were a weapon.   She looks up at you, at once knowing your intent.  ", false);
 	if(monster.lust > 99) outputText("Her legs spread invitingly wide and she tears off her bikini bottom in a lusty frenzy.  You hold the dildo over her and give it a tiny squeeze, wringing out a few drops of pink fluid from the special dildo.  They land on her exposed cunt and in seconds she's writhing underneath you, humping the air.", false);
-	else outputText("She holds her legs together defiantly, but you pry them open, tear off her bikini bottom and  expose her bald nether-lips.   You hold the dildo over her and squeeze, squirting a gush of pink fluid onto her exposed cunt.  The effect is immediate, and in moments she's humping the air and wet with her own fluids.", false);
+	else outputText("She holds her legs together defiantly, but you pry them open, tear off her bikini bottom and expose her bald nether-lips.   You hold the dildo over her and squeeze, squirting a gush of pink fluid onto her exposed cunt.  The effect is immediate, and in moments she's humping the air and wet with her own fluids.", false);
 	outputText("\n\n", false);
 	
 	outputText("'<i>What a wonderful toy</i>,' you muse as you kneel between your ", false);
@@ -16,7 +16,7 @@ function sharkGirlGetsDildoed():void {
 	
 	outputText("You slap her left ass-cheek hard, the rough texture of her skin giving the perfect *crack* of skin on skin as you scold her, \"<i>You're not supposed to cum so hard!  Now you're really going to get stretched, skank!</i>\"\n\n", false);
 	
-	outputText("The aquatic monster-woman whimpers, feeling herself getting stretched wider and wider by the growing toy.   Intent on punishing her for her trying to rape you AND for cumming too soon, you grab the dildo in a double-handed grip and force it in to the hilt.   Her tail flops and thrashes as the dildo sinks in until you bottom out.  She flops about like a dying fish, though perhaps the only thing about her 'dying' is a few brain cells from the bliss her cunny's feeling.  Satisfied with the degree of penetration, you grab it around the base and yank back on it, struggling with how tightly it's lodged in her cunt.\n\n", false);
+	outputText("The aquatic monster-woman whimpers, feeling herself getting stretched wider and wider by the growing toy.   Intent on punishing her for trying to rape you AND for cumming too soon, you grab the dildo in a double-handed grip and force it in to the hilt.   Her tail flops and thrashes as the dildo sinks in until you bottom out.  She flops about like a dying fish, though perhaps the only thing about her 'dying' is a few brain cells from the bliss her cunny's feeling.  Satisfied with the degree of penetration, you grab it around the base and yank back on it, struggling with how tightly it's lodged in her cunt.\n\n", false);
 	
 	outputText("You wiggle it back and forth, working it partway out before ramming it back in.  Moaning and rocking underneath you, the shark-girl's eyes cross as she tries to fuck your hands.  Both her hands climb up under the thin black fabric of her top and wrap around her modest breasts, squeezing and caressing them.  She gasps when her fingers find her nipples, and starts drooling down her chin.\n\n", false);
 	outputText("Her salty pussy clamps down hard, but the slick juices pouring from her hole makes it easier and easier to work the bloated sex-toy in and out of her love-hole.   Tired of the slut's moans and gasps of pleasure, you decide to finish her off.   You pull the dildo out, and let out a gasp of surprise when her twitching cunt gapes open obscenely, allowing you to see the entire depth of her love-tunnel, all the way to her cervix.   She groans at the sudden loss of sensation, but before she has a chance to jam a finger into her needy hole, you squeeze the perverted toy HARD, wringing a thick gush of pinkish fluid directly into her baby-maker.\n\n", false);
@@ -25,12 +25,12 @@ function sharkGirlGetsDildoed():void {
 	
 	outputText("Damn that was hot!  You'll need to sate yourself once you get back to camp for sure.  Maybe you should give this dildo a whirl?  It still smells of your victim.", false);
 	
-	stats(0,0,0,0,0,0,(20+player.lib/5+player.cor/10),0);
-	eventParser(5007);
+	dynStats("lus", (20+player.lib/5+player.cor/10));
+	cleanupAfterCombat();
 }
 
 //RAEP BEE GIRLS WITH DILDO
-function beeGirlsGetsDildoed():void {
+public function beeGirlsGetsDildoed():void {
 	outputText("", true);
 	outputText("You advance on your ", false);
 	if(monster.HP < 1) outputText("hapless", false);
@@ -51,12 +51,12 @@ function beeGirlsGetsDildoed():void {
 	if(player.cor < 50) outputText("You feel kind of bad for her, but y", false);
 	else outputText("Y", false);
 	outputText("ou really need to get back to camp and get off after such an intense experience.  Maybe you should give your honey-flavored dildo a shot?", false);
-	stats(0,0,0,0,0,0,(20+player.lib/5+player.cor/10),0);
-	eventParser(5007);
+	dynStats("lus", (20+player.lib/5+player.cor/10));
+	cleanupAfterCombat();
 }
 
 //RAEP SAND-WITCH!
-function sandwitchGetsDildoed():void {
+public function sandwitchGetsDildoed():void {
 	outputText("", true);
 	outputText("You pull out Tamani's dildo, advancing on the helpless witch.   Her derriere makes an enticing target as you advance upon her, and the simple brown robe she wears does nothing to protect her body from your unusual attentions.\n\n", false);
 	outputText("Pushing her legs apart, you take the toy and shove it up one of her moistened fuck-holes.   She cries out, noisily screaming into the dunes, though you're unsure whether from pain or pleasure.  Whatever the case, she'll think twice about sending her vibrating stones after you now.  You shove the dildo further into her, hard enough to lift her knees out of the sand. She slams back down once you've crammed it the whole way inside her, wiggling her supple ass back and forth as if it would somehow assuage the pain of the rapid insertion.\n\n", false); 
@@ -67,12 +67,12 @@ function sandwitchGetsDildoed():void {
 	outputText("You wiggle the toy about, enjoying having taken such advantage of your now-unconscious foe.  But you have places to be, and you pull out your toy, ", false);
 	if(player.cor > 50) outputText("lick it clean, ", false);
 	outputText("and head back towards camp, knowing full well you'll need to relieve some tension after such a hot encounter.", false);
-	stats(0,0,0,0,0,0,(20+player.lib/5+player.cor/10),0);
-	eventParser(5007);
+	dynStats("lus", (20+player.lib/5+player.cor/10));
+	cleanupAfterCombat();
 }
 
 //[FACTORY SUCCUBUS]
-function succubusGetsDildoed():void {
+public function succubusGetsDildoed():void {
 	outputText("", true);
 	outputText("Your defeated opponent eyes you warily as you advance upon her, thrusting her chest forwards lewdly, with a hopeful gleam in her eye.  That gleam vanishes in sudden surprise when you stop and pull the oblong form of Tamani's dildo from your pouches.  The busty demon giggles happily, \"<i>I, like, love those things!  Those little sluts never let me keep one though!  Greedy bitches...</i>\"\n\n", false);
 	outputText("The succubus spreads her fishnet-coated legs, exposing her moist vulva while she reclines against a table, beckoning you forwards.  Well, you certainly didn't expect her to be so willing, but you may as well go through with it!  You push up her tiny skirt for better access and position the toy for a perfect insertion. She begs, \"<i>Quit teasing me and just jam it in me already!  Honey, I just want to feel it stretch me while my hot little box drools all over it.  Would you mind giving my clitty a lick too?  It's aching for a touch.</i>\"\n\n", false);
@@ -85,6 +85,6 @@ function succubusGetsDildoed():void {
 	outputText("Good.  You pick up the toy ", false);
 	if(player.cor > 75) outputText("giving it a long lick to taste the succubi's delicious flavor ", false);
 	outputText("and put it away.  When you glance back towards the Succubus, she's gone, leaving you alone and horny...", false);
-	stats(0,0,0,0,0,0,(20+player.lib/5+player.cor/10),0);
-	eventParser(5007);
+	dynStats("lus", (20+player.lib/5+player.cor/10));
+	cleanupAfterCombat();
 }

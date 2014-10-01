@@ -7,14 +7,14 @@
 Entry for the 2012 CoC Contest, \"<i>A Very Milky XMas</i>\".
 Starring Gatters Bee, Shamble Sworth and a caribou named Kirbu.
 */
-function gatsSpectacularRouter():void {
-	if(flags[GATS_ANGEL_QUEST_BEGAN] == 0) christmasEncounterAngelJunk();
+public function gatsSpectacularRouter():void {
+	if(flags[kFLAGS.GATS_ANGEL_QUEST_BEGAN] == 0) christmasEncounterAngelJunk();
 	else if(player.hasKeyItem("North Star Key") < 0) findTheWindUpKey();
 	else giveThatBitchAKeyYo();
 }
 
 
-function christmasEncounterAngelJunk():void {
+public function christmasEncounterAngelJunk():void {
 	clearOutput();
 	menu();
 	//[Not Christmas]
@@ -36,18 +36,18 @@ function christmasEncounterAngelJunk():void {
 	}
 }
 
-function dontExploreGatsChristmasTale():void {
+public function dontExploreGatsChristmasTale():void {
 	clearOutput();
 	//i. No
 	outputText("In a place like the high mountains, there's no warning to be found if you happen to be confronted by danger.  Deciding not to take your chances, you continue to walk down the path you came, leaving the peaks to head straight back to camp.");
 	outputText("\n\nIt's certainly warmer there.");
 	//turn dat shit off
-	flags[GATS_ANGEL_DISABLED] = .5;
+	flags[kFLAGS.GATS_ANGEL_DISABLED] = .5;
 	doNext(13);
 }
 
 //ii. Yes
-function encounterQuoteUnquoteAngel():void {
+public function encounterQuoteUnquoteAngel():void {
 	clearOutput();
 	if(!isHolidays()) {
 		outputText("You haven't found anything as of yet, so you figure you might as well keep going.  Following the quiet tune from above, you trace the spiralling side of the snow-capped behemoth, eventually reaching a small cliff hanging beneath the mountain's peak.  Upon the cliff, a small lake encompasses the area.  Though it remains frozen, a single soldier lies inside, hugged by an icy grave.");
@@ -90,20 +90,20 @@ function encounterQuoteUnquoteAngel():void {
 		outputText("\n\nYou tell her that you'll try your best to find it, though you admit that even you don't fully believe your words.  She must've heard the same thing thousands of times before, to no avail.  Despite this, her face brightens, her glimmering tears whisked away by the cold winds.");
 		outputText("\n\n\"<i>I believe in you.</i>\"");
 		outputText("\n\nThe feminine behemoth rests her head upon the cliff once more, but not before waving you goodbye.  You return her gesture with a thumbs up, heading back to camp to prepare for another wintery escapade.");
-		flags[GATS_ANGEL_TIME_TO_FIND_KEY] = 1;
+		flags[kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY] = 1;
 	}
-	flags[GATS_ANGEL_QUEST_BEGAN] = 1;
+	flags[kFLAGS.GATS_ANGEL_QUEST_BEGAN] = 1;
 	doNext(13);
 }
 	
 //5. Solution
-function findTheWindUpKey():void {
+public function findTheWindUpKey():void {
 	clearOutput();
 	outputText("Upon reaching the base of the mountain, you set off on your quest for the grief-stricken giantess.  A sunken grotto hidden around the mountain's base, you recall.  In all your treks over this bump in the land, you've never noticed anything even vaguely resembling the little shelter she described.  However, \"sunken\" gives you a vital hint to help begin your quest in the right direction.  You remember a steep valley, flooded and forgotten in its tiny alcove amidst the towering earth.  It takes little time at all until you've worked your way around to the unremarkable crater, pushing your way past the dense growth and through the humid mist surrounding it.");
 	outputText("\n\nIn a surprisingly bold move, you strip free of your [armor], not wishing to waste thoughts worrying about wet or ruined articles of clothing.  The majority of your time in this land is spent in the nude as it is, so a skinny dip isn't so out of the ordinary.  A simple dive into the unusually clear waters marks the next branch of your search.  Sunlight sparkles as it draws rays through the crystal-clean pond, highlighting the darker recess underneath an outcropping of jagged rock.  You surface for another gasp of air before embarking on the next leg of your journey.");
 	outputText("\n\nAn odd green glow fades in ahead of you, marking the exit from the engulfed tunnel.  Surprisingly cool, fresh air fills your lungs as you emerge onto the stony beach.  Brushing your [hair] clear away from your face, you can hardly believe your eyes as they set upon the cramped cave.  The entire opening is bathed in a dim green light, radiating from glowing rocks and gems embedded into every imaginable surface.  Dotted among them are tiny, slightly brighter specks of red and pink.  You can't help but stare in silent awe at the sight, glancing down at your wet hands to bask in the deep, inviting glow.  This has to be the place.");
 	outputText("\n\nRegret is the only thing on your mind once you pull free of the water; it's much colder in here than you had anticipated.  A quick shake and a firm rubbing along your arms staves off the feeling long enough for you to concentrate on the task at hand.  With careful steps of your bare [feet] along the smooth rock, you investigate your surroundings for anything of particular note.  It's only now that you wish you had actually bothered to ask just what this key looked like.  Best not to just assume things when it comes to mysterious, gargantuan titans weeping high in the skies, you note to yourself.");
-	outputText("\n\nLuckily for you, there isn't much ground for you to cover.  Your hands slowly pass over the illuminated surfaces, hunting for anything that stands out.  For as inspiring as the illuminated crag and miniscule gems appear, you doubt that any it is what the mountaintop spirit requested of you.  A few moments pass before a slight ledge hanging over your head comes to your attention, shrouded in the dense emerald radiance of the cave.  Looks as though this little hole has at least a little more to it than you anticipated!");
+	outputText("\n\nLuckily for you, there isn't much ground for you to cover.  Your hands slowly pass over the illuminated surfaces, hunting for anything that stands out.  For as inspiring as the illuminated crag and minuscule gems appear, you doubt that any it is what the mountaintop spirit requested of you.  A few moments pass before a slight ledge hanging over your head comes to your attention, shrouded in the dense emerald radiance of the cave.  Looks as though this little hole has at least a little more to it than you anticipated!");
 	outputText("\n\nA sturdy grip and a measured tug propels you up the wall, with extra care taken not to brush your bare body against whatever lays on the multicolored wall.  Though there is more to the cave than you initially anticipated, it doesn't amount to much more than an illuminated little dome.");
 	//[if (tallness > 60) 
 	if(player.tallness > 60) outputText("  You can't even stand straight up below the low-hanging ceiling, forced to carefully tread along on your knees over the slick, hard rock.");
@@ -117,12 +117,12 @@ function findTheWindUpKey():void {
 
 //ii. Bringing the Key Back
 //Activates upon returning to the High Mountains after the previous scene, before X amount of hours or X amount of time past Dec 25th (presumably)
-function giveThatBitchAKeyYo():void {
+public function giveThatBitchAKeyYo():void {
 	clearOutput();
 	//if in time!
-	if(flags[GATS_ANGEL_TIME_TO_FIND_KEY] < 150) {
+	if(flags[kFLAGS.GATS_ANGEL_TIME_TO_FIND_KEY] < 150) {
 		outputText("All throughout your perilous climb, you cannot help but ogle at the brilliant little crystal key.  You have a suspicion as to how this innocent little key will help the crying colossus on the peak, but you are not completely sure this is the artifact she required.  But you have a hunch that it is.");
-		outputText("\n\nYour trek halts to a standstill as you return to the side of the vast giantess.  Her sadness and longing appears to have overwhelmed her to a degree, putting her to sleep beside the still-inanimate soldier beside her.  You cast another glance at your brilliant relic, hooking a finger through it as you lift it before your face.  Transfixed by the swirling dance of red and green, you begin to weigh the options before you.  The spirit would surely request the key from you so that she may return her love to his former self, you believe.  However, perhaps you deserve a greater reward from this little deed.  You hold all the important cards in this deal afterall.  You thoughtlessly swirl the windup key around on your finger, pondering your next move.");
+		outputText("\n\nYour trek halts to a standstill as you return to the side of the vast giantess.  Her sadness and longing appears to have overwhelmed her to a degree, putting her to sleep beside the still-inanimate soldier beside her.  You cast another glance at your brilliant relic, hooking a finger through it as you lift it before your face.  Transfixed by the swirling dance of red and green, you begin to weigh the options before you.  The spirit would surely request the key from you so that she may return her love to his former self, you believe.  However, perhaps you deserve a greater reward from this little deed.  You hold all the important cards in this deal after all.  You thoughtlessly swirl the windup key around on your finger, pondering your next move.");
 		outputText("\n\nYou could try to fuck around with the spirit or her soldier, but doing either would be a huge dick move...");
 		menu();
 		//[Give the Key] [Fuck the Soldier] [Fuck the Angel] 
@@ -138,7 +138,7 @@ function giveThatBitchAKeyYo():void {
 		outputText("\n\nIt snaps in perfectly.");
 		outputText("\n\nHis body begins to whirr and click, pieces moving into place as the soldier - North, was it - starts to power up.  With a final creak of his joints, he begins to stand up, stumbling at first, but ultimately landing upon his feat in triumph.  Squeaking up, he mutters what are probably the first words in a lifetime.");
 		outputText("\n\n\"<i>Carol.</i>\"");
-		outputText("\n\nYou shy a little wave in return, but he's already gone to ignoring you.  Searching around, he finds the object of his desire - the woman he had waited with for centuries.  His steps are slow and lumbering.  Whether it's the fault of his time spent in the ice or if he had always been this way is unknown, but regardless he crunches through the snow awkwardly and with great caution.  His movements grow more and more excitable - there's no doubt that he recognises the resting giantess, but... something appears to be off.  You can't quite place it, so you walk towards them to investigate.");
+		outputText("\n\nYou shy a little wave in return, but he's already gone to ignoring you.  Searching around, he finds the object of his desire - the woman he had waited with for centuries.  His steps are slow and lumbering.  Whether it's the fault of his time spent in the ice or if he had always been this way is unknown, but regardless he crunches through the snow awkwardly and with great caution.  His movements grow more and more excitable - there's no doubt that he recognizes the resting giantess, but... something appears to be off.  You can't quite place it, so you walk towards them to investigate.");
 		outputText("\n\nNorth shakes at the woman's resting head, trying with all his strength to wake her from her sleep, but her size just proves the feat to be near impossible to accomplish.  He resorts to pushing, to shoving, to beating at her forehead, but she doesn't move.  It's hit you, but you aren't sure whether or not it's quite hit him yet.");
 		outputText("\n\nShe's already dead.");
 		outputText("\n\nYou leap over to them, taking North's fists away from her gentle face.  He tries to retaliate, but he gives up in half-stride.");
@@ -147,21 +147,21 @@ function giveThatBitchAKeyYo():void {
 		outputText("\n\nHe wasn't dead. Only waiting, like her.");
 		outputText("\n\nThe air remains cold and merciless, and regardless of what you do it would be difficult to stay for much longer.  Turning away, you trot silently back to your camp, wondering how things would've gone - if only you were quicker.");
 		//[BAD END, Can no longer see the Old Woman or this series of events]
-		flags[GATS_ANGEL_DISABLED] = 1;
+		flags[kFLAGS.GATS_ANGEL_DISABLED] = 1;
 		doNext(13);
 	}
 	//player.removeKeyItem("North Star Key");
 }
 
 //6. Corrupt End #1
-function theWorstEndingEverDotJPG():void {
+public function theWorstEndingEverDotJPG():void {
 	clearOutput();
 	//Requirements: Choosing [Fuck the Soldier] at the prompt
 	outputText("Still listlessly spinning the windup key around your pointer finger, you gaze back down at the pile of armor buried in the snow.  A strange amount of curiosity surrounds this peculiar set of protection, only mounting the longer you stare at it.  It isn't like you owe anything to the slumbering titan.  Just what could she see in something a mere fraction her size?  Maybe this is some sort of dominating fantasy of hers; you've been around the block enough times to know that not everything is at it appears.  There's no telling just what she has in store for her little creation.  You may actually get to be a hero!");
 	outputText("\n\nAnd, hey, if the windup key does fuck all, at least you get a free set of armor out of the deal!");
 	outputText("\n\nWith your mind made up and your resolve firm, you set off to rescue the dormant soldier, sliding the key back into your pocket.  White powder flies one way and another as the inanimate prisoner is freed from its snowy confines, once again knowing open air.  You prop the set of armor up against your back, taking great care not to alert its captor of its daring escape.  You drape the arms up over your shoulders and scoop the legs into your arms, employing a generous piggyback ride to aid in your liberation.  You pay the giantess a final glance, a hint of doubt still lingering in confines of your judgement.  You assuage your hesitation with a quick hiking of your cargo, rushing down off the mountain.  The cold mountain wind once again shrouds the slumbering spirit from your peripheral vision, helping ease your conflict.");
 	outputText("\n\nYou eventually reach the base of the mountain, free of the seemingly never-ending, blindingly white blizzard.  You take a few minutes to trot over to a clearing, your load lightly bouncing around behind you.  A nearby tree acts as the perfect prop for your friend as you turn in place and gently set down the suit of armor.  Eying over the lifeless pile of scrap, it appears as hollow to you as it did when you first saw it buried in the snow.  Even as you pull the beautiful little windup key back from your pocket, you're hesitant to believe something so simple could spark life back to this creation.");
-	outputText("\n\nWith a hand propped over the soldier's shoulder, you guide the key back to a slot in base of the soldier's back and give it a quick turn, filling the air with a pleasant click.  You're taken by surprise as the suit begins to shudder and rattle, backing off of the little miracle to take in the sight.  The armor braces up against the tree, trembling as it slowly rises to its feet.  An ebony haze fills the interior of the once-hollow soldier, light wisps escaping from little cracks and openings as the shuddering soldier fills with what you presume to be life.  The construct finally settles and lifts its hand to its helmet, revealing a pair of miniscule, glowing orbs of gold staring back at you.  North has returned.");
+	outputText("\n\nWith a hand propped over the soldier's shoulder, you guide the key back to a slot in base of the soldier's back and give it a quick turn, filling the air with a pleasant click.  You're taken by surprise as the suit begins to shudder and rattle, backing off of the little miracle to take in the sight.  The armor braces up against the tree, trembling as it slowly rises to its feet.  An ebony haze fills the interior of the once-hollow soldier, light wisps escaping from little cracks and openings as the shuddering soldier fills with what you presume to be life.  The construct finally settles and lifts its hand to its helmet, revealing a pair of minuscule, glowing orbs of gold staring back at you.  North has returned.");
 	outputText("\n\n\"<i>Why have you dragged me down from the mountain?</i>\"");
 	outputText("\n\nHis pleasant, innocuous tone takes you by surprise.  The soldier glances around lightly as you try to concoct some sort of response.  How does he know what you did?");
 	outputText("\n\n\"<i>May I ask as to who you are?</i>\"");
@@ -184,7 +184,7 @@ function theWorstEndingEverDotJPG():void {
 	outputText("\n\n\"<i>What are you doing?</i>\" he asks, his tone still as polite and reserved as ever.  He doesn't react with much more than a sideways glance as you lurch the sizeable apparatus free of his backside.  ");
 	//[if (hasCock = true) 
 	if(player.hasCock()) outputText("You slide the key playfully down your wrist, rubbing your [cock] with your free hand.  You aren't entirely sure if he'll even feel a sensation from your penetration, but perhaps it'll at least get him in the mood.  With your manhood at full mast, you gently skirt along the edges of the keyhole.");
-	else outputText("A mischevious tongue traces along the smooth, perfect surface of the windup key.  You promptly lower the makeshift toy precariously in front of your [cunt]; if there was ever a time to make a wind up pun or remark as some sort of goofy foreplay, now would be the time.");
+	else outputText("A mischievous tongue traces along the smooth, perfect surface of the windup key.  You promptly lower the makeshift toy precariously in front of your [cunt]; if there was ever a time to make a wind up pun or remark as some sort of goofy foreplay, now would be the time.");
 	outputText("\n\n\"<i>This isn't right.</i>\"");
 	outputText("\n\nNorth backs away from you, breaking the little amount of action you were trying to get started.");
 	outputText("\n\n\"<i>You aren't Carol.  I know I'm not delirious,</i>\" he states plainly, staring at his metal hands.  \"<i>I need to go back to my love.  She... she...</i>\"");
@@ -199,26 +199,26 @@ function theWorstEndingEverDotJPG():void {
 	outputText("\n\nAfter a few moments, you decide to don your [armor] once again, leaving the mishap behind as you return to camp.  There's no telling if what you did was ultimately right or wrong in the grand scheme of things, but dwelling over North or Carol isn't going to get you anywhere any time soon.");
 	//[if (corruption > 49) 
 	if(player.cor > 49) outputText("  More importantly, you have some unsatisfied, pent up lust that you'd like to expend.");
-	stats(0,0,0,0,0,0,2+player.lib/10+player.cor/10,10,false);
+	dynStats("lus", 2+player.lib/10+player.cor/10, "cor", 10, "resisted", false);
 	doNext(13);
-	flags[GATS_ANGEL_DISABLED] = 1;
+	flags[kFLAGS.GATS_ANGEL_DISABLED] = 1;
 	player.removeKeyItem("North Star Key");
 }
 
 
 //7. Corrupt End #2
 //Requirements: Choosing [Fuck the Angel] at the prompt
-function fuckTheAngelBadEnd():void {
+public function fuckTheAngelBadEnd():void {
 	clearOutput();
 	outputText("The spirit lies comfortably upon the pillowy white ground, laying in wait for the moment she awakes to her mechanical lover.  Unfortunately, you're the one with the key.  The one with the fate of two lovers twirling around your finger.  They're both quite still, frozen upon your decision.  Well!  No need to wait any longer - there's fun to be had this winter, and the sight of that divine giantess is getting you antsy.");
 	outputText("\n\nRunning towards the mocha-colored titan, you disturb the side of the mountain peak, causing lumps of snow to fall upon her head.  It's one way to wake her up for sure, as she slowly removes her head from the cliff's edge.");
 	outputText("\n\n\"<i>Hnn... ? North, is that you?</i>\"");
-	outputText("\n\nWoah, rude.  No, you aren't that mechanical dustbin, and as far as you're concerned the only name she should be pushing through those fat lips is yours.  Her jade eyes focus their gaze upon you, brightening when she realises that you've brought back the key.  She motions for you to go by North's side with the tip of her finger, but you'd rather not comply.  Instead, you slap the tip of her digit to catch her attention.");
+	outputText("\n\nWoah, rude.  No, you aren't that mechanical dustbin, and as far as you're concerned the only name she should be pushing through those fat lips is yours.  Her jade eyes focus their gaze upon you, brightening when she realizes that you've brought back the key.  She motions for you to go by North's side with the tip of her finger, but you'd rather not comply.  Instead, you slap the tip of her digit to catch her attention.");
 	outputText("\n\nUnderstandably, she doesn't quite know what you're getting up to, cocking the side of her head in confusion.  You dangle the key in front of her, before pretending to snap it in your hands.  The giantess cries out in surprise, reaching out before backing off as soon as you try it again.  She's completely at your mercy, unable to reach out and crush you without risking the safety of her lover's key.");
 	outputText("\n\n\"<i>W-w-wait, what's going on?  What are you doing?</i>\"");
 	outputText("\n\nHa, as if she doesn't know!  Flaunting those - literally gigantic - tits in front of you, expecting you to bend over and partake in a fetch quest to get her with someone else?  As if that was ever going to turn out for the better!  That metallic moron over there has been out of service for centuries, and you're sure as shit not about to find out how that relationship even works in the first place.  You tell the dumbass divinity about the exhausting, difficult journey that you had partaken on to obtain her lover's key.  The treacherous crystal cave submerged beneath a chilling pool of death.  All in all, a rather distressing adventure for all parties involved.  The titanic spirit stutters a few words of apology, but you shake your head.  You need something more than petty words, you know?  You need compensation.");
 	outputText("\n\nCompensation only she can provide.");
-	outputText("\n\nInnocent as always, you didn't really expect her to pick up the hint.  Your chocolate-coloured goddess seems flustered and confused.  Of course, you are holding her tin soldier up for ransom, so it's only natural she'd respond with bewilderment and stress.  You tut - this isn't going to go anywhere without a push.  Grasping the key tightly with one hand, you tell her to rest her chin upon the cliff, and to open wide.");
+	outputText("\n\nInnocent as always, you didn't really expect her to pick up the hint.  Your chocolate-colored goddess seems flustered and confused.  Of course, you are holding her tin soldier up for ransom, so it's only natural she'd respond with bewilderment and stress.  You tut - this isn't going to go anywhere without a push.  Grasping the key tightly with one hand, you tell her to rest her chin upon the cliff, and to open wide.");
 	outputText("\n\nThe giantess has no choice but to comply with your odd demands, still unaware of the plans you have in store for her.  Her snow-dusted head rests against the edge of mountain, her cold, mint-like breath causing the vanilla ground to ebb and flow like a tide.  Pursing her lips, she impulsively licks them before opening her maw slowly, allowing her tongue to stretch out upon the ground.  You walk towards it, slowly removing your [armor].  The prospect of fucking someone's tongue seems interesting enough to grab your attention, and it isn't every day you run into a desperate spirit like this.");
 	if(player.hasCock()) outputText("\n\nTaking out your junk");
 	else outputText("\n\nCaressing your cunt");
@@ -244,7 +244,7 @@ function fuckTheAngelBadEnd():void {
 	if(player.hasCock()) outputText("dick");
 	else outputText("vagina");
 	outputText(" on a person's tongue to fuck it thoroughly.  You wonder if she's already long forgotten the pile of bolts she was originally trying to save.  A man frozen in time, never to wake up because - whoops!  You're taking care of her needs now.  Maybe you'll invest in a giant goblin-built sex machine, who knows?  Judging by the bitch's aroused whines, she was probably waiting for the chance to strip for the next person to find her up the mountain.  It's about time she let herself go, after all.");
-	outputText("\n\nYou grin at the thoughts pervading your mind, unaware of the intense pleasure building up in your junk - the sugary syrup coating the base of her mouth starts to force your [hips] to propel further, to splatter your love inside her.  It's almost automatic, the movement of your [hips] against each rubbery, vibrating protrusion tickling and fondling you while recieving satisfaciton in return.  You're going to cum, and there's nothing stopping you now!");
+	outputText("\n\nYou grin at the thoughts pervading your mind, unaware of the intense pleasure building up in your junk - the sugary syrup coating the base of her mouth starts to force your [hips] to propel further, to splatter your love inside her.  It's almost automatic, the movement of your [hips] against each rubbery, vibrating protrusion tickling and fondling you while receiving satisfaction in return.  You're going to cum, and there's nothing stopping you now!");
 	outputText("\n\nWith a jerk of your hips, you release your ");
 	if(player.hasCock()) outputText("hot, white seed");
 	else outputText("feminine juices");
@@ -260,7 +260,7 @@ function fuckTheAngelBadEnd():void {
 	menu();
 	addButton(0,"Next",fuckTheAngelBadEndPartII);	
 }
-function fuckTheAngelBadEndPartII():void {
+public function fuckTheAngelBadEndPartII():void {
 	clearOutput();
 	outputText("It shakes, and - wait, it's shaking?  You walk towards him, still naked from your recent session with his lover.  It appears to be vibrating with a sense of... sadness, you'd guess.  You look inside, but nothing can be found.  Was it really dead, or just unable to move?  It soons stops though, and both you and the giantess stare at the cold figure of the soldier.");
 	outputText("\n\nOf course, you kick it over, while it thumps into the snow.  Whatever it was doing before, it's certainly gone now.  You turn back to your new lover, and - oh no.");
@@ -271,13 +271,14 @@ function fuckTheAngelBadEndPartII():void {
 	outputText("\n\nNope, she's still angry. It's time to go. Taking your [armor] with you, you make a run down the side of the high mountain, throwing the key off the side of the cliff as you hear the distraught damsel cry into the skies. The mountains tremble in fear, and a snow storm begins to brew.");
 	outputText("\n\nThankfully, you're out of that mess and heading for camp. That slut is cold.");
 	//[End of event. Possible expansions include finding her as a difficult combat encounter, or raping her while she sleeps.]
-	flags[GATS_ANGEL_DISABLED] = 1;
-	stats(0,0,0,0,0,0,-100,10);
+	flags[kFLAGS.GATS_ANGEL_DISABLED] = 1;
+	player.orgasm();
+	dynStats("cor", 10);
 	doNext(13);
 }
 
 //8. Good End
-function goodEndForChristmasMiracleICant():void {
+public function goodEndForChristmasMiracleICant():void {
 	clearOutput();
 	//Requirements: Choosing [Give the Key] at the prompt
 	//completely fucking tender let's get moe
@@ -309,7 +310,7 @@ function goodEndForChristmasMiracleICant():void {
 	addButton(0,"Next",goodEndForChristmasMiracleICantII);
 }
 
-function goodEndForChristmasMiracleICantII():void {
+public function goodEndForChristmasMiracleICantII():void {
 	clearOutput();
 	outputText("North throws his arms out wide, armor hardly protesting to the sudden movement.  The action gives the giantess pause for a moment, but she swiftly understands the motivation and raises her hand to the beckoning knight.  She crooks her little finger toward North, and he throws himself around it, expressing his feelings in a tight and passionate hug.  The giantess gazes down at her little knight with a loving smile, and they hold the pose for a remarkably long time.");
 	outputText("\n\nThe seemingly divine titan worryingly crooks her eye over to you, and in an attempt to shoosh you away, she nods her head towards the mountain's exit, implying that they're going to spend some time to themselves. Of course, there's a chance you can probably stick around for some weird-ass action. Would you prefer to stay behind, or do you excuse them temporarily?");
@@ -319,7 +320,7 @@ function goodEndForChristmasMiracleICantII():void {
 }
 
 //If Leave
-function goodEndLeaveBeforeSexings():void {
+public function goodEndLeaveBeforeSexings():void {
 	clearOutput();
 	outputText("You get the message, feeling that letting them do their own thing might be for the best.  With a hasty pardon, you promptly turn around and walk a good twenty yards down the mountainside, idly playing in the snow while the two reunited lovebirds do their thing.");
 	outputText("\n\nYou hear the sound of a gentle humming in the distance, and you figure that the two lovers might be quite done with their 'honeymoon'.");
@@ -328,7 +329,7 @@ function goodEndLeaveBeforeSexings():void {
 	addButton(0,"Next",conclusionOfGiantessGoodEnd);
 }
 //If Stay
-function stayForPretendNTRGoodWinjobSex():void {
+public function stayForPretendNTRGoodWinjobSex():void {
 	clearOutput();
 	outputText("You prefer to stay here, but the frosty giant has already gone back to her mechanical man, so you hold your explanation and continue to observe.");
 	outputText("\n\nFinally, she draws away, North reluctantly releasing his hold on her pinky.  The giant woman unexpectedly groans, running her arms from her chest to what you could only assume to be her waist - you can't exactly see from your current perch, and as you wish to remain as impartial a bystander that you can in this situation, you don't bother inching to the edge of the cliff.");
@@ -338,7 +339,7 @@ function stayForPretendNTRGoodWinjobSex():void {
 	outputText("\n\nThat being accomplished, the knight kicks his applications up a notch, breaking away from the throbbing and stimulated button and zooming straight toward the depths of her glistening and inviting folds.  She coos throatily, back arching and tongue lolling, as North penetrates and wriggles further into her pussy.  Blossoms of fog issue from the giantess's mouth with increased frequency as North tunnels deeper and deeper inside her; you idly marvel at how effective the little knight's tactics prove on his enormous lover.");
 	outputText("\n\nWith a cry of simple pleasure, the giantess's arms buckle under her and she falls back, tumbling from her perch on the cliff and landing back-first.  Unable to sit idle while North has all the fun, she takes matters in her own hands, cupping a breast in one hand while the other slips down between her legs.  Her moans only intensify once she gets into the squeezing and caressing, scattering snow in all directions as she squirms along the valley, crying her pleasure for all to hear.");
 	//LUST GAIN +20: IF 100:
-	stats(0,0,0,0,0,0,10+player.lib/10,0,false);
+	dynStats("lus", 10+player.lib/10, "resisted", false);
 	outputText("\n\n");
 	if(player.lust >= 100) {
 		outputText("Despite yourself, your hands slowly begin crawling into your [armor] in pursuit of your naughty bits.  ");
@@ -357,7 +358,7 @@ function stayForPretendNTRGoodWinjobSex():void {
 	//IF MASTURBATED: 
 	if(player.lust >= 100) {
 		outputText("\n\nYou take the opportunity to do up your [armor] before either of them notices.");
-		stats(0,0,0,0,0,0,-100,0);
+		player.orgasm();
 	}
 	//[Next]
 	menu();
@@ -365,23 +366,23 @@ function stayForPretendNTRGoodWinjobSex():void {
 }
 
 //[Conclusion]
-function conclusionOfGiantessGoodEnd():void {
+public function conclusionOfGiantessGoodEnd():void {
 	clearOutput();
 	outputText("The air is crisp, and the light powdering of snow floats through the air as if playing an invisible melody.  The warm couple are together.  Lifting her head, the giantess beams at you with a refreshing sense of spirit.");
 	outputText("\n\n\"<i>I can't believe anything that has happened to me today... it's all thanks to you.  Thank you for bringing North back to me, and thank you for relighting a fire that had gone out so, so long ago.</i>\"");
 	outputText("\n\nYou bow in some sense of obligation, yet the chestnut titaness giggles at your formality.  North automatically returns the gesture, and you all share a moment of laughter.  The mechanical soldier is lifted up by her lover and placed upon her shoulder, his legs dangling off the edge.  You give them a friendly nod and a happy smile before realizing how tired you were after this whole affair.  Telling the two as much, you chuckle victoriously, proud of your exploits and of the potential stories you could tell regarding the reunion of an spirit and her favorite little soldier.");
-	outputText("\n\nThey both bid you farewell as you begin to walk off, North waving his arm far above his head and the tanned former spirit politely swaying her hand at the wrist.  With a reciprocated adieu, you turn and stride away.  \"<i>Oh, [name]!</i>\" the giantess calls, and you turn curiously to find her extending the little crystal key to you, clasped between two of her fingers and looking absolutely miniscule by comparison.  She easily reaches you despite the distance gained by your strides, and you receive the device readily.  \"<i>I want you to have this. Merry Christmas, [name].</i>\" You wish her a Merry Christmas in response, though call up blanks when trying to remember her name - It's then you realise that she had never given it in the first place. The spirit stops and laughs before pulling a thumbs up, just as you had done earlier.");
+	outputText("\n\nThey both bid you farewell as you begin to walk off, North waving his arm far above his head and the tanned former spirit politely swaying her hand at the wrist.  With a reciprocated adieu, you turn and stride away.  \"<i>Oh, [name]!</i>\" the giantess calls, and you turn curiously to find her extending the little crystal key to you, clasped between two of her fingers and looking absolutely minuscule by comparison.  She easily reaches you despite the distance gained by your strides, and you receive the device readily.  \"<i>I want you to have this. Merry Christmas, [name].</i>\" You wish her a Merry Christmas in response, though call up blanks when trying to remember her name - It's then you realize that she had never given it in the first place. The spirit stops and laughs before pulling a thumbs up, just as you had done earlier.");
 	outputText("\n\n\"<i>It's Carol.</i>\"");
 	outputText("\n\nAfter a long pause, you pocket the key, square yourself with Carol and North, returning her hand gesture before giving them a goofy grin that positively sparks in the snow-cushioned landscape.  As you turn to depart once more, you wave over your shoulder, escorted out with the continued giggles and lovey-dovey conversation of the unlikely couple.");
 	outputText("\n\nMerry Christmas indeed!");
 	//[if you haven't been introduced to christmas via elf or otherwise] 
-	if(flags[PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE] == 0) outputText("\n\nYou have no idea what that is.");
+	if(flags[kFLAGS.PC_ENCOUNTERED_CHRISTMAS_ELF_BEFORE] == 0) outputText("\n\nYou have no idea what that is.");
 	//[end, get The North Star & A Christmas Carol perks]
 	//The North Star
 	//Witness picnic events with North & Carol at the High Mountain.
 	//A Christmas Carol
 	//Christmas events are open all year 'round! (some sort of arbitrary limit)
 	//merry christmas everyone <3
-	flags[GATS_ANGEL_GOOD_ENDED] = 1;
+	flags[kFLAGS.GATS_ANGEL_GOOD_ENDED] = 1;
 	doNext(13);
 }
